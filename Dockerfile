@@ -25,6 +25,4 @@ WORKDIR /proviant-ui
 
 RUN tar -zcvf ./ui-release-$TAG.tar.gz ./dist
 
-RUN GITHUB_TOKEN=$GITHUB_TOKEN echo $GITHUB_TOKEN
-
-RUN GITHUB_TOKEN=$GITHUB_TOKEN gh release upload $TAG ./ui-release-$TAG.tar.gz
+RUN GITHUB_TOKEN=$GITHUB_TOKEN gh release upload $TAG ./ui-release-$TAG.tar.gz --repo brushknight/proviant-ui
