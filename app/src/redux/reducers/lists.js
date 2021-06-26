@@ -1,3 +1,5 @@
+import {ACTION_FETCH_LIST_SUCCESS} from "../action";
+
 const initialState = {
     items: [
         {id: 1, title: "Fridge"},
@@ -8,7 +10,11 @@ const initialState = {
 
 export default function(state = initialState, action) {
     switch (action.type) {
-
+        case ACTION_FETCH_LIST_SUCCESS:
+            return {
+                ...state,
+                items: action.payload
+            }
         default:
             return state;
     }
