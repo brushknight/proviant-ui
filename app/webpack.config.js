@@ -53,6 +53,9 @@ module.exports = {
         historyApiFallback: true,
         disableHostCheck: true,
         port: 9000,
+        proxy: {
+            '/api': 'http://localhost:8080/',
+        }
     },
     // alias: { 'react-dom': '@hot-loader/react-dom'  },
     plugins: [

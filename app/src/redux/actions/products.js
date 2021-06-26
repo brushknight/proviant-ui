@@ -27,7 +27,7 @@ const fetchProductSuccess = payload => {
 export const fetchProducts = () => {
     return (dispatch) => {
         dispatch(fetchProductLoading())
-        axios.get("http://localhost:8080/api/v1/product/", {
+        axios.get("/api/v1/product/", {
             headers: {
             },
         })

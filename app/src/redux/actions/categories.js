@@ -61,7 +61,7 @@ export const changeCreateCategoryForm = title => {
 export const fetchCategories = () => {
     return (dispatch) => {
         dispatch(fetchCategoriesLoading())
-        axios.get("http://localhost:8080/api/v1/category/", {
+        axios.get("/api/v1/category/", {
 
         })
             .then(response => {
@@ -80,7 +80,7 @@ export const createCategory = (title) => {
     return (dispatch) => {
         dispatch(createCategoryLoading())
         const json = JSON.stringify({ title });
-        axios.post("http://localhost:8080/api/v1/category/", json)
+        axios.post("/api/v1/category/", json)
             .then(response => {
                 const data = response.data
                 dispatch(createCategorySuccess(data.data))

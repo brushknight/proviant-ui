@@ -60,7 +60,7 @@ export const changeCreateListForm = title => {
 export const fetchLists = () => {
     return (dispatch) => {
         dispatch(fetchListLoading())
-        axios.get("http://localhost:8080/api/v1/list/", {
+        axios.get("/api/v1/list/", {
             headers: {
             },
         })
@@ -79,7 +79,7 @@ export const createList = (title) => {
     return (dispatch) => {
         dispatch(createListLoading())
         const json = JSON.stringify({ title });
-        axios.post("http://localhost:8080/api/v1/list/", json)
+        axios.post("/api/v1/list/", json)
             .then(response => {
                 const data = response.data
                 dispatch(createListSuccess(data.data))
