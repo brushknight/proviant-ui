@@ -5,34 +5,11 @@ import {getCategories} from "../redux/selectors";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
 import {changeCreateCategoryForm, createCategory, fetchCategories} from "../redux/actions/categories";
 import {useEffect} from "react";
-
-const MenuCreateCategoryForm = (props) => {
-
-    const addButton = (
-        <Button
-            minimal={true}
-            icon="plus"
-            onClick={props.onSubmit}
-        />
-    )
-
-    return <div>
-        <InputGroup
-            placeholder="New Category"
-            rightElement={addButton}
-            leftIcon={"tag"}
-            onChange={(e) => {
-                props.onChange(e.target.value)
-            }}
-        />
-    </div>
-}
-
+import {MenuCreateForm} from "./MenuCreateForm";
 
 const MenuCategories= ({categories, fetchCategories, createCategory, changeCreateCategoryForm}) => {
     useEffect(() => {
         fetchCategories()
-        // createCategory('test')
     }, [])
 
     if (categories.status === STATUS_LOADING){
@@ -59,7 +36,9 @@ const MenuCategories= ({categories, fetchCategories, createCategory, changeCreat
         </Menu>
     }
 
-    let createCategoryForm = <MenuCreateCategoryForm
+    let createForm = <MenuCreateForm
+        placeholder="New Category"
+        icon={"tag"}
         onChange={changeCreateCategoryForm}
         onSubmit={() => {
             createCategory(categories.createForm.title)
@@ -75,7 +54,7 @@ const MenuCategories= ({categories, fetchCategories, createCategory, changeCreat
             } page-header__navigation-list page-header__navigation-list--side-bar`}
         >
             <MenuDivider title="Categories"/>
-            {createCategoryForm}
+            {createForm}
         </Menu>
     }
 
@@ -85,7 +64,7 @@ const MenuCategories= ({categories, fetchCategories, createCategory, changeCreat
         } page-header__navigation-list page-header__navigation-list--side-bar`}
     >
         <MenuDivider title="Categories"/>
-        {createCategoryForm}
+        {createForm}
         {categories.items.map(item => (
             <MenuItem icon="dot" key={item.id} text={item.title}/>
         ))}

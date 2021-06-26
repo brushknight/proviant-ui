@@ -57,7 +57,10 @@ export default function(state = initialState, action) {
                 ...state,
                 items: items,
                 status: STATUS_LOADED,
-                error: null
+                error: null,
+                createForm: {
+                    title: null
+                }
             }
         default:
             return state;

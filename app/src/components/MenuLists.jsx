@@ -3,29 +3,11 @@ import {Button, Callout, Classes, InputGroup, Intent, Menu, MenuDivider, MenuIte
 import {connect} from 'react-redux'
 import {getLists} from "../redux/selectors";
 import {useEffect} from "react";
-import {fetchLists} from "../redux/actions/lists";
+import {changeCreateListForm, createList, fetchLists} from "../redux/actions/lists";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
+import {MenuCreateForm} from "./MenuCreateForm";
 
-
-const MenuListAddForm = () => {
-
-    const addButton = (
-        <Button
-            minimal={true}
-            icon="plus"
-        />
-    )
-
-    return <div>
-        <InputGroup
-            placeholder="New List"
-            rightElement={addButton}
-            leftIcon={"list"}
-            />
-    </div>
-}
-
-const MenuLists = ({lists, fetchLists}) => {
+const MenuLists = ({lists, fetchLists, createList, changeCreateListForm}) => {
     useEffect(() => {
         fetchLists()
     }, [])
@@ -55,6 +37,18 @@ const MenuLists = ({lists, fetchLists}) => {
         </Menu>
     }
 
+    let createForm = <MenuCreateForm
+        value={lists.createForm.title}
+        placeholder="New List"
+        icon={"list"}
+        onChange={changeCreateListForm}
+        onSubmit={() => {
+            createList(lists.createForm.title)
+        }
+        }
+    />
+
+
     if (lists.items.length === 0){
         return <Menu
             className={`${
@@ -62,7 +56,7 @@ const MenuLists = ({lists, fetchLists}) => {
             } page-header__navigation-list page-header__navigation-list--side-bar`}
         >
             <MenuDivider title="Lists"/>
-            <MenuListAddForm/>
+            {createForm}
             <MenuItem icon="dot" text="All products"/>
         </Menu>
     }
@@ -73,7 +67,7 @@ const MenuLists = ({lists, fetchLists}) => {
         } page-header__navigation-list page-header__navigation-list--side-bar`}
     >
         <MenuDivider title="Lists"/>
-        <MenuListAddForm/>
+        {createForm}
         <MenuItem icon="dot" text="All products"/>
         {lists.items.map(item => (
             <MenuItem icon="dot" key={item.id} text={item.title}/>
@@ -88,7 +82,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchLists: () => dispatch(fetchLists())
+        fetchLists: () => dispatch(fetchLists()),
+        createList: (title) => dispatch(createList(title)),
+        changeCreateListForm: (title) => dispatch(changeCreateListForm(title))
     }
 }
 
