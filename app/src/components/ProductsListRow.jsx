@@ -24,7 +24,7 @@ const ProductsListRow = ({product, categories, lists}) => {
         <div className="content__product-sorting">
             <span className="content__product-list">{list.title}</span>
             {categoriesFound.map(category => (
-                <span className="content__product-category">{category.title}</span>
+                <span key={category.id} className="content__product-category">{category.title}</span>
             ))}
         </div>
     </div>

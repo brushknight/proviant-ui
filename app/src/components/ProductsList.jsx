@@ -2,13 +2,14 @@ import * as React from "react";
 import {connect} from 'react-redux'
 import {getCategories, getLists, getProducts} from "../redux/selectors";
 import ProductsListRow from "./ProductsListRow";
+import {MenuItem} from "@blueprintjs/core";
 
 // https://react-redux.js.org/tutorials/connect
 
 const ProductsList= ({products, categories, lists}) => {
     return <section className="content">
         {products.map(product => (
-        <ProductsListRow product={product} categories={categories} lists={lists}/>
+        <ProductsListRow key={product.id} product={product} categories={categories} lists={lists}/>
         ))}
     </section>
 }

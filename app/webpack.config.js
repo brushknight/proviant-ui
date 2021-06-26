@@ -55,7 +55,9 @@ module.exports = {
             "process.env": "{}",
             global: {}
         }),
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: 'src/index.html'
+        }),
         new CleanWebpackPlugin()
     ]
 };
