@@ -33,7 +33,6 @@ export const fetchCategories = () => {
         })
             .then(response => {
                 const data = response.data
-                console.log(data)
                 dispatch(fetchCategoriesSuccess(data.data))
             })
             .catch(error => {

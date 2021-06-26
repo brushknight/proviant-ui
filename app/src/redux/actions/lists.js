@@ -33,8 +33,7 @@ export const fetchLists = () => {
         })
             .then(response => {
                 const data = response.data
-                console.log(data)
-                dispatch(fetchListSuccess(data.data))
+                    dispatch(fetchListSuccess(data.data))
             })
             .catch(error => {
                 const errorMsq = error.message

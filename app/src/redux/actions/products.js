@@ -33,7 +33,6 @@ export const fetchProducts = () => {
         })
             .then(response => {
                 const data = response.data
-                console.log(data)
                 dispatch(fetchProductSuccess(data.data))
             })
             .catch(error => {

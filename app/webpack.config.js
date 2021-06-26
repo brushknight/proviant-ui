@@ -4,13 +4,15 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 
 module.exports = {
+    // entry: ['react-hot-loader/patch', './src'],
     entry: path.resolve(__dirname, './src/index.js'),
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
+                loader: 'babel-loader',
                 exclude: /node_modules/,
-                use: ['babel-loader'],
+                include: /src/
             },
             {
                 test: /\.css$/i,
@@ -49,8 +51,10 @@ module.exports = {
     devServer: {
         contentBase: path.resolve(__dirname, './dist'),
         historyApiFallback: true,
+        disableHostCheck: true,
         port: 9000,
     },
+    // alias: { 'react-dom': '@hot-loader/react-dom'  },
     plugins: [
         new webpack.DefinePlugin({
             "process.env": "{}",
