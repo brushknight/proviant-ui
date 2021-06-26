@@ -1,10 +1,29 @@
 import * as React from "react";
-import {Callout, Classes, Intent, Menu, MenuDivider, MenuItem, Spinner} from "@blueprintjs/core";
+import {Button, Callout, Classes, InputGroup, Intent, Menu, MenuDivider, MenuItem, Spinner} from "@blueprintjs/core";
 import {connect} from 'react-redux'
 import {getLists} from "../redux/selectors";
 import {useEffect} from "react";
 import {fetchLists} from "../redux/actions/lists";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
+
+
+const MenuListAddForm = () => {
+
+    const addButton = (
+        <Button
+            minimal={true}
+            icon="plus"
+        />
+    )
+
+    return <div>
+        <InputGroup
+            placeholder="New List"
+            rightElement={addButton}
+            leftIcon={"list"}
+            />
+    </div>
+}
 
 const MenuLists = ({lists, fetchLists}) => {
     useEffect(() => {
@@ -43,6 +62,7 @@ const MenuLists = ({lists, fetchLists}) => {
             } page-header__navigation-list page-header__navigation-list--side-bar`}
         >
             <MenuDivider title="Lists"/>
+            <MenuListAddForm/>
             <MenuItem icon="dot" text="All products"/>
         </Menu>
     }
@@ -53,6 +73,7 @@ const MenuLists = ({lists, fetchLists}) => {
         } page-header__navigation-list page-header__navigation-list--side-bar`}
     >
         <MenuDivider title="Lists"/>
+        <MenuListAddForm/>
         <MenuItem icon="dot" text="All products"/>
         {lists.items.map(item => (
             <MenuItem icon="dot" key={item.id} text={item.title}/>
