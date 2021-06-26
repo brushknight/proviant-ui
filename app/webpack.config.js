@@ -49,6 +49,7 @@ module.exports = {
     devServer: {
         contentBase: path.resolve(__dirname, './dist'),
         historyApiFallback: true,
+        port: 9000,
     },
     plugins: [
         new webpack.DefinePlugin({
