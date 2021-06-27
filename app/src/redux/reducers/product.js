@@ -3,7 +3,7 @@ import {
     ACTION_FETCH_PRODUCT_FAIL,
     ACTION_FETCH_PRODUCT_LOADING,
     ACTION_FETCH_PRODUCT_NOT_FOUND,
-    ACTION_FETCH_PRODUCT_SUCCESS,
+    ACTION_FETCH_PRODUCT_SUCCESS, ACTION_RESET_PRODUCT,
     ACTION_UPDATE_PRODUCT_FAIL,
     ACTION_UPDATE_PRODUCT_LOADING,
     ACTION_UPDATE_PRODUCT_SUCCESS
@@ -50,6 +50,14 @@ const initialState = {
 export default function (state = initialState, action) {
 
     switch (action.type) {
+        case ACTION_RESET_PRODUCT:
+            return {
+                ...state,
+                error: null,
+                status: STATUS_DEFAULT,
+                formStatus: STATUS_DEFAULT,
+                model: emptyModel
+            }
         case ACTION_FETCH_PRODUCT_FAIL:
             return {
                 ...state,

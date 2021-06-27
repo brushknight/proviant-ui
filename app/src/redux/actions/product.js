@@ -10,6 +10,7 @@ export const ACTION_UPDATE_PRODUCT_SUCCESS = 'update/product/success'
 export const ACTION_UPDATE_PRODUCT_FAIL = 'update/product/fail'
 
 export const ACTION_CHANGE_PRODUCT_FIELD = 'change/product/field'
+export const ACTION_RESET_PRODUCT = 'reset/product'
 
 const fetchProductLoading = () => {
     return {
@@ -60,6 +61,12 @@ export const changeProductField = (field, value) => {
         type: ACTION_CHANGE_PRODUCT_FIELD,
         field: field,
         value: value
+    }
+}
+
+export const resetProduct = () => {
+    return {
+        type: ACTION_RESET_PRODUCT
     }
 }
 

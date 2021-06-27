@@ -8,31 +8,43 @@ import {
     Callout,
     EditableText,
     InputGroup,
-    Intent, MenuItem,
+    Intent,
     NonIdealState,
-    Spinner, Tag, TagInput
+    Spinner,
+    Tag
 } from "@blueprintjs/core";
 import {useHistory, useParams} from "react-router-dom";
-import {changeProductField, createProduct, fetchProduct, updateProduct} from "../redux/actions/product";
+import {changeProductField, createProduct, fetchProduct, resetProduct, updateProduct} from "../redux/actions/product";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
 import {
-    PRODUCT_FIELD_BARCODE, PRODUCT_FIELD_CATEGORIES,
-    PRODUCT_FIELD_DESCRIPTION, PRODUCT_FIELD_IMAGE, PRODUCT_FIELD_LINK, PRODUCT_FIELD_LIST, PRODUCT_FIELD_LIST_ID,
+    PRODUCT_FIELD_BARCODE,
+    PRODUCT_FIELD_CATEGORIES,
+    PRODUCT_FIELD_DESCRIPTION,
+    PRODUCT_FIELD_IMAGE,
+    PRODUCT_FIELD_LINK,
+    PRODUCT_FIELD_LIST,
     PRODUCT_FIELD_TITLE,
     STATUS_NOT_FOUND
 } from "../redux/reducers/product";
 import Select from 'react-select'
 
-
-const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, createProduct, change}) => {
+const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, createProduct, resetProduct, change}) => {
     const history = useHistory();
     let {id} = useParams();
 
-    if (!isNaN(Number(id))){
-        useEffect(() => {
-            fetchProduct(id)
-        }, [])
+    if (id == null){
+        id = 'new'
     }
+
+    useEffect(() => {
+        console.log(id)
+        if (isNaN(Number(id))) {
+            resetProduct()
+        }else{
+            fetchProduct(id)
+        }
+
+    }, [id])
 
     if (product.status === STATUS_LOADING) {
         return <section className="content">
@@ -67,12 +79,12 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
 
     let controls = []
 
-    if (product.model.id > 0){
+    if (product.model.id > 0) {
         controls.push(<Button icon={'tick'} minimal={true} onClick={() => {
             updateProduct(product.model)
         }} intent={Intent.SUCCESS}>Save</Button>)
         controls.push(<Button icon={'undo'} minimal={true} onClick={onCancelHandler}>Cancel</Button>)
-    }else{
+    } else {
         controls.push(<Button icon={'tick'} minimal={true} onClick={() => {
             createProduct(product.model)
         }} intent={Intent.SUCCESS}>save new product</Button>)
@@ -96,12 +108,11 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
 
     let categoriesSelected = []
 
-    if (product.model.categories != null){
+    if (product.model.categories != null) {
         categoriesSelected = product.model.categories.map((item) => {
             return convertCategoryToValue(item)
         })
     }
-
 
 
     return <section className="content">
@@ -115,7 +126,7 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
                 multiline={false}
                 minLines={1}
                 maxLines={1}
-                defaultValue={product.model.title}
+                value={product.model.title}
                 onChange={(value) => {
                     change.title(value)
                 }}
@@ -125,7 +136,7 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
             multiline={true}
             minLines={3}
             maxLines={100}
-            defaultValue={product.model.description}
+            value={product.model.description}
             onChange={(value) => {
                 change.description(value)
             }}
@@ -133,7 +144,7 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
         <InputGroup
             fill={true}
             leftElement={textLinkToShop}
-            defaultValue={product.model.link}
+            value={product.model.link}
             onChange={(event) => {
                 change.link(event.target.value)
             }}
@@ -141,7 +152,7 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
         <InputGroup
             fill={true}
             leftElement={textLinkToPicture}
-            defaultValue={product.model.image}
+            value={product.model.image}
             onChange={(event) => {
                 change.image(event.target.value)
             }}
@@ -189,6 +200,7 @@ const mapDispatchToProps = dispatch => {
         fetchProduct: (id) => dispatch(fetchProduct(id)),
         updateProduct: (model) => dispatch(updateProduct(model)),
         createProduct: (model) => dispatch(createProduct(model)),
+        resetProduct: (model) => dispatch(resetProduct(model)),
         change: {
             title: (value) => dispatch(changeProductField(PRODUCT_FIELD_TITLE, value)),
             description: (value) => dispatch(changeProductField(PRODUCT_FIELD_DESCRIPTION, value)),

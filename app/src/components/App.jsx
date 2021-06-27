@@ -39,10 +39,10 @@ const App = () => {
                             </Route>
 
                             <Route path="/list/:id">
-                                <ProductsList/>
+                                <ProductsList filterType={'list'}/>
                             </Route>
                             <Route path="/category/:id">
-                                <ProductsList/>
+                                <ProductsList filterType={'category'}/>
                             </Route>
                             <Route path="/">
                                 <ProductsList/>

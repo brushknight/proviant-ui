@@ -24,10 +24,20 @@ const fetchProductSuccess = payload => {
     }
 }
 
-export const fetchProducts = () => {
+export const fetchProducts = (query) => {
+
+    let queryString = ''
+
+    let esc = encodeURIComponent;
+    if (query != null) {
+        queryString = '?' + Object.keys(query)
+            .map(k => esc(k) + '=' + esc(query[k]))
+            .join('&');
+    }
+
     return (dispatch) => {
         dispatch(fetchProductLoading())
-        axios.get("/api/v1/product/", {
+        axios.get(`/api/v1/product/${queryString}`, {
             headers: {
             },
         })

@@ -6,11 +6,34 @@ import ProductsListRow from "./ProductsListRow";
 import {fetchProducts} from "../redux/actions/products";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
 import {Callout, Intent, NonIdealState, Spinner} from "@blueprintjs/core";
+import {useParams} from "react-router-dom";
 
-const ProductsList = ({products, categories, lists, fetchProducts}) => {
+const ProductsList = ({products, categories, lists, filterType, fetchProducts}) => {
+
+    let query = null
+    let {id} = useParams();
+
+    if (filterType != null) {
+
+        if (!isNaN(Number(id))) {
+
+            if (filterType === 'category') {
+                query = {
+                    category: id
+                }
+            }
+            if (filterType === 'list') {
+                query = {
+                    list: id
+                }
+            }
+        }
+    }
+
+
     useEffect(() => {
-        fetchProducts()
-    }, [])
+        fetchProducts(query)
+    }, [id, filterType])
 
     if (products.status === STATUS_LOADING) {
         return <section className="content">
@@ -43,19 +66,19 @@ const ProductsList = ({products, categories, lists, fetchProducts}) => {
     </section>
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     const products = getProducts(state);
     const categories = getCategories(state);
     const lists = getLists(state);
+    const filterType = ownProps.filterType
 
-    return {products, categories, lists};
+    return {products, categories, lists, filterType};
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchProducts: () => dispatch(fetchProducts())
+        fetchProducts: (query) => dispatch(fetchProducts(query))
     }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);
