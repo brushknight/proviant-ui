@@ -6,12 +6,25 @@ import {useEffect} from "react";
 import {changeCreateListForm, createList, fetchLists} from "../redux/actions/lists";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
 import {MenuCreateForm} from "./MenuCreateForm";
+import {useHistory} from "react-router-dom";
+
 
 const MenuLists = ({lists, fetchLists, createList, changeCreateListForm}) => {
+    const history = useHistory();
+
     useEffect(() => {
         fetchLists()
     }, [])
 
+    let goToAllProduct =() => {
+        history.push("/");
+    }
+
+    let goToList = (id) => {
+        return () => {
+            history.push(`/list/${id}`);
+        }
+    }
 
     if (lists.status === STATUS_LOADING){
         return <Menu
@@ -57,7 +70,7 @@ const MenuLists = ({lists, fetchLists, createList, changeCreateListForm}) => {
         >
             <MenuDivider title="Lists"/>
             {createForm}
-            <MenuItem icon="dot" text="All products"/>
+            <MenuItem icon="dot" text="All products" onClick={goToAllProduct}/>
         </Menu>
     }
 
@@ -68,9 +81,9 @@ const MenuLists = ({lists, fetchLists, createList, changeCreateListForm}) => {
     >
         <MenuDivider title="Lists"/>
         {createForm}
-        <MenuItem icon="dot" text="All products"/>
+        <MenuItem icon="dot" text="All products" onClick={goToAllProduct}/>
         {lists.items.map(item => (
-            <MenuItem icon="dot" key={item.id} text={item.title}/>
+            <MenuItem icon="dot" key={item.id} text={item.title} onClick={goToList(item.id)}/>
         ))}
     </Menu>
 }

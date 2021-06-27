@@ -47,6 +47,7 @@ const mapStateToProps = state => {
     const products = getProducts(state);
     const categories = getCategories(state);
     const lists = getLists(state);
+
     return {products, categories, lists};
 };
 

@@ -1,7 +1,7 @@
 import {
     ACTION_FETCH_PRODUCTS_FAIL,
     ACTION_FETCH_PRODUCTS_LOADING,
-    ACTION_FETCH_PRODUCTS_SUCCESS
+    ACTION_FETCH_PRODUCTS_SUCCESS, ACTION_FILTER_PRODUCTS
 } from "../actions/products";
 
 export const STATUS_LOADING = "loading"
@@ -38,6 +38,7 @@ export default function(state = initialState, action) {
                 status: STATUS_LOADED,
                 error: null
             }
+
         default:
             return state;
     }

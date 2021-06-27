@@ -38,6 +38,12 @@ const App = () => {
                                 <Product/>
                             </Route>
 
+                            <Route path="/list/:id">
+                                <ProductsList/>
+                            </Route>
+                            <Route path="/category/:id">
+                                <ProductsList/>
+                            </Route>
                             <Route path="/">
                                 <ProductsList/>
                             </Route>

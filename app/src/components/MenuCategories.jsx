@@ -6,11 +6,20 @@ import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
 import {changeCreateCategoryForm, createCategory, fetchCategories} from "../redux/actions/categories";
 import {useEffect} from "react";
 import {MenuCreateForm} from "./MenuCreateForm";
+import {useHistory} from "react-router-dom";
 
 const MenuCategories= ({categories, fetchCategories, createCategory, changeCreateCategoryForm}) => {
+    const history = useHistory();
+
     useEffect(() => {
         fetchCategories()
     }, [])
+
+    let goToCategory = (id) => {
+        return () => {
+            history.push(`/category/${id}`);
+        }
+    }
 
     if (categories.status === STATUS_LOADING){
         return <Menu
@@ -66,7 +75,7 @@ const MenuCategories= ({categories, fetchCategories, createCategory, changeCreat
         <MenuDivider title="Categories"/>
         {createForm}
         {categories.items.map(item => (
-            <MenuItem icon="dot" key={item.id} text={item.title}/>
+            <MenuItem icon="dot" key={item.id} text={item.title} onClick={goToCategory(item.id)}/>
         ))}
     </Menu>
 }

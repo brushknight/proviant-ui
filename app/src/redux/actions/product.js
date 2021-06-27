@@ -93,7 +93,6 @@ export const updateProduct = (model) => {
             .then(response => {
                 const data = response.data
                 dispatch(updateProductSuccess(data.data))
-                console.log(data.data)
 
             })
             .catch(error => {
@@ -111,7 +110,6 @@ export const createProduct = (model) => {
             .then(response => {
                 const data = response.data
                 dispatch(updateProductSuccess(data.data))
-                console.log(data.data)
 
             })
             .catch(error => {
