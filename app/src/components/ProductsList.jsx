@@ -5,7 +5,7 @@ import {getCategories, getLists, getProducts} from "../redux/selectors";
 import ProductsListRow from "./ProductsListRow";
 import {fetchProducts} from "../redux/actions/products";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
-import {Callout, Intent, Spinner} from "@blueprintjs/core";
+import {Callout, Intent, NonIdealState, Spinner} from "@blueprintjs/core";
 
 const ProductsList = ({products, categories, lists, fetchProducts}) => {
     useEffect(() => {
@@ -28,8 +28,11 @@ const ProductsList = ({products, categories, lists, fetchProducts}) => {
     }
 
     if (products.items.length === 0) {
-        <section className="content">
-
+        return <section className="content">
+            <NonIdealState
+                title={'No products found'}
+                icon={'search'}
+            />
         </section>
     }
 

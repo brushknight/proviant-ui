@@ -18,7 +18,7 @@ const MenuCategories= ({categories, fetchCategories, createCategory, changeCreat
                 Classes.ELEVATION_0
             } page-header__navigation-list page-header__navigation-list--side-bar`}
         >
-            <MenuDivider title="Lists"/>
+            <MenuDivider title="Categories"/>
             <Spinner/>
         </Menu>
     }
@@ -29,7 +29,7 @@ const MenuCategories= ({categories, fetchCategories, createCategory, changeCreat
                 Classes.ELEVATION_0
             } page-header__navigation-list page-header__navigation-list--side-bar`}
         >
-            <MenuDivider title="Lists"/>
+            <MenuDivider title="Categories"/>
             <Callout title={"oops... something went wrong"} intent={Intent.DANGER}>
                 {categories.error}
             </Callout>

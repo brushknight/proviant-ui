@@ -26,7 +26,7 @@ const App = () => {
                     <main className="page-main">
                         <BreadCrumbs/>
                         <Switch>
-                            <Route path="/product">
+                            <Route path="/product/:id">
                                 <Product/>
                             </Route>
                             <Route path="/">

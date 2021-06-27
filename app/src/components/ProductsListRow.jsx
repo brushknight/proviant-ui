@@ -1,8 +1,9 @@
 import * as React from "react";
-
+import {useCallback} from "react";
+import { useHistory } from "react-router-dom";
 
 const ProductsListRow = ({product, categories, lists}) => {
-
+    const history = useHistory();
     let list = lists.items.find(item => item.id === product.list_id)
 
     let categoriesFound = []
@@ -21,7 +22,11 @@ const ProductsListRow = ({product, categories, lists}) => {
         productList = <span className="content__product-list">{list.title}</span>
     }
 
-    return <div className="content__product-details">
+    let onClickHandler = () => {
+        history.push("/product/" + product.id);
+    }
+
+    return <div className="content__product-details" onClick={onClickHandler}>
         <div className="content__product-designation">
             <span className="content__product-status"></span>
             <span className="content__product-title">{product.title}</span>
