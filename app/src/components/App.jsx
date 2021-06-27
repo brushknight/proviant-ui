@@ -21,7 +21,7 @@ const App = () => {
                             <MenuAddProduct/>
                             <MenuLists/>
                             <MenuCategories/>
-                            <MenuSettings/>
+                            {/*<MenuSettings/>*/}
                         </nav>
                     </header>
 

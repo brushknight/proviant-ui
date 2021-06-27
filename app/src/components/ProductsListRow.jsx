@@ -27,6 +27,7 @@ const ProductsListRow = ({product, categories, lists}) => {
 
     return <div className="content__product-details" onClick={onClickHandler}>
         <div className="content__product-designation">
+            <img src={product.image} width={30} height={30}/>
             <span className="content__product-status"></span>
             <span className="content__product-title">{product.title}</span>
             <span className="content__product-stock">stock: {product.stock}</span>

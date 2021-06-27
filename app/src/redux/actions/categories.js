@@ -67,7 +67,6 @@ export const fetchCategories = () => {
             .then(response => {
                 const data = response.data
                 dispatch(fetchCategoriesSuccess(data.data))
-                console.log(data.data)
             })
             .catch(error => {
                 const errorMsq = error.message
@@ -84,7 +83,6 @@ export const createCategory = (title) => {
             .then(response => {
                 const data = response.data
                 dispatch(createCategorySuccess(data.data))
-                console.log(data.data)
 
             })
             .catch(error => {

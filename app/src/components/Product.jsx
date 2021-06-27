@@ -1,7 +1,7 @@
 import * as React from "react";
 import {connect} from 'react-redux'
 import {getProduct} from "../redux/selectors";
-import {Button, ButtonGroup, Callout, Intent, NonIdealState, Spinner} from "@blueprintjs/core";
+import {Button, ButtonGroup, Callout, Intent, NonIdealState, Spinner, Tag} from "@blueprintjs/core";
 import {useParams} from "react-router-dom";
 import {fetchProduct} from "../redux/actions/product";
 import {useEffect} from "react";
@@ -45,6 +45,21 @@ const Product = ({product, fetchProduct}) => {
         history.push("/product/" + product.model.id + "/edit");
     }
 
+    console.log(product.model.list)
+
+    let productListTag
+
+    if (product.model.list) {
+        productListTag = <Tag>{product.model.list.title}</Tag>
+    }
+
+    let productCategoriesTags
+    if (product.model.categories) {
+        productCategoriesTags = product.model.categories.map((item) => {
+            return <Tag>{item.title}</Tag>
+        })
+    }
+
     return <section className="content">
         <ButtonGroup>
             <Button icon={'edit'} minimal={true} onClick={onEditHandler}>Edit product</Button>
@@ -53,7 +68,14 @@ const Product = ({product, fetchProduct}) => {
         <img src={product.model.image} alt={product.model.title} width={100} height={100}/>
         <h1>{product.model.title}</h1>
         <p>{product.model.description}</p>
-        <Button>Link to buy</Button>
+        <p><Tag minimal={true}>Barcode</Tag>{product.model.barcode}</p>
+        <p>List {productListTag}</p>
+        <p>Categories {productCategoriesTags}</p>
+        <Button onClick={() => {
+            if (product.model.link){
+                window.open(product.model.link);
+            }
+        }}>Link to buy</Button>
     </section>
 }
 

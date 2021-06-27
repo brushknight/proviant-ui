@@ -83,7 +83,6 @@ export const createList = (title) => {
             .then(response => {
                 const data = response.data
                 dispatch(createListSuccess(data.data))
-                console.log(data.data)
 
             })
             .catch(error => {

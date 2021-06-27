@@ -37,7 +37,6 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
     }
 
     useEffect(() => {
-        console.log(id)
         if (isNaN(Number(id))) {
             resetProduct()
         }else{
@@ -74,8 +73,9 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
         history.push("/product/" + product.model.id);
     }
 
-    const textLinkToShop = <Tag minimal={true}> Link to shop</Tag>;
-    const textLinkToPicture = <Tag minimal={true}> Link to picture</Tag>;
+    const textLinkToShop = <Tag minimal={true}>Link to shop</Tag>;
+    const textLinkToPicture = <Tag minimal={true}>Link to picture</Tag>;
+    const textBarcode = <Tag minimal={true}>Barcode</Tag>;
 
     let controls = []
 
@@ -155,6 +155,14 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
             value={product.model.image}
             onChange={(event) => {
                 change.image(event.target.value)
+            }}
+        />
+        <InputGroup
+            fill={true}
+            leftElement={textBarcode}
+            value={product.model.barcode}
+            onChange={(event) => {
+                change.barcode(event.target.value)
             }}
         />
         <Select
