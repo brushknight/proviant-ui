@@ -945,6 +945,15 @@
     "classnames" "^2.2"
     "tslib" "~1.13.0"
 
+"@blueprintjs/select@^3.16.5":
+  "integrity" "sha512-+DJF7Fy11NjV1mUBHtEyx4fQTZDBki8NxxTZLsQWD6lGnUkZQDWToWmkr3oDC1+4MFG++Hf0nKvdp48FqY44IA=="
+  "resolved" "https://registry.npmjs.org/@blueprintjs/select/-/select-3.16.5.tgz"
+  "version" "3.16.5"
+  dependencies:
+    "@blueprintjs/core" "^3.46.0"
+    "classnames" "^2.2"
+    "tslib" "~1.13.0"
+
 "@discoveryjs/json-ext@^0.5.0":
   "integrity" "sha512-Fxt+AfXgjMoin2maPIYzFZnQjAXjAL0PHscM5pRTtatFqB+vZxAM9tLp2Optnuw3QOQC40jTNeGYFOMvyf7v9g=="
   "resolved" "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz"

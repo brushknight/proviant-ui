@@ -1,15 +1,17 @@
 import * as React from "react";
 import {connect} from 'react-redux'
 import {getProduct} from "../redux/selectors";
-import {Button, Callout, Intent, NonIdealState, Spinner} from "@blueprintjs/core";
+import {Button, ButtonGroup, Callout, Intent, NonIdealState, Spinner} from "@blueprintjs/core";
 import {useParams} from "react-router-dom";
 import {fetchProduct} from "../redux/actions/product";
 import {useEffect} from "react";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
 import {STATUS_NOT_FOUND} from "../redux/reducers/product";
+import { useHistory } from "react-router-dom";
 
 
 const Product = ({product, fetchProduct}) => {
+    const history = useHistory();
     let {id} = useParams();
     useEffect(() => {
         fetchProduct(id)
@@ -39,7 +41,15 @@ const Product = ({product, fetchProduct}) => {
         </section>
     }
 
+    let onEditHandler = () => {
+        history.push("/product/" + product.model.id + "/edit");
+    }
+
     return <section className="content">
+        <ButtonGroup>
+            <Button icon={'edit'} minimal={true} onClick={onEditHandler}>Edit product</Button>
+            <Button  icon={'delete'} minimal={true} intent={Intent.DANGER}>Delete product</Button>
+        </ButtonGroup>
         <img src={product.model.image} alt={product.model.title} width={100} height={100}/>
         <h1>{product.model.title}</h1>
         <p>{product.model.description}</p>

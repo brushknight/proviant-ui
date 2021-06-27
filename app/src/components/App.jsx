@@ -9,6 +9,7 @@ import BreadCrumbs from "./BreadCrumbs";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Product from "./Product";
 import ProductsList from "./ProductsList";
+import ProductEdit from "./ProductEdit";
 
 const App = () => {
     return <Router>
@@ -26,9 +27,13 @@ const App = () => {
                     <main className="page-main">
                         <BreadCrumbs/>
                         <Switch>
+                            <Route path="/product/:id/edit">
+                                <ProductEdit/>
+                            </Route>
                             <Route path="/product/:id">
                                 <Product/>
                             </Route>
+
                             <Route path="/">
                                 <ProductsList/>
                             </Route>
