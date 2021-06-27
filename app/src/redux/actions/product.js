@@ -102,3 +102,21 @@ export const updateProduct = (model) => {
             })
     }
 }
+
+export const createProduct = (model) => {
+    return (dispatch) => {
+        dispatch(updateProductLoading())
+        const json = JSON.stringify(model);
+        axios.post(`/api/v1/product/`, json)
+            .then(response => {
+                const data = response.data
+                dispatch(updateProductSuccess(data.data))
+                console.log(data.data)
+
+            })
+            .catch(error => {
+                const errorMsq = error.message
+                dispatch(updateProductFail(errorMsq))
+            })
+    }
+}

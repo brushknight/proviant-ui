@@ -24,20 +24,20 @@ export const PRODUCT_FIELD_IMAGE = 'image'
 export const PRODUCT_FIELD_BARCODE = 'barcode'
 export const PRODUCT_FIELD_CATEGORY_IDS = 'category_ids'
 export const PRODUCT_FIELD_CATEGORIES = 'categories'
-export const PRODUCT_FIELD_LIST_IDS = 'list_id'
+export const PRODUCT_FIELD_LIST_ID = 'list_id'
 export const PRODUCT_FIELD_LIST = 'list'
 
 const emptyModel = {
-    PRODUCT_FIELD_ID: null,
-    PRODUCT_FIELD_TITLE: null,
-    PRODUCT_FIELD_DESCRIPTION: null,
-    PRODUCT_FIELD_LINK: null,
-    PRODUCT_FIELD_IMAGE: null,
-    PRODUCT_FIELD_BARCODE: null,
-    PRODUCT_FIELD_CATEGORY_IDS: [],
-    PRODUCT_FIELD_CATEGORIES: [],
-    PRODUCT_FIELD_LIST_IDS: null,
-    PRODUCT_FIELD_LIST: null,
+    id: null,
+    title: null,
+    description: null,
+    link: null,
+    image: null,
+    barcode: null,
+    category_ids: [],
+    categories: [],
+    list_id: null,
+    list: null,
 }
 
 const initialState = {
@@ -106,6 +106,14 @@ export default function (state = initialState, action) {
 
             let model = state.model
             model[action.field] = action.value
+
+            if (action.field === PRODUCT_FIELD_LIST){
+                model[PRODUCT_FIELD_LIST_ID] = action.value.id
+            }
+
+            if (action.field === PRODUCT_FIELD_CATEGORIES){
+                model[PRODUCT_FIELD_CATEGORY_IDS] = action.value.map(item => item.id)
+            }
 
             return {
                 ...state,

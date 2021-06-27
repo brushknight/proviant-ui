@@ -1,4 +1,3 @@
-import { hot } from 'react-hot-loader/root';
 import * as React from "react";
 import {Provider} from 'react-redux'
 import store from "../redux/store";
@@ -10,6 +9,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Product from "./Product";
 import ProductsList from "./ProductsList";
 import ProductEdit from "./ProductEdit";
+import MenuAddProduct from "./MenuAddProduct";
 
 const App = () => {
     return <Router>
@@ -18,6 +18,7 @@ const App = () => {
                 <div className="page-body">
                     <header className="page-header">
                         <nav className="page-header__navigation">
+                            <MenuAddProduct/>
                             <MenuLists/>
                             <MenuCategories/>
                             <MenuSettings/>
@@ -28,6 +29,9 @@ const App = () => {
                         <BreadCrumbs/>
                         <Switch>
                             <Route path="/product/:id/edit">
+                                <ProductEdit/>
+                            </Route>
+                            <Route path="/product/new">
                                 <ProductEdit/>
                             </Route>
                             <Route path="/product/:id">
@@ -45,4 +49,4 @@ const App = () => {
     </Router>
 }
 
-export default hot(App);
+export default App;

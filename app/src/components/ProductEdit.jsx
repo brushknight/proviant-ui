@@ -13,23 +13,26 @@ import {
     Spinner, Tag, TagInput
 } from "@blueprintjs/core";
 import {useHistory, useParams} from "react-router-dom";
-import {changeProductField, fetchProduct, updateProduct} from "../redux/actions/product";
+import {changeProductField, createProduct, fetchProduct, updateProduct} from "../redux/actions/product";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
 import {
-    PRODUCT_FIELD_BARCODE,
-    PRODUCT_FIELD_DESCRIPTION, PRODUCT_FIELD_IMAGE, PRODUCT_FIELD_LINK,
+    PRODUCT_FIELD_BARCODE, PRODUCT_FIELD_CATEGORIES,
+    PRODUCT_FIELD_DESCRIPTION, PRODUCT_FIELD_IMAGE, PRODUCT_FIELD_LINK, PRODUCT_FIELD_LIST, PRODUCT_FIELD_LIST_ID,
     PRODUCT_FIELD_TITLE,
     STATUS_NOT_FOUND
 } from "../redux/reducers/product";
-import {MultiSelect, Suggest} from "@blueprintjs/select";
+import Select from 'react-select'
 
 
-const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, change}) => {
+const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, createProduct, change}) => {
     const history = useHistory();
     let {id} = useParams();
-    useEffect(() => {
-        fetchProduct(id)
-    }, [])
+
+    if (!isNaN(Number(id))){
+        useEffect(() => {
+            fetchProduct(id)
+        }, [])
+    }
 
     if (product.status === STATUS_LOADING) {
         return <section className="content">
@@ -62,25 +65,49 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
     const textLinkToShop = <Tag minimal={true}> Link to shop</Tag>;
     const textLinkToPicture = <Tag minimal={true}> Link to picture</Tag>;
 
-    const listItemRenderer = (item) => {
-        return <MenuItem
-            text={item.title}
-        />
+    let controls = []
+
+    if (product.model.id > 0){
+        controls.push(<Button icon={'tick'} minimal={true} onClick={() => {
+            updateProduct(product.model)
+        }} intent={Intent.SUCCESS}>Save</Button>)
+        controls.push(<Button icon={'undo'} minimal={true} onClick={onCancelHandler}>Cancel</Button>)
+    }else{
+        controls.push(<Button icon={'tick'} minimal={true} onClick={() => {
+            createProduct(product.model)
+        }} intent={Intent.SUCCESS}>save new product</Button>)
     }
 
-    const listInputValueRenderer = (item) => {
-        return item.title
+    let convertListToValue = (model) => {
+        return {value: model.id, label: model.title}
+    }
+
+    let convertCategoryToValue = (model) => {
+        return {value: model.id, label: model.title}
+    }
+
+    let listsForSelect = lists.items.map((item) => {
+        return convertListToValue(item)
+    })
+
+    let categoriesForSelect = categories.items.map((item) => {
+        return convertCategoryToValue(item)
+    })
+
+    let categoriesSelected = []
+
+    if (product.model.categories != null){
+        categoriesSelected = product.model.categories.map((item) => {
+            return convertCategoryToValue(item)
+        })
     }
 
 
 
     return <section className="content">
         <ButtonGroup>
-            <Button icon={'tick'} minimal={true} onClick={() => {
-                updateProduct(product.model)
-            }} intent={Intent.SUCCESS}>Save</Button>
-            <Button icon={'undo'} minimal={true} onClick={onCancelHandler}>Cancel</Button>
-            {/*<Button  icon={'delete'} minimal={true} intent={Intent.DANGER}>Delete</Button>*/}
+            {controls}
+
         </ButtonGroup>
         <img src={product.model.image} alt={product.model.title} width={100} height={100}/>
         <h1>
@@ -119,32 +146,34 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
                 change.image(event.target.value)
             }}
         />
-        <Suggest
-            fill={true}
-            items={lists.items}
-            noResults={<MenuItem disabled={true} text="No results." />}
-            inputValueRenderer={listInputValueRenderer}
-            itemRenderer={listItemRenderer}
-            itemsEqual={(a, b) => {
-                return a.id === b.id
+        <Select
+            options={listsForSelect}
+            isMulti={false}
+            placeholder={'select list'}
+            onChange={(event) => {
+                change.list(
+                    lists.items.find(item => item.id === event.value)
+                )
             }}
-            onItemSelect={(item, event) => {
-                console.log(item, event)
-            }}
-            selectedItem={product.model.list}
+            value={product.model.list ? convertListToValue(product.model.list) : null}
+            className={'change_me-product-list-select'}
         />
-        <MultiSelect
-            fill={true}
-            tagRenderer={item => item.title}
-            items={categories.items}
-            onItemSelect={(item, event) => {
-                console.log(item, event)
+        <Select
+            options={categoriesForSelect}
+            isMulti={true}
+            placeholder={'select categories'}
+            onChange={(data) => {
+
+                change.categories(
+                    data.map((item) => {
+                        return categories.items.find(c => c.id === item.value)
+                    })
+                )
             }}
-            itemsEqual={(a, b) => {
-                return a.id === b.id
-            }}
-            selectedItems={product.model.categories}
-            itemRenderer={listItemRenderer}/>
+            value={categoriesSelected}
+            className={'change_me-product-categories-select'}
+        />
+
     </section>
 }
 
@@ -159,12 +188,15 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchProduct: (id) => dispatch(fetchProduct(id)),
         updateProduct: (model) => dispatch(updateProduct(model)),
+        createProduct: (model) => dispatch(createProduct(model)),
         change: {
             title: (value) => dispatch(changeProductField(PRODUCT_FIELD_TITLE, value)),
             description: (value) => dispatch(changeProductField(PRODUCT_FIELD_DESCRIPTION, value)),
             barcode: (value) => dispatch(changeProductField(PRODUCT_FIELD_BARCODE, value)),
             link: (value) => dispatch(changeProductField(PRODUCT_FIELD_LINK, value)),
             image: (value) => dispatch(changeProductField(PRODUCT_FIELD_IMAGE, value)),
+            list: (value) => dispatch(changeProductField(PRODUCT_FIELD_LIST, value)),
+            categories: (value) => dispatch(changeProductField(PRODUCT_FIELD_CATEGORIES, value)),
         }
     }
 }
