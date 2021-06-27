@@ -13,13 +13,18 @@ import {
     Spinner, Tag, TagInput
 } from "@blueprintjs/core";
 import {useHistory, useParams} from "react-router-dom";
-import {fetchProduct} from "../redux/actions/product";
+import {changeProductField, fetchProduct, updateProduct} from "../redux/actions/product";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
-import {STATUS_NOT_FOUND} from "../redux/reducers/product";
+import {
+    PRODUCT_FIELD_BARCODE,
+    PRODUCT_FIELD_DESCRIPTION, PRODUCT_FIELD_IMAGE, PRODUCT_FIELD_LINK,
+    PRODUCT_FIELD_TITLE,
+    STATUS_NOT_FOUND
+} from "../redux/reducers/product";
 import {MultiSelect, Suggest} from "@blueprintjs/select";
 
 
-const ProductEdit = ({product, lists, categories, fetchProduct}) => {
+const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, change}) => {
     const history = useHistory();
     let {id} = useParams();
     useEffect(() => {
@@ -67,24 +72,52 @@ const ProductEdit = ({product, lists, categories, fetchProduct}) => {
         return item.title
     }
 
+
+
     return <section className="content">
         <ButtonGroup>
-            <Button icon={'tick'} minimal={true} intent={Intent.SUCCESS}>Save</Button>
+            <Button icon={'tick'} minimal={true} onClick={() => {
+                updateProduct(product.model)
+            }} intent={Intent.SUCCESS}>Save</Button>
             <Button icon={'undo'} minimal={true} onClick={onCancelHandler}>Cancel</Button>
             {/*<Button  icon={'delete'} minimal={true} intent={Intent.DANGER}>Delete</Button>*/}
         </ButtonGroup>
         <img src={product.model.image} alt={product.model.title} width={100} height={100}/>
-        <h1><EditableText multiline={false} minLines={1} maxLines={1} defaultValue={product.model.title}/></h1>
-        <EditableText multiline={true} minLines={3} maxLines={100} defaultValue={product.model.description}/>
+        <h1>
+            <EditableText
+                multiline={false}
+                minLines={1}
+                maxLines={1}
+                defaultValue={product.model.title}
+                onChange={(value) => {
+                    change.title(value)
+                }}
+            />
+        </h1>
+        <EditableText
+            multiline={true}
+            minLines={3}
+            maxLines={100}
+            defaultValue={product.model.description}
+            onChange={(value) => {
+                change.description(value)
+            }}
+        />
         <InputGroup
             fill={true}
             leftElement={textLinkToShop}
             defaultValue={product.model.link}
+            onChange={(event) => {
+                change.link(event.target.value)
+            }}
         />
         <InputGroup
             fill={true}
             leftElement={textLinkToPicture}
             defaultValue={product.model.image}
+            onChange={(event) => {
+                change.image(event.target.value)
+            }}
         />
         <Suggest
             fill={true}
@@ -124,7 +157,15 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchProduct: (id) => dispatch(fetchProduct(id))
+        fetchProduct: (id) => dispatch(fetchProduct(id)),
+        updateProduct: (model) => dispatch(updateProduct(model)),
+        change: {
+            title: (value) => dispatch(changeProductField(PRODUCT_FIELD_TITLE, value)),
+            description: (value) => dispatch(changeProductField(PRODUCT_FIELD_DESCRIPTION, value)),
+            barcode: (value) => dispatch(changeProductField(PRODUCT_FIELD_BARCODE, value)),
+            link: (value) => dispatch(changeProductField(PRODUCT_FIELD_LINK, value)),
+            image: (value) => dispatch(changeProductField(PRODUCT_FIELD_IMAGE, value)),
+        }
     }
 }
 
