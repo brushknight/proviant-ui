@@ -15,7 +15,6 @@ import {
 } from "@blueprintjs/core";
 import {useHistory, useParams} from "react-router-dom";
 import {changeProductField, createProduct, fetchProduct, resetProduct, updateProduct} from "../redux/actions/product";
-import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
 import {
     PRODUCT_FIELD_BARCODE,
     PRODUCT_FIELD_CATEGORIES,
@@ -24,7 +23,9 @@ import {
     PRODUCT_FIELD_LINK,
     PRODUCT_FIELD_LIST,
     PRODUCT_FIELD_TITLE, STATUS_CREATED,
-    STATUS_NOT_FOUND
+    STATUS_NOT_FOUND,
+    STATUS_ERROR,
+    STATUS_LOADING
 } from "../redux/reducers/product";
 import Select from 'react-select'
 
@@ -121,8 +122,14 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
         })
     }
 
+    let errorCallout
+
+    if (product.formStatus === STATUS_ERROR) {
+        errorCallout = <Callout icon={null} intent={Intent.DANGER}>{product.formError}</Callout>
+    }
 
     return <section className="content">
+        {errorCallout}
         <ButtonGroup>
             {controls}
 

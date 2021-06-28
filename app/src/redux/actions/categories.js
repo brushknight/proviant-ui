@@ -87,7 +87,11 @@ export const createCategory = (title) => {
             })
             .catch(error => {
                 const errorMsq = error.message
-                dispatch(createCategoryFail(errorMsq))
+                if (error.response.status === 400){
+                    dispatch(createCategoryFail(error.response.data.error))
+                }else{
+                    dispatch(createCategoryFail(errorMsq))
+                }
             })
     }
 }

@@ -44,8 +44,9 @@ const emptyModel = {
 const initialState = {
     model: emptyModel,
     formStatus: STATUS_DEFAULT,
+    formError: "",
     status: STATUS_DEFAULT,
-    error: null
+    error: ""
 }
 
 export default function (state = initialState, action) {
@@ -57,6 +58,7 @@ export default function (state = initialState, action) {
                 error: null,
                 status: STATUS_DEFAULT,
                 formStatus: STATUS_DEFAULT,
+                formError: "",
                 model: emptyModel
             }
         case ACTION_FETCH_PRODUCT_FAIL:
@@ -64,6 +66,7 @@ export default function (state = initialState, action) {
                 ...state,
                 error: action.error,
                 status: STATUS_ERROR,
+                formError: "",
                 formStatus: STATUS_DEFAULT,
             }
         case ACTION_FETCH_PRODUCT_NOT_FOUND:
@@ -71,6 +74,7 @@ export default function (state = initialState, action) {
                 ...state,
                 error: action.error,
                 status: STATUS_NOT_FOUND,
+                formError: "",
                 formStatus: STATUS_DEFAULT,
             }
         case ACTION_FETCH_PRODUCT_LOADING:
@@ -78,6 +82,7 @@ export default function (state = initialState, action) {
                 ...state,
                 status: STATUS_LOADING,
                 error: null,
+                formError: "",
                 formStatus: STATUS_DEFAULT,
             }
 
@@ -87,6 +92,7 @@ export default function (state = initialState, action) {
                 model: action.model,
                 status: STATUS_LOADED,
                 error: null,
+                formError: "",
                 formStatus: STATUS_DEFAULT,
             }
         case ACTION_UPDATE_PRODUCT_LOADING:
@@ -94,13 +100,15 @@ export default function (state = initialState, action) {
                 ...state,
                 formStatus: STATUS_LOADING,
                 error: null,
+                formError: "",
                 status: STATUS_DEFAULT
             }
         case ACTION_UPDATE_PRODUCT_FAIL:
             return {
                 ...state,
                 formStatus: STATUS_ERROR,
-                error: action.error,
+                error: "",
+                formError: action.error,
                 status: STATUS_DEFAULT
             }
         case ACTION_UPDATE_PRODUCT_SUCCESS:
@@ -109,6 +117,7 @@ export default function (state = initialState, action) {
                 formStatus: STATUS_UPDATED,
                 error: null,
                 status: STATUS_DEFAULT,
+                formError: "",
                 model: action.model
             }
         case ACTION_CREATE_PRODUCT_SUCCESS:
@@ -117,6 +126,7 @@ export default function (state = initialState, action) {
                 formStatus: STATUS_CREATED,
                 error: null,
                 status: STATUS_CREATED,
+                formError: "",
                 model: action.model
             }
         case ACTION_CHANGE_PRODUCT_FIELD:
@@ -137,6 +147,7 @@ export default function (state = initialState, action) {
                 formStatus: STATUS_DEFAULT,
                 error: null,
                 status: STATUS_DEFAULT,
+                formError: "",
                 model: model
             }
         default:

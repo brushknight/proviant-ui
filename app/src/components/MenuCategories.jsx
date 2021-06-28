@@ -54,6 +54,8 @@ const MenuCategories= ({categories, fetchCategories, createCategory, changeCreat
             createCategory(categories.createForm.title)
         }
         }
+        status={categories.createForm.status}
+        error={categories.createForm.error}
     />
 
 

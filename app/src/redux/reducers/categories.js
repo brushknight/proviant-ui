@@ -1,5 +1,6 @@
 import {
     ACTION_CHANGE_CREATE_CATEGORY_FORM,
+    ACTION_CREATE_CATEGORY_FAIL,
     ACTION_CREATE_CATEGORY_SUCCESS,
     ACTION_FETCH_CATEGORIES_FAIL,
     ACTION_FETCH_CATEGORIES_LOADING,
@@ -11,16 +12,20 @@ export const STATUS_LOADED = "loaded"
 export const STATUS_ERROR = "error"
 export const STATUS_DEFAULT = "default"
 
+let emptyCreateForm = {
+    title: "",
+    error: "",
+    status: STATUS_DEFAULT
+}
+
 const initialState = {
     items: [],
     status: STATUS_DEFAULT,
     error: null,
-    createForm:{
-        title: ""
-    }
+    createForm: emptyCreateForm
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
 
     switch (action.type) {
         case ACTION_CHANGE_CREATE_CATEGORY_FORM:
@@ -58,9 +63,19 @@ export default function(state = initialState, action) {
                 items: items,
                 status: STATUS_LOADED,
                 error: null,
-                createForm: {
-                    title: ""
-                }
+                createForm: emptyCreateForm
+            }
+        case ACTION_CREATE_CATEGORY_FAIL:
+
+            let createForm = state.createForm
+            createForm.status = STATUS_ERROR
+            createForm.error = action.error
+
+            return {
+                ...state,
+                error: "",
+                status: STATUS_DEFAULT,
+                createForm: createForm
             }
         default:
             return state;

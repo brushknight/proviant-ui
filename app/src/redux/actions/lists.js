@@ -87,7 +87,11 @@ export const createList = (title) => {
             })
             .catch(error => {
                 const errorMsq = error.message
-                dispatch(createListFail(errorMsq))
+                if (error.response.status === 400){
+                    dispatch(createListFail(error.response.data.error))
+                }else{
+                    dispatch(createListFail(errorMsq))
+                }
             })
     }
 }

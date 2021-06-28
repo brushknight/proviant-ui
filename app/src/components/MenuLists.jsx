@@ -1,8 +1,8 @@
 import * as React from "react";
-import {Button, Callout, Classes, InputGroup, Intent, Menu, MenuDivider, MenuItem, Spinner} from "@blueprintjs/core";
+import {useEffect} from "react";
+import {Callout, Classes, Intent, Menu, MenuDivider, MenuItem, Spinner} from "@blueprintjs/core";
 import {connect} from 'react-redux'
 import {getLists} from "../redux/selectors";
-import {useEffect} from "react";
 import {changeCreateListForm, createList, fetchLists} from "../redux/actions/lists";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
 import {MenuCreateForm} from "./MenuCreateForm";
@@ -16,7 +16,7 @@ const MenuLists = ({lists, fetchLists, createList, changeCreateListForm}) => {
         fetchLists()
     }, [])
 
-    let goToAllProduct =() => {
+    let goToAllProduct = () => {
         history.push("/");
     }
 
@@ -26,7 +26,7 @@ const MenuLists = ({lists, fetchLists, createList, changeCreateListForm}) => {
         }
     }
 
-    if (lists.status === STATUS_LOADING){
+    if (lists.status === STATUS_LOADING) {
         return <Menu
             className={`${
                 Classes.ELEVATION_0
@@ -37,7 +37,7 @@ const MenuLists = ({lists, fetchLists, createList, changeCreateListForm}) => {
         </Menu>
     }
 
-    if (lists.status === STATUS_ERROR){
+    if (lists.status === STATUS_ERROR) {
         return <Menu
             className={`${
                 Classes.ELEVATION_0
@@ -50,6 +50,7 @@ const MenuLists = ({lists, fetchLists, createList, changeCreateListForm}) => {
         </Menu>
     }
 
+
     let createForm = <MenuCreateForm
         value={lists.createForm.title}
         placeholder="New List"
@@ -59,10 +60,11 @@ const MenuLists = ({lists, fetchLists, createList, changeCreateListForm}) => {
             createList(lists.createForm.title)
         }
         }
+        status={lists.createForm.status}
+        error={lists.createForm.error}
     />
 
-
-    if (lists.items.length === 0){
+    if (lists.items.length === 0) {
         return <Menu
             className={`${
                 Classes.ELEVATION_0
@@ -90,7 +92,7 @@ const MenuLists = ({lists, fetchLists, createList, changeCreateListForm}) => {
 
 const mapStateToProps = state => {
     const lists = getLists(state);
-    return { lists };
+    return {lists};
 };
 
 const mapDispatchToProps = dispatch => {

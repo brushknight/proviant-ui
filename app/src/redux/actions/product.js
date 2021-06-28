@@ -129,7 +129,13 @@ export const createProduct = (model) => {
             })
             .catch(error => {
                 const errorMsq = error.message
-                dispatch(updateProductFail(errorMsq))
+                if (error.response.status === 404){
+                    dispatch(fetchProductNotFound(error.response.data.error))
+                }else if (error.response.status){
+                    dispatch(updateProductFail(error.response.data.error))
+                }else{
+                    dispatch(updateProductFail(errorMsq))
+                }
             })
     }
 }
