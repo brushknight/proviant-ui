@@ -9,6 +9,8 @@ export const ACTION_UPDATE_PRODUCT_LOADING = 'update/product/loading'
 export const ACTION_UPDATE_PRODUCT_SUCCESS = 'update/product/success'
 export const ACTION_UPDATE_PRODUCT_FAIL = 'update/product/fail'
 
+export const ACTION_CREATE_PRODUCT_SUCCESS = 'create/product/success'
+
 export const ACTION_CHANGE_PRODUCT_FIELD = 'change/product/field'
 export const ACTION_RESET_PRODUCT = 'reset/product'
 
@@ -46,6 +48,12 @@ const updateProductLoading = () => {
 const updateProductSuccess = (model) => {
     return {
         type: ACTION_UPDATE_PRODUCT_SUCCESS,
+        model: model
+    }
+}
+const createProductSuccess = (model) => {
+    return {
+        type: ACTION_CREATE_PRODUCT_SUCCESS,
         model: model
     }
 }
@@ -116,7 +124,7 @@ export const createProduct = (model) => {
         axios.post(`/api/v1/product/`, json)
             .then(response => {
                 const data = response.data
-                dispatch(updateProductSuccess(data.data))
+                dispatch(createProductSuccess(data.data))
 
             })
             .catch(error => {

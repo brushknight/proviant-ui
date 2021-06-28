@@ -15,7 +15,7 @@ const initialState = {
     status: STATUS_DEFAULT,
     error: null,
     createForm:{
-        title: null
+        title: ""
     }
 };
 
@@ -58,7 +58,7 @@ export default function(state = initialState, action) {
                 status: STATUS_LOADED,
                 error: null,
                 createForm: {
-                    title: null
+                    title: ""
                 }
             }
         default:

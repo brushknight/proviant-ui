@@ -1,5 +1,5 @@
 import {
-    ACTION_CHANGE_PRODUCT_FIELD,
+    ACTION_CHANGE_PRODUCT_FIELD, ACTION_CREATE_PRODUCT_SUCCESS,
     ACTION_FETCH_PRODUCT_FAIL,
     ACTION_FETCH_PRODUCT_LOADING,
     ACTION_FETCH_PRODUCT_NOT_FOUND,
@@ -12,6 +12,7 @@ import {
 export const STATUS_LOADING = "loading"
 export const STATUS_UPDATED = "updated"
 export const STATUS_LOADED = "loaded"
+export const STATUS_CREATED = "created"
 export const STATUS_ERROR = "error"
 export const STATUS_NOT_FOUND = "not_found"
 export const STATUS_DEFAULT = "default"
@@ -28,16 +29,16 @@ export const PRODUCT_FIELD_LIST_ID = 'list_id'
 export const PRODUCT_FIELD_LIST = 'list'
 
 const emptyModel = {
-    id: null,
-    title: null,
-    description: null,
-    link: null,
-    image: null,
-    barcode: null,
+    id: "",
+    title: "",
+    description: "",
+    link: "",
+    image: "",
+    barcode: "",
     category_ids: [],
     categories: [],
-    list_id: null,
-    list: null,
+    list_id: "",
+    list: "",
 }
 
 const initialState = {
@@ -108,6 +109,14 @@ export default function (state = initialState, action) {
                 formStatus: STATUS_UPDATED,
                 error: null,
                 status: STATUS_DEFAULT,
+                model: action.model
+            }
+        case ACTION_CREATE_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                formStatus: STATUS_CREATED,
+                error: null,
+                status: STATUS_CREATED,
                 model: action.model
             }
         case ACTION_CHANGE_PRODUCT_FIELD:

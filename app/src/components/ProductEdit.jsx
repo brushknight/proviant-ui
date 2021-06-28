@@ -23,7 +23,7 @@ import {
     PRODUCT_FIELD_IMAGE,
     PRODUCT_FIELD_LINK,
     PRODUCT_FIELD_LIST,
-    PRODUCT_FIELD_TITLE,
+    PRODUCT_FIELD_TITLE, STATUS_CREATED,
     STATUS_NOT_FOUND
 } from "../redux/reducers/product";
 import Select from 'react-select'
@@ -37,7 +37,9 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
     }
 
     useEffect(() => {
-        if (isNaN(Number(id))) {
+        if (id === 'new'){
+            resetProduct()
+        }else if (isNaN(Number(id))) {
             resetProduct()
         }else{
             fetchProduct(id)
@@ -73,6 +75,11 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
         history.push("/product/" + product.model.id);
     }
 
+    // // model just got created
+    if (product.status === STATUS_CREATED && product.model.id > 0 && id === "new"){
+        history.push("/product/" + product.model.id);
+    }
+
     const textLinkToShop = <Tag minimal={true}>Link to shop</Tag>;
     const textLinkToPicture = <Tag minimal={true}>Link to picture</Tag>;
     const textBarcode = <Tag minimal={true}>Barcode</Tag>;
@@ -83,7 +90,7 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
         controls.push(<Button icon={'tick'} minimal={true} onClick={() => {
             updateProduct(product.model)
         }} intent={Intent.SUCCESS}>Save</Button>)
-        controls.push(<Button icon={'undo'} minimal={true} onClick={onCancelHandler}>Cancel</Button>)
+        controls.push(<Button icon={'undo'} minimal={true} onClick={onCancelHandler}>Back to product</Button>)
     } else {
         controls.push(<Button icon={'tick'} minimal={true} onClick={() => {
             createProduct(product.model)
@@ -208,7 +215,7 @@ const mapDispatchToProps = dispatch => {
         fetchProduct: (id) => dispatch(fetchProduct(id)),
         updateProduct: (model) => dispatch(updateProduct(model)),
         createProduct: (model) => dispatch(createProduct(model)),
-        resetProduct: (model) => dispatch(resetProduct(model)),
+        resetProduct: () => dispatch(resetProduct()),
         change: {
             title: (value) => dispatch(changeProductField(PRODUCT_FIELD_TITLE, value)),
             description: (value) => dispatch(changeProductField(PRODUCT_FIELD_DESCRIPTION, value)),

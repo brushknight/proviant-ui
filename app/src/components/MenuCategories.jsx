@@ -49,6 +49,7 @@ const MenuCategories= ({categories, fetchCategories, createCategory, changeCreat
         placeholder="New Category"
         icon={"tag"}
         onChange={changeCreateCategoryForm}
+        value={categories.createForm.title}
         onSubmit={() => {
             createCategory(categories.createForm.title)
         }
