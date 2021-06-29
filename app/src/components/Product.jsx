@@ -1,16 +1,19 @@
 import * as React from "react";
 import ProductDetails from "./ProductDetails";
 import StockList from "./StockList";
+import {useHistory, useParams} from "react-router-dom";
 
-class Product extends React.Component {
-    render() {
-        return (
-            <div className="content">
-                <ProductDetails/>
-                <StockList/>
-            </div>
-        );
-    }
+const Product = () => {
+
+    const history = useHistory();
+    let {id} = useParams();
+
+    return (
+        <div className="content">
+            <ProductDetails productId={id}/>
+            <StockList productId={id}/>
+        </div>
+    );
 }
 
 export default Product

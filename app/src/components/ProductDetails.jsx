@@ -2,19 +2,18 @@ import * as React from "react";
 import {connect} from 'react-redux'
 import {getProduct} from "../redux/selectors";
 import {Button, ButtonGroup, Callout, Intent, NonIdealState, Spinner, Tag} from "@blueprintjs/core";
-import {useParams} from "react-router-dom";
 import {fetchProduct} from "../redux/actions/product";
 import {useEffect} from "react";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
 import {STATUS_NOT_FOUND} from "../redux/reducers/product";
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 
-const ProductDetails = ({product, fetchProduct}) => {
+const ProductDetails = ({productId, product, fetchProduct}) => {
     const history = useHistory();
-    let {id} = useParams();
+
     useEffect(() => {
-        fetchProduct(id)
+        fetchProduct(productId)
     }, [])
 
     if (product.status === STATUS_LOADING) {
@@ -79,9 +78,10 @@ const ProductDetails = ({product, fetchProduct}) => {
     </section>
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     const product = getProduct(state);
-    return {product};
+    const productId = ownProps.productId
+    return {productId, product};
 };
 
 const mapDispatchToProps = dispatch => {

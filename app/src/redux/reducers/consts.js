@@ -1,0 +1,5 @@
+export const STATUS_LOADING = "loading"
+export const STATUS_LOADED = "loaded"
+export const STATUS_ERROR = "error"
+export const STATUS_DEFAULT = "default"
+export const STATUS_NOT_FOUND = "not_found"
