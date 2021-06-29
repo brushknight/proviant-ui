@@ -1,14 +1,16 @@
 import * as React from "react";
+import {useEffect} from "react";
 import StockListRow from "./StockListRow";
-import {Button, Callout, FormGroup, Intent, NonIdealState, NumericInput, Spinner} from "@blueprintjs/core";
+import {Button, Callout, FormGroup, Icon, Intent, NumericInput, Spinner, SpinnerSize, Tag} from "@blueprintjs/core";
 import {DateInput} from "@blueprintjs/datetime";
-import {fetchStock} from "../redux/actions/stock";
+import {addStock, fetchStock, stockAddFormFieldChanged} from "../redux/actions/stock";
 import {getStock} from "../redux/selectors";
 import {connect} from "react-redux";
-import {useEffect} from "react";
-import {STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND} from "../redux/reducers/consts";
+import {STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS} from "../redux/reducers/consts";
+import {STOCK_ADD_FORM_DATE, STOCK_ADD_FORM_QUANTITY} from "../redux/reducers/stock";
+import {unixToDate} from "../utils/date";
 
-const StockList = ({productId, stock, fetchStock}) => {
+const StockList = ({productId, stock, fetchStock, stockAddFormFieldChanged, addStock}) => {
 
     useEffect(() => {
         fetchStock(productId)
@@ -18,12 +20,16 @@ const StockList = ({productId, stock, fetchStock}) => {
 
     const jsDateFormatter = {
         // note that the native implementation of Date functions differs between browsers
-        formatDate: date => date.toLocaleDateString(),
+        formatDate: date => unixToDate(date),
         parseDate: str => new Date(str),
-        placeholder: "M/D/YYYY",
+        placeholder: "DD/MM/YYYY",
+        value: stock.addForm.date,
+        onChange: (date) => {
+            stockAddFormFieldChanged(STOCK_ADD_FORM_DATE, date)
+        }
     };
 
-    if (stock.status === STATUS_LOADING){
+    if (stock.status === STATUS_LOADING) {
         return (
             <section>
                 <Spinner/>
@@ -31,10 +37,11 @@ const StockList = ({productId, stock, fetchStock}) => {
         )
     }
 
-    if (stock.status === STATUS_ERROR){
+    if (stock.status === STATUS_ERROR) {
         return (
             <section>
-                <Callout intent={Intent.DANGER} title={"Something went wrong with stock fetching"}>{stock.error}</Callout>
+                <Callout intent={Intent.DANGER}
+                         title={"Something went wrong with stock fetching"}>{stock.error}</Callout>
             </section>
         )
     }
@@ -47,9 +54,47 @@ const StockList = ({productId, stock, fetchStock}) => {
 
     if (stock.items.length === 0) {
         stockList = <Callout title={"No stock found for this product"}/>
-    }else{
+    } else {
         stockList = stock.items.map(item => <StockListRow item={item}/>)
     }
+
+
+    let addStockFormError
+
+    if (stock.addForm.status === STATUS_ERROR) {
+        addStockFormError = <Callout icon={null} intent={Intent.DANGER}>{stock.addForm.error}</Callout>
+    }
+
+    let addStockFormLoading
+
+    if (stock.addForm.status === STATUS_LOADING) {
+        addStockFormLoading = <Spinner size={SpinnerSize.SMALL}/>
+    }
+
+    let addStockFormSuccess
+
+    if (stock.addForm.status === STATUS_SUCCESS) {
+        addStockFormSuccess = <Tag intent={Intent.SUCCESS} large={true} minimal={true}><Icon icon={"tick"}/></Tag>
+    }
+
+    let addStockForm = <div>
+        <h3>Add new stock</h3>
+        {addStockFormError}
+        <FormGroup label={"Quantity"} inline={true}>
+            <NumericInput
+                min={0}
+                value={stock.addForm.quantity}
+                onValueChange={value => stockAddFormFieldChanged(STOCK_ADD_FORM_QUANTITY, value)}
+            />
+        </FormGroup>
+        <FormGroup label={"Expires"} inline={true}>
+            <DateInput {...jsDateFormatter} />
+        </FormGroup>
+        <Button icon={"flame"} text={"Add stock"} onClick={() => {
+            addStock(productId, stock.addForm)
+        }}/> {addStockFormLoading} {addStockFormSuccess}
+    </div>
+
 
     return (
         <section>
@@ -60,16 +105,7 @@ const StockList = ({productId, stock, fetchStock}) => {
                 </FormGroup>
                 <Button icon={"flame"} text={"Consume"}/>
             </div>
-            <div>
-                <h3>Add new stock</h3>
-                <FormGroup label={"Quantity"} inline={true}>
-                    <NumericInput min={0}/>
-                </FormGroup>
-                <FormGroup label={"Expires"} inline={true}>
-                    <DateInput {...jsDateFormatter} />
-                </FormGroup>
-                <Button icon={"flame"} text={"Add stock"}/>
-            </div>
+            {addStockForm}
             <h3>In stock</h3>
             {stockList}
         </section>
@@ -87,7 +123,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchStock: (productId) => dispatch(fetchStock(productId))
+        fetchStock: (productId) => dispatch(fetchStock(productId)),
+        stockAddFormFieldChanged: (field, value) => dispatch(stockAddFormFieldChanged(field, value)),
+        addStock: (productId, addStockForm) => dispatch(addStock(productId, addStockForm))
     }
 }
 

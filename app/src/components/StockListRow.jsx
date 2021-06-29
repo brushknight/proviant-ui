@@ -1,5 +1,6 @@
 import * as React from "react";
 import {Button, Intent} from "@blueprintjs/core";
+import {unixToDate} from "../utils/date";
 
 const StockListRow = (props) => {
 
@@ -11,17 +12,6 @@ const StockListRow = (props) => {
             <Button icon={"delete"} minimal={true} intent={Intent.DANGER} text={"Delete entry"}/>
         </div>
     );
-}
-
-const unixToDate = (date) => {
-
-    console.log(date)
-
-    const day = date.getDate()
-    const month = date.getMonth() + 1
-    const year = date.getFullYear()
-
-    return `${day}/${month}/${year}`
 }
 
 export default StockListRow
