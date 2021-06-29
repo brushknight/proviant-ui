@@ -1,10 +1,10 @@
-import {Button, Callout, InputGroup, Intent} from "@blueprintjs/core";
+import {Button, Callout, InputGroup, Intent, Spinner, SpinnerSize} from "@blueprintjs/core";
 import * as React from "react";
-import {STATUS_ERROR} from "../redux/reducers/lists";
+import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
 
 export const MenuCreateForm = (props) => {
 
-    const addButton = (
+    let button = (
         <Button
             minimal={true}
             icon="plus"
@@ -20,10 +20,14 @@ export const MenuCreateForm = (props) => {
         errorCallout = <Callout intent={Intent.DANGER} icon={null}>{props.error}</Callout>
     }
 
+    if (props.status === STATUS_LOADING){
+        button = <Spinner size={SpinnerSize.SMALL}/>
+    }
+
     return <div>
         <InputGroup
             placeholder={props.placeholder}
-            rightElement={addButton}
+            rightElement={button}
             leftIcon={props.icon}
             value={props.value}
             intent={intent}

@@ -29,7 +29,7 @@ export const PRODUCT_FIELD_LIST_ID = 'list_id'
 export const PRODUCT_FIELD_LIST = 'list'
 
 const emptyModel = {
-    id: "",
+    id: 0,
     title: "",
     description: "",
     link: "",

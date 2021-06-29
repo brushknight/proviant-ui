@@ -1,6 +1,6 @@
 import {
     ACTION_CHANGE_CREATE_LIST_FORM,
-    ACTION_CREATE_LIST_FAIL,
+    ACTION_CREATE_LIST_FAIL, ACTION_CREATE_LIST_LOADING,
     ACTION_CREATE_LIST_SUCCESS,
     ACTION_FETCH_LIST_FAIL,
     ACTION_FETCH_LIST_LOADING,
@@ -64,6 +64,16 @@ export default function (state = initialState, action) {
                 status: STATUS_LOADED,
                 error: null,
                 createForm: emptyCreateForm
+            }
+        case ACTION_CREATE_LIST_LOADING:
+            let createFormLoading = state.createForm
+            createFormLoading.status = STATUS_LOADING
+
+            return {
+                ...state,
+                status: STATUS_DEFAULT,
+                error: null,
+                createForm: createFormLoading
             }
         case ACTION_CREATE_LIST_FAIL:
 

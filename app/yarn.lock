@@ -937,6 +937,17 @@
     "resize-observer-polyfill" "^1.5.1"
     "tslib" "~1.13.0"
 
+"@blueprintjs/datetime@^3.23.5":
+  "integrity" "sha512-akSG8xzF3rk4tuLav5woqMK7hwmINiwRCCzG9hZfUtLLBhhcKXHRPKIore2a83YJSNyjNG4DmRtTgy8W5XnUuQ=="
+  "resolved" "https://registry.npmjs.org/@blueprintjs/datetime/-/datetime-3.23.5.tgz"
+  "version" "3.23.5"
+  dependencies:
+    "@blueprintjs/core" "^3.46.0"
+    "classnames" "^2.2"
+    "react-day-picker" "7.4.9"
+    "react-lifecycles-compat" "^3.0.4"
+    "tslib" "~1.13.0"
+
 "@blueprintjs/icons@^3.27.0":
   "integrity" "sha512-ItRioyrr2s70chclj5q38HS9omKOa15b3JZXv9JcMIFz+6w6rAcoAH7DA+5xIs27bFjax/SdAZp/eYXSw0+QpA=="
   "resolved" "https://registry.npmjs.org/@blueprintjs/icons/-/icons-3.27.0.tgz"
@@ -3966,6 +3977,13 @@
     "iconv-lite" "0.4.24"
     "unpipe" "1.0.0"
 
+"react-day-picker@7.4.9":
+  "integrity" "sha512-CcXf0p7p6gTYnG0+n/4wNGljZuQDXl4HhgcxsXB0nX+8D4LnRho9EclPA/aLz4WlvvVpfY+AEgj2ylgPj4nm/g=="
+  "resolved" "https://registry.npmjs.org/react-day-picker/-/react-day-picker-7.4.9.tgz"
+  "version" "7.4.9"
+  dependencies:
+    "prop-types" "^15.6.2"
+
 "react-dom@^15.0.0 || ^16.0.0 || ^17.0.0 ", "react-dom@^15.3.0 || 16 || 17", "react-dom@^16.7.0", "react-dom@^16.8.0 || ^17.0.0", "react-dom@>=16.6.0":
   "integrity" "sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-16.14.0.tgz"
@@ -4084,7 +4102,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0 || ^16.0.0 || ^17.0.0 ", "react@^15.3.0 || 16 || 17", "react@^16.14.0", "react@^16.14.0 || ^17.0.0", "react@^16.3.0 || ^17.0.0", "react@^16.7.0", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@>=15", "react@>=16.6.0", "react@>=16.8.0":
+"react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0 || ^16.0.0 || ^17.0.0 ", "react@^15.3.0 || 16 || 17", "react@^16.14.0", "react@^16.14.0 || ^17.0.0", "react@^16.3.0 || ^17.0.0", "react@^16.7.0", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@>=15", "react@>=16.6.0", "react@>=16.8.0", "react@~0.13.x || ~0.14.x || ^15.0.0 || ^16.0.0 || ^17.0.0":
   "integrity" "sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.14.0.tgz"
   "version" "16.14.0"

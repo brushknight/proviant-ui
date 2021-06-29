@@ -3,13 +3,12 @@ import {Provider} from 'react-redux'
 import store from "../redux/store";
 import MenuLists from "./MenuLists";
 import MenuCategories from "./MenuCategories";
-import MenuSettings from "./MenuSettings";
 import BreadCrumbs from "./BreadCrumbs";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import Product from "./Product";
 import ProductsList from "./ProductsList";
 import ProductEdit from "./ProductEdit";
 import MenuAddProduct from "./MenuAddProduct";
+import Product from "./Product";
 
 const App = () => {
     return <Router>

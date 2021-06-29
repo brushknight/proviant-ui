@@ -1,6 +1,6 @@
 import {
     ACTION_CHANGE_CREATE_CATEGORY_FORM,
-    ACTION_CREATE_CATEGORY_FAIL,
+    ACTION_CREATE_CATEGORY_FAIL, ACTION_CREATE_CATEGORY_LOADING,
     ACTION_CREATE_CATEGORY_SUCCESS,
     ACTION_FETCH_CATEGORIES_FAIL,
     ACTION_FETCH_CATEGORIES_LOADING,
@@ -64,6 +64,16 @@ export default function (state = initialState, action) {
                 status: STATUS_LOADED,
                 error: null,
                 createForm: emptyCreateForm
+            }
+        case ACTION_CREATE_CATEGORY_LOADING:
+            let createFormLoading = state.createForm
+            createFormLoading.status = STATUS_LOADING
+
+            return {
+                ...state,
+                status: STATUS_DEFAULT,
+                error: null,
+                createForm: createFormLoading
             }
         case ACTION_CREATE_CATEGORY_FAIL:
 
