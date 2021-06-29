@@ -1,11 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 
 module.exports = {
     // entry: ['react-hot-loader/patch', './src'],
     entry: path.resolve(__dirname, './src/index.js'),
+    target: 'web',
     module: {
         rules: [
             {
@@ -46,13 +46,13 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: 'bundle.js',
     },
     devServer: {
         contentBase: path.resolve(__dirname, './dist'),
         historyApiFallback: true,
         disableHostCheck: true,
         port: 9000,
+        hot: true,
         proxy: {
             '/api': 'http://127.0.0.1:8080/',
         }
@@ -61,11 +61,9 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             "process.env": "{}",
-            global: {}
         }),
         new HtmlWebpackPlugin({
             template: 'src/index.html'
         }),
-        new CleanWebpackPlugin()
     ]
 };
