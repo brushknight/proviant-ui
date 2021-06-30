@@ -1,22 +1,21 @@
 import axios from "axios";
+import {
+    ACTION_CHANGE_PRODUCT_FIELD,
+    ACTION_CREATE_PRODUCT_SUCCESS,
+    ACTION_DELETE_PRODUCT_FAIL,
+    ACTION_DELETE_PRODUCT_LOADING,
+    ACTION_DELETE_PRODUCT_SUCCESS,
+    ACTION_FETCH_PRODUCT_FAIL, ACTION_FETCH_PRODUCT_FORM_SUCCESS,
+    ACTION_FETCH_PRODUCT_LOADING,
+    ACTION_FETCH_PRODUCT_NOT_FOUND,
+    ACTION_FETCH_PRODUCT_SUCCESS,
+    ACTION_RESET_PRODUCT,
+    ACTION_UPDATE_PRODUCT_FAIL,
+    ACTION_UPDATE_PRODUCT_LOADING,
+    ACTION_UPDATE_PRODUCT_SUCCESS
+} from "./const";
 
-export const ACTION_FETCH_PRODUCT_SUCCESS = 'fetch/product/success'
-export const ACTION_FETCH_PRODUCT_FAIL = 'fetch/product/fail'
-export const ACTION_FETCH_PRODUCT_NOT_FOUND = 'fetch/product/not_found'
-export const ACTION_FETCH_PRODUCT_LOADING = 'fetch/product/loading'
 
-export const ACTION_UPDATE_PRODUCT_LOADING = 'update/product/loading'
-export const ACTION_UPDATE_PRODUCT_SUCCESS = 'update/product/success'
-export const ACTION_UPDATE_PRODUCT_FAIL = 'update/product/fail'
-
-export const ACTION_CREATE_PRODUCT_SUCCESS = 'create/product/success'
-
-export const ACTION_CHANGE_PRODUCT_FIELD = 'change/product/field'
-export const ACTION_RESET_PRODUCT = 'reset/product'
-
-export const ACTION_DELETE_PRODUCT_LOADING = 'delete/product/loading'
-export const ACTION_DELETE_PRODUCT_SUCCESS = 'delete/product/success'
-export const ACTION_DELETE_PRODUCT_FAIL = 'delete/product/fail'
 
 const fetchProductLoading = () => {
     return {
@@ -40,6 +39,12 @@ const fetchProductNotFound = error => {
 const fetchProductSuccess = model => {
     return {
         type: ACTION_FETCH_PRODUCT_SUCCESS,
+        model: model
+    }
+}
+const fetchProductFormSuccess = model => {
+    return {
+        type: ACTION_FETCH_PRODUCT_FORM_SUCCESS,
         model: model
     }
 }
@@ -68,6 +73,25 @@ const updateProductFail = (error) => {
     }
 }
 
+const deleteProductSuccess = (model) => {
+    return {
+        type: ACTION_DELETE_PRODUCT_SUCCESS,
+        model: model
+    }
+}
+const deleteProductFail = (error) => {
+    return {
+        type: ACTION_DELETE_PRODUCT_FAIL,
+        error: error
+    }
+}
+
+const deleteProductLoading = () => {
+    return {
+        type: ACTION_DELETE_PRODUCT_LOADING,
+    }
+}
+
 export const changeProductField = (field, value) => {
     return {
         type: ACTION_CHANGE_PRODUCT_FIELD,
@@ -77,12 +101,13 @@ export const changeProductField = (field, value) => {
 }
 
 export const resetProduct = () => {
+    console.log("resetProduct")
     return {
         type: ACTION_RESET_PRODUCT
     }
 }
 
-export const fetchProduct = (id) => {
+export const fetchProduct = (id, isForm) => {
     return (dispatch) => {
         dispatch(fetchProductLoading())
         axios.get("/api/v1/product/" + id + "/", {
@@ -90,7 +115,11 @@ export const fetchProduct = (id) => {
         })
             .then(response => {
                 const data = response.data
-                dispatch(fetchProductSuccess(data.data))
+                if (isForm){
+                    dispatch(fetchProductFormSuccess(data.data))
+                }else{
+                    dispatch(fetchProductSuccess(data.data))
+                }
             })
             .catch(error => {
                 const errorMsq = error.message
@@ -140,25 +169,6 @@ export const createProduct = (model) => {
                     dispatch(updateProductFail(errorMsq))
                 }
             })
-    }
-}
-
-const deleteProductSuccess = (model) => {
-    return {
-        type: ACTION_DELETE_PRODUCT_SUCCESS,
-        model: model
-    }
-}
-const deleteProductFail = (error) => {
-    return {
-        type: ACTION_DELETE_PRODUCT_FAIL,
-        error: error
-    }
-}
-
-const deleteProductLoading = () => {
-    return {
-        type: ACTION_DELETE_PRODUCT_LOADING,
     }
 }
 

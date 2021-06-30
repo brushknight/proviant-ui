@@ -1,14 +1,13 @@
 import axios from "axios";
+import {
+    ACTION_CHANGE_CREATE_LIST_FORM,
+    ACTION_CREATE_LIST_FAIL,
+    ACTION_CREATE_LIST_LOADING, ACTION_CREATE_LIST_SUCCESS,
+    ACTION_FETCH_LIST_FAIL,
+    ACTION_FETCH_LIST_LOADING,
+    ACTION_FETCH_LIST_SUCCESS
+} from "./const";
 
-export const ACTION_FETCH_LIST_SUCCESS = 'fetch/list/success'
-export const ACTION_FETCH_LIST_FAIL = 'fetch/list/fail'
-export const ACTION_FETCH_LIST_LOADING = 'fetch/list/loading'
-
-export const ACTION_CREATE_LIST_SUCCESS = 'create/list/success'
-export const ACTION_CREATE_LIST_FAIL = 'create/list/fail'
-export const ACTION_CREATE_LIST_LOADING = 'create/list/loading'
-
-export const ACTION_CHANGE_CREATE_LIST_FORM = 'change/create-list-form'
 
 const fetchListLoading = () => {
     return {

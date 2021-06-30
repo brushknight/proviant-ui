@@ -1,8 +1,8 @@
 import * as React from "react";
-import {Button, Callout, Classes, InputGroup, Intent, Menu, MenuDivider, MenuItem, Spinner} from "@blueprintjs/core";
+import {Callout, Classes, Intent, Menu, MenuDivider, MenuItem, Spinner} from "@blueprintjs/core";
 import {connect} from 'react-redux'
 import {getCategories} from "../redux/selectors";
-import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
+import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/consts";
 import {changeCreateCategoryForm, createCategory, fetchCategories} from "../redux/actions/categories";
 import {useEffect} from "react";
 import {MenuCreateForm} from "./MenuCreateForm";

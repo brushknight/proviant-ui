@@ -5,12 +5,8 @@ import {
     ACTION_FETCH_LIST_FAIL,
     ACTION_FETCH_LIST_LOADING,
     ACTION_FETCH_LIST_SUCCESS
-} from "../actions/lists";
-
-export const STATUS_LOADING = "loading"
-export const STATUS_LOADED = "loaded"
-export const STATUS_ERROR = "error"
-export const STATUS_DEFAULT = "default"
+} from "../actions/const";
+import {STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING} from "./consts";
 
 let emptyCreateForm = {
     title: "",

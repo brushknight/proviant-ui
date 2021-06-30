@@ -4,10 +4,9 @@ import {Callout, Classes, Intent, Menu, MenuDivider, MenuItem, Spinner} from "@b
 import {connect} from 'react-redux'
 import {getLists} from "../redux/selectors";
 import {changeCreateListForm, createList, fetchLists} from "../redux/actions/lists";
-import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
+import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/consts";
 import {MenuCreateForm} from "./MenuCreateForm";
 import {useHistory} from "react-router-dom";
-
 
 const MenuLists = ({lists, fetchLists, createList, changeCreateListForm}) => {
     const history = useHistory();

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Classes, Menu, MenuDivider, MenuItem} from "@blueprintjs/core";
+import {Classes, Menu, MenuItem} from "@blueprintjs/core";
 
 class MenuSettings extends React.Component {
     render() {

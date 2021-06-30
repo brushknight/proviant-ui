@@ -1,13 +1,9 @@
 import {
     ACTION_FETCH_PRODUCTS_FAIL,
     ACTION_FETCH_PRODUCTS_LOADING,
-    ACTION_FETCH_PRODUCTS_SUCCESS, ACTION_FILTER_PRODUCTS
-} from "../actions/products";
-
-export const STATUS_LOADING = "loading"
-export const STATUS_LOADED = "loaded"
-export const STATUS_ERROR = "error"
-export const STATUS_DEFAULT = "default"
+    ACTION_FETCH_PRODUCTS_SUCCESS,
+} from "../actions/const";
+import {STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING} from "./consts";
 
 const initialState = {
     items: [],

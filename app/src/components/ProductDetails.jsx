@@ -4,7 +4,7 @@ import {getProduct} from "../redux/selectors";
 import {Button, ButtonGroup, Callout, Intent, NonIdealState, Spinner, Tag} from "@blueprintjs/core";
 import {deleteProduct, fetchProduct} from "../redux/actions/product";
 import {useEffect} from "react";
-import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
+import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/consts";
 import {STATUS_NOT_FOUND} from "../redux/reducers/product";
 import {useHistory} from "react-router-dom";
 import {STATUS_SUCCESS} from "../redux/reducers/consts";

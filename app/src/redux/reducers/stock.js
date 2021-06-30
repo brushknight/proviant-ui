@@ -1,4 +1,11 @@
-import {STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING, STATUS_SUCCESS} from "./consts";
+import {
+    STATUS_DEFAULT,
+    STATUS_ERROR,
+    STATUS_LOADED,
+    STATUS_LOADING,
+    STATUS_SUCCESS, STOCK_ADD_FORM_EXPIRE,
+    STOCK_ADD_FORM_QUANTITY
+} from "./consts";
 import {
     ACTION_ADD_STOCK_FAIL,
     ACTION_ADD_STOCK_LOADING,
@@ -11,9 +18,6 @@ import {
     ACTION_FETCH_STOCK_LOADING,
     ACTION_FETCH_STOCK_SUCCESS
 } from "../actions/const";
-
-export const STOCK_ADD_FORM_QUANTITY = "quantity"
-export const STOCK_ADD_FORM_EXPIRE = "expire"
 
 const emptyAddForm = {
     quantity: 0,

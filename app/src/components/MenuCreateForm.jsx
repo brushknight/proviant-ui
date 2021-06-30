@@ -1,6 +1,6 @@
 import {Button, Callout, InputGroup, Intent, Spinner, SpinnerSize} from "@blueprintjs/core";
 import * as React from "react";
-import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
+import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/consts";
 
 export const MenuCreateForm = (props) => {
 

@@ -2,7 +2,7 @@ import * as React from "react";
 import {Classes, Menu, MenuItem} from "@blueprintjs/core";
 import {useHistory} from "react-router-dom";
 
-const MenuAddProduct = ({product, fetchProduct}) => {
+const MenuAddProduct = () => {
     const history = useHistory();
 
     return (
@@ -16,7 +16,6 @@ const MenuAddProduct = ({product, fetchProduct}) => {
             }}/>
         </Menu>
     );
-
 }
 
 export default MenuAddProduct

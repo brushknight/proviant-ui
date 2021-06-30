@@ -26,7 +26,7 @@ import {
     STATUS_NOT_FOUND,
     STATUS_ERROR,
     STATUS_LOADING
-} from "../redux/reducers/product";
+} from "../redux/reducers/consts";
 import Select from 'react-select'
 
 const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, createProduct, resetProduct, change}) => {
@@ -36,6 +36,8 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
     if (id == null){
         id = 'new'
     }
+
+    console.log(id, product)
 
     useEffect(() => {
         if (id === 'new'){
@@ -48,13 +50,13 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
 
     }, [id])
 
-    if (product.status === STATUS_LOADING) {
+    if (product.form.status === STATUS_LOADING) {
         return <section className="content">
             <Spinner/>
         </section>
     }
 
-    if (product.status === STATUS_ERROR) {
+    if (product.form.status === STATUS_ERROR) {
         return <section className="content">
             <Callout title={"oops... something went wrong"} intent={Intent.DANGER}>
                 {product.error}
@@ -62,7 +64,7 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
         </section>
     }
 
-    if (product.status === STATUS_NOT_FOUND) {
+    if (product.form.status === STATUS_NOT_FOUND) {
         return <section className="content">
             <NonIdealState
                 title={'Product not found'}
@@ -77,7 +79,7 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
     }
 
     // // model just got created
-    if (product.status === STATUS_CREATED && product.model.id > 0 && id === "new"){
+    if (product.form.status === STATUS_CREATED && product.model.id > 0 && id === "new"){
         history.push("/product/" + product.model.id);
     }
 
@@ -87,14 +89,14 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
 
     let controls = []
 
-    if (product.model.id > 0) {
+    if (product.form.model.id > 0) {
         controls.push(<Button icon={'tick'} minimal={true} onClick={() => {
-            updateProduct(product.model)
+            updateProduct(product.form.model)
         }} intent={Intent.SUCCESS}>Save</Button>)
         controls.push(<Button icon={'undo'} minimal={true} onClick={onCancelHandler}>Back to product</Button>)
     } else {
         controls.push(<Button icon={'tick'} minimal={true} onClick={() => {
-            createProduct(product.model)
+            createProduct(product.form.model)
         }} intent={Intent.SUCCESS}>save new product</Button>)
     }
 
@@ -116,16 +118,16 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
 
     let categoriesSelected = []
 
-    if (product.model.categories != null) {
-        categoriesSelected = product.model.categories.map((item) => {
+    if (product.form.model.categories != null) {
+        categoriesSelected = product.form.model.categories.map((item) => {
             return convertCategoryToValue(item)
         })
     }
 
     let errorCallout
 
-    if (product.formStatus === STATUS_ERROR) {
-        errorCallout = <Callout icon={null} intent={Intent.DANGER}>{product.formError}</Callout>
+    if (product.form.status === STATUS_ERROR) {
+        errorCallout = <Callout icon={null} intent={Intent.DANGER}>{product.form.error}</Callout>
     }
 
     return <section className="content">
@@ -134,13 +136,13 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
             {controls}
 
         </ButtonGroup>
-        <img src={product.model.image} alt={product.model.title} width={100} height={100}/>
+        <img src={product.form.model.image} alt={product.form.model.title} width={100} height={100}/>
         <h1>
             <EditableText
                 multiline={false}
                 minLines={1}
                 maxLines={1}
-                value={product.model.title}
+                value={product.form.model.title}
                 onChange={(value) => {
                     change.title(value)
                 }}
@@ -150,7 +152,7 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
             multiline={true}
             minLines={3}
             maxLines={100}
-            value={product.model.description}
+            value={product.form.model.description}
             onChange={(value) => {
                 change.description(value)
             }}
@@ -158,7 +160,7 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
         <InputGroup
             fill={true}
             leftElement={textLinkToShop}
-            value={product.model.link}
+            value={product.form.model.link}
             onChange={(event) => {
                 change.link(event.target.value)
             }}
@@ -166,7 +168,7 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
         <InputGroup
             fill={true}
             leftElement={textLinkToPicture}
-            value={product.model.image}
+            value={product.form.model.image}
             onChange={(event) => {
                 change.image(event.target.value)
             }}
@@ -174,7 +176,7 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
         <InputGroup
             fill={true}
             leftElement={textBarcode}
-            value={product.model.barcode}
+            value={product.form.model.barcode}
             onChange={(event) => {
                 change.barcode(event.target.value)
             }}
@@ -188,7 +190,7 @@ const ProductEdit = ({product, lists, categories, fetchProduct, updateProduct, c
                     lists.items.find(item => item.id === event.value)
                 )
             }}
-            value={product.model.list ? convertListToValue(product.model.list) : null}
+            value={product.form.model.list ? convertListToValue(product.form.model.list) : null}
             className={'change_me-product-list-select'}
         />
         <Select
@@ -219,7 +221,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchProduct: (id) => dispatch(fetchProduct(id)),
+        fetchProduct: (id) => dispatch(fetchProduct(id, true)),
         updateProduct: (model) => dispatch(updateProduct(model)),
         createProduct: (model) => dispatch(createProduct(model)),
         resetProduct: () => dispatch(resetProduct()),

@@ -39,8 +39,61 @@ const fetchStockNotFound = (error) => {
     }
 }
 
-export const stockAddFormFieldChanged = (field, value) => {
+const addStockLoading = () => {
+    return {
+        type: ACTION_ADD_STOCK_LOADING
+    }
+}
+const addStockSuccess = (item) => {
+    return {
+        type: ACTION_ADD_STOCK_SUCCESS,
+        item: item
+    }
+}
+const addStockFail = (error) => {
+    return {
+        type: ACTION_ADD_STOCK_FAIL,
+        error: error
+    }
+}
 
+const deleteStockLoading = () => {
+    return {
+        type: ACTION_DELETE_STOCK_LOADING
+    }
+}
+const deleteStockSuccess = (items) => {
+    return {
+        type: ACTION_DELETE_STOCK_SUCCESS,
+        items: items
+    }
+}
+const deleteStockFail = (error) => {
+    return {
+        type: ACTION_DELETE_STOCK_FAIL,
+        error: error
+    }
+}
+
+const consumeStockLoading = () => {
+    return {
+        type: ACTION_CONSUME_STOCK_LOADING
+    }
+}
+const consumeStockSuccess = (items) => {
+    return {
+        type: ACTION_CONSUME_STOCK_SUCCESS,
+        items: items
+    }
+}
+const consumeStockFail = (error) => {
+    return {
+        type: ACTION_CONSUME_STOCK_FAIL,
+        error: error
+    }
+}
+
+export const stockAddFormFieldChanged = (field, value) => {
     return {
         type: ACTION_CHANGE_STOCK_ADD_FORM_FIELD,
         field: field,
@@ -49,7 +102,6 @@ export const stockAddFormFieldChanged = (field, value) => {
 }
 
 export const stockConsumeFormFieldChanged = (value) => {
-
     return {
         type: ACTION_CHANGE_STOCK_CONSUME_FORM_FIELD,
         value: value,
@@ -73,24 +125,6 @@ export const fetchStock = (productId) => {
                     dispatch(fetchStockFail(error.message))
                 }
             })
-    }
-}
-
-const addStockLoading = () => {
-    return {
-        type: ACTION_ADD_STOCK_LOADING
-    }
-}
-const addStockSuccess = (item) => {
-    return {
-        type: ACTION_ADD_STOCK_SUCCESS,
-        item: item
-    }
-}
-const addStockFail = (error) => {
-    return {
-        type: ACTION_ADD_STOCK_FAIL,
-        error: error
     }
 }
 
@@ -121,25 +155,6 @@ export const addStock = (productId, addStockForm) => {
     }
 }
 
-
-const consumeStockLoading = () => {
-    return {
-        type: ACTION_CONSUME_STOCK_LOADING
-    }
-}
-const consumeStockSuccess = (items) => {
-    return {
-        type: ACTION_CONSUME_STOCK_SUCCESS,
-        items: items
-    }
-}
-const consumeStockFail = (error) => {
-    return {
-        type: ACTION_CONSUME_STOCK_FAIL,
-        error: error
-    }
-}
-
 export const consumeStock = (productId, consumeStockForm) => {
 
     const dto = {
@@ -162,24 +177,6 @@ export const consumeStock = (productId, consumeStockForm) => {
                     dispatch(consumeStockFail( error.message))
                 }
             })
-    }
-}
-
-const deleteStockLoading = () => {
-    return {
-        type: ACTION_DELETE_STOCK_LOADING
-    }
-}
-const deleteStockSuccess = (items) => {
-    return {
-        type: ACTION_DELETE_STOCK_SUCCESS,
-        items: items
-    }
-}
-const deleteStockFail = (error) => {
-    return {
-        type: ACTION_DELETE_STOCK_FAIL,
-        error: error
     }
 }
 

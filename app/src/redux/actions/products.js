@@ -1,8 +1,5 @@
 import axios from "axios";
-
-export const ACTION_FETCH_PRODUCTS_SUCCESS = 'fetch/products/success'
-export const ACTION_FETCH_PRODUCTS_FAIL = 'fetch/products/fail'
-export const ACTION_FETCH_PRODUCTS_LOADING = 'fetch/products/loading'
+import {ACTION_FETCH_PRODUCTS_FAIL, ACTION_FETCH_PRODUCTS_LOADING, ACTION_FETCH_PRODUCTS_SUCCESS} from "./const";
 
 const fetchProductLoading = () => {
     return {

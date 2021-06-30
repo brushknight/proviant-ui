@@ -1,14 +1,14 @@
 import axios from "axios";
+import {
+    ACTION_CREATE_CATEGORY_FAIL,
+    ACTION_CREATE_CATEGORY_LOADING, ACTION_CREATE_CATEGORY_SUCCESS,
+    ACTION_FETCH_CATEGORIES_FAIL,
+    ACTION_FETCH_CATEGORIES_LOADING,
+    ACTION_FETCH_CATEGORIES_SUCCESS
+} from "./const";
 
-export const ACTION_FETCH_CATEGORIES_SUCCESS = 'fetch/categories/success'
-export const ACTION_FETCH_CATEGORIES_FAIL = 'fetch/categories/fail'
-export const ACTION_FETCH_CATEGORIES_LOADING = 'fetch/categories/loading'
 
-export const ACTION_CREATE_CATEGORY_SUCCESS = 'create/category/success'
-export const ACTION_CREATE_CATEGORY_FAIL = 'create/category/fail'
-export const ACTION_CREATE_CATEGORY_LOADING = 'create/category/loading'
 
-export const ACTION_CHANGE_CREATE_CATEGORY_FORM = 'change/create-category-form'
 
 
 const fetchCategoriesLoading = () => {

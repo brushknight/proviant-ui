@@ -13,7 +13,7 @@ import {
 import {getStock} from "../redux/selectors";
 import {connect} from "react-redux";
 import {STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS} from "../redux/reducers/consts";
-import {STOCK_ADD_FORM_EXPIRE, STOCK_ADD_FORM_QUANTITY} from "../redux/reducers/stock";
+import {STOCK_ADD_FORM_EXPIRE, STOCK_ADD_FORM_QUANTITY} from "../redux/reducers/consts";
 import {unixToDate} from "../utils/date";
 
 const StockList = ({productId, stock, fetchStock, stockAddFormFieldChanged, stockConsumeFormFieldChanged, addStock, consumeStock, deleteStock}) => {

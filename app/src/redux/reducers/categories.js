@@ -5,12 +5,10 @@ import {
     ACTION_FETCH_CATEGORIES_FAIL,
     ACTION_FETCH_CATEGORIES_LOADING,
     ACTION_FETCH_CATEGORIES_SUCCESS
-} from "../actions/categories";
+} from "../actions/const";
+import {STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING} from "./consts";
 
-export const STATUS_LOADING = "loading"
-export const STATUS_LOADED = "loaded"
-export const STATUS_ERROR = "error"
-export const STATUS_DEFAULT = "default"
+
 
 let emptyCreateForm = {
     title: "",

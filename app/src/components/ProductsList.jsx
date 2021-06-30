@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {getCategories, getLists, getProducts} from "../redux/selectors";
 import ProductsListRow from "./ProductsListRow";
 import {fetchProducts} from "../redux/actions/products";
-import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
+import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/consts";
 import {Callout, Intent, NonIdealState, Spinner} from "@blueprintjs/core";
 import {useParams} from "react-router-dom";
 
