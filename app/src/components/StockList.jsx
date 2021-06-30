@@ -22,12 +22,9 @@ const StockList = ({productId, stock, fetchStock, stockAddFormFieldChanged, stoc
         fetchStock(productId)
     }, [productId])
 
-    let str = "2021-07-07"
-
     const jsDateFormatter = {
         // note that the native implementation of Date functions differs between browsers
         formatDate: date => unixToDate(date),
-        parseDate: str => new Date(str),
         placeholder: "DD/MM/YYYY",
         value: stock.addForm.expire,
         onChange: (date) => {

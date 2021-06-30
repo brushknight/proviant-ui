@@ -1,13 +1,18 @@
 import {
-    ACTION_CHANGE_PRODUCT_FIELD, ACTION_CREATE_PRODUCT_SUCCESS,
+    ACTION_CHANGE_PRODUCT_FIELD,
+    ACTION_CREATE_PRODUCT_SUCCESS,
+    ACTION_DELETE_PRODUCT_FAIL,
+    ACTION_DELETE_PRODUCT_LOADING, ACTION_DELETE_PRODUCT_SUCCESS,
     ACTION_FETCH_PRODUCT_FAIL,
     ACTION_FETCH_PRODUCT_LOADING,
     ACTION_FETCH_PRODUCT_NOT_FOUND,
-    ACTION_FETCH_PRODUCT_SUCCESS, ACTION_RESET_PRODUCT,
+    ACTION_FETCH_PRODUCT_SUCCESS,
+    ACTION_RESET_PRODUCT,
     ACTION_UPDATE_PRODUCT_FAIL,
     ACTION_UPDATE_PRODUCT_LOADING,
     ACTION_UPDATE_PRODUCT_SUCCESS
 } from "../actions/product";
+import {STATUS_SUCCESS} from "./consts";
 
 export const STATUS_LOADING = "loading"
 export const STATUS_UPDATED = "updated"
@@ -46,7 +51,8 @@ const initialState = {
     formStatus: STATUS_DEFAULT,
     formError: "",
     status: STATUS_DEFAULT,
-    error: ""
+    error: "",
+    deleteStatus: STATUS_DEFAULT
 }
 
 export default function (state = initialState, action) {
@@ -59,7 +65,8 @@ export default function (state = initialState, action) {
                 status: STATUS_DEFAULT,
                 formStatus: STATUS_DEFAULT,
                 formError: "",
-                model: emptyModel
+                model: emptyModel,
+                deleteStatus: STATUS_DEFAULT
             }
         case ACTION_FETCH_PRODUCT_FAIL:
             return {
@@ -68,6 +75,7 @@ export default function (state = initialState, action) {
                 status: STATUS_ERROR,
                 formError: "",
                 formStatus: STATUS_DEFAULT,
+                deleteStatus: STATUS_DEFAULT
             }
         case ACTION_FETCH_PRODUCT_NOT_FOUND:
             return {
@@ -76,6 +84,7 @@ export default function (state = initialState, action) {
                 status: STATUS_NOT_FOUND,
                 formError: "",
                 formStatus: STATUS_DEFAULT,
+                deleteStatus: STATUS_DEFAULT
             }
         case ACTION_FETCH_PRODUCT_LOADING:
             return {
@@ -84,6 +93,7 @@ export default function (state = initialState, action) {
                 error: null,
                 formError: "",
                 formStatus: STATUS_DEFAULT,
+                deleteStatus: STATUS_DEFAULT
             }
 
         case ACTION_FETCH_PRODUCT_SUCCESS:
@@ -94,6 +104,7 @@ export default function (state = initialState, action) {
                 error: null,
                 formError: "",
                 formStatus: STATUS_DEFAULT,
+                deleteStatus: STATUS_DEFAULT
             }
         case ACTION_UPDATE_PRODUCT_LOADING:
             return {
@@ -101,7 +112,8 @@ export default function (state = initialState, action) {
                 formStatus: STATUS_LOADING,
                 error: null,
                 formError: "",
-                status: STATUS_DEFAULT
+                status: STATUS_DEFAULT,
+                deleteStatus: STATUS_DEFAULT
             }
         case ACTION_UPDATE_PRODUCT_FAIL:
             return {
@@ -109,7 +121,8 @@ export default function (state = initialState, action) {
                 formStatus: STATUS_ERROR,
                 error: "",
                 formError: action.error,
-                status: STATUS_DEFAULT
+                status: STATUS_DEFAULT,
+                deleteStatus: STATUS_DEFAULT
             }
         case ACTION_UPDATE_PRODUCT_SUCCESS:
             return {
@@ -118,7 +131,8 @@ export default function (state = initialState, action) {
                 error: null,
                 status: STATUS_DEFAULT,
                 formError: "",
-                model: action.model
+                model: action.model,
+                deleteStatus: STATUS_DEFAULT
             }
         case ACTION_CREATE_PRODUCT_SUCCESS:
             return {
@@ -127,7 +141,8 @@ export default function (state = initialState, action) {
                 error: null,
                 status: STATUS_CREATED,
                 formError: "",
-                model: action.model
+                model: action.model,
+                deleteStatus: STATUS_DEFAULT
             }
         case ACTION_CHANGE_PRODUCT_FIELD:
 
@@ -148,7 +163,24 @@ export default function (state = initialState, action) {
                 error: null,
                 status: STATUS_DEFAULT,
                 formError: "",
-                model: model
+                model: model,
+                deleteStatus: STATUS_DEFAULT
+            }
+        case ACTION_DELETE_PRODUCT_LOADING:
+            return {
+                ...state,
+                deleteStatus: STATUS_LOADING
+            }
+        case ACTION_DELETE_PRODUCT_FAIL:
+            return {
+                ...state,
+                error: action.error,
+                deleteStatus: STATUS_ERROR
+            }
+        case ACTION_DELETE_PRODUCT_SUCCESS:
+            return {
+                ...initialState,
+                deleteStatus: STATUS_SUCCESS
             }
         default:
             return state;

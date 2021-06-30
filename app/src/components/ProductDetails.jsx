@@ -2,19 +2,23 @@ import * as React from "react";
 import {connect} from 'react-redux'
 import {getProduct} from "../redux/selectors";
 import {Button, ButtonGroup, Callout, Intent, NonIdealState, Spinner, Tag} from "@blueprintjs/core";
-import {fetchProduct} from "../redux/actions/product";
+import {deleteProduct, fetchProduct} from "../redux/actions/product";
 import {useEffect} from "react";
 import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/lists";
 import {STATUS_NOT_FOUND} from "../redux/reducers/product";
 import {useHistory} from "react-router-dom";
+import {STATUS_SUCCESS} from "../redux/reducers/consts";
 
-
-const ProductDetails = ({productId, product, fetchProduct}) => {
+const ProductDetails = ({productId, product, fetchProduct, deleteProduct}) => {
     const history = useHistory();
 
     useEffect(() => {
         fetchProduct(productId)
-    }, [])
+    }, [productId])
+
+    if (product.deleteStatus === STATUS_SUCCESS){
+        history.push("/");
+    }
 
     if (product.status === STATUS_LOADING) {
         return <section >
@@ -44,8 +48,6 @@ const ProductDetails = ({productId, product, fetchProduct}) => {
         history.push("/product/" + product.model.id + "/edit");
     }
 
-    console.log(product.model.list)
-
     let productListTag
 
     if (product.model.list) {
@@ -62,7 +64,7 @@ const ProductDetails = ({productId, product, fetchProduct}) => {
     return <section>
         <ButtonGroup>
             <Button icon={'edit'} minimal={true} onClick={onEditHandler}>Edit product</Button>
-            <Button  icon={'delete'} minimal={true} intent={Intent.DANGER}>Delete product</Button>
+            <Button onClick={() => {deleteProduct(productId)}} icon={'delete'} minimal={true} intent={Intent.DANGER}>Delete product</Button>
         </ButtonGroup>
         <img src={product.model.image} alt={product.model.title} width={100} height={100}/>
         <h1>{product.model.title}</h1>
@@ -86,7 +88,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchProduct: (id) => dispatch(fetchProduct(id))
+        fetchProduct: (id) => dispatch(fetchProduct(id)),
+        deleteProduct: (id) => dispatch(deleteProduct(id))
     }
 }
 

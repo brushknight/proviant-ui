@@ -14,6 +14,10 @@ export const ACTION_CREATE_PRODUCT_SUCCESS = 'create/product/success'
 export const ACTION_CHANGE_PRODUCT_FIELD = 'change/product/field'
 export const ACTION_RESET_PRODUCT = 'reset/product'
 
+export const ACTION_DELETE_PRODUCT_LOADING = 'delete/product/loading'
+export const ACTION_DELETE_PRODUCT_SUCCESS = 'delete/product/success'
+export const ACTION_DELETE_PRODUCT_FAIL = 'delete/product/fail'
+
 const fetchProductLoading = () => {
     return {
         type: ACTION_FETCH_PRODUCT_LOADING,
@@ -81,9 +85,8 @@ export const resetProduct = () => {
 export const fetchProduct = (id) => {
     return (dispatch) => {
         dispatch(fetchProductLoading())
-        axios.get("/api/v1/product/" + id +"/", {
-            headers: {
-            },
+        axios.get("/api/v1/product/" + id + "/", {
+            headers: {},
         })
             .then(response => {
                 const data = response.data
@@ -91,9 +94,9 @@ export const fetchProduct = (id) => {
             })
             .catch(error => {
                 const errorMsq = error.message
-                if (error.response.status === 404){
+                if (error.response.status === 404) {
                     dispatch(fetchProductNotFound(error.response.data.error))
-                }else{
+                } else {
                     dispatch(fetchProductFail(errorMsq))
                 }
             })
@@ -129,13 +132,48 @@ export const createProduct = (model) => {
             })
             .catch(error => {
                 const errorMsq = error.message
-                if (error.response.status === 404){
+                if (error.response.status === 404) {
                     dispatch(fetchProductNotFound(error.response.data.error))
-                }else if (error.response.status){
+                } else if (error.response.status) {
                     dispatch(updateProductFail(error.response.data.error))
-                }else{
+                } else {
                     dispatch(updateProductFail(errorMsq))
                 }
+            })
+    }
+}
+
+const deleteProductSuccess = (model) => {
+    return {
+        type: ACTION_DELETE_PRODUCT_SUCCESS,
+        model: model
+    }
+}
+const deleteProductFail = (error) => {
+    return {
+        type: ACTION_DELETE_PRODUCT_FAIL,
+        error: error
+    }
+}
+
+const deleteProductLoading = () => {
+    return {
+        type: ACTION_DELETE_PRODUCT_LOADING,
+    }
+}
+
+export const deleteProduct = (id) => {
+    return (dispatch) => {
+        dispatch(deleteProductLoading())
+        axios.delete(`/api/v1/product/${id}/`)
+            .then(response => {
+                const data = response.data
+                dispatch(deleteProductSuccess())
+
+            })
+            .catch(error => {
+                const errorMsq = error.message
+                dispatch(deleteProductFail(errorMsq))
             })
     }
 }
