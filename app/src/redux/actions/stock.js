@@ -6,7 +6,7 @@ import {
     ACTION_CHANGE_STOCK_ADD_FORM_FIELD,
     ACTION_CHANGE_STOCK_CONSUME_FORM_FIELD, ACTION_CONSUME_STOCK_FAIL,
     ACTION_CONSUME_STOCK_LOADING,
-    ACTION_CONSUME_STOCK_SUCCESS,
+    ACTION_CONSUME_STOCK_SUCCESS, ACTION_DELETE_STOCK_FAIL, ACTION_DELETE_STOCK_LOADING, ACTION_DELETE_STOCK_SUCCESS,
     ACTION_FETCH_STOCK_FAIL,
     ACTION_FETCH_STOCK_LOADING,
     ACTION_FETCH_STOCK_NOT_FOUND,
@@ -160,6 +160,43 @@ export const consumeStock = (productId, consumeStockForm) => {
                     dispatch(consumeStockFail(error.response.data.error))
                 }else{
                     dispatch(consumeStockFail( error.message))
+                }
+            })
+    }
+}
+
+const deleteStockLoading = () => {
+    return {
+        type: ACTION_DELETE_STOCK_LOADING
+    }
+}
+const deleteStockSuccess = (items) => {
+    return {
+        type: ACTION_DELETE_STOCK_SUCCESS,
+        items: items
+    }
+}
+const deleteStockFail = (error) => {
+    return {
+        type: ACTION_DELETE_STOCK_FAIL,
+        error: error
+    }
+}
+
+export const deleteStock = (productId, id) => {
+
+    return (dispatch) => {
+        dispatch(deleteStockLoading())
+        axios.delete(`/api/v1/product/${productId}/stock/${id}/`)
+            .then(response => {
+                const data = response.data
+                dispatch(deleteStockSuccess(data.data))
+            })
+            .catch(error => {
+                if (error.response.status){
+                    dispatch(deleteStockFail(error.response.data.error))
+                }else{
+                    dispatch(deleteStockFail( error.message))
                 }
 
             })

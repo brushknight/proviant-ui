@@ -17,13 +17,13 @@ const ProductDetails = ({productId, product, fetchProduct}) => {
     }, [])
 
     if (product.status === STATUS_LOADING) {
-        return <section className="content">
+        return <section >
             <Spinner/>
         </section>
     }
 
     if (product.status === STATUS_ERROR) {
-        return <section className="content">
+        return <section >
             <Callout title={"oops... something went wrong"} intent={Intent.DANGER}>
                 {product.error}
             </Callout>
@@ -31,7 +31,7 @@ const ProductDetails = ({productId, product, fetchProduct}) => {
     }
 
     if (product.status === STATUS_NOT_FOUND) {
-        return <section className="content">
+        return <section >
             <NonIdealState
                 title={'Product not found'}
                 icon={'search'}

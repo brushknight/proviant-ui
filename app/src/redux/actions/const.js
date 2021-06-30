@@ -14,3 +14,7 @@ export const ACTION_ADD_STOCK_FAIL = 'add/stock/fail'
 export const ACTION_CONSUME_STOCK_SUCCESS = 'consume/stock/success'
 export const ACTION_CONSUME_STOCK_LOADING = 'consume/stock/loading'
 export const ACTION_CONSUME_STOCK_FAIL = 'consume/stock/fail'
+
+export const ACTION_DELETE_STOCK_SUCCESS = 'delete/stock/success'
+export const ACTION_DELETE_STOCK_LOADING = 'delete/stock/loading'
+export const ACTION_DELETE_STOCK_FAIL = 'delete/stock/fail'

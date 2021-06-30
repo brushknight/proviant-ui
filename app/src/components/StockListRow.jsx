@@ -9,7 +9,7 @@ const StockListRow = (props) => {
     return (
         <div>
             Quantity: {props.item.quantity} Expires: {expires}
-            <Button icon={"delete"} minimal={true} intent={Intent.DANGER} text={"Delete entry"}/>
+            <Button onClick={props.onDelete} icon={"delete"} minimal={true} intent={Intent.DANGER} text={"Delete entry"}/>
         </div>
     );
 }

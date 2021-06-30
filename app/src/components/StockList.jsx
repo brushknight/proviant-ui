@@ -5,7 +5,7 @@ import {Button, Callout, FormGroup, Icon, Intent, NumericInput, Spinner, Spinner
 import {DateInput} from "@blueprintjs/datetime";
 import {
     addStock,
-    consumeStock,
+    consumeStock, deleteStock,
     fetchStock,
     stockAddFormFieldChanged,
     stockConsumeFormFieldChanged
@@ -16,7 +16,7 @@ import {STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS} from "..
 import {STOCK_ADD_FORM_EXPIRE, STOCK_ADD_FORM_QUANTITY} from "../redux/reducers/stock";
 import {unixToDate} from "../utils/date";
 
-const StockList = ({productId, stock, fetchStock, stockAddFormFieldChanged, stockConsumeFormFieldChanged, addStock, consumeStock}) => {
+const StockList = ({productId, stock, fetchStock, stockAddFormFieldChanged, stockConsumeFormFieldChanged, addStock, consumeStock, deleteStock}) => {
 
     useEffect(() => {
         fetchStock(productId)
@@ -61,7 +61,9 @@ const StockList = ({productId, stock, fetchStock, stockAddFormFieldChanged, stoc
     if (stock.items.length === 0) {
         stockList = <Callout title={"No stock found for this product"}/>
     } else {
-        stockList = stock.items.map(item => <StockListRow item={item}/>)
+        stockList = stock.items.map(item => <StockListRow onDelete={() => {
+            deleteStock(productId, item.id)
+        }} item={item}/>)
     }
 
     let addStockFormError
@@ -160,7 +162,8 @@ const mapDispatchToProps = dispatch => {
         stockAddFormFieldChanged: (field, value) => dispatch(stockAddFormFieldChanged(field, value)),
         stockConsumeFormFieldChanged: (value) => dispatch(stockConsumeFormFieldChanged(value)),
         addStock: (productId, addStockForm) => dispatch(addStock(productId, addStockForm)),
-        consumeStock: (productId, consumeStockForm) => dispatch(consumeStock(productId, consumeStockForm))
+        consumeStock: (productId, consumeStockForm) => dispatch(consumeStock(productId, consumeStockForm)),
+        deleteStock: (productId, id) => dispatch(deleteStock(productId, id))
     }
 }
 

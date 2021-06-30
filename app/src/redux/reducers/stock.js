@@ -6,7 +6,7 @@ import {
     ACTION_CHANGE_STOCK_ADD_FORM_FIELD,
     ACTION_CHANGE_STOCK_CONSUME_FORM_FIELD,
     ACTION_CONSUME_STOCK_FAIL,
-    ACTION_CONSUME_STOCK_LOADING, ACTION_CONSUME_STOCK_SUCCESS,
+    ACTION_CONSUME_STOCK_LOADING, ACTION_CONSUME_STOCK_SUCCESS, ACTION_DELETE_STOCK_SUCCESS,
     ACTION_FETCH_STOCK_FAIL,
     ACTION_FETCH_STOCK_LOADING,
     ACTION_FETCH_STOCK_SUCCESS
@@ -170,6 +170,14 @@ export default function (state = initialState, action) {
                 status: STATUS_DEFAULT,
                 error: null,
                 consumeStockForm: consumeStockForm,
+            }
+        case ACTION_DELETE_STOCK_SUCCESS:
+
+            return {
+                ...state,
+                items: action.items,
+                status: STATUS_DEFAULT,
+                error: null,
             }
         default:
             return state;
