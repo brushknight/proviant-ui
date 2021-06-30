@@ -4,6 +4,9 @@ import {
     ACTION_ADD_STOCK_LOADING,
     ACTION_ADD_STOCK_SUCCESS,
     ACTION_CHANGE_STOCK_ADD_FORM_FIELD,
+    ACTION_CHANGE_STOCK_CONSUME_FORM_FIELD, ACTION_CONSUME_STOCK_FAIL,
+    ACTION_CONSUME_STOCK_LOADING,
+    ACTION_CONSUME_STOCK_SUCCESS,
     ACTION_FETCH_STOCK_FAIL,
     ACTION_FETCH_STOCK_LOADING,
     ACTION_FETCH_STOCK_NOT_FOUND,
@@ -41,6 +44,14 @@ export const stockAddFormFieldChanged = (field, value) => {
     return {
         type: ACTION_CHANGE_STOCK_ADD_FORM_FIELD,
         field: field,
+        value: value,
+    }
+}
+
+export const stockConsumeFormFieldChanged = (value) => {
+
+    return {
+        type: ACTION_CHANGE_STOCK_CONSUME_FORM_FIELD,
         value: value,
     }
 }
@@ -87,7 +98,7 @@ export const addStock = (productId, addStockForm) => {
 
     const dto = {
         quantity: addStockForm.quantity,
-        expire: Math.round((+addStockForm.date) / 1000)
+        expire: Math.round((+addStockForm.expire) / 1000)
     }
 
     return (dispatch) => {
@@ -104,6 +115,51 @@ export const addStock = (productId, addStockForm) => {
                     dispatch(addStockFail(error.response.data.error))
                 }else{
                     dispatch(addStockFail( error.message))
+                }
+
+            })
+    }
+}
+
+
+const consumeStockLoading = () => {
+    return {
+        type: ACTION_CONSUME_STOCK_LOADING
+    }
+}
+const consumeStockSuccess = (items) => {
+    return {
+        type: ACTION_CONSUME_STOCK_SUCCESS,
+        items: items
+    }
+}
+const consumeStockFail = (error) => {
+    return {
+        type: ACTION_CONSUME_STOCK_FAIL,
+        error: error
+    }
+}
+
+export const consumeStock = (productId, consumeStockForm) => {
+
+    const dto = {
+        quantity: consumeStockForm.quantity,
+    }
+
+    return (dispatch) => {
+        dispatch(consumeStockLoading())
+        const json = JSON.stringify(dto);
+        axios.post(`/api/v1/product/${productId}/consume/`, json)
+            .then(response => {
+                const data = response.data
+                dispatch(consumeStockSuccess(data.data))
+
+            })
+            .catch(error => {
+                if (error.response.status){
+                    dispatch(consumeStockFail(error.response.data.error))
+                }else{
+                    dispatch(consumeStockFail( error.message))
                 }
 
             })
