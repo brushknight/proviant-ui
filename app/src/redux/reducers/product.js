@@ -1,6 +1,6 @@
 import {
     ACTION_CHANGE_PRODUCT_CREATE_FORM_FIELD,
-    ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD,
+    ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD, ACTION_CREATE_PRODUCT_FAIL, ACTION_CREATE_PRODUCT_SENDING,
     ACTION_CREATE_PRODUCT_SUCCESS,
     ACTION_DELETE_PRODUCT_FAIL,
     ACTION_DELETE_PRODUCT_LOADING,
@@ -11,9 +11,9 @@ import {
     ACTION_FETCH_PRODUCT_NOT_FOUND,
     ACTION_FETCH_PRODUCT_SUCCESS,
     ACTION_RESET_PRODUCT,
-    ACTION_UPDATE_PRODUCT_FAIL,
-    ACTION_UPDATE_PRODUCT_LOADING,
-    ACTION_UPDATE_PRODUCT_SUCCESS
+    ACTION_EDIT_PRODUCT_FAIL,
+    ACTION_EDIT_PRODUCT_FETCHING, ACTION_EDIT_PRODUCT_SENDING,
+    ACTION_EDIT_PRODUCT_SUCCESS
 } from "../actions/const";
 import {
     PRODUCT_FIELD_CATEGORIES,
@@ -22,10 +22,10 @@ import {
     PRODUCT_FIELD_LIST_ID,
     STATUS_CREATED,
     STATUS_DEFAULT,
-    STATUS_ERROR,
+    STATUS_ERROR, STATUS_FETCHING,
     STATUS_LOADED,
     STATUS_LOADING,
-    STATUS_NOT_FOUND,
+    STATUS_NOT_FOUND, STATUS_SENDING,
     STATUS_SUCCESS
 } from "./consts";
 
@@ -125,39 +125,14 @@ export default function (state = initialState, action) {
                 createForm: emptyForm,
                 deleteStatus: STATUS_DEFAULT
             }
-        case ACTION_UPDATE_PRODUCT_LOADING:
+
+        case ACTION_CREATE_PRODUCT_SENDING:
             return {
-                ...state,
-                status: STATUS_DEFAULT,
-                deleteStatus: STATUS_DEFAULT
+                ...state
             }
-        case ACTION_UPDATE_PRODUCT_FAIL:
-
-            let editFormFail = emptyForm
-            editFormFail.model = state.model
-            editFormFail.error = action.error
-
+        case ACTION_CREATE_PRODUCT_FAIL:
             return {
-                ...state,
-                error: "",
-                editForm: editFormFail,
-                createForm: emptyForm,
-                status: STATUS_DEFAULT,
-                deleteStatus: STATUS_DEFAULT
-            }
-        case ACTION_UPDATE_PRODUCT_SUCCESS:
-
-            let editFormSuccess = emptyForm
-            editFormSuccess.model = action.model
-            editFormSuccess.status = STATUS_SUCCESS
-
-            return {
-                ...state,
-                editForm: editFormSuccess,
-                error: null,
-                status: STATUS_DEFAULT,
-                model: action.model,
-                deleteStatus: STATUS_DEFAULT
+                ...state
             }
         case ACTION_CREATE_PRODUCT_SUCCESS:
             return {
@@ -168,33 +143,7 @@ export default function (state = initialState, action) {
                 model: action.model,
                 deleteStatus: STATUS_DEFAULT
             }
-        case ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD:
 
-
-            let editForm = emptyForm
-            editForm.model = state.editForm.model
-            editForm.status = STATUS_DEFAULT
-            editForm.error = null
-
-            editForm.model[action.field] = action.value
-
-            if (action.field === PRODUCT_FIELD_LIST){
-                editForm.model[PRODUCT_FIELD_LIST_ID] = action.value.id
-            }
-
-            if (action.field === PRODUCT_FIELD_CATEGORIES){
-                editForm.model[PRODUCT_FIELD_CATEGORY_IDS] = action.value.map(item => item.id)
-            }
-
-            return {
-                ...state,
-                error: null,
-                status: STATUS_DEFAULT,
-                model: emptyModel,
-                createForm: emptyForm,
-                editForm: editForm,
-                deleteStatus: STATUS_DEFAULT
-            }
         case ACTION_CHANGE_PRODUCT_CREATE_FORM_FIELD:
 
             let createForm = emptyForm

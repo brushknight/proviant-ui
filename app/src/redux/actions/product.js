@@ -5,16 +5,17 @@ import {
     ACTION_DELETE_PRODUCT_FAIL,
     ACTION_DELETE_PRODUCT_LOADING,
     ACTION_DELETE_PRODUCT_SUCCESS,
-    ACTION_FETCH_PRODUCT_FAIL, ACTION_FETCH_PRODUCT_FORM_SUCCESS,
+    ACTION_EDIT_PRODUCT_FAIL,
+    ACTION_EDIT_PRODUCT_FETCHED,
+    ACTION_EDIT_PRODUCT_FETCHING, ACTION_EDIT_PRODUCT_SENDING,
+    ACTION_EDIT_PRODUCT_SUCCESS,
+    ACTION_FETCH_PRODUCT_FAIL,
+    ACTION_FETCH_PRODUCT_FORM_SUCCESS,
     ACTION_FETCH_PRODUCT_LOADING,
     ACTION_FETCH_PRODUCT_NOT_FOUND,
     ACTION_FETCH_PRODUCT_SUCCESS,
-    ACTION_RESET_PRODUCT,
-    ACTION_UPDATE_PRODUCT_FAIL,
-    ACTION_UPDATE_PRODUCT_LOADING,
-    ACTION_UPDATE_PRODUCT_SUCCESS
+    ACTION_RESET_PRODUCT
 } from "./const";
-
 
 
 const fetchProductLoading = () => {
@@ -49,27 +50,10 @@ const fetchProductFormSuccess = model => {
     }
 }
 
-const updateProductLoading = () => {
-    return {
-        type: ACTION_UPDATE_PRODUCT_LOADING,
-    }
-}
-const updateProductSuccess = (model) => {
-    return {
-        type: ACTION_UPDATE_PRODUCT_SUCCESS,
-        model: model
-    }
-}
 const createProductSuccess = (model) => {
     return {
         type: ACTION_CREATE_PRODUCT_SUCCESS,
         model: model
-    }
-}
-const updateProductFail = (error) => {
-    return {
-        type: ACTION_UPDATE_PRODUCT_FAIL,
-        error: error
     }
 }
 
@@ -92,21 +76,13 @@ const deleteProductLoading = () => {
     }
 }
 
-export const changeProductField = (field, value) => {
-    return {
-        type: ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD,
-        field: field,
-        value: value
-    }
-}
-
 export const resetProduct = () => {
     return {
         type: ACTION_RESET_PRODUCT
     }
 }
 
-export const fetchProduct = (id, isForm) => {
+export const fetchProduct = (id) => {
     return (dispatch) => {
         dispatch(fetchProductLoading())
         axios.get("/api/v1/product/" + id + "/", {
@@ -114,11 +90,7 @@ export const fetchProduct = (id, isForm) => {
         })
             .then(response => {
                 const data = response.data
-                if (isForm){
-                    dispatch(fetchProductFormSuccess(data.data))
-                }else{
-                    dispatch(fetchProductSuccess(data.data))
-                }
+                dispatch(fetchProductSuccess(data.data))
             })
             .catch(error => {
                 const errorMsq = error.message
@@ -131,26 +103,11 @@ export const fetchProduct = (id, isForm) => {
     }
 }
 
-export const updateProduct = (model) => {
-    return (dispatch) => {
-        dispatch(updateProductLoading())
-        const json = JSON.stringify(model);
-        axios.put(`/api/v1/product/${model.id}/`, json)
-            .then(response => {
-                const data = response.data
-                dispatch(updateProductSuccess(data.data))
 
-            })
-            .catch(error => {
-                const errorMsq = error.message
-                dispatch(updateProductFail(errorMsq))
-            })
-    }
-}
 
 export const createProduct = (model) => {
     return (dispatch) => {
-        dispatch(updateProductLoading())
+        dispatch(editProductSending())
         const json = JSON.stringify(model);
         axios.post(`/api/v1/product/`, json)
             .then(response => {
@@ -163,9 +120,9 @@ export const createProduct = (model) => {
                 if (error.response.status === 404) {
                     dispatch(fetchProductNotFound(error.response.data.error))
                 } else if (error.response.status) {
-                    dispatch(updateProductFail(error.response.data.error))
+                    dispatch(editProductFail(error.response.data.error))
                 } else {
-                    dispatch(updateProductFail(errorMsq))
+                    dispatch(editProductFail(errorMsq))
                 }
             })
     }

@@ -53,11 +53,15 @@ export const ACTION_FETCH_PRODUCT_FAIL = 'fetch/product/fail'
 export const ACTION_FETCH_PRODUCT_NOT_FOUND = 'fetch/product/not_found'
 export const ACTION_FETCH_PRODUCT_LOADING = 'fetch/product/loading'
 
-export const ACTION_UPDATE_PRODUCT_LOADING = 'update/product/loading'
-export const ACTION_UPDATE_PRODUCT_SUCCESS = 'update/product/success'
-export const ACTION_UPDATE_PRODUCT_FAIL = 'update/product/fail'
+export const ACTION_EDIT_PRODUCT_FETCHING = 'update/product/fetching'
+export const ACTION_EDIT_PRODUCT_FETCHED = 'update/product/fetched'
+export const ACTION_EDIT_PRODUCT_SENDING = 'update/product/sending'
+export const ACTION_EDIT_PRODUCT_SUCCESS = 'update/product/success'
+export const ACTION_EDIT_PRODUCT_FAIL = 'update/product/fail'
 
 export const ACTION_CREATE_PRODUCT_SUCCESS = 'create/product/success'
+export const ACTION_CREATE_PRODUCT_SENDING = 'create/product/sending'
+export const ACTION_CREATE_PRODUCT_FAIL = 'create/product/fail'
 
 export const ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD = 'change/product/field'
 export const ACTION_CHANGE_PRODUCT_CREATE_FORM_FIELD = 'change/product/create_form/field'
