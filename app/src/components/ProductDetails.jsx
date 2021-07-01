@@ -8,12 +8,14 @@ import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/consts";
 import {STATUS_NOT_FOUND} from "../redux/reducers/product";
 import {useHistory} from "react-router-dom";
 import {STATUS_SUCCESS} from "../redux/reducers/consts";
+import {createProductFormReset} from "../redux/actions/createProduct";
 
-const ProductDetails = ({productId, product, fetchProduct, deleteProduct}) => {
+const ProductDetails = ({productId, product, fetchProduct, deleteProduct, createProductFormReset}) => {
     const history = useHistory();
 
     useEffect(() => {
         fetchProduct(productId)
+        // createProductFormReset()
     }, [productId])
 
     if (product.deleteStatus === STATUS_SUCCESS){
@@ -89,7 +91,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchProduct: (id) => dispatch(fetchProduct(id)),
-        deleteProduct: (id) => dispatch(deleteProduct(id))
+        deleteProduct: (id) => dispatch(deleteProduct(id)),
+        createProductFormReset: () => dispatch(createProductFormReset()),
     }
 }
 

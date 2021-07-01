@@ -16,8 +16,7 @@ import {
     STATUS_ERROR
 } from "../redux/reducers/consts";
 import Select from 'react-select'
-import SectionError from "./SectionError";
-import {createProduct, createProductFormChangeField, resetProduct} from "../redux/actions/createProduct";
+import {createProduct, createProductFormChangeField, createProductFormReset} from "../redux/actions/createProduct";
 
 const ProductCreate = ({
                            form,
@@ -31,11 +30,7 @@ const ProductCreate = ({
 
     useEffect(() => {
         resetProduct()
-    }, [])
-
-    if (form.status === STATUS_ERROR) {
-        return <SectionError error={form.error}/>
-    }
+    }, [form.model.id])
 
     if (form.status === STATUS_CREATED) {
         history.push("/product/" + form.model.id);
@@ -175,7 +170,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
     return {
         createProduct: (model) => dispatch(createProduct(model)),
-        resetProduct: () => dispatch(resetProduct()),
+        resetProduct: () => dispatch(createProductFormReset()),
         change: {
             title: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_TITLE, value)),
             description: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_DESCRIPTION, value)),

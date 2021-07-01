@@ -39,7 +39,7 @@ export const createProductFormChangeField = (field, value) => {
     }
 }
 
-export const resetProduct = () => {
+export const createProductFormReset = () => {
     return {
         type: ACTION_CREATE_PRODUCT_RESET
     }

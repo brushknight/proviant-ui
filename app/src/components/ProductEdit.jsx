@@ -37,10 +37,7 @@ const ProductEdit = ({
     let {id} = useParams();
 
     useEffect(() => {
-
         fetchProduct(id)
-
-
     }, [id])
 
     if (form.status === STATUS_FETCHING) {

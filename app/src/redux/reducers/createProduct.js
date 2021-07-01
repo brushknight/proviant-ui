@@ -7,7 +7,7 @@ import {
 } from "./consts";
 import {
     ACTION_CHANGE_PRODUCT_CREATE_FORM_FIELD,
-    ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD, ACTION_CREATE_PRODUCT_FAIL,
+    ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD, ACTION_CREATE_PRODUCT_FAIL, ACTION_CREATE_PRODUCT_RESET,
     ACTION_CREATE_PRODUCT_SENDING, ACTION_CREATE_PRODUCT_SUCCESS,
     ACTION_EDIT_PRODUCT_FAIL,
     ACTION_EDIT_PRODUCT_FETCHED,
@@ -37,6 +37,10 @@ const initialState = {
 export default function (state = initialState, action) {
 
     switch (action.type) {
+        case ACTION_CREATE_PRODUCT_RESET:
+            return {
+                ...initialState
+            }
         case ACTION_CREATE_PRODUCT_SENDING:
             return {
                 ...state,
