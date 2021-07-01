@@ -1,9 +1,9 @@
-import * as React from "react";
-import {Classes, Menu, MenuItem} from "@blueprintjs/core";
+import * as React from 'react'
+import { Classes, Menu, MenuItem } from '@blueprintjs/core'
 
 class MenuSettings extends React.Component {
-    render() {
-        return (
+  render () {
+    return (
             <Menu
                 className={`${
                     Classes.ELEVATION_0
@@ -11,8 +11,8 @@ class MenuSettings extends React.Component {
             >
                 <MenuItem icon="cog" text="Settings" />
             </Menu>
-        );
-    }
+    )
+  }
 }
 
 export default MenuSettings

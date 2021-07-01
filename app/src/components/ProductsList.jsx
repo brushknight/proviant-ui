@@ -1,65 +1,60 @@
-import * as React from "react";
-import {useEffect} from "react";
-import {connect} from 'react-redux'
-import {getCategories, getLists, getProducts} from "../redux/selectors";
-import ProductsListRow from "./ProductsListRow";
-import {fetchProducts} from "../redux/actions/products";
-import {STATUS_ERROR, STATUS_LOADING} from "../redux/reducers/consts";
-import {Callout, Intent, NonIdealState, Spinner} from "@blueprintjs/core";
-import {useParams} from "react-router-dom";
+import * as React from 'react'
+import { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { getCategories, getLists, getProducts } from '../redux/selectors'
+import ProductsListRow from './ProductsListRow'
+import { fetchProducts } from '../redux/actions/products'
+import { STATUS_ERROR, STATUS_LOADING } from '../redux/reducers/consts'
+import { Callout, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
+import { useParams } from 'react-router-dom'
 
-const ProductsList = ({products, categories, lists, filterType, fetchProducts}) => {
+const ProductsList = ({ products, categories, lists, filterType, fetchProducts }) => {
+  let query = null
+  const { id } = useParams()
 
-    let query = null
-    let {id} = useParams();
-
-    if (filterType != null) {
-
-        if (!isNaN(Number(id))) {
-
-            if (filterType === 'category') {
-                query = {
-                    category: id
-                }
-            }
-            if (filterType === 'list') {
-                query = {
-                    list: id
-                }
-            }
+  if (filterType != null) {
+    if (!isNaN(Number(id))) {
+      if (filterType === 'category') {
+        query = {
+          category: id
         }
+      }
+      if (filterType === 'list') {
+        query = {
+          list: id
+        }
+      }
     }
+  }
 
+  useEffect(() => {
+    fetchProducts(query)
+  }, [id, filterType])
 
-    useEffect(() => {
-        fetchProducts(query)
-    }, [id, filterType])
-
-    if (products.status === STATUS_LOADING) {
-        return <section className="content">
+  if (products.status === STATUS_LOADING) {
+    return <section className="content">
             <Spinner/>
         </section>
-    }
+  }
 
-    if (products.status === STATUS_ERROR) {
-        return <section className="content">
-            <Callout title={"oops... something went wrong"} intent={Intent.DANGER}>
+  if (products.status === STATUS_ERROR) {
+    return <section className="content">
+            <Callout title={'oops... something went wrong'} intent={Intent.DANGER}>
                 {products.error}
             </Callout>
         </section>
+  }
 
-    }
-
-    if (products.items.length === 0) {
-        return <section className="content">
+  if (products.items.length === 0) {
+    return <section className="content">
             <NonIdealState
                 title={'No products found'}
                 icon={'search'}
             />
         </section>
-    }
+  }
 
-    return <section className="content">
+  return <section className="content">
         {products.items.map(product => (
             <ProductsListRow key={product.id} product={product} categories={categories} lists={lists}/>
         ))}
@@ -67,18 +62,18 @@ const ProductsList = ({products, categories, lists, filterType, fetchProducts}) 
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const products = getProducts(state);
-    const categories = getCategories(state);
-    const lists = getLists(state);
-    const filterType = ownProps.filterType
+  const products = getProducts(state)
+  const categories = getCategories(state)
+  const lists = getLists(state)
+  const filterType = ownProps.filterType
 
-    return {products, categories, lists, filterType};
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchProducts: (query) => dispatch(fetchProducts(query))
-    }
+  return { products, categories, lists, filterType }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchProducts: (query) => dispatch(fetchProducts(query))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsList)

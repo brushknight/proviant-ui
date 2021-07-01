@@ -1,15 +1,15 @@
-export const STATUS_LOADING = "loading"
-export const STATUS_LOADED = "loaded"
-export const STATUS_FETCHING = "fetching"
-export const STATUS_FETCHED = "fetched"
-export const STATUS_SENDING = "sending"
-export const STATUS_ERROR = "error"
-export const STATUS_DEFAULT = "default"
-export const STATUS_NOT_FOUND = "not_found"
-export const STATUS_SUCCESS = "success"
+export const STATUS_LOADING = 'loading'
+export const STATUS_LOADED = 'loaded'
+export const STATUS_FETCHING = 'fetching'
+export const STATUS_FETCHED = 'fetched'
+export const STATUS_SENDING = 'sending'
+export const STATUS_ERROR = 'error'
+export const STATUS_DEFAULT = 'default'
+export const STATUS_NOT_FOUND = 'not_found'
+export const STATUS_SUCCESS = 'success'
 
-export const STATUS_UPDATED = "updated"
-export const STATUS_CREATED = "created"
+export const STATUS_UPDATED = 'updated'
+export const STATUS_CREATED = 'created'
 
 export const PRODUCT_FIELD_ID = 'id'
 export const PRODUCT_FIELD_TITLE = 'title'
@@ -22,5 +22,5 @@ export const PRODUCT_FIELD_CATEGORIES = 'categories'
 export const PRODUCT_FIELD_LIST_ID = 'list_id'
 export const PRODUCT_FIELD_LIST = 'list'
 
-export const STOCK_ADD_FORM_QUANTITY = "quantity"
-export const STOCK_ADD_FORM_EXPIRE = "expire"
+export const STOCK_ADD_FORM_QUANTITY = 'quantity'
+export const STOCK_ADD_FORM_EXPIRE = 'expire'

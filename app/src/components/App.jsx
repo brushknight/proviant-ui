@@ -1,18 +1,18 @@
-import * as React from "react";
-import {Provider} from 'react-redux'
-import store from "../redux/store";
-import MenuLists from "./MenuLists";
-import MenuCategories from "./MenuCategories";
-import BreadCrumbs from "./BreadCrumbs";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import ProductsList from "./ProductsList";
-import ProductEdit from "./ProductEdit";
-import MenuAddProduct from "./MenuAddProduct";
-import Product from "./Product";
-import ProductCreate from "./ProductCreate";
+import * as React from 'react'
+import { Provider } from 'react-redux'
+import store from '../redux/store'
+import MenuLists from './MenuLists'
+import MenuCategories from './MenuCategories'
+import BreadCrumbs from './BreadCrumbs'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import ProductsList from './ProductsList'
+import ProductEdit from './ProductEdit'
+import MenuAddProduct from './MenuAddProduct'
+import Product from './Product'
+import ProductCreate from './ProductCreate'
 
 const App = () => {
-    return <Router>
+  return <Router>
         <Provider store={store}>
             <React.StrictMode>
                 <div className="page-body">
@@ -21,7 +21,7 @@ const App = () => {
                             <MenuAddProduct/>
                             <MenuLists/>
                             <MenuCategories/>
-                            {/*<MenuSettings/>*/}
+                            {/* <MenuSettings/> */}
                         </nav>
                     </header>
 
@@ -55,4 +55,4 @@ const App = () => {
     </Router>
 }
 
-export default App;
+export default App
