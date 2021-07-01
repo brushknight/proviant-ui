@@ -65,7 +65,7 @@ export const ACTION_CREATE_PRODUCT_FAIL = 'create/product/fail'
 
 export const ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD = 'change/product/field'
 export const ACTION_CHANGE_PRODUCT_CREATE_FORM_FIELD = 'change/product/create_form/field'
-export const ACTION_RESET_PRODUCT = 'reset/product'
+export const ACTION_CREATE_PRODUCT_RESET = 'reset/product'
 
 export const ACTION_DELETE_PRODUCT_LOADING = 'delete/product/loading'
 export const ACTION_DELETE_PRODUCT_SUCCESS = 'delete/product/success'

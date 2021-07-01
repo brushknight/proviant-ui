@@ -1,10 +1,9 @@
 import * as React from "react";
 import {useEffect} from "react";
 import {connect} from 'react-redux'
-import {getCategories, getEditProduct, getLists} from "../redux/selectors";
+import {getCategories, getCreateProduct, getLists} from "../redux/selectors";
 import {Button, ButtonGroup, Callout, EditableText, InputGroup, Intent, Tag} from "@blueprintjs/core";
-import {useHistory, useParams} from "react-router-dom";
-import {createProduct, resetProduct} from "../redux/actions/product";
+import {useHistory} from "react-router-dom";
 import {
     PRODUCT_FIELD_BARCODE,
     PRODUCT_FIELD_CATEGORIES,
@@ -14,26 +13,21 @@ import {
     PRODUCT_FIELD_LIST,
     PRODUCT_FIELD_TITLE,
     STATUS_CREATED,
-    STATUS_ERROR,
-    STATUS_UPDATED
+    STATUS_ERROR
 } from "../redux/reducers/consts";
 import Select from 'react-select'
 import SectionError from "./SectionError";
-import {editProductFormChangeField, fetchEditProduct, updateProduct} from "../redux/actions/editProduct";
+import {createProduct, createProductFormChangeField, resetProduct} from "../redux/actions/createProduct";
 
 const ProductCreate = ({
-                           formType,
                            form,
                            lists,
                            categories,
-                           fetchProduct,
-                           updateProduct,
                            createProduct,
                            resetProduct,
                            change
                        }) => {
     const history = useHistory();
-    let {id} = useParams();
 
     useEffect(() => {
         resetProduct()
@@ -171,7 +165,7 @@ const ProductCreate = ({
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const form = getEditProduct(state);
+    const form = getCreateProduct(state);
     const lists = getLists(state);
     const categories = getCategories(state);
     const formType = ownProps.type
@@ -180,17 +174,16 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchProduct: (id) => dispatch(fetchEditProduct(id)),
         createProduct: (model) => dispatch(createProduct(model)),
         resetProduct: () => dispatch(resetProduct()),
         change: {
-            title: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_TITLE, value)),
-            description: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_DESCRIPTION, value)),
-            barcode: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_BARCODE, value)),
-            link: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_LINK, value)),
-            image: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_IMAGE, value)),
-            list: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_LIST, value)),
-            categories: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_CATEGORIES, value)),
+            title: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_TITLE, value)),
+            description: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_DESCRIPTION, value)),
+            barcode: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_BARCODE, value)),
+            link: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_LINK, value)),
+            image: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_IMAGE, value)),
+            list: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_LIST, value)),
+            categories: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_CATEGORIES, value)),
         }
     }
 }

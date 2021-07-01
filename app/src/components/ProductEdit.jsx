@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {getCategories, getEditProduct, getLists} from "../redux/selectors";
 import {Button, ButtonGroup, Callout, EditableText, InputGroup, Intent, Tag} from "@blueprintjs/core";
 import {useHistory, useParams} from "react-router-dom";
-import {createProduct, resetProduct} from "../redux/actions/product";
+import {resetProduct} from "../redux/actions/product";
 import {
     PRODUCT_FIELD_BARCODE,
     PRODUCT_FIELD_CATEGORIES,
@@ -25,27 +25,23 @@ import SectionLoading from "./SectionLoading";
 import {editProductFormChangeField, fetchEditProduct, updateProduct} from "../redux/actions/editProduct";
 
 const ProductEdit = ({
-                         formType,
                          form,
                          lists,
                          categories,
                          fetchProduct,
                          updateProduct,
-                         createProduct,
-                         resetProduct,
+
                          change
                      }) => {
     const history = useHistory();
     let {id} = useParams();
 
     useEffect(() => {
-        if (formType === 'create') {
-            resetProduct()
-        } else {
-            fetchProduct(id)
-        }
 
-    }, [id, formType])
+        fetchProduct(id)
+
+
+    }, [id])
 
     if (form.status === STATUS_FETCHING) {
         return <SectionLoading/>
