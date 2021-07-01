@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-    ACTION_CHANGE_PRODUCT_FIELD,
+    ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD,
     ACTION_CREATE_PRODUCT_SUCCESS,
     ACTION_DELETE_PRODUCT_FAIL,
     ACTION_DELETE_PRODUCT_LOADING,
@@ -94,14 +94,13 @@ const deleteProductLoading = () => {
 
 export const changeProductField = (field, value) => {
     return {
-        type: ACTION_CHANGE_PRODUCT_FIELD,
+        type: ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD,
         field: field,
         value: value
     }
 }
 
 export const resetProduct = () => {
-    console.log("resetProduct")
     return {
         type: ACTION_RESET_PRODUCT
     }

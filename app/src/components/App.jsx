@@ -9,6 +9,7 @@ import ProductsList from "./ProductsList";
 import ProductEdit from "./ProductEdit";
 import MenuAddProduct from "./MenuAddProduct";
 import Product from "./Product";
+import ProductCreate from "./ProductCreate";
 
 const App = () => {
     return <Router>
@@ -31,7 +32,7 @@ const App = () => {
                                 <ProductEdit/>
                             </Route>
                             <Route path="/product/new">
-                                <ProductEdit/>
+                                <ProductCreate/>
                             </Route>
                             <Route path="/product/:id">
                                 <Product/>

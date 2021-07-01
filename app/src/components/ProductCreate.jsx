@@ -4,11 +4,11 @@ import StockList from "./StockList";
 import {useParams} from "react-router-dom";
 import ProductForm from "./ProductForm";
 
-const ProductEdit = () => {
+const ProductCreate = () => {
 
     return (
-        <ProductForm type={'edit'}/>
+        <ProductForm type={'create'}/>
     );
 }
 
-export default ProductEdit
+export default ProductCreate
