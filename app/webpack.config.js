@@ -62,7 +62,8 @@ module.exports = {
       'process.env': '{}'
     }),
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: path.resolve(__dirname, 'src/index.html'),
+      filename: 'index.html'
     })
   ]
 }
