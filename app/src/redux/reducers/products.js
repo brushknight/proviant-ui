@@ -5,13 +5,15 @@ import {
 } from '../actions/const'
 import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING } from './consts'
 
-const initialState = {
-  items: [],
-  status: STATUS_DEFAULT,
-  error: null
+const initialState = () => {
+  return {
+    items: [],
+    status: STATUS_DEFAULT,
+    error: null
+  }
 }
 
-export default function (state = initialState, action) {
+export default function (state = initialState(), action) {
   switch (action.type) {
     case ACTION_FETCH_PRODUCTS_FAIL:
       return {

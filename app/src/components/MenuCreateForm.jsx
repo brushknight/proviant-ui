@@ -23,7 +23,8 @@ export const MenuCreateForm = (props) => {
     button = <Spinner size={SpinnerSize.SMALL}/>
   }
 
-  return <div>
+  return (
+    <div>
         <InputGroup
             placeholder={props.placeholder}
             rightElement={button}
@@ -36,4 +37,5 @@ export const MenuCreateForm = (props) => {
         />
         {errorCallout}
     </div>
+  )
 }

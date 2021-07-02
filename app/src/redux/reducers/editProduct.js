@@ -3,7 +3,7 @@ import {
   PRODUCT_FIELD_CATEGORY_IDS,
   PRODUCT_FIELD_LIST,
   PRODUCT_FIELD_LIST_ID,
-  STATUS_DEFAULT, STATUS_ERROR, STATUS_FETCHED, STATUS_FETCHING, STATUS_SENDING, STATUS_SUCCESS, STATUS_UPDATED
+  STATUS_DEFAULT, STATUS_ERROR, STATUS_FETCHED, STATUS_FETCHING, STATUS_SENDING, STATUS_UPDATED
 } from './consts'
 import {
   ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD, ACTION_EDIT_PRODUCT_FAIL, ACTION_EDIT_PRODUCT_FETCHED,
@@ -11,36 +11,40 @@ import {
   ACTION_EDIT_PRODUCT_SENDING, ACTION_EDIT_PRODUCT_SUCCESS
 } from '../actions/const'
 
-const emptyModel = {
-  title: '',
-  description: '',
-  link: '',
-  image: '',
-  barcode: '',
-  category_ids: [],
-  categories: [],
-  list_id: '',
-  list: ''
+const emptyModel = () => {
+  return {
+    title: '',
+    description: '',
+    link: '',
+    image: '',
+    barcode: '',
+    category_ids: [],
+    categories: [],
+    list_id: '',
+    list: ''
+  }
 }
 
-const initialState = {
-  model: emptyModel,
-  status: STATUS_DEFAULT,
-  error: null
+const initialState = () => {
+  return {
+    model: emptyModel(),
+    status: STATUS_DEFAULT,
+    error: null
+  }
 }
 
-export default function (state = initialState, action) {
+export default function (state = initialState(), action) {
   switch (action.type) {
     case ACTION_EDIT_PRODUCT_FETCHED:
       return {
-        ...initialState,
+        ...initialState(),
         model: action.model,
         status: STATUS_FETCHED
       }
     case ACTION_EDIT_PRODUCT_FETCHING:
       return {
-        ...initialState,
-        model: emptyModel,
+        ...initialState(),
+        model: emptyModel(),
         status: STATUS_FETCHING
       }
     case ACTION_EDIT_PRODUCT_SENDING:
@@ -51,13 +55,13 @@ export default function (state = initialState, action) {
       }
     case ACTION_EDIT_PRODUCT_FAIL:
       return {
-        ...initialState,
+        ...initialState(),
         status: STATUS_ERROR,
         error: action.error
       }
     case ACTION_EDIT_PRODUCT_SUCCESS:
       return {
-        ...initialState,
+        ...initialState(),
         status: STATUS_UPDATED,
         model: action.model,
         error: null

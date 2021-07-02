@@ -16,11 +16,11 @@ const App = () => {
         <Provider store={store}>
             <React.StrictMode>
                 <div className="page-body">
-                    <header className="page-header">
+                    <header className="page-header" onClick={(e) => { console.log(e) }}>
                         <nav className="page-header__navigation">
                             <MenuAddProduct/>
-                            <MenuLists/>
-                            <MenuCategories/>
+                             <MenuLists/>
+                             <MenuCategories/>
                             {/* <MenuSettings/> */}
                         </nav>
                     </header>
@@ -28,25 +28,25 @@ const App = () => {
                     <main className="page-main">
                         <BreadCrumbs/>
                         <Switch>
-                            <Route path="/product/:id/edit">
+                             <Route path="/product/:id/edit">
                                 <ProductEdit/>
-                            </Route>
-                            <Route path="/product/new">
+                             </Route>
+                             <Route path="/product/new">
                                 <ProductCreate/>
-                            </Route>
-                            <Route path="/product/:id">
+                             </Route>
+                             <Route path="/product/:id">
                                 <Product/>
-                            </Route>
+                             </Route>
 
-                            <Route path="/list/:id">
+                             <Route path="/list/:id">
                                 <ProductsList filterType={'list'}/>
-                            </Route>
-                            <Route path="/category/:id">
+                             </Route>
+                             <Route path="/category/:id">
                                 <ProductsList filterType={'category'}/>
-                            </Route>
-                            <Route path="/">
+                             </Route>
+                             <Route path="/">
                                 <ProductsList/>
-                            </Route>
+                             </Route>
                         </Switch>
                     </main>
                 </div>

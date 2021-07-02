@@ -19,28 +19,34 @@ import {
   ACTION_FETCH_STOCK_SUCCESS
 } from '../actions/const'
 
-const emptyAddForm = {
-  quantity: 0,
-  error: null,
-  expire: new Date(),
-  status: STATUS_DEFAULT
+const emptyAddForm = () => {
+  return {
+    quantity: 0,
+    error: null,
+    expire: new Date(),
+    status: STATUS_DEFAULT
+  }
 }
 
-const emptyConsumeForm = {
-  quantity: 0,
-  error: null,
-  status: STATUS_DEFAULT
+const emptyConsumeForm = () => {
+  return {
+    quantity: 0,
+    error: null,
+    status: STATUS_DEFAULT
+  }
 }
 
-const initialState = {
-  items: [],
-  status: STATUS_DEFAULT,
-  error: null,
-  addForm: emptyAddForm,
-  consumeForm: emptyConsumeForm
+const initialState = () => {
+  return {
+    items: [],
+    status: STATUS_DEFAULT,
+    error: null,
+    addForm: emptyAddForm(),
+    consumeForm: emptyConsumeForm()
+  }
 }
 
-export default function (state = initialState, action) {
+export default function (state = initialState(), action) {
   switch (action.type) {
     case ACTION_FETCH_STOCK_SUCCESS:
       return {
@@ -48,8 +54,8 @@ export default function (state = initialState, action) {
         items: action.items || [],
         status: STATUS_LOADED,
         error: null,
-        addForm: emptyAddForm,
-        consumeForm: emptyConsumeForm
+        addForm: emptyAddForm(),
+        consumeForm: emptyConsumeForm()
       }
     case ACTION_FETCH_STOCK_FAIL:
       return {
@@ -57,8 +63,8 @@ export default function (state = initialState, action) {
         items: [],
         status: STATUS_ERROR,
         error: action.error,
-        addForm: emptyAddForm,
-        consumeForm: emptyConsumeForm
+        addForm: emptyAddForm(),
+        consumeForm: emptyConsumeForm()
       }
     case ACTION_FETCH_STOCK_LOADING:
       return {
@@ -66,8 +72,8 @@ export default function (state = initialState, action) {
         items: [],
         status: STATUS_LOADING,
         error: null,
-        addForm: emptyAddForm,
-        consumeForm: emptyConsumeForm
+        addForm: emptyAddForm(),
+        consumeForm: emptyConsumeForm()
       }
     case ACTION_ADD_STOCK_LOADING:
 
@@ -166,7 +172,7 @@ export default function (state = initialState, action) {
       }
     case ACTION_CHANGE_STOCK_CONSUME_FORM_FIELD:
 
-      const consumeStockForm = emptyConsumeForm
+      const consumeStockForm = emptyConsumeForm()
       consumeStockForm.quantity = action.value
 
       return {

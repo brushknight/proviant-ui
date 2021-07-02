@@ -22,10 +22,11 @@ const ProductsListRow = ({ product, categories, lists }) => {
   }
 
   const onClickHandler = () => {
+    console.log('/product/' + product.id)
     history.push('/product/' + product.id)
   }
 
-  return <div className="content__product-details" onClick={onClickHandler}>
+  return <div className="content__product-details" onClick={() => { console.log('olol'); onClickHandler() }}>
         <div className="content__product-designation">
             <img src={product.image} width={30} height={30}/>
             <span className="content__product-status"></span>
