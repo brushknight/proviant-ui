@@ -3,14 +3,12 @@ import {
   STATUS_ERROR,
   STATUS_LOADED,
   STATUS_LOADING,
-  STATUS_SUCCESS, STOCK_ADD_FORM_EXPIRE,
-  STOCK_ADD_FORM_QUANTITY
+  STATUS_SUCCESS
 } from './consts'
 import {
   ACTION_ADD_STOCK_FAIL,
   ACTION_ADD_STOCK_LOADING,
   ACTION_ADD_STOCK_SUCCESS,
-  ACTION_CHANGE_STOCK_ADD_FORM_FIELD,
   ACTION_CONSUME_STOCK_FAIL,
   ACTION_CONSUME_STOCK_LOADING, ACTION_CONSUME_STOCK_SUCCESS, ACTION_DELETE_STOCK_SUCCESS,
   ACTION_FETCH_STOCK_FAIL,
@@ -20,9 +18,7 @@ import {
 
 const emptyAddForm = () => {
   return {
-    quantity: 0,
     error: null,
-    expire: new Date(),
     status: STATUS_DEFAULT
   }
 }
@@ -110,28 +106,6 @@ export default function (state = initialState(), action) {
         status: STATUS_DEFAULT,
         error: null,
         addForm: addFormSuccess
-      }
-    case ACTION_CHANGE_STOCK_ADD_FORM_FIELD:
-
-      const addForm = state.addForm
-      addForm.error = null
-      addForm.status = STATUS_DEFAULT
-
-      switch (action.field) {
-        case STOCK_ADD_FORM_QUANTITY:
-          addForm.quantity = action.value
-          break
-        case STOCK_ADD_FORM_EXPIRE:
-          addForm.expire = action.value
-          break
-        default:
-      }
-
-      return {
-        ...state,
-        status: STATUS_DEFAULT,
-        error: null,
-        addForm: addForm
       }
     case ACTION_CONSUME_STOCK_LOADING:
 

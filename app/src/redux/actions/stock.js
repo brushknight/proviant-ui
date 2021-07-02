@@ -3,7 +3,6 @@ import {
   ACTION_ADD_STOCK_FAIL,
   ACTION_ADD_STOCK_LOADING,
   ACTION_ADD_STOCK_SUCCESS,
-  ACTION_CHANGE_STOCK_ADD_FORM_FIELD,
   ACTION_CONSUME_STOCK_FAIL,
   ACTION_CONSUME_STOCK_LOADING,
   ACTION_CONSUME_STOCK_SUCCESS, ACTION_DELETE_STOCK_FAIL, ACTION_DELETE_STOCK_LOADING, ACTION_DELETE_STOCK_SUCCESS,
@@ -93,14 +92,6 @@ const consumeStockFail = (error) => {
   }
 }
 
-export const stockAddFormFieldChanged = (field, value) => {
-  return {
-    type: ACTION_CHANGE_STOCK_ADD_FORM_FIELD,
-    field: field,
-    value: value
-  }
-}
-
 export const fetchStock = (productId) => {
   return (dispatch) => {
     dispatch(fetchStockLoading())
@@ -121,10 +112,10 @@ export const fetchStock = (productId) => {
   }
 }
 
-export const addStock = (productId, addStockForm) => {
+export const addStock = (productId, quantity, date) => {
   const dto = {
-    quantity: addStockForm.quantity,
-    expire: Math.round((+addStockForm.expire) / 1000)
+    quantity: quantity,
+    expire: Math.round((+date) / 1000)
   }
 
   return (dispatch) => {

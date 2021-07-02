@@ -16,22 +16,12 @@ import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS, STOCK_A
 import { unixToDate } from '../utils/date'
 import PropTypes from 'prop-types'
 import ConsumeForm from './stock/ConsumeForm'
+import AddForm from './stock/AddForm'
 
 const StockList = ({ productId, stock, fetchStock, stockAddFormFieldChanged, addStock, consumeStock, deleteStock }) => {
   useEffect(() => {
     fetchStock(productId)
   }, [productId])
-
-  const jsDateFormatter = {
-    // note that the native implementation of Date functions differs between browsers
-    formatDate: date => unixToDate(date),
-    placeholder: 'DD/MM/YYYY',
-    value: stock.addForm.expire,
-    maxDate: new Date('2100/01/01'),
-    onChange: (date) => {
-      stockAddFormFieldChanged(STOCK_ADD_FORM_EXPIRE, date)
-    }
-  }
 
   if (stock.status === STATUS_LOADING) {
     return (
@@ -64,54 +54,22 @@ const StockList = ({ productId, stock, fetchStock, stockAddFormFieldChanged, add
     }} item={item}/>)
   }
 
-  let addStockFormError
-
-  if (stock.addForm.status === STATUS_ERROR) {
-    addStockFormError = <Callout icon={null} intent={Intent.DANGER}>{stock.addForm.error}</Callout>
-  }
-
-  let addStockFormLoading
-
-  if (stock.addForm.status === STATUS_LOADING) {
-    addStockFormLoading = <Spinner size={SpinnerSize.SMALL}/>
-  }
-
-  let addStockFormSuccess
-
-  if (stock.addForm.status === STATUS_SUCCESS) {
-    addStockFormSuccess = <Tag intent={Intent.SUCCESS} large={true} minimal={true}><Icon icon={'tick'}/></Tag>
-  }
-
-  const addStockForm = <div>
-        <h3>Add new stock</h3>
-        {addStockFormError}
-        <FormGroup label={'Quantity'} inline={true}>
-            <NumericInput
-                min={0}
-                value={stock.addForm.quantity}
-                onValueChange={value => stockAddFormFieldChanged(STOCK_ADD_FORM_QUANTITY, value)}
-            />
-        </FormGroup>
-        <FormGroup label={'Expires'} inline={true}>
-            <DateInput {...jsDateFormatter} />
-        </FormGroup>
-        <Button icon={'flame'} text={'Add stock'} onClick={() => {
-          addStock(productId, stock.addForm)
-        }}/> {addStockFormLoading} {addStockFormSuccess}
-    </div>
-
-  const consumeStockForm = <ConsumeForm
-    status={stock.consumeForm.status}
-    error={stock.consumeForm.error}
-    onSubmit={quantity => {
-      consumeStock(productId, quantity)
-    }}
-  />
-
   return (
         <section>
-            {consumeStockForm}
-            {addStockForm}
+          <ConsumeForm
+            status={stock.consumeForm.status}
+            error={stock.consumeForm.error}
+            onSubmit={quantity => {
+              consumeStock(productId, quantity)
+            }}
+          />
+          <AddForm
+            status={stock.addForm.status}
+            error={stock.addForm.error}
+            onSubmit={(quantity, date) => {
+              addStock(productId, quantity, date)
+            }}
+          />
             <h3>In stock</h3>
             {stockList}
         </section>
@@ -129,7 +87,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchStock: (productId) => dispatch(fetchStock(productId)),
     stockAddFormFieldChanged: (field, value) => dispatch(stockAddFormFieldChanged(field, value)),
-    addStock: (productId, addStockForm) => dispatch(addStock(productId, addStockForm)),
+    addStock: (productId, quantity, date) => dispatch(addStock(productId, quantity, date)),
     consumeStock: (productId, quantity) => dispatch(consumeStock(productId, quantity)),
     deleteStock: (productId, id) => dispatch(deleteStock(productId, id))
   }
