@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { getCategories, getEditProduct, getLists } from '../redux/selectors'
 import { Button, ButtonGroup, Callout, EditableText, InputGroup, Intent, Tag } from '@blueprintjs/core'
-import { useHistory, useParams } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { editProductFormChangeField, fetchEditProduct, updateProduct } from '../../redux/actions/editProduct'
+import { getCategories, getEditProduct, getLists } from '../../redux/selectors'
 import {
   PRODUCT_FIELD_BARCODE,
   PRODUCT_FIELD_CATEGORIES,
@@ -16,13 +15,14 @@ import {
   STATUS_FETCHING,
   STATUS_NOT_FOUND,
   STATUS_UPDATED
-} from '../redux/reducers/consts'
-import Select from 'react-select'
-import SectionError from './SectionError'
-import SectionNotFound from './SectionNotFound'
-import SectionLoading from './SectionLoading'
-import { editProductFormChangeField, fetchEditProduct, updateProduct } from '../redux/actions/editProduct'
+} from '../../redux/reducers/consts'
+import { useEffect } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import SectionError from '../SectionError'
+import SectionLoading from '../SectionLoading'
+import SectionNotFound from '../SectionNotFound'
+import Select from 'react-select'
 
 const ProductEdit = ({
   form,

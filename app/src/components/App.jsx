@@ -1,4 +1,6 @@
+import * as Classes from '@blueprintjs/core/lib/esnext/common/classes'
 import * as React from 'react'
+import { AnchorButton, Dialog, Intent } from '@blueprintjs/core'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import BreadCrumbs from './BreadCrumbs'
@@ -7,7 +9,7 @@ import MenuCategories from './MenuCategories'
 import MenuLists from './MenuLists'
 import Product from './Product'
 import ProductCreate from './product/ProductCreate'
-import ProductEdit from './ProductEdit'
+import ProductEdit from './product/ProductEdit'
 import ProductsList from './ProductsList'
 import store from '../redux/store'
 
@@ -24,7 +26,6 @@ const App = () => {
                             {/* <MenuSettings/> */}
                         </nav>
                     </header>
-
                     <main className="page-main">
                         <BreadCrumbs/>
                         <Switch>

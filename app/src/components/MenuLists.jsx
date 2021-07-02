@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Callout, Classes, Icon, Intent, Menu, MenuDivider, MenuItem, Spinner, Tag } from '@blueprintjs/core'
+import { Callout, Classes, Dialog, Icon, Intent, Menu, MenuDivider, MenuItem, Spinner, Tag } from '@blueprintjs/core'
 import { changeCreateListForm, createList, fetchLists } from '../redux/actions/lists'
 import { connect } from 'react-redux'
 import { CreateForm } from './menu/CreateForm'
@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom'
 import Item from './menu/Item'
 import PropTypes from 'prop-types'
 
-const MenuLists = ({ lists, fetchLists, createList, changeCreateListForm }) => {
+const MenuLists = ({ lists, fetchLists, createList }) => {
   const history = useHistory()
 
   useEffect(() => {
