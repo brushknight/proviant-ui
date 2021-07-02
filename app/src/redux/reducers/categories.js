@@ -1,13 +1,13 @@
 import {
   ACTION_CHANGE_CREATE_CATEGORY_FORM,
   ACTION_CREATE_CATEGORY_FAIL,
-  ACTION_CREATE_CATEGORY_LOADING,
+  ACTION_CREATE_CATEGORY_LOADING, ACTION_CREATE_CATEGORY_RESET,
   ACTION_CREATE_CATEGORY_SUCCESS,
   ACTION_FETCH_CATEGORIES_FAIL,
   ACTION_FETCH_CATEGORIES_LOADING,
   ACTION_FETCH_CATEGORIES_SUCCESS
 } from '../actions/const'
-import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING } from './consts'
+import { STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING } from './consts'
 
 const emptyCreateForm = () => {
   return {
@@ -55,13 +55,19 @@ export default function (state = initialState(), action) {
         status: STATUS_LOADED,
         error: null
       }
+    case ACTION_CREATE_CATEGORY_RESET:
+      return {
+        ...state,
+        error: null,
+        createForm: emptyCreateForm()
+      }
     case ACTION_CREATE_CATEGORY_SUCCESS:
       const items = state.items
       items.push(action.category)
+
       return {
         ...state,
         items: items,
-        status: STATUS_LOADED,
         error: null,
         createForm: emptyCreateForm()
       }

@@ -1,12 +1,12 @@
-import axios from 'axios'
 import {
   ACTION_CHANGE_CREATE_CATEGORY_FORM,
   ACTION_CREATE_CATEGORY_FAIL,
-  ACTION_CREATE_CATEGORY_LOADING, ACTION_CREATE_CATEGORY_SUCCESS,
+  ACTION_CREATE_CATEGORY_LOADING, ACTION_CREATE_CATEGORY_RESET, ACTION_CREATE_CATEGORY_SUCCESS,
   ACTION_FETCH_CATEGORIES_FAIL,
   ACTION_FETCH_CATEGORIES_LOADING,
   ACTION_FETCH_CATEGORIES_SUCCESS
 } from './const'
+import axios from 'axios'
 
 const fetchCategoriesLoading = () => {
   return {
@@ -55,6 +55,12 @@ export const changeCreateCategoryForm = title => {
   }
 }
 
+export const resetCreateCategoryForm = () => {
+  return {
+    type: ACTION_CREATE_CATEGORY_RESET
+  }
+}
+
 export const fetchCategories = () => {
   return (dispatch) => {
     dispatch(fetchCategoriesLoading())
@@ -83,7 +89,7 @@ export const createCategory = (title) => {
       })
       .catch(error => {
         const errorMsq = error.message
-        if (error.response.status === 400) {
+        if (error.response && error.response.status === 400) {
           dispatch(createCategoryFail(error.response.data.error))
         } else {
           dispatch(createCategoryFail(errorMsq))

@@ -1,15 +1,21 @@
 import * as React from 'react'
-import { Callout, Classes, Intent, Menu, MenuDivider, MenuItem, Spinner } from '@blueprintjs/core'
+import { Callout, Classes, Intent, Menu, MenuDivider, Spinner } from '@blueprintjs/core'
+import {
+  changeCreateCategoryForm,
+  createCategory,
+  fetchCategories,
+  resetCreateCategoryForm
+} from '../redux/actions/categories'
 import { connect } from 'react-redux'
+import { CreateForm } from './menu/CreateForm'
 import { getCategories } from '../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../redux/reducers/consts'
-import { changeCreateCategoryForm, createCategory, fetchCategories } from '../redux/actions/categories'
 import { useEffect } from 'react'
-import { MenuCreateForm } from './MenuCreateForm'
 import { useHistory } from 'react-router-dom'
+import Item from './menu/Item'
 import PropTypes from 'prop-types'
 
-const MenuCategories = ({ categories, fetchCategories, createCategory, changeCreateCategoryForm }) => {
+const MenuCategories = ({ categories, fetchCategories, createCategory, resetCreateCategoryForm }) => {
   const history = useHistory()
 
   useEffect(() => {
@@ -17,9 +23,7 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, changeCre
   }, [])
 
   const goToCategory = (id) => {
-    return () => {
-      history.push(`/category/${id}`)
-    }
+    history.push(`/category/${id}`)
   }
 
   if (categories.status === STATUS_LOADING) {
@@ -46,15 +50,11 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, changeCre
         </Menu>
   }
 
-  const createForm = <MenuCreateForm
+  const createForm = <CreateForm
         placeholder="New Category"
         icon={'tag'}
-        onChange={changeCreateCategoryForm}
-        value={categories.createForm.title}
-        onSubmit={() => {
-          createCategory(categories.createForm.title)
-        }
-        }
+        onSubmit={(title) => createCategory(title)}
+        onReset={() => resetCreateCategoryForm() }
         status={categories.createForm.status}
         error={categories.createForm.error}
     />
@@ -78,7 +78,18 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, changeCre
         <MenuDivider title="Categories"/>
         {createForm}
         {categories.items.map(item => (
-            <MenuItem icon="dot" key={item.id} text={item.title} onClick={goToCategory(item.id)}/>
+          <Item
+            key={item.id}
+            icon="dot"
+            text={item.title}
+            onClick={() => goToCategory(item.id) }
+            button={{
+              icon: 'edit',
+              action: () => {
+                console.log(item.id)
+              }
+            }}
+          />
         ))}
     </Menu>
 }
@@ -87,7 +98,7 @@ MenuCategories.propTypes = {
   categories: PropTypes.object,
   fetchCategories: PropTypes.func,
   createCategory: PropTypes.func,
-  changeCreateCategoryForm: PropTypes.func
+  resetCreateCategoryForm: PropTypes.func
 }
 
 const mapStateToProps = state => {
@@ -99,7 +110,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchCategories: () => dispatch(fetchCategories()),
     createCategory: (title) => dispatch(createCategory(title)),
-    changeCreateCategoryForm: (title) => dispatch(changeCreateCategoryForm(title))
+    resetCreateCategoryForm: () => dispatch(resetCreateCategoryForm())
   }
 }
 

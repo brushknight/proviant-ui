@@ -1,12 +1,13 @@
 import * as React from 'react'
-import { useEffect } from 'react'
-import { Callout, Classes, Intent, Menu, MenuDivider, MenuItem, Spinner } from '@blueprintjs/core'
-import { connect } from 'react-redux'
-import { getLists } from '../redux/selectors'
+import { Callout, Classes, Icon, Intent, Menu, MenuDivider, MenuItem, Spinner, Tag } from '@blueprintjs/core'
 import { changeCreateListForm, createList, fetchLists } from '../redux/actions/lists'
+import { connect } from 'react-redux'
+import { CreateForm } from './menu/CreateForm'
+import { getLists } from '../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../redux/reducers/consts'
-import { MenuCreateForm } from './MenuCreateForm'
+import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import Item from './menu/Item'
 import PropTypes from 'prop-types'
 
 const MenuLists = ({ lists, fetchLists, createList, changeCreateListForm }) => {
@@ -21,9 +22,7 @@ const MenuLists = ({ lists, fetchLists, createList, changeCreateListForm }) => {
   }
 
   const goToList = (id) => {
-    return () => {
-      history.push(`/list/${id}`)
-    }
+    history.push(`/list/${id}`)
   }
 
   if (lists.status === STATUS_LOADING) {
@@ -50,15 +49,10 @@ const MenuLists = ({ lists, fetchLists, createList, changeCreateListForm }) => {
         </Menu>
   }
 
-  const createForm = <MenuCreateForm
-        value={lists.createForm.title}
+  const createForm = <CreateForm
         placeholder="New List"
         icon={'list'}
-        onChange={changeCreateListForm}
-        onSubmit={() => {
-          createList(lists.createForm.title)
-        }
-        }
+        onSubmit={title => createList(title)}
         status={lists.createForm.status}
         error={lists.createForm.error}
     />
@@ -71,7 +65,12 @@ const MenuLists = ({ lists, fetchLists, createList, changeCreateListForm }) => {
         >
             <MenuDivider title="Lists"/>
             {createForm}
-            <MenuItem icon="dot" text="All products" onClick={goToAllProduct}/>
+      <Item
+        key={'all'}
+        icon="dot"
+        text={'All Products'}
+        onClick={() => goToAllProduct() }
+      />
         </Menu>
   }
 
@@ -84,7 +83,18 @@ const MenuLists = ({ lists, fetchLists, createList, changeCreateListForm }) => {
         {createForm}
         <MenuItem icon="dot" text="All products" onClick={goToAllProduct}/>
         {lists.items.map(item => (
-            <MenuItem icon="dot" key={item.id} text={item.title} onClick={goToList(item.id)}/>
+            <Item
+              key={item.id}
+              icon="dot"
+              text={item.title}
+              onClick={() => goToList(item.id) }
+              button={{
+                icon: 'edit',
+                action: () => {
+                  console.log(item.id)
+                }
+              }}
+            />
         ))}
     </Menu>
 }
@@ -97,15 +107,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchLists: () => dispatch(fetchLists()),
-    createList: (title) => dispatch(createList(title)),
-    changeCreateListForm: (title) => dispatch(changeCreateListForm(title))
+    createList: (title) => dispatch(createList(title))
   }
 }
 
 MenuLists.propTypes = {
   fetchLists: PropTypes.func,
   createList: PropTypes.func,
-  changeCreateListForm: PropTypes.func,
   lists: PropTypes.object
 }
 

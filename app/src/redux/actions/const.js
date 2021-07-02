@@ -25,6 +25,7 @@ export const ACTION_FETCH_CATEGORIES_FAIL = 'fetch/categories/fail'
 export const ACTION_FETCH_CATEGORIES_LOADING = 'fetch/categories/loading'
 
 export const ACTION_CREATE_CATEGORY_SUCCESS = 'create/category/success'
+export const ACTION_CREATE_CATEGORY_RESET = 'create/category/reset'
 export const ACTION_CREATE_CATEGORY_FAIL = 'create/category/fail'
 export const ACTION_CREATE_CATEGORY_LOADING = 'create/category/loading'
 
