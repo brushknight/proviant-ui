@@ -1,51 +1,43 @@
 import * as React from 'react'
-import { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { getCategories, getCreateProduct, getLists } from '../redux/selectors'
 import { Button, ButtonGroup, Callout, EditableText, InputGroup, Intent, Tag } from '@blueprintjs/core'
-import { useHistory } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { createProduct, createProductFormReset } from '../../redux/actions/createProduct'
+import { getCategories, getCreateProduct, getLists } from '../../redux/selectors'
 import {
-  PRODUCT_FIELD_BARCODE,
-  PRODUCT_FIELD_CATEGORIES,
-  PRODUCT_FIELD_DESCRIPTION,
-  PRODUCT_FIELD_IMAGE,
-  PRODUCT_FIELD_LINK,
-  PRODUCT_FIELD_LIST,
-  PRODUCT_FIELD_TITLE,
   STATUS_CREATED,
   STATUS_ERROR
-} from '../redux/reducers/consts'
-import Select from 'react-select'
-import { createProduct, createProductFormChangeField, createProductFormReset } from '../redux/actions/createProduct'
+} from '../../redux/reducers/consts'
+import { useHistory } from 'react-router-dom'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
+import Select from 'react-select'
 
 const ProductCreate = ({
   form,
   lists,
   categories,
   createProduct,
-  resetProduct,
-  change
+  reset
 }) => {
   const history = useHistory()
 
-  useEffect(() => {
-    resetProduct()
-  }, [])
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [link, setLink] = useState('')
+  const [image, setImage] = useState('')
+  const [barcode, setBarcode] = useState('')
+  const [list, setList] = useState(null)
+  const [categoryList, setCategoryList] = useState([])
 
   if (form.status === STATUS_CREATED) {
-    history.push('/product/' + form.model.id)
+    const url = '/product/' + form.model.id
+    reset()
+    history.push(url)
   }
 
   const textLinkToShop = <Tag minimal={true}>Link to shop</Tag>
   const textLinkToPicture = <Tag minimal={true}>Link to picture</Tag>
   const textBarcode = <Tag minimal={true}>Barcode</Tag>
-
-  const controls = []
-
-  controls.push(<Button icon={'tick'} minimal={true} onClick={() => {
-    createProduct(form.model)
-  }} intent={Intent.SUCCESS}>save new product</Button>)
 
   const convertListToValue = (model) => {
     return { value: model.id, label: model.title }
@@ -65,8 +57,8 @@ const ProductCreate = ({
 
   let categoriesSelected = []
 
-  if (form.model.categories != null) {
-    categoriesSelected = form.model.categories.map((item) => {
+  if (categoryList.length !== 0) {
+    categoriesSelected = categoryList.map((item) => {
       return convertCategoryToValue(item)
     })
   }
@@ -77,20 +69,34 @@ const ProductCreate = ({
     errorCallout = <Callout icon={null} intent={Intent.DANGER}>{form.error}</Callout>
   }
 
+  const controls = []
+
+  controls.push(<Button icon={'tick'} minimal={true} onClick={() => {
+    createProduct({
+      title,
+      description,
+      link,
+      image,
+      barcode,
+      list_id: list ? list.id : 0,
+      category_ids: categoryList ? categoryList.map(item => item.id) : []
+    })
+  }} intent={Intent.SUCCESS}>save new product</Button>)
+
   return <section className="content">
         {errorCallout}
         <ButtonGroup>
             {controls}
         </ButtonGroup>
-        <img src={form.model.image} alt={form.model.title} width={100} height={100}/>
+        <img src={image} alt={title} width={100} height={100}/>
         <h1>
             <EditableText
                 multiline={false}
                 minLines={1}
                 maxLines={1}
-                value={form.model.title}
+                value={title}
                 onChange={(value) => {
-                  change.title(value)
+                  setTitle(value)
                 }}
             />
         </h1>
@@ -98,33 +104,33 @@ const ProductCreate = ({
             multiline={true}
             minLines={3}
             maxLines={100}
-            value={form.model.description}
+            value={description}
             onChange={(value) => {
-              change.description(value)
+              setDescription(value)
             }}
         />
         <InputGroup
             fill={true}
             leftElement={textLinkToShop}
-            value={form.model.link}
+            value={link}
             onChange={(event) => {
-              change.link(event.target.value)
+              setLink(event.target.value)
             }}
         />
         <InputGroup
             fill={true}
             leftElement={textLinkToPicture}
-            value={form.model.image}
+            value={image}
             onChange={(event) => {
-              change.image(event.target.value)
+              setImage(event.target.value)
             }}
         />
         <InputGroup
             fill={true}
             leftElement={textBarcode}
-            value={form.model.barcode}
+            value={barcode}
             onChange={(event) => {
-              change.barcode(event.target.value)
+              setBarcode(event.target.value)
             }}
         />
         <Select
@@ -132,27 +138,25 @@ const ProductCreate = ({
             isMulti={false}
             placeholder={'select list'}
             onChange={(event) => {
-              change.list(
+              setList(
                 lists.items.find(item => item.id === event.value)
               )
             }}
-            value={form.model.list ? convertListToValue(form.model.list) : null}
+            value={list ? convertListToValue(list) : null}
             className={'change_me-product-list-select'}
         />
-        <Select
+         <Select
             options={categoriesForSelect}
             isMulti={true}
             placeholder={'select categories'}
             onChange={(data) => {
-              change.categories(
-                data.map((item) => {
-                  return categories.items.find(c => c.id === item.value)
-                })
-              )
+              setCategoryList(data.map((item) => {
+                return categories.items.find(c => c.id === item.value)
+              }))
             }}
             value={categoriesSelected}
             className={'change_me-product-categories-select'}
-        />
+         />
 
     </section>
 }
@@ -167,23 +171,13 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     createProduct: (model) => dispatch(createProduct(model)),
-    resetProduct: () => dispatch(createProductFormReset()),
-    change: {
-      title: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_TITLE, value)),
-      description: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_DESCRIPTION, value)),
-      barcode: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_BARCODE, value)),
-      link: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_LINK, value)),
-      image: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_IMAGE, value)),
-      list: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_LIST, value)),
-      categories: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_CATEGORIES, value))
-    }
+    reset: () => dispatch(createProductFormReset())
   }
 }
 
 ProductCreate.propTypes = {
   createProduct: PropTypes.func,
-  resetProduct: PropTypes.func,
-  change: PropTypes.object,
+  reset: PropTypes.func,
   form: PropTypes.object,
   lists: PropTypes.object,
   categories: PropTypes.object

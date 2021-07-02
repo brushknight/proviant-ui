@@ -1,22 +1,22 @@
 import * as React from 'react'
 import { Provider } from 'react-redux'
-import store from '../redux/store'
-import MenuLists from './MenuLists'
-import MenuCategories from './MenuCategories'
-import BreadCrumbs from './BreadCrumbs'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import ProductsList from './ProductsList'
-import ProductEdit from './ProductEdit'
+import BreadCrumbs from './BreadCrumbs'
 import MenuAddProduct from './MenuAddProduct'
+import MenuCategories from './MenuCategories'
+import MenuLists from './MenuLists'
 import Product from './Product'
-import ProductCreate from './ProductCreate'
+import ProductCreate from './product/ProductCreate'
+import ProductEdit from './ProductEdit'
+import ProductsList from './ProductsList'
+import store from '../redux/store'
 
 const App = () => {
   return <Router>
         <Provider store={store}>
             <React.StrictMode>
                 <div className="page-body">
-                    <header className="page-header" onClick={(e) => { console.log(e) }}>
+                    <header className="page-header">
                         <nav className="page-header__navigation">
                             <MenuAddProduct/>
                              <MenuLists/>

@@ -2522,6 +2522,11 @@
     "resolve" "^2.0.0-next.3"
     "string.prototype.matchall" "^4.0.5"
 
+"eslint-plugin-sort-imports-es6-autofix@^0.6.0":
+  "integrity" "sha512-2NVaBGF9NN+727Fyq+jJYihdIeegjXeUUrZED9Q8FVB8MsV3YQEyXG96GVnXqWt0pmn7xfCZOZf3uKnIhBrfeQ=="
+  "resolved" "https://registry.npmjs.org/eslint-plugin-sort-imports-es6-autofix/-/eslint-plugin-sort-imports-es6-autofix-0.6.0.tgz"
+  "version" "0.6.0"
+
 "eslint-scope@^5.1.1", "eslint-scope@5.1.1":
   "integrity" "sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw=="
   "resolved" "https://registry.npmjs.org/eslint-scope/-/eslint-scope-5.1.1.tgz"
@@ -2552,7 +2557,7 @@
   "resolved" "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-2.1.0.tgz"
   "version" "2.1.0"
 
-"eslint@^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0", "eslint@^3 || ^4 || ^5 || ^6 || ^7", "eslint@^7.0.0", "eslint@^7.12.1", "eslint@^7.29.0", "eslint@>=4.19.1", "eslint@>=5.16.0":
+"eslint@^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0", "eslint@^3 || ^4 || ^5 || ^6 || ^7", "eslint@^7.0.0", "eslint@^7.12.1", "eslint@^7.29.0", "eslint@>=4.19.1", "eslint@>=5.16.0", "eslint@>=7.7.0":
   "integrity" "sha512-82G/JToB9qIy/ArBzIWG9xvvwL3R86AlCjtGw+A29OMZDqhTybz/MByORSukGxeI+YPCR4coYyITKk8BFH9nDA=="
   "resolved" "https://registry.npmjs.org/eslint/-/eslint-7.29.0.tgz"
   "version" "7.29.0"

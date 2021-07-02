@@ -15,8 +15,20 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: [
-    'react'
+    'react',
+    'sort-imports-es6-autofix'
   ],
   rules: {
+    'sort-imports': ['error', {
+      ignoreCase: true,
+      ignoreMemberSort: true,
+      ignoreDeclarationSort: true,
+      memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single']
+    }],
+    'sort-imports-es6-autofix/sort-imports-es6': [2, {
+      ignoreCase: true,
+      ignoreMemberSort: true,
+      memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single']
+    }]
   }
 }
