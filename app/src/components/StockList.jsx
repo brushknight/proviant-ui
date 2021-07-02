@@ -16,7 +16,6 @@ import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS, STOCK_A
 
 import { unixToDate } from '../utils/date'
 import PropTypes from 'prop-types'
-import SectionNotFound from './SectionNotFound'
 
 const StockList = ({ productId, stock, fetchStock, stockAddFormFieldChanged, stockConsumeFormFieldChanged, addStock, consumeStock, deleteStock }) => {
   useEffect(() => {
@@ -28,6 +27,7 @@ const StockList = ({ productId, stock, fetchStock, stockAddFormFieldChanged, sto
     formatDate: date => unixToDate(date),
     placeholder: 'DD/MM/YYYY',
     value: stock.addForm.expire,
+    maxDate: new Date('2100/01/01'),
     onChange: (date) => {
       stockAddFormFieldChanged(STOCK_ADD_FORM_EXPIRE, date)
     }
@@ -161,7 +161,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-SectionNotFound.propTypes = {
+StockList.propTypes = {
   fetchStock: PropTypes.func,
   stockAddFormFieldChanged: PropTypes.func,
   stockConsumeFormFieldChanged: PropTypes.func,
