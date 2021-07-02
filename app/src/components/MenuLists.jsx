@@ -7,6 +7,7 @@ import { changeCreateListForm, createList, fetchLists } from '../redux/actions/l
 import { STATUS_ERROR, STATUS_LOADING } from '../redux/reducers/consts'
 import { MenuCreateForm } from './MenuCreateForm'
 import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const MenuLists = ({ lists, fetchLists, createList, changeCreateListForm }) => {
   const history = useHistory()
@@ -99,6 +100,13 @@ const mapDispatchToProps = dispatch => {
     createList: (title) => dispatch(createList(title)),
     changeCreateListForm: (title) => dispatch(changeCreateListForm(title))
   }
+}
+
+MenuLists.propTypes = {
+  fetchLists: PropTypes.func,
+  createList: PropTypes.func,
+  changeCreateListForm: PropTypes.func,
+  lists: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuLists)

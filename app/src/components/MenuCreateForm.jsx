@@ -1,6 +1,7 @@
 import { Button, Callout, InputGroup, Intent, Spinner, SpinnerSize } from '@blueprintjs/core'
 import * as React from 'react'
 import { STATUS_ERROR, STATUS_LOADING } from '../redux/reducers/consts'
+import PropTypes from 'prop-types'
 
 export const MenuCreateForm = (props) => {
   let button = (
@@ -38,4 +39,14 @@ export const MenuCreateForm = (props) => {
         {errorCallout}
     </div>
   )
+}
+
+MenuCreateForm.propTypes = {
+  onSubmit: PropTypes.func,
+  onChange: PropTypes.func,
+  status: PropTypes.string,
+  error: PropTypes.string,
+  placeholder: PropTypes.string,
+  icon: PropTypes.string,
+  value: PropTypes.string
 }

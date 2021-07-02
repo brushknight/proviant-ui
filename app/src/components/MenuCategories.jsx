@@ -7,6 +7,7 @@ import { changeCreateCategoryForm, createCategory, fetchCategories } from '../re
 import { useEffect } from 'react'
 import { MenuCreateForm } from './MenuCreateForm'
 import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const MenuCategories = ({ categories, fetchCategories, createCategory, changeCreateCategoryForm }) => {
   const history = useHistory()
@@ -80,6 +81,13 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, changeCre
             <MenuItem icon="dot" key={item.id} text={item.title} onClick={goToCategory(item.id)}/>
         ))}
     </Menu>
+}
+
+MenuCategories.propTypes = {
+  categories: PropTypes.object,
+  fetchCategories: PropTypes.func,
+  createCategory: PropTypes.func,
+  changeCreateCategoryForm: PropTypes.func
 }
 
 const mapStateToProps = state => {

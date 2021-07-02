@@ -22,6 +22,7 @@ import SectionError from './SectionError'
 import SectionNotFound from './SectionNotFound'
 import SectionLoading from './SectionLoading'
 import { editProductFormChangeField, fetchEditProduct, updateProduct } from '../redux/actions/editProduct'
+import PropTypes from 'prop-types'
 
 const ProductEdit = ({
   form,
@@ -183,19 +184,17 @@ const ProductEdit = ({
     </section>
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   const form = getEditProduct(state)
   const lists = getLists(state)
   const categories = getCategories(state)
-  const formType = ownProps.type
-  return { formType, form, lists, categories }
+  return { form, lists, categories }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchProduct: (id) => dispatch(fetchEditProduct(id)),
     updateProduct: (model) => dispatch(updateProduct(model)),
-    resetProduct: () => dispatch(resetProduct()),
     change: {
       title: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_TITLE, value)),
       description: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_DESCRIPTION, value)),
@@ -206,6 +205,15 @@ const mapDispatchToProps = dispatch => {
       categories: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_CATEGORIES, value))
     }
   }
+}
+
+ProductEdit.propTypes = {
+  fetchProduct: PropTypes.func,
+  updateProduct: PropTypes.func,
+  change: PropTypes.object,
+  form: PropTypes.object,
+  lists: PropTypes.object,
+  categories: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductEdit)

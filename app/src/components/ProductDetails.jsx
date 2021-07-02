@@ -7,9 +7,9 @@ import { useEffect } from 'react'
 import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS } from '../redux/reducers/consts'
 import { useHistory } from 'react-router-dom'
 
-import { createProductFormReset } from '../redux/actions/createProduct'
+import PropTypes from 'prop-types'
 
-const ProductDetails = ({ productId, product, fetchProduct, deleteProduct, createProductFormReset }) => {
+const ProductDetails = ({ productId, product, fetchProduct, deleteProduct }) => {
   const history = useHistory()
 
   useEffect(() => {
@@ -90,9 +90,15 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchProduct: (id) => dispatch(fetchProduct(id)),
-    deleteProduct: (id) => dispatch(deleteProduct(id)),
-    createProductFormReset: () => dispatch(createProductFormReset())
+    deleteProduct: (id) => dispatch(deleteProduct(id))
   }
+}
+
+ProductDetails.propTypes = {
+  fetchProduct: PropTypes.func,
+  deleteProduct: PropTypes.func,
+  product: PropTypes.object,
+  productId: PropTypes.string
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails)

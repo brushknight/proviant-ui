@@ -7,6 +7,7 @@ import { fetchProducts } from '../redux/actions/products'
 import { STATUS_ERROR, STATUS_LOADING } from '../redux/reducers/consts'
 import { Callout, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const ProductsList = ({ products, categories, lists, filterType, fetchProducts }) => {
   let query = null
@@ -74,6 +75,14 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchProducts: (query) => dispatch(fetchProducts(query))
   }
+}
+
+ProductsList.propTypes = {
+  fetchProducts: PropTypes.func,
+  products: PropTypes.object,
+  categories: PropTypes.object,
+  lists: PropTypes.object,
+  filterType: PropTypes.string
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsList)

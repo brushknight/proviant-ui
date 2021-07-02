@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { NonIdealState } from '@blueprintjs/core'
+import PropTypes from 'prop-types'
 
 const SectionNotFound = (props) => {
   return (
@@ -11,6 +12,11 @@ const SectionNotFound = (props) => {
             />
         </section>
   )
+}
+
+SectionNotFound.propTypes = {
+  error: PropTypes.string,
+  title: PropTypes.string
 }
 
 export default SectionNotFound

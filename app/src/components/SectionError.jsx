@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Callout, Intent } from '@blueprintjs/core'
+import PropTypes from 'prop-types'
 
 const SectionError = (props) => {
   return (
@@ -9,6 +10,10 @@ const SectionError = (props) => {
             </Callout>
         </section>
   )
+}
+
+SectionError.propTypes = {
+  error: PropTypes.string
 }
 
 export default SectionError

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const ProductsListRow = ({ product, categories, lists }) => {
   const history = useHistory()
@@ -12,8 +13,7 @@ const ProductsListRow = ({ product, categories, lists }) => {
     if (category != null) {
       categoriesFound.push(category)
     }
-  }
-  )
+  })
 
   let productList = ''
 
@@ -22,11 +22,10 @@ const ProductsListRow = ({ product, categories, lists }) => {
   }
 
   const onClickHandler = () => {
-    console.log('/product/' + product.id)
     history.push('/product/' + product.id)
   }
 
-  return <div className="content__product-details" onClick={() => { console.log('olol'); onClickHandler() }}>
+  return <div className="content__product-details" onClick={() => { onClickHandler() }}>
         <div className="content__product-designation">
             <img src={product.image} width={30} height={30}/>
             <span className="content__product-status"></span>
@@ -40,6 +39,12 @@ const ProductsListRow = ({ product, categories, lists }) => {
             ))}
         </div>
     </div>
+}
+
+ProductsListRow.propTypes = {
+  product: PropTypes.object,
+  categories: PropTypes.object,
+  lists: PropTypes.object
 }
 
 export default ProductsListRow

@@ -15,6 +15,8 @@ import { connect } from 'react-redux'
 import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS, STOCK_ADD_FORM_EXPIRE, STOCK_ADD_FORM_QUANTITY } from '../redux/reducers/consts'
 
 import { unixToDate } from '../utils/date'
+import PropTypes from 'prop-types'
+import SectionNotFound from './SectionNotFound'
 
 const StockList = ({ productId, stock, fetchStock, stockAddFormFieldChanged, stockConsumeFormFieldChanged, addStock, consumeStock, deleteStock }) => {
   useEffect(() => {
@@ -157,6 +159,17 @@ const mapDispatchToProps = dispatch => {
     consumeStock: (productId, consumeStockForm) => dispatch(consumeStock(productId, consumeStockForm)),
     deleteStock: (productId, id) => dispatch(deleteStock(productId, id))
   }
+}
+
+SectionNotFound.propTypes = {
+  fetchStock: PropTypes.func,
+  stockAddFormFieldChanged: PropTypes.func,
+  stockConsumeFormFieldChanged: PropTypes.func,
+  addStock: PropTypes.func,
+  consumeStock: PropTypes.func,
+  deleteStock: PropTypes.func,
+  stock: PropTypes.object,
+  productId: PropTypes.string
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StockList)

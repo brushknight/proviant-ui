@@ -17,6 +17,7 @@ import {
 } from '../redux/reducers/consts'
 import Select from 'react-select'
 import { createProduct, createProductFormChangeField, createProductFormReset } from '../redux/actions/createProduct'
+import PropTypes from 'prop-types'
 
 const ProductCreate = ({
   form,
@@ -160,8 +161,7 @@ const mapStateToProps = (state, ownProps) => {
   const form = getCreateProduct(state)
   const lists = getLists(state)
   const categories = getCategories(state)
-  const formType = ownProps.type
-  return { formType, form, lists, categories }
+  return { form, lists, categories }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -178,6 +178,15 @@ const mapDispatchToProps = dispatch => {
       categories: (value) => dispatch(createProductFormChangeField(PRODUCT_FIELD_CATEGORIES, value))
     }
   }
+}
+
+ProductCreate.propTypes = {
+  createProduct: PropTypes.func,
+  resetProduct: PropTypes.func,
+  change: PropTypes.object,
+  form: PropTypes.object,
+  lists: PropTypes.object,
+  categories: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCreate)
