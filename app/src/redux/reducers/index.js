@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux'
-import lists from './lists'
 import categories from './categories'
-import products from './products'
-import product from './product'
-import editProduct from './editProduct'
 import createProduct from './createProduct'
+import editCategory from './editCategory'
+import editProduct from './editProduct'
+import lists from './lists'
+import product from './product'
+import products from './products'
 import stock from './stock'
 
-export default combineReducers({ lists, categories, products, product, editProduct, createProduct, stock })
+export default combineReducers({ lists, categories, products, product, editProduct, createProduct, editCategory, stock })

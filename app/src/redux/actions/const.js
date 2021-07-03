@@ -74,3 +74,12 @@ export const ACTION_DELETE_PRODUCT_FAIL = 'delete/product/fail'
 export const ACTION_FETCH_PRODUCTS_SUCCESS = 'fetch/products/success'
 export const ACTION_FETCH_PRODUCTS_FAIL = 'fetch/products/fail'
 export const ACTION_FETCH_PRODUCTS_LOADING = 'fetch/products/loading'
+
+// edit category
+export const ACTION_EDIT_CATEGORY_FETCHED = 'update/category/fetched'
+export const ACTION_EDIT_CATEGORY_FETCHING = 'update/category/fetching'
+export const ACTION_EDIT_CATEGORY_FETCH_FAIL = 'update/category/fetch_fail'
+export const ACTION_EDIT_CATEGORY_SENDING = 'update/category/sending'
+export const ACTION_EDIT_CATEGORY_FAIL = 'update/category/fail'
+export const ACTION_EDIT_CATEGORY_SUCCESS = 'update/category/success'
+export const ACTION_EDIT_CATEGORY_RESET = 'update/category/reset'
