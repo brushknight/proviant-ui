@@ -1,6 +1,7 @@
 export const getLists = store => store.lists
 export const getCategories = store => store.categories
 export const getEditCategory = store => store.editCategory
+export const getEditList = store => store.editList
 export const getProducts = store => store.products
 export const getProduct = store => store.product
 export const getEditProduct = store => store.editProduct

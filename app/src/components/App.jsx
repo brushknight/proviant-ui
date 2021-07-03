@@ -3,6 +3,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import BreadCrumbs from './BreadCrumbs'
 import CategoryEditForm from './category/CategoryEditForm'
+import ListEditForm from './list/ListEditForm'
 import MenuAddProduct from './MenuAddProduct'
 import MenuCategories from './menu/MenuCategories'
 import MenuLists from './menu/MenuLists'
@@ -41,6 +42,9 @@ const App = () => {
 
 							<Route path="/list/:id">
 								<ProductsList filterType={'list'}/>
+								<Route path="/list/:id/edit">
+									<ListEditForm/>
+								</Route>
 							</Route>
 							<Route path="/category/:id">
 								<ProductsList filterType={'category'}/>

@@ -41,8 +41,7 @@ export const ACTION_FETCH_LIST_LOADING = 'fetch/list/loading'
 export const ACTION_CREATE_LIST_SUCCESS = 'create/list/success'
 export const ACTION_CREATE_LIST_FAIL = 'create/list/fail'
 export const ACTION_CREATE_LIST_LOADING = 'create/list/loading'
-
-export const ACTION_CHANGE_CREATE_LIST_FORM = 'change/create-list-form'
+export const ACTION_UPDATE_LIST_IN_LIST = 'update/list/in_list'
 
 // product
 
@@ -84,3 +83,12 @@ export const ACTION_EDIT_CATEGORY_SENDING = 'update/category/sending'
 export const ACTION_EDIT_CATEGORY_FAIL = 'update/category/fail'
 export const ACTION_EDIT_CATEGORY_SUCCESS = 'update/category/success'
 export const ACTION_EDIT_CATEGORY_RESET = 'update/category/reset'
+
+// edit category
+export const ACTION_EDIT_LIST_FETCHED = 'update/list/fetched'
+export const ACTION_EDIT_LIST_FETCHING = 'update/list/fetching'
+export const ACTION_EDIT_LIST_FETCH_FAIL = 'update/list/fetch_fail'
+export const ACTION_EDIT_LIST_SENDING = 'update/list/sending'
+export const ACTION_EDIT_LIST_FAIL = 'update/list/fail'
+export const ACTION_EDIT_LIST_SUCCESS = 'update/list/success'
+export const ACTION_EDIT_LIST_RESET = 'update/list/reset'
