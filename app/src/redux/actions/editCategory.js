@@ -1,10 +1,13 @@
 import {
-	ACTION_EDIT_CATEGORY_FAIL, ACTION_EDIT_CATEGORY_FETCH_FAIL,
+	ACTION_EDIT_CATEGORY_FAIL,
+	ACTION_EDIT_CATEGORY_FETCH_FAIL,
 	ACTION_EDIT_CATEGORY_FETCHED,
-	ACTION_EDIT_CATEGORY_FETCHING, ACTION_EDIT_CATEGORY_RESET,
+	ACTION_EDIT_CATEGORY_FETCHING,
+	ACTION_EDIT_CATEGORY_RESET,
 	ACTION_EDIT_CATEGORY_SENDING,
 	ACTION_EDIT_CATEGORY_SUCCESS
 } from './const'
+import { updateCategoryInList } from './categories'
 import axios from 'axios'
 
 const editCategorySending = () => {
@@ -29,10 +32,10 @@ const editCategoryFetched = (model) => {
 		model: model
 	}
 }
-const editCategoryFetchFail = (model) => {
+const editCategoryFetchFail = (error) => {
 	return {
 		type: ACTION_EDIT_CATEGORY_FETCH_FAIL,
-		model: model
+		error: error
 	}
 }
 const editCategoryFail = (error) => {
@@ -80,6 +83,7 @@ export const updateCategory = (id, title) => {
 			.then(response => {
 				const data = response.data
 				dispatch(editCategorySuccess(data.data))
+				dispatch(updateCategoryInList(data.data))
 			})
 			.catch(error => {
 				const errorMsq = error.message

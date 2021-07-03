@@ -5,7 +5,7 @@ import {
 	ACTION_CREATE_CATEGORY_SUCCESS,
 	ACTION_FETCH_CATEGORIES_FAIL,
 	ACTION_FETCH_CATEGORIES_LOADING,
-	ACTION_FETCH_CATEGORIES_SUCCESS
+	ACTION_FETCH_CATEGORIES_SUCCESS, ACTION_UPDATE_CATEGORY_IN_LIST
 } from './const'
 import axios from 'axios'
 
@@ -52,6 +52,13 @@ const createCategorySuccess = category => {
 export const resetCreateCategoryForm = () => {
 	return {
 		type: ACTION_CREATE_CATEGORY_RESET
+	}
+}
+
+export const updateCategoryInList = (model) => {
+	return {
+		type: ACTION_UPDATE_CATEGORY_IN_LIST,
+		model: model
 	}
 }
 

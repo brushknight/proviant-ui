@@ -6,7 +6,8 @@ import {
 	ACTION_CREATE_CATEGORY_SUCCESS,
 	ACTION_FETCH_CATEGORIES_FAIL,
 	ACTION_FETCH_CATEGORIES_LOADING,
-	ACTION_FETCH_CATEGORIES_SUCCESS
+	ACTION_FETCH_CATEGORIES_SUCCESS,
+	ACTION_UPDATE_CATEGORY_IN_LIST
 } from '../actions/const'
 import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING } from './consts'
 
@@ -28,7 +29,22 @@ const initialState = () => {
 }
 
 export default function (state = initialState(), action) {
+	let items = []
 	switch (action.type) {
+	case ACTION_UPDATE_CATEGORY_IN_LIST:
+		items = state.items
+
+		items = items.map(item => {
+			if (item.id === action.model.id) {
+				return action.model
+			}
+			return item
+		})
+
+		return {
+			...state,
+			items
+		}
 	case ACTION_CHANGE_CREATE_CATEGORY_FORM:
 		return {
 			...state,
@@ -63,7 +79,7 @@ export default function (state = initialState(), action) {
 			createForm: emptyCreateForm()
 		}
 	case ACTION_CREATE_CATEGORY_SUCCESS:
-		const items = state.items
+		items = state.items
 		items.push(action.category)
 
 		return {
