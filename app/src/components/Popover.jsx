@@ -1,6 +1,6 @@
 import * as Classes from '@blueprintjs/core/lib/esnext/common/classes'
 import * as React from 'react'
-import { AnchorButton, Dialog, Intent, ProgressBar, Spinner, SpinnerSize } from '@blueprintjs/core'
+import { AnchorButton, Dialog, Intent, Spinner, SpinnerSize } from '@blueprintjs/core'
 import PropTypes from 'prop-types'
 
 const Popover = (props) => {

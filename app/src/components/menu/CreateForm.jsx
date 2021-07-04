@@ -25,7 +25,7 @@ export const CreateForm = (props) => {
 		<Button
 			minimal={true}
 			icon="plus"
-			onClick={() => props.onSubmit(title)}
+			type={'submit'}
 			disabled={props.status === STATUS_LOADING}
 		/>
 	)
@@ -37,20 +37,28 @@ export const CreateForm = (props) => {
 		errorCallout = <Callout intent={Intent.DANGER} icon={null}>{props.error}</Callout>
 	}
 
+	const onSubmit = (e) => {
+		e.preventDefault()
+		props.onSubmit(title)
+	}
+
 	return (
 		<div>
-			<InputGroup
-				placeholder={props.placeholder}
-				rightElement={button}
-				leftIcon={props.icon}
-				value={title}
-				intent={intent}
-				onChange={(e) => {
-					setIsError(false)
-					setTitle(e.target.value)
-				}}
-			/>
-			{errorCallout}
+			<form onSubmit={onSubmit}>
+				<InputGroup
+					placeholder={props.placeholder}
+					rightElement={button}
+					leftIcon={props.icon}
+					value={title}
+					intent={intent}
+					onChange={(e) => {
+						setIsError(false)
+						setTitle(e.target.value)
+					}}
+				/>
+				{errorCallout}
+			</form>
+
 		</div>
 	)
 }

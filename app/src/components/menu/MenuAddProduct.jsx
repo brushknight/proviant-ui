@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Classes, Menu, MenuItem } from '@blueprintjs/core'
+import { Classes, Intent, Menu, MenuItem } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
 
 const MenuAddProduct = () => {
@@ -11,7 +11,7 @@ const MenuAddProduct = () => {
 				Classes.ELEVATION_0
 			} page-header__navigation-list`}
 		>
-			<MenuItem icon="plus" text="Add product" onClick={() => {
+			<MenuItem icon="plus" text="Add product" intent={Intent.PRIMARY} onClick={() => {
 				history.push('/product/new')
 			}}/>
 		</Menu>

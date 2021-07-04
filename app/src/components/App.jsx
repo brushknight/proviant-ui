@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../const'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import BreadCrumbs from './BreadCrumbs'
@@ -10,6 +11,7 @@ import MenuLists from './menu/MenuLists'
 import Product from './product/Product'
 import ProductCreate from './product/ProductCreate'
 import ProductEdit from './product/ProductEdit'
+import ProductOverlay from './product/ProductOverlay'
 import ProductsList from './product/ProductsList'
 import store from '../redux/store'
 
@@ -36,20 +38,26 @@ const App = () => {
 							<Route path="/product/new">
 								<ProductCreate/>
 							</Route>
-							<Route path="/product/:id">
+							<Route path="/product/:productId">
 								<Product/>
 							</Route>
 
 							<Route path="/list/:id">
-								<ProductsList filterType={'list'}/>
+								<ProductsList filterType={FILTER_TYPE_LIST}/>
 								<Route path="/list/:id/edit">
 									<ListEditForm/>
 								</Route>
+								<Route path="/list/:id/product/:productId">
+									<ProductOverlay filterType={FILTER_TYPE_LIST}/>
+								</Route>
 							</Route>
 							<Route path="/category/:id">
-								<ProductsList filterType={'category'}/>
+								<ProductsList filterType={FILTER_TYPE_CATEGORY}/>
 								<Route path="/category/:id/edit">
 									<CategoryEditForm/>
+								</Route>
+								<Route path="/category/:id/product/:productId">
+									<ProductOverlay filterType={FILTER_TYPE_CATEGORY}/>
 								</Route>
 							</Route>
 							<Route path="/">

@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom'
 
 import PropTypes from 'prop-types'
 
-const ProductDetails = ({ productId, product, fetchProduct, deleteProduct, reset }) => {
+const ProductDetails = ({ productId, product, fetchProduct, deleteProduct, reset, closePopover }) => {
 	const history = useHistory()
 
 	useEffect(() => {
@@ -63,8 +63,17 @@ const ProductDetails = ({ productId, product, fetchProduct, deleteProduct, reset
 		})
 	}
 
+	let backButton
+
+	if (closePopover) {
+		backButton = (
+			<Button icon={'cross'} minimal={true} onClick={closePopover}>Back</Button>
+		)
+	}
+
 	return <section>
 		<ButtonGroup>
+			{backButton}
 			<Button icon={'edit'} minimal={true} onClick={onEditHandler}>Edit product</Button>
 			<Button onClick={() => {
 				deleteProduct(productId)
@@ -90,11 +99,12 @@ const mapStateToProps = (state, ownProps) => {
 	return { productId, product }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		fetchProduct: (id) => dispatch(fetchProduct(id)),
 		deleteProduct: (id) => dispatch(deleteProduct(id)),
-		reset: () => dispatch(resetProduct())
+		reset: () => dispatch(resetProduct()),
+		closePopover: ownProps.closePopover
 	}
 }
 
@@ -103,7 +113,8 @@ ProductDetails.propTypes = {
 	deleteProduct: PropTypes.func,
 	reset: PropTypes.func,
 	product: PropTypes.object,
-	productId: PropTypes.string
+	productId: PropTypes.string,
+	closePopover: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails)
