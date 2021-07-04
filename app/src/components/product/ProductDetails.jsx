@@ -70,30 +70,57 @@ const ProductDetails = ({
 			<Button icon={'cross'} minimal={true} onClick={closePopover}>{t('product.button_back')}</Button>
 		)
 	}
+	let imageStyle = {
+		backgroundImage: 'url('+ product.model.image + ')'
+	}
 
-	return <section>
-		<ButtonGroup>
-			{backButton}
-			<Button icon={'edit'} minimal={true} onClick={onEditHandler}>{t('product.button_edit')}</Button>
-			<Button onClick={() => {
-				deleteProduct(productId)
-			}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
-		</ButtonGroup>
-		<img src={product.model.image} alt={product.model.title} width={100} height={100}/>
-		<h1>{product.model.title}</h1>
-		<p>{product.model.description}</p>
-		<p><Tag minimal={true}>{t('product.barcode')}</Tag>{product.model.barcode}</p>
-		<p>
-			<ProductsTags
-				list={product.model.list}
-				categories={product.model.categories}/>
-		</p>
-		<Button onClick={() => {
-			if (product.model.link) {
-				window.open(product.model.link)
-			}
-		}}>{t('product.link_to_the_shop')}</Button>
-	</section>
+	return (
+		<section className='product'>
+			<div className='product__wrapper'>
+				<div className='product__image' style={imageStyle}>
+				</div>
+				<div className='product__edit product__edit--tablet-width-min'>
+					{backButton}
+					<Button className='tablet-hide-width-max' icon={'edit'} minimal={true} onClick={onEditHandler}>{t('product.button_edit')}</Button>
+					<Button className='tablet-hide-width-max' onClick={() => {
+						deleteProduct(productId)
+					}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
+					<p><Tag minimal={true}>{t('product.barcode')}</Tag>{product.model.barcode}</p>
+					<Button className='tablet-hide-width-max' minimal={true} onClick={() => {
+						if (product.model.link) {
+							window.open(product.model.link)
+						}
+					}}>{t('product.link_to_the_shop')}</Button>
+				</div>
+			</div>
+
+			<div>
+
+				<div className='product__edit product__edit--tablet-width-max tablet-hide-width-min'>
+					<Button onClick={() => {
+						if (product.model.link) {
+							window.open(product.model.link)
+						}
+					}}>{t('product.link_to_the_shop')}</Button>
+					<ButtonGroup>
+						<Button icon={'edit'} minimal={true} onClick={onEditHandler}>{t('product.button_edit')}</Button>
+						<Button onClick={() => {
+							deleteProduct(productId)
+						}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
+					</ButtonGroup>
+				</div>
+
+
+				<h1>{product.model.title}</h1>
+				<p>{product.model.description}</p>
+				<div>
+					<ProductsTags
+					list={product.model.list}
+					categories={product.model.categories}/>
+				</div>
+			</div>
+		</section>
+	)
 }
 
 const mapStateToProps = (state, ownProps) => {
