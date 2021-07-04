@@ -1,15 +1,15 @@
 import * as React from 'react'
 import { Button, ButtonGroup, Callout, Intent, NonIdealState, Spinner, Tag } from '@blueprintjs/core'
 import { connect } from 'react-redux'
-import { deleteProduct, fetchProduct } from '../redux/actions/product'
-import { getProduct } from '../redux/selectors'
-import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS } from '../redux/reducers/consts'
+import { deleteProduct, fetchProduct, resetProduct } from '../../redux/actions/product'
+import { getProduct } from '../../redux/selectors'
+import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import PropTypes from 'prop-types'
 
-const ProductDetails = ({ productId, product, fetchProduct, deleteProduct }) => {
+const ProductDetails = ({ productId, product, fetchProduct, deleteProduct, reset }) => {
 	const history = useHistory()
 
 	useEffect(() => {
@@ -18,6 +18,7 @@ const ProductDetails = ({ productId, product, fetchProduct, deleteProduct }) => 
 	}, [productId])
 
 	if (product.deleteStatus === STATUS_SUCCESS) {
+		reset()
 		history.push('/')
 	}
 
@@ -58,7 +59,7 @@ const ProductDetails = ({ productId, product, fetchProduct, deleteProduct }) => 
 	let productCategoriesTags
 	if (product.model.categories) {
 		productCategoriesTags = product.model.categories.map((item) => {
-			return <Tag>{item.title}</Tag>
+			return (<Tag key={item.id}>{item.title}</Tag>)
 		})
 	}
 
@@ -92,13 +93,15 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
 	return {
 		fetchProduct: (id) => dispatch(fetchProduct(id)),
-		deleteProduct: (id) => dispatch(deleteProduct(id))
+		deleteProduct: (id) => dispatch(deleteProduct(id)),
+		reset: () => dispatch(resetProduct())
 	}
 }
 
 ProductDetails.propTypes = {
 	fetchProduct: PropTypes.func,
 	deleteProduct: PropTypes.func,
+	reset: PropTypes.func,
 	product: PropTypes.object,
 	productId: PropTypes.string
 }

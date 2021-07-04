@@ -7,10 +7,10 @@ import ListEditForm from './list/ListEditForm'
 import MenuAddProduct from './menu/MenuAddProduct'
 import MenuCategories from './menu/MenuCategories'
 import MenuLists from './menu/MenuLists'
-import Product from './Product'
+import Product from './product/Product'
 import ProductCreate from './product/ProductCreate'
 import ProductEdit from './product/ProductEdit'
-import ProductsList from './ProductsList'
+import ProductsList from './product/ProductsList'
 import store from '../redux/store'
 
 const App = () => {

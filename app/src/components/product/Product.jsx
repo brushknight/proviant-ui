@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useParams } from 'react-router-dom'
 import ProductDetails from './ProductDetails'
-import StockList from './StockList'
+import StockList from '../StockList'
 
 const Product = () => {
 	const { id } = useParams()
