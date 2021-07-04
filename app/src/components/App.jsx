@@ -48,7 +48,7 @@ const App = () => {
 									<ListEditForm/>
 								</Route>
 								<Route path="/list/:id/product/:productId">
-									<ProductOverlay/>
+									<ProductOverlay filterType={FILTER_TYPE_LIST}/>
 								</Route>
 							</Route>
 							<Route path="/category/:id">
@@ -57,7 +57,7 @@ const App = () => {
 									<CategoryEditForm/>
 								</Route>
 								<Route path="/category/:id/product/:productId">
-									<ProductOverlay/>
+									<ProductOverlay filterType={FILTER_TYPE_CATEGORY}/>
 								</Route>
 							</Route>
 							<Route path="/">

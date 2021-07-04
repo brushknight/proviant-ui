@@ -1,16 +1,18 @@
 import * as React from 'react'
-import { Callout, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
+import { Button, Callout, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../../redux/actions/products'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
 import { getCategories, getLists, getProducts } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import ProductsListRow from './ProductsListRow'
 import PropTypes from 'prop-types'
 
 const ProductsList = ({ products, categories, lists, filterType, fetchProducts }) => {
+	const history = useHistory()
+
 	let query = null
 	const { id } = useParams()
 
@@ -34,33 +36,53 @@ const ProductsList = ({ products, categories, lists, filterType, fetchProducts }
 	}, [id, filterType])
 
 	if (products.status === STATUS_LOADING) {
-		return <section className="content">
-			<Spinner/>
-		</section>
+		return (
+			<section className="content">
+				<Spinner/>
+			</section>
+		)
 	}
 
 	if (products.status === STATUS_ERROR) {
-		return <section className="content">
-			<Callout title={'oops... something went wrong'} intent={Intent.DANGER}>
-				{products.error}
-			</Callout>
-		</section>
+		return (
+			<section className="content">
+				<Callout title={'oops... something went wrong'} intent={Intent.DANGER}>
+					{products.error}
+				</Callout>
+			</section>
+		)
 	}
 
 	if (products.items.length === 0) {
-		return <section className="content">
-			<NonIdealState
-				title={'No products found'}
-				icon={'search'}
-			/>
-		</section>
+		return (
+			<section className="content">
+				<NonIdealState
+					title={'No products found'}
+					icon={'search'}
+				>
+					<Button icon={'plus'} intent={Intent.PRIMARY} onClick={() => {
+						history.push('/product/new')
+					}}>
+						Add product
+					</Button>
+				</NonIdealState>
+			</section>
+		)
 	}
 
-	return <section className="content">
-		{products.items.map(product => (
-			<ProductsListRow filterType={filterType} key={product.id} product={product} categories={categories} lists={lists}/>
-		))}
-	</section>
+	return (
+		<section className="content">
+			{products.items.map(product => (
+				<ProductsListRow
+					filterType={filterType}
+					key={product.id}
+					product={product}
+					categories={categories}
+					lists={lists}
+				/>
+			))}
+		</section>
+	)
 }
 
 const mapStateToProps = (state, ownProps) => {
