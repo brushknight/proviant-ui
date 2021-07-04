@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Callout, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../../redux/actions/products'
+import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
 import { getCategories, getLists, getProducts } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
@@ -15,12 +16,12 @@ const ProductsList = ({ products, categories, lists, filterType, fetchProducts }
 
 	if (filterType != null) {
 		if (!isNaN(Number(id))) {
-			if (filterType === 'category') {
+			if (filterType === FILTER_TYPE_CATEGORY) {
 				query = {
 					category: id
 				}
 			}
-			if (filterType === 'list') {
+			if (filterType === FILTER_TYPE_LIST) {
 				query = {
 					list: id
 				}
@@ -57,7 +58,7 @@ const ProductsList = ({ products, categories, lists, filterType, fetchProducts }
 
 	return <section className="content">
 		{products.items.map(product => (
-			<ProductsListRow key={product.id} product={product} categories={categories} lists={lists}/>
+			<ProductsListRow filterType={filterType} key={product.id} product={product} categories={categories} lists={lists}/>
 		))}
 	</section>
 }

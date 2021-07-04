@@ -4,12 +4,12 @@ import ProductDetails from './ProductDetails'
 import StockList from '../StockList'
 
 const Product = () => {
-	const { id } = useParams()
+	const { productId } = useParams()
 
 	return (
 		<div className="content">
-			<ProductDetails productId={id}/>
-			<StockList productId={id}/>
+			<ProductDetails productId={productId}/>
+			<StockList productId={productId}/>
 		</div>
 	)
 }

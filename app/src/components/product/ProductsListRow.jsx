@@ -1,8 +1,9 @@
 import * as React from 'react'
+import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-const ProductsListRow = ({ product, categories, lists }) => {
+const ProductsListRow = ({ product, categories, lists, filterType }) => {
 	const history = useHistory()
 	const list = lists.items.find(item => item.id === product.list_id)
 
@@ -22,7 +23,15 @@ const ProductsListRow = ({ product, categories, lists }) => {
 	}
 
 	const onClickHandler = () => {
-		history.push('/product/' + product.id)
+		switch (filterType) {
+		case FILTER_TYPE_LIST:
+			history.push('/list/' + list.id + '/product/' + product.id)
+			break
+		case FILTER_TYPE_CATEGORY:
+			history.push('/category/' + list.id + '/product/' + product.id)
+			break
+		default:
+		}
 	}
 
 	return <div className="content__product-details" onClick={() => {
@@ -46,7 +55,8 @@ const ProductsListRow = ({ product, categories, lists }) => {
 ProductsListRow.propTypes = {
 	product: PropTypes.object,
 	categories: PropTypes.object,
-	lists: PropTypes.object
+	lists: PropTypes.object,
+	filterType: PropTypes.string
 }
 
 export default ProductsListRow
