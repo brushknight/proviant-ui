@@ -1,4 +1,7 @@
 import {
+	ACTION_DELETE_CATEGORY_FAIL,
+	ACTION_DELETE_CATEGORY_IN_LIST,
+	ACTION_DELETE_CATEGORY_SUCCESS, ACTION_DELETE_LIST_FAIL, ACTION_DELETE_LIST_IN_LIST, ACTION_DELETE_LIST_SUCCESS,
 	ACTION_EDIT_LIST_FAIL,
 	ACTION_EDIT_LIST_FETCH_FAIL,
 	ACTION_EDIT_LIST_FETCHED,
@@ -41,6 +44,25 @@ const editListFetchFail = (error) => {
 const editListFail = (error) => {
 	return {
 		type: ACTION_EDIT_LIST_FAIL,
+		error: error
+	}
+}
+
+const deleteListSuccess = (error) => {
+	return {
+		type: ACTION_DELETE_LIST_SUCCESS,
+		error: error
+	}
+}
+const deleteListInList = (id) => {
+	return {
+		type: ACTION_DELETE_LIST_IN_LIST,
+		id
+	}
+}
+const deleteListFail = (error) => {
+	return {
+		type: ACTION_DELETE_LIST_FAIL,
 		error: error
 	}
 }
@@ -91,6 +113,25 @@ export const updateList = (id, title) => {
 					dispatch(editListFail(error.response.data.error))
 				} else {
 					dispatch(editListFail(errorMsq))
+				}
+			})
+	}
+}
+
+export const deleteList = (id) => {
+	return (dispatch) => {
+		axios.delete(`/api/v1/list/${id}/`)
+			.then(response => {
+				const data = response.data
+				dispatch(deleteListSuccess(data.data))
+				dispatch(deleteListInList(id))
+			})
+			.catch(error => {
+				const errorMsq = error.message
+				if (error.response && error.response.status) {
+					dispatch(deleteListFail(error.response.data.error))
+				} else {
+					dispatch(deleteListFail(errorMsq))
 				}
 			})
 	}

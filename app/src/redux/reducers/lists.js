@@ -2,6 +2,7 @@ import {
 	ACTION_CREATE_LIST_FAIL,
 	ACTION_CREATE_LIST_LOADING,
 	ACTION_CREATE_LIST_SUCCESS,
+	ACTION_DELETE_LIST_IN_LIST,
 	ACTION_FETCH_LIST_FAIL,
 	ACTION_FETCH_LIST_LOADING,
 	ACTION_FETCH_LIST_SUCCESS,
@@ -29,6 +30,14 @@ const initialState = () => {
 export default function (state = initialState(), action) {
 	let items = []
 	switch (action.type) {
+	case ACTION_DELETE_LIST_IN_LIST:
+		items = state.items
+		items = items.filter(item => item.id !== action.id)
+
+		return {
+			...state,
+			items
+		}
 	case ACTION_UPDATE_LIST_IN_LIST:
 		items = state.items
 

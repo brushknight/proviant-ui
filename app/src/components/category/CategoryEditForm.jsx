@@ -57,8 +57,13 @@ const CategoryEditForm = ({ form, fetch, reset, update, remove }) => {
 
 	let intent = Intent.NONE
 
-	if (formStatus === STATUS_UPDATED || formStatus === STATUS_DELETED) {
+	if (formStatus === STATUS_UPDATED) {
 		onClose()
+	}
+
+	if (formStatus === STATUS_DELETED) {
+		history.push('/')
+		reset()
 	}
 
 	if (formStatus === STATUS_ERROR || formStatus === STATUS_FETCH_FAILED) {

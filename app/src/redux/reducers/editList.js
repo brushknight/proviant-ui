@@ -1,5 +1,8 @@
 import {
-	ACTION_EDIT_LIST_FAIL, ACTION_EDIT_LIST_FETCH_FAIL,
+	ACTION_DELETE_LIST_FAIL,
+	ACTION_DELETE_LIST_SUCCESS,
+	ACTION_EDIT_LIST_FAIL,
+	ACTION_EDIT_LIST_FETCH_FAIL,
 	ACTION_EDIT_LIST_FETCHED,
 	ACTION_EDIT_LIST_FETCHING,
 	ACTION_EDIT_LIST_RESET,
@@ -8,6 +11,7 @@ import {
 } from '../actions/const'
 import {
 	STATUS_DEFAULT,
+	STATUS_DELETED,
 	STATUS_ERROR,
 	STATUS_FETCH_FAILED,
 	STATUS_FETCHED,
@@ -33,6 +37,17 @@ const initialState = () => {
 
 export default function (state = initialState(), action) {
 	switch (action.type) {
+	case ACTION_DELETE_LIST_SUCCESS:
+		return {
+			...initialState(),
+			status: STATUS_DELETED
+		}
+	case ACTION_DELETE_LIST_FAIL:
+		return {
+			...initialState(),
+			status: STATUS_ERROR,
+			error: action.error
+		}
 	case ACTION_EDIT_LIST_RESET:
 		return {
 			...initialState()

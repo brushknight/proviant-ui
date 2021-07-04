@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { Callout, InputGroup, Intent } from '@blueprintjs/core'
 import { connect } from 'react-redux'
-import { editListReset, fetchEditList, updateList } from '../../redux/actions/editList'
+import { deleteList, editListReset, fetchEditList, updateList } from '../../redux/actions/editList'
 import { getEditList } from '../../redux/selectors'
 import {
 	STATUS_DEFAULT,
+	STATUS_DELETED,
 	STATUS_EDITING,
 	STATUS_ERROR,
 	STATUS_FETCH_FAILED,
@@ -17,7 +18,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import Popover from '../Popover'
 import PropTypes from 'prop-types'
 
-const ListEditForm = ({ form, fetch, reset, update }) => {
+const ListEditForm = ({ form, fetch, reset, update, remove }) => {
 	const history = useHistory()
 	const { id } = useParams()
 	const [title, setTitle] = useState('')
@@ -32,6 +33,10 @@ const ListEditForm = ({ form, fetch, reset, update }) => {
 
 	const onSave = () => {
 		update(Number(id), title)
+	}
+
+	const onDelete = () => {
+		remove(Number(id))
 	}
 
 	useEffect(() => {
@@ -55,7 +60,11 @@ const ListEditForm = ({ form, fetch, reset, update }) => {
 
 	if (formStatus === STATUS_UPDATED) {
 		onClose()
-		// intent = Intent.SUCCESS
+	}
+
+	if (formStatus === STATUS_DELETED) {
+		history.push('/')
+		reset()
 	}
 
 	if (formStatus === STATUS_ERROR || formStatus === STATUS_FETCH_FAILED) {
@@ -106,6 +115,7 @@ const ListEditForm = ({ form, fetch, reset, update }) => {
 			title={'Edit List'}
 			onClose={onClose}
 			onSave={onSave}
+			onDelete={onDelete}
 			showButtons={showButtons}
 			showProgress={showProgress}
 		>
@@ -121,7 +131,8 @@ ListEditForm.propTypes = {
 	form: PropTypes.object,
 	fetch: PropTypes.func,
 	reset: PropTypes.func,
-	update: PropTypes.func
+	update: PropTypes.func,
+	remove: PropTypes.func
 }
 
 const mapStateToProps = state => {
@@ -133,7 +144,8 @@ const mapDispatchToProps = dispatch => {
 	return {
 		fetch: (id) => dispatch(fetchEditList(id)),
 		update: (id, title) => dispatch(updateList(id, title)),
-		reset: (id) => dispatch(editListReset(id))
+		reset: (id) => dispatch(editListReset(id)),
+		remove: (id) => dispatch(deleteList(id))
 	}
 }
 
