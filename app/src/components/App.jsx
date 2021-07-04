@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../const'
+import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../const'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import BreadCrumbs from './BreadCrumbs'
@@ -38,9 +38,6 @@ const App = () => {
 							<Route path="/product/new">
 								<ProductCreate/>
 							</Route>
-							<Route path="/product/:productId">
-								<Product/>
-							</Route>
 
 							<Route path="/list/:id">
 								<ProductsList filterType={FILTER_TYPE_LIST}/>
@@ -61,7 +58,10 @@ const App = () => {
 								</Route>
 							</Route>
 							<Route path="/">
-								<ProductsList/>
+								<ProductsList filterType={FILTER_TYPE_NONE}/>
+								<Route path="/product/:productId">
+									<ProductOverlay filterType={FILTER_TYPE_NONE}/>
+								</Route>
 							</Route>
 						</Switch>
 					</main>

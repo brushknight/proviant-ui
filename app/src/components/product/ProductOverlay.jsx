@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
+import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../const'
 import { Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
@@ -22,6 +22,9 @@ const ProductOverlay = ({ filterType }) => {
 			break
 		case FILTER_TYPE_CATEGORY:
 			history.push('/category/' + id)
+			break
+		case FILTER_TYPE_NONE:
+			history.push('/')
 			break
 		default:
 		}

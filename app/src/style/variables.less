@@ -4,3 +4,26 @@
 @dark: #30404D;
 @vialet-light: #C274C2;
 @gold-light: #FFC940;
+
+// neon colors
+@neon-purple: #6a0098;
+@neon-yellow: #ffc83a;
+
+// boxshadow mixin from www.herlitz.nu
+.boxshadow(@horizontalOffset: 0, @verticalOffset: 0, @blur: 10px, @color: #000, @opacity: 0.8, @spread: 0, @inset: false ) {
+  @red: red(@color);
+  @green: green(@color);
+  @blue: blue(@color);
+
+  & when (@inset = true) {
+    -webkit-box-shadow: inset @horizontalOffset @verticalOffset @blur @spread rgba(@red, @green, @blue, @opacity);
+    -moz-box-shadow: inset @horizontalOffset @verticalOffset @blur @spread rgba(@red, @green, @blue, @opacity);
+    box-shadow: inset @horizontalOffset @verticalOffset @blur @spread rgba(@red, @green, @blue, @opacity);
+  }
+
+  & when (@inset = false) {
+    -webkit-box-shadow: @horizontalOffset @verticalOffset @blur @spread rgba(@red, @green, @blue, @opacity);
+    -moz-box-shadow: @horizontalOffset @verticalOffset @blur @spread rgba(@red, @green, @blue, @opacity);
+    box-shadow: @horizontalOffset @verticalOffset @blur @spread rgba(@red, @green, @blue, @opacity);
+  }
+}

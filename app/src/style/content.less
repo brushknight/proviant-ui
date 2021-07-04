@@ -24,7 +24,7 @@
   padding: 7px 10px;
 
   cursor: pointer;
-  border-bottom: 1px solid @dark;
+  border-bottom: 1px solid @light;
 
   &:hover{
     background-color: @light;
@@ -68,14 +68,18 @@
   padding: 5px 10px;
   margin: 3px 0 ;
 
-  background-color: @vialet-light;
+  color: @white;
+  background-color: @neon-purple;
   border-radius: 3px;
+  .boxshadow(@color: @neon-purple, @opacity: 1, @blur: 4px, @spread: 1px);
 }
 
 .content__product-category {
   margin: 3px 0 3px 5px;
   padding: 5px 10px;
 
-  background-color: @gold-light;
+  background-color: @neon-yellow;
+  .boxshadow(@color: @neon-yellow, @opacity: 1, @blur: 4px, @spread: 1px);
+
   border-radius: 3px;
 }

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
+import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../const'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -29,6 +29,9 @@ const ProductsListRow = ({ product, categories, lists, filterType }) => {
 			break
 		case FILTER_TYPE_CATEGORY:
 			history.push('/category/' + list.id + '/product/' + product.id)
+			break
+		case FILTER_TYPE_NONE:
+			history.push('/product/' + product.id)
 			break
 		default:
 		}
