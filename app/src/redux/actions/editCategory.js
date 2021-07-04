@@ -1,4 +1,7 @@
 import {
+	ACTION_DELETE_CATEGORY_FAIL,
+	ACTION_DELETE_CATEGORY_IN_LIST,
+	ACTION_DELETE_CATEGORY_SUCCESS,
 	ACTION_EDIT_CATEGORY_FAIL,
 	ACTION_EDIT_CATEGORY_FETCH_FAIL,
 	ACTION_EDIT_CATEGORY_FETCHED,
@@ -41,6 +44,24 @@ const editCategoryFetchFail = (error) => {
 const editCategoryFail = (error) => {
 	return {
 		type: ACTION_EDIT_CATEGORY_FAIL,
+		error: error
+	}
+}
+const deleteCategorySuccess = (error) => {
+	return {
+		type: ACTION_DELETE_CATEGORY_SUCCESS,
+		error: error
+	}
+}
+const deleteCategoryInList = (id) => {
+	return {
+		type: ACTION_DELETE_CATEGORY_IN_LIST,
+		id
+	}
+}
+const deleteCategoryFail = (error) => {
+	return {
+		type: ACTION_DELETE_CATEGORY_FAIL,
 		error: error
 	}
 }
@@ -91,6 +112,25 @@ export const updateCategory = (id, title) => {
 					dispatch(editCategoryFail(error.response.data.error))
 				} else {
 					dispatch(editCategoryFail(errorMsq))
+				}
+			})
+	}
+}
+
+export const deleteCategory = (id) => {
+	return (dispatch) => {
+		axios.delete(`/api/v1/category/${id}/`)
+			.then(response => {
+				const data = response.data
+				dispatch(deleteCategorySuccess(data.data))
+				dispatch(deleteCategoryInList(id))
+			})
+			.catch(error => {
+				const errorMsq = error.message
+				if (error.response && error.response.status) {
+					dispatch(deleteCategoryFail(error.response.data.error))
+				} else {
+					dispatch(deleteCategoryFail(errorMsq))
 				}
 			})
 	}

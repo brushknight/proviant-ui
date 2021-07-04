@@ -1,4 +1,5 @@
 import {
+	ACTION_DELETE_CATEGORY_FAIL, ACTION_DELETE_CATEGORY_SUCCESS,
 	ACTION_EDIT_CATEGORY_FAIL, ACTION_EDIT_CATEGORY_FETCH_FAIL,
 	ACTION_EDIT_CATEGORY_FETCHED,
 	ACTION_EDIT_CATEGORY_FETCHING,
@@ -7,7 +8,7 @@ import {
 	ACTION_EDIT_CATEGORY_SUCCESS
 } from '../actions/const'
 import {
-	STATUS_DEFAULT,
+	STATUS_DEFAULT, STATUS_DELETED,
 	STATUS_ERROR,
 	STATUS_FETCH_FAILED,
 	STATUS_FETCHED,
@@ -33,6 +34,17 @@ const initialState = () => {
 
 export default function (state = initialState(), action) {
 	switch (action.type) {
+	case ACTION_DELETE_CATEGORY_SUCCESS:
+		return {
+			...initialState(),
+			status: STATUS_DELETED
+		}
+	case ACTION_DELETE_CATEGORY_FAIL:
+		return {
+			...initialState(),
+			status: STATUS_ERROR,
+			error: action.error
+		}
 	case ACTION_EDIT_CATEGORY_RESET:
 		return {
 			...initialState()

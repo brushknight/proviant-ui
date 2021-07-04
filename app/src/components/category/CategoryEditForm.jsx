@@ -1,13 +1,15 @@
 import * as React from 'react'
 import { Callout, InputGroup, Intent } from '@blueprintjs/core'
 import { connect } from 'react-redux'
-import { editCategoryReset, fetchEditCategory, updateCategory } from '../../redux/actions/editCategory'
+import { deleteCategory, editCategoryReset, fetchEditCategory, updateCategory } from '../../redux/actions/editCategory'
 import { getEditCategory } from '../../redux/selectors'
 import {
-	STATUS_DEFAULT, STATUS_EDITING,
+	STATUS_DEFAULT, STATUS_DELETED,
+	STATUS_EDITING,
 	STATUS_ERROR,
 	STATUS_FETCH_FAILED,
-	STATUS_FETCHED, STATUS_SENDING, STATUS_SUCCESS,
+	STATUS_FETCHED,
+	STATUS_SENDING,
 	STATUS_UPDATED
 } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
@@ -15,7 +17,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import Popover from '../Popover'
 import PropTypes from 'prop-types'
 
-const CategoryEditForm = ({ form, fetch, reset, update }) => {
+const CategoryEditForm = ({ form, fetch, reset, update, remove }) => {
 	const history = useHistory()
 	const { id } = useParams()
 	const [title, setTitle] = useState('')
@@ -30,6 +32,10 @@ const CategoryEditForm = ({ form, fetch, reset, update }) => {
 
 	const onSave = () => {
 		update(Number(id), title)
+	}
+
+	const onDelete = () => {
+		remove(Number(id))
 	}
 
 	useEffect(() => {
@@ -51,9 +57,8 @@ const CategoryEditForm = ({ form, fetch, reset, update }) => {
 
 	let intent = Intent.NONE
 
-	if (formStatus === STATUS_UPDATED) {
+	if (formStatus === STATUS_UPDATED || formStatus === STATUS_DELETED) {
 		onClose()
-		// intent = Intent.SUCCESS
 	}
 
 	if (formStatus === STATUS_ERROR || formStatus === STATUS_FETCH_FAILED) {
@@ -104,6 +109,7 @@ const CategoryEditForm = ({ form, fetch, reset, update }) => {
 			title={'Edit Category'}
 			onClose={onClose}
 			onSave={onSave}
+			onDelete={onDelete}
 			showButtons={showButtons}
 			showProgress={showProgress}
 		>
@@ -119,7 +125,8 @@ CategoryEditForm.propTypes = {
 	form: PropTypes.object,
 	fetch: PropTypes.func,
 	reset: PropTypes.func,
-	update: PropTypes.func
+	update: PropTypes.func,
+	remove: PropTypes.func
 }
 
 const mapStateToProps = state => {
@@ -131,7 +138,8 @@ const mapDispatchToProps = dispatch => {
 	return {
 		fetch: (id) => dispatch(fetchEditCategory(id)),
 		update: (id, title) => dispatch(updateCategory(id, title)),
-		reset: (id) => dispatch(editCategoryReset(id))
+		reset: () => dispatch(editCategoryReset()),
+		remove: (id) => dispatch(deleteCategory(id))
 	}
 }
 

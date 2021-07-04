@@ -12,6 +12,7 @@ export const STATUS_SUCCESS = 'success'
 export const STATUS_UPDATED = 'updated'
 export const STATUS_EDITING = 'editing'
 export const STATUS_CREATED = 'created'
+export const STATUS_DELETED = 'deleted'
 
 export const PRODUCT_FIELD_ID = 'id'
 export const PRODUCT_FIELD_TITLE = 'title'

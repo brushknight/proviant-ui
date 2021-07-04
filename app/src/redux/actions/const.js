@@ -84,6 +84,10 @@ export const ACTION_EDIT_CATEGORY_FAIL = 'update/category/fail'
 export const ACTION_EDIT_CATEGORY_SUCCESS = 'update/category/success'
 export const ACTION_EDIT_CATEGORY_RESET = 'update/category/reset'
 
+export const ACTION_DELETE_CATEGORY_SUCCESS = 'delete/category/success'
+export const ACTION_DELETE_CATEGORY_IN_LIST = 'delete/category/in_list'
+export const ACTION_DELETE_CATEGORY_FAIL = 'delete/category/fail'
+
 // edit category
 export const ACTION_EDIT_LIST_FETCHED = 'update/list/fetched'
 export const ACTION_EDIT_LIST_FETCHING = 'update/list/fetching'
