@@ -17,27 +17,27 @@ import {
 	STATUS_UPDATED
 } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import SectionError from '../SectionError'
 import SectionLoading from '../SectionLoading'
 import SectionNotFound from '../SectionNotFound'
 import Select from 'react-select'
 
-const ProductEdit = ({
-	form,
-	lists,
-	categories,
-	fetchProduct,
-	updateProduct,
-	change
-}) => {
-	const history = useHistory()
-	const { id } = useParams()
-
+const ProductEdit = (
+	{
+		form,
+		lists,
+		categories,
+		productId,
+		fetchProduct,
+		updateProduct,
+		closePopover,
+		change
+	}
+) => {
 	useEffect(() => {
-		fetchProduct(id)
-	}, [id])
+		fetchProduct(productId)
+	}, [productId])
 
 	// eslint-disable-next-line react/prop-types
 	if (form.status === STATUS_FETCHING) {
@@ -53,7 +53,7 @@ const ProductEdit = ({
 	}
 
 	const onCancelHandler = () => {
-		history.push('/product/' + form.model.id)
+		closePopover()
 	}
 
 	const textLinkToShop = <Tag minimal={true}>Link to shop</Tag>
@@ -184,17 +184,19 @@ const ProductEdit = ({
 	</section>
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
 	const form = getEditProduct(state)
 	const lists = getLists(state)
 	const categories = getCategories(state)
-	return { form, lists, categories }
+	const productId = ownProps.productId
+	return { form, lists, categories, productId }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		fetchProduct: (id) => dispatch(fetchEditProduct(id)),
 		updateProduct: (model) => dispatch(updateProduct(model)),
+		closePopover: ownProps.closePopover,
 		change: {
 			title: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_TITLE, value)),
 			description: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_DESCRIPTION, value)),
@@ -208,8 +210,10 @@ const mapDispatchToProps = dispatch => {
 }
 
 ProductEdit.propTypes = {
+	closePopover: PropTypes.func,
 	fetchProduct: PropTypes.func,
 	updateProduct: PropTypes.func,
+	productId: PropTypes.string,
 	change: PropTypes.object,
 	form: PropTypes.object,
 	lists: PropTypes.object,

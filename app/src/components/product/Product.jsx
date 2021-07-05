@@ -5,18 +5,24 @@ import PropTypes from 'prop-types'
 import StockList from '../StockList'
 
 const Product = (props) => {
-	const { productId } = useParams()
+	const { id, productId } = useParams()
 
 	return (
 		<div className="content">
-			<ProductDetails closePopover={props.closePopover} productId={productId}/>
+			<ProductDetails
+				closePopover={props.closePopover}
+				productId={productId}
+				listOrCategoryId={id}
+				filterType={props.filterType}
+			/>
 			<StockList productId={productId}/>
 		</div>
 	)
 }
 
 Product.propTypes = {
-	closePopover: PropTypes.func
+	closePopover: PropTypes.func,
+	filterType: PropTypes.string
 }
 
 export default Product

@@ -8,9 +8,8 @@ import ListEditForm from './list/ListEditForm'
 import MenuAddProduct from './menu/MenuAddProduct'
 import MenuCategories from './menu/MenuCategories'
 import MenuLists from './menu/MenuLists'
-import Product from './product/Product'
 import ProductCreate from './product/ProductCreate'
-import ProductEdit from './product/ProductEdit'
+import ProductEditOverlay from './product/ProductEditOverlay'
 import ProductOverlay from './product/ProductOverlay'
 import ProductsList from './product/ProductsList'
 import store from '../redux/store'
@@ -32,9 +31,6 @@ const App = () => {
 						<BreadCrumbs/>
 						<Switch>
 
-							<Route path="/product/:id/edit">
-								<ProductEdit/>
-							</Route>
 							<Route path="/product/new">
 								<ProductCreate/>
 							</Route>
@@ -43,6 +39,9 @@ const App = () => {
 								<ProductsList filterType={FILTER_TYPE_LIST}/>
 								<Route path="/list/:id/edit">
 									<ListEditForm/>
+								</Route>
+								<Route path="/list/:id/product/:productId/edit">
+									<ProductEditOverlay filterType={FILTER_TYPE_LIST}/>
 								</Route>
 								<Route path="/list/:id/product/:productId">
 									<ProductOverlay filterType={FILTER_TYPE_LIST}/>
@@ -53,12 +52,18 @@ const App = () => {
 								<Route path="/category/:id/edit">
 									<CategoryEditForm/>
 								</Route>
+								<Route path="/category/:id/product/:productId/edit">
+									<ProductEditOverlay filterType={FILTER_TYPE_CATEGORY}/>
+								</Route>
 								<Route path="/category/:id/product/:productId">
 									<ProductOverlay filterType={FILTER_TYPE_CATEGORY}/>
 								</Route>
 							</Route>
 							<Route path="/">
 								<ProductsList filterType={FILTER_TYPE_NONE}/>
+								<Route path="/product/:productId/edit">
+									<ProductEditOverlay filterType={FILTER_TYPE_NONE}/>
+								</Route>
 								<Route path="/product/:productId">
 									<ProductOverlay filterType={FILTER_TYPE_NONE}/>
 								</Route>

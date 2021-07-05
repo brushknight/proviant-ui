@@ -7,14 +7,14 @@ import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS } from '
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
+import { generateEditProductLink } from '../../utils/link'
 import PropTypes from 'prop-types'
 
-const ProductDetails = ({ productId, product, fetchProduct, deleteProduct, reset, closePopover }) => {
+const ProductDetails = ({ productId, product, filterType, listOrCategoryId, fetchProduct, deleteProduct, reset, closePopover }) => {
 	const history = useHistory()
 
 	useEffect(() => {
 		fetchProduct(productId)
-		// createProductFormReset()
 	}, [productId])
 
 	if (product.deleteStatus === STATUS_SUCCESS) {
@@ -47,7 +47,7 @@ const ProductDetails = ({ productId, product, fetchProduct, deleteProduct, reset
 	}
 
 	const onEditHandler = () => {
-		history.push('/product/' + product.model.id + '/edit')
+		history.push(generateEditProductLink(filterType, listOrCategoryId, productId))
 	}
 
 	let productListTag
@@ -96,7 +96,9 @@ const ProductDetails = ({ productId, product, fetchProduct, deleteProduct, reset
 const mapStateToProps = (state, ownProps) => {
 	const product = getProduct(state)
 	const productId = ownProps.productId
-	return { productId, product }
+	const listOrCategoryId = ownProps.listOrCategoryId
+	const filterType = ownProps.filterType
+	return { productId, product, filterType, listOrCategoryId }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -114,6 +116,8 @@ ProductDetails.propTypes = {
 	reset: PropTypes.func,
 	product: PropTypes.object,
 	productId: PropTypes.string,
+	listOrCategoryId: PropTypes.string,
+	filterType: PropTypes.string,
 	closePopover: PropTypes.func
 }
 

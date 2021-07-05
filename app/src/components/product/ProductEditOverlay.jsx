@@ -1,12 +1,13 @@
 import * as React from 'react'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../const'
+import { generateProductLink } from '../../utils/link'
 import { Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import Product from './Product'
+import ProductEdit from './ProductEdit'
 import PropTypes from 'prop-types'
 
-const ProductOverlay = ({ filterType }) => {
+const ProductEditOverlay = ({ filterType }) => {
 	const { id, productId } = useParams()
 	const [isOpen, setIsOpen] = useState(false)
 	const history = useHistory()
@@ -16,18 +17,7 @@ const ProductOverlay = ({ filterType }) => {
 	}, [id, productId])
 
 	const onClose = () => {
-		switch (filterType) {
-		case FILTER_TYPE_LIST:
-			history.push('/list/' + id)
-			break
-		case FILTER_TYPE_CATEGORY:
-			history.push('/category/' + id)
-			break
-		case FILTER_TYPE_NONE:
-			history.push('/')
-			break
-		default:
-		}
+		history.push(generateProductLink(filterType, id, productId))
 	}
 
 	const closePopover = () => {
@@ -44,9 +34,9 @@ const ProductOverlay = ({ filterType }) => {
 		>
 			<div className={'change_me-overlay-product-container'}>
 				<div className={'change_me-overlay-product-container-inner'}>
-					<Product
+					<ProductEdit
+						productId={productId}
 						closePopover={closePopover}
-						filterType={filterType}
 					/>
 
 				</div>
@@ -56,8 +46,8 @@ const ProductOverlay = ({ filterType }) => {
 	)
 }
 
-ProductOverlay.propTypes = {
+ProductEditOverlay.propTypes = {
 	filterType: PropTypes.string
 }
 
-export default ProductOverlay
+export default ProductEditOverlay
