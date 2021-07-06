@@ -12,7 +12,7 @@ import Item from './Item'
 import PropTypes from 'prop-types'
 
 const MenuCategories = ({ categories, fetchCategories, createCategory, resetCreateCategoryForm }) => {
-	const { t } = useTranslation()
+	const { t, i18n } = useTranslation()
 
 	const history = useHistory()
 
@@ -51,7 +51,7 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, resetCrea
 	const createForm = <CreateForm
 		placeholder={t('menu_category.create_form_placeholder')}
 		icon={'tag'}
-		onSubmit={(title) => createCategory(title)}
+		onSubmit={(title) => createCategory(title, i18n.language)}
 		onReset={() => resetCreateCategoryForm()}
 		status={categories.createForm.status}
 		error={categories.createForm.error}
@@ -107,7 +107,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		fetchCategories: () => dispatch(fetchCategories()),
-		createCategory: (title) => dispatch(createCategory(title)),
+		createCategory: (title, locale) => dispatch(createCategory(title, locale)),
 		resetCreateCategoryForm: () => dispatch(resetCreateCategoryForm())
 	}
 }

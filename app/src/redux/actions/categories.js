@@ -5,7 +5,8 @@ import {
 	ACTION_CREATE_CATEGORY_SUCCESS,
 	ACTION_FETCH_CATEGORIES_FAIL,
 	ACTION_FETCH_CATEGORIES_LOADING,
-	ACTION_FETCH_CATEGORIES_SUCCESS, ACTION_UPDATE_CATEGORY_IN_LIST
+	ACTION_FETCH_CATEGORIES_SUCCESS,
+	ACTION_UPDATE_CATEGORY_IN_LIST
 } from './const'
 import axios from 'axios'
 
@@ -77,11 +78,17 @@ export const fetchCategories = () => {
 	}
 }
 
-export const createCategory = (title) => {
+export const createCategory = (title, locale) => {
 	return (dispatch) => {
 		dispatch(createCategoryLoading())
 		const json = JSON.stringify({ title })
-		axios.post('/api/v1/category/', json)
+		const config = {
+			headers: {
+				'User-Locale': locale
+			}
+		}
+
+		axios.post('/api/v1/category/', json, config)
 			.then(response => {
 				const data = response.data
 				dispatch(createCategorySuccess(data.data))
