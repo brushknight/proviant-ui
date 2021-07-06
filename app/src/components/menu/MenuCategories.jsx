@@ -7,10 +7,13 @@ import { getCategories } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
 const MenuCategories = ({ categories, fetchCategories, createCategory, resetCreateCategoryForm }) => {
+	const { t } = useTranslation()
+
 	const history = useHistory()
 
 	useEffect(() => {
@@ -27,7 +30,7 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, resetCrea
 				Classes.ELEVATION_0
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
-			<MenuDivider title="Categories"/>
+			<MenuDivider title={t('menu_category.title')}/>
 			<Spinner/>
 		</Menu>
 	}
@@ -38,7 +41,7 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, resetCrea
 				Classes.ELEVATION_0
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
-			<MenuDivider title="Categories"/>
+			<MenuDivider title={t('menu_category.title')}/>
 			<Callout title={'oops... something went wrong'} intent={Intent.DANGER}>
 				{categories.error}
 			</Callout>
@@ -46,7 +49,7 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, resetCrea
 	}
 
 	const createForm = <CreateForm
-		placeholder="New Category"
+		placeholder={t('menu_category.create_form_placeholder')}
 		icon={'tag'}
 		onSubmit={(title) => createCategory(title)}
 		onReset={() => resetCreateCategoryForm()}
@@ -60,7 +63,7 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, resetCrea
 				Classes.ELEVATION_0
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
-			<MenuDivider title="Categories"/>
+			<MenuDivider title={t('menu_category.title')}/>
 			{createForm}
 		</Menu>
 	}
@@ -70,7 +73,7 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, resetCrea
 			Classes.ELEVATION_0
 		} page-header__navigation-list page-header__navigation-list--side-bar`}
 	>
-		<MenuDivider title="Categories"/>
+		<MenuDivider title={t('menu_category.title')}/>
 		{createForm}
 		{categories.items.map(item => (
 			<Item

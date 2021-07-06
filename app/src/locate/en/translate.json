@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "global": {
+      "button_save": "Save",
+      "button_close": "Close",
+      "button_delete": "Delete"
+    },
+    "menu_category": {
+      "title": "Categories",
+      "create_form_placeholder": "New Category"
+    },
+    "edit_category_form": {
+      "title": "Edit Category",
+      "placeholder": "Category title"
+    }
+  }
+}

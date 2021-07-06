@@ -14,10 +14,12 @@ import {
 } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Popover from '../Popover'
 import PropTypes from 'prop-types'
 
 const CategoryEditForm = ({ form, fetch, reset, update, remove }) => {
+	const { t } = useTranslation()
 	const history = useHistory()
 	const { id } = useParams()
 	const [title, setTitle] = useState('')
@@ -83,7 +85,7 @@ const CategoryEditForm = ({ form, fetch, reset, update, remove }) => {
 
 	let content = (
 		<InputGroup
-			placeholder={'Category title'}
+			placeholder={t('edit_category_form.placeholder')}
 			leftIcon={'tag'}
 			value={title}
 			intent={intent}
@@ -111,7 +113,7 @@ const CategoryEditForm = ({ form, fetch, reset, update, remove }) => {
 	return (
 		<Popover
 			isOpen={true}
-			title={'Edit Category'}
+			title={t('edit_category_form.title')}
 			onClose={onClose}
 			onSave={onSave}
 			onDelete={onDelete}

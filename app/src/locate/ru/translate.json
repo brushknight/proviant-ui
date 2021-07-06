@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "global": {
+      "button_save": "Сохранить",
+      "button_close": "Закрыть",
+      "button_delete": "Удалить"
+    },
+    "menu_category": {
+      "title": "Категории",
+      "create_form_placeholder": "Добавить Категорию"
+    },
+    "edit_category_form": {
+      "title": "Редактировать Категорию",
+      "placeholder": "Название Категории"
+    }
+  }
+}

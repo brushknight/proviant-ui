@@ -1,9 +1,11 @@
 import * as Classes from '@blueprintjs/core/lib/esnext/common/classes'
 import * as React from 'react'
 import { AnchorButton, Dialog, Intent, Spinner, SpinnerSize } from '@blueprintjs/core'
+import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
 const Popover = (props) => {
+	const { t } = useTranslation()
 	const dialogState = {
 		autoFocus: true,
 		canEscapeKeyClose: true,
@@ -34,7 +36,7 @@ const Popover = (props) => {
 				minimal={true}
 				onClick={props.onDelete}
 			>
-				Delete
+				{t('global.button_delete')}
 			</AnchorButton>
 		))
 		buttons.push((
@@ -45,7 +47,7 @@ const Popover = (props) => {
 				icon={'cross'}
 				onClick={props.onClose}
 			>
-				Close
+				{t('global.button_close')}
 			</AnchorButton>
 		))
 		buttons.push((
@@ -56,7 +58,7 @@ const Popover = (props) => {
 				icon={'tick'}
 				onClick={props.onSave}
 			>
-				Save
+				{t('global.button_save')}
 			</AnchorButton>
 		))
 	}
