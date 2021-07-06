@@ -1,7 +1,12 @@
 import * as React from 'react'
 import { Button, ButtonGroup, Callout, EditableText, InputGroup, Intent, Tag } from '@blueprintjs/core'
 import { connect } from 'react-redux'
-import { editProductFormChangeField, fetchEditProduct, updateProduct } from '../../redux/actions/editProduct'
+import {
+	editProductFormChangeField,
+	editProductFormReset,
+	fetchEditProduct,
+	updateProduct
+} from '../../redux/actions/editProduct'
 import { getCategories, getEditProduct, getLists } from '../../redux/selectors'
 import {
 	PRODUCT_FIELD_BARCODE,
@@ -10,13 +15,13 @@ import {
 	PRODUCT_FIELD_IMAGE,
 	PRODUCT_FIELD_LINK,
 	PRODUCT_FIELD_LIST,
-	PRODUCT_FIELD_TITLE,
-	STATUS_ERROR,
+	PRODUCT_FIELD_TITLE, STATUS_DEFAULT,
+	STATUS_ERROR, STATUS_FETCHED,
 	STATUS_FETCHING,
 	STATUS_NOT_FOUND,
 	STATUS_UPDATED
 } from '../../redux/reducers/consts'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import SectionError from '../SectionError'
 import SectionLoading from '../SectionLoading'
@@ -31,15 +36,34 @@ const ProductEdit = (
 		productId,
 		fetchProduct,
 		updateProduct,
-		closePopover,
-		change
+		reset,
+		closePopover
 	}
 ) => {
 	useEffect(() => {
-		fetchProduct(productId)
-	}, [productId])
+		if (form.status === STATUS_DEFAULT) {
+			fetchProduct(productId)
+		}
 
-	// eslint-disable-next-line react/prop-types
+		if (form.status === STATUS_FETCHED) {
+			setTitle(form.model.title)
+			setDescription(form.model.description)
+			setLink(form.model.link)
+			setImage(form.model.image)
+			setBarcode(form.model.barcode)
+			setList(form.model.list)
+			setCategoryList(form.model.categories)
+		}
+	}, [productId, form.status])
+
+	const [title, setTitle] = useState(form.model.title)
+	const [description, setDescription] = useState(form.model.description)
+	const [link, setLink] = useState(form.model.link)
+	const [image, setImage] = useState(form.model.image)
+	const [barcode, setBarcode] = useState(form.model.barcode)
+	const [list, setList] = useState(form.model.list)
+	const [categoryList, setCategoryList] = useState(form.model.categories)
+
 	if (form.status === STATUS_FETCHING) {
 		return <SectionLoading/>
 	}
@@ -54,6 +78,7 @@ const ProductEdit = (
 
 	const onCancelHandler = () => {
 		closePopover()
+		reset()
 	}
 
 	const textLinkToShop = <Tag minimal={true}>Link to shop</Tag>
@@ -63,7 +88,16 @@ const ProductEdit = (
 	const controls = []
 
 	controls.push(<Button icon={'tick'} minimal={true} onClick={() => {
-		updateProduct(form.model)
+		updateProduct({
+			id: form.model.id,
+			title,
+			description,
+			link,
+			image,
+			barcode,
+			list_id: list ? list.id : 0,
+			category_ids: categoryList ? categoryList.map(item => item.id) : []
+		})
 	}} intent={Intent.SUCCESS}>Save</Button>)
 	controls.push(<Button icon={'undo'} minimal={true} onClick={onCancelHandler}>Back to product</Button>)
 
@@ -85,8 +119,8 @@ const ProductEdit = (
 
 	let categoriesSelected = []
 
-	if (form.model.categories != null) {
-		categoriesSelected = form.model.categories.map((item) => {
+	if (categoryList != null) {
+		categoriesSelected = categoryList.map((item) => {
 			return convertCategoryToValue(item)
 		})
 	}
@@ -109,15 +143,15 @@ const ProductEdit = (
 		<ButtonGroup>
 			{controls}
 		</ButtonGroup>
-		<img src={form.model.image} alt={form.model.title} width={100} height={100}/>
+		<img src={image} alt={title} width={100} height={100}/>
 		<h1>
 			<EditableText
 				multiline={false}
 				minLines={1}
 				maxLines={1}
-				value={form.model.title}
+				value={title}
 				onChange={(value) => {
-					change.title(value)
+					setTitle(value)
 				}}
 			/>
 		</h1>
@@ -125,33 +159,33 @@ const ProductEdit = (
 			multiline={true}
 			minLines={3}
 			maxLines={100}
-			value={form.model.description}
+			value={description}
 			onChange={(value) => {
-				change.description(value)
+				setDescription(value)
 			}}
 		/>
 		<InputGroup
 			fill={true}
 			leftElement={textLinkToShop}
-			value={form.model.link}
+			value={link}
 			onChange={(event) => {
-				change.link(event.target.value)
+				setLink(event.target.value)
 			}}
 		/>
 		<InputGroup
 			fill={true}
 			leftElement={textLinkToPicture}
-			value={form.model.image}
+			value={image}
 			onChange={(event) => {
-				change.image(event.target.value)
+				setImage(event.target.value)
 			}}
 		/>
 		<InputGroup
 			fill={true}
 			leftElement={textBarcode}
-			value={form.model.barcode}
+			value={barcode}
 			onChange={(event) => {
-				change.barcode(event.target.value)
+				setBarcode(event.target.value)
 			}}
 		/>
 		<Select
@@ -159,11 +193,11 @@ const ProductEdit = (
 			isMulti={false}
 			placeholder={'select list'}
 			onChange={(event) => {
-				change.list(
+				setList(
 					lists.items.find(item => item.id === event.value)
 				)
 			}}
-			value={form.model.list ? convertListToValue(form.model.list) : null}
+			value={list ? convertListToValue(list) : null}
 			className={'change_me-product-list-select'}
 		/>
 		<Select
@@ -171,11 +205,9 @@ const ProductEdit = (
 			isMulti={true}
 			placeholder={'select categories'}
 			onChange={(data) => {
-				change.categories(
-					data.map((item) => {
-						return categories.items.find(c => c.id === item.value)
-					})
-				)
+				setCategoryList(data.map((item) => {
+					return categories.items.find(c => c.id === item.value)
+				}))
 			}}
 			value={categoriesSelected}
 			className={'change_me-product-categories-select'}
@@ -196,16 +228,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		fetchProduct: (id) => dispatch(fetchEditProduct(id)),
 		updateProduct: (model) => dispatch(updateProduct(model)),
-		closePopover: ownProps.closePopover,
-		change: {
-			title: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_TITLE, value)),
-			description: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_DESCRIPTION, value)),
-			barcode: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_BARCODE, value)),
-			link: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_LINK, value)),
-			image: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_IMAGE, value)),
-			list: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_LIST, value)),
-			categories: (value) => dispatch(editProductFormChangeField(PRODUCT_FIELD_CATEGORIES, value))
-		}
+		reset: () => dispatch(editProductFormReset()),
+		closePopover: ownProps.closePopover
 	}
 }
 
@@ -213,8 +237,8 @@ ProductEdit.propTypes = {
 	closePopover: PropTypes.func,
 	fetchProduct: PropTypes.func,
 	updateProduct: PropTypes.func,
+	reset: PropTypes.func,
 	productId: PropTypes.string,
-	change: PropTypes.object,
 	form: PropTypes.object,
 	lists: PropTypes.object,
 	categories: PropTypes.object

@@ -40,7 +40,7 @@ const App = () => {
 								<Route path="/list/:id/edit">
 									<ListEditForm/>
 								</Route>
-								<Route path="/list/:id/product/:productId/edit">
+								<Route path="/list/:id/product-edit/:productId">
 									<ProductEditOverlay filterType={FILTER_TYPE_LIST}/>
 								</Route>
 								<Route path="/list/:id/product/:productId">
@@ -52,7 +52,7 @@ const App = () => {
 								<Route path="/category/:id/edit">
 									<CategoryEditForm/>
 								</Route>
-								<Route path="/category/:id/product/:productId/edit">
+								<Route path="/category/:id/product-edit/:productId">
 									<ProductEditOverlay filterType={FILTER_TYPE_CATEGORY}/>
 								</Route>
 								<Route path="/category/:id/product/:productId">
@@ -61,7 +61,7 @@ const App = () => {
 							</Route>
 							<Route path="/">
 								<ProductsList filterType={FILTER_TYPE_NONE}/>
-								<Route path="/product/:productId/edit">
+								<Route path="/product-edit/:productId/">
 									<ProductEditOverlay filterType={FILTER_TYPE_NONE}/>
 								</Route>
 								<Route path="/product/:productId">

@@ -46,7 +46,6 @@ export const ACTION_UPDATE_LIST_IN_LIST = 'update/list/in_list'
 // product
 
 export const ACTION_FETCH_PRODUCT_SUCCESS = 'fetch/product/success'
-export const ACTION_FETCH_PRODUCT_FORM_SUCCESS = 'fetch/product_form/success'
 export const ACTION_FETCH_PRODUCT_FAIL = 'fetch/product/fail'
 export const ACTION_FETCH_PRODUCT_NOT_FOUND = 'fetch/product/not_found'
 export const ACTION_FETCH_PRODUCT_LOADING = 'fetch/product/loading'
@@ -56,13 +55,12 @@ export const ACTION_EDIT_PRODUCT_FETCHED = 'update/product/fetched'
 export const ACTION_EDIT_PRODUCT_SENDING = 'update/product/sending'
 export const ACTION_EDIT_PRODUCT_SUCCESS = 'update/product/success'
 export const ACTION_EDIT_PRODUCT_FAIL = 'update/product/fail'
+export const ACTION_EDIT_PRODUCT_RESET = 'update/product/reset'
 
 export const ACTION_CREATE_PRODUCT_SUCCESS = 'create/product/success'
 export const ACTION_CREATE_PRODUCT_SENDING = 'create/product/sending'
 export const ACTION_CREATE_PRODUCT_FAIL = 'create/product/fail'
 
-export const ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD = 'change/product/field'
-export const ACTION_CHANGE_PRODUCT_CREATE_FORM_FIELD = 'change/product/create_form/field'
 export const ACTION_CREATE_PRODUCT_RESET = 'reset/product/create'
 
 export const ACTION_DELETE_PRODUCT_LOADING = 'delete/product/loading'

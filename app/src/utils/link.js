@@ -3,11 +3,11 @@ import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../con
 export const generateEditProductLink = (filterType, listOrCategoryId, productId) => {
 	switch (filterType) {
 	case FILTER_TYPE_CATEGORY:
-		return '/category/' + listOrCategoryId + '/product/' + productId + '/edit'
+		return '/category/' + listOrCategoryId + '/product-edit/' + productId
 	case FILTER_TYPE_LIST:
-		return '/list/' + listOrCategoryId + '/product/' + productId + '/edit'
+		return '/list/' + listOrCategoryId + '/product-edit/' + productId
 	case FILTER_TYPE_NONE:
-		return '/product/' + productId + '/edit'
+		return '/product-edit/' + productId
 	default:
 		console.error('unexpected filter type')
 	}

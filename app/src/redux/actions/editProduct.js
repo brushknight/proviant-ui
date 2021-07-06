@@ -1,8 +1,8 @@
 import {
-	ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD,
 	ACTION_EDIT_PRODUCT_FAIL,
 	ACTION_EDIT_PRODUCT_FETCHED,
 	ACTION_EDIT_PRODUCT_FETCHING,
+	ACTION_EDIT_PRODUCT_RESET,
 	ACTION_EDIT_PRODUCT_SENDING,
 	ACTION_EDIT_PRODUCT_SUCCESS
 } from './const'
@@ -36,14 +36,11 @@ const editProductFail = (error) => {
 		error: error
 	}
 }
-export const editProductFormChangeField = (field, value) => {
+export const editProductFormReset = () => {
 	return {
-		type: ACTION_CHANGE_PRODUCT_EDIT_FORM_FIELD,
-		field: field,
-		value: value
+		type: ACTION_EDIT_PRODUCT_RESET
 	}
 }
-
 export const fetchEditProduct = (id) => {
 	return (dispatch) => {
 		dispatch(editProductFetching())
