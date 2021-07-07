@@ -45,7 +45,7 @@ const MenuLists = ({ lists, t, fetchLists, createList }) => {
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
 			<MenuDivider title={t('menu_list.title')}/>
-			<Callout title={'oops... something went wrong'} intent={Intent.DANGER}>
+			<Callout title={t('global.ooops')} intent={Intent.DANGER}>
 				{lists.error}
 			</Callout>
 		</Menu>

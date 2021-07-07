@@ -9,8 +9,8 @@ const StockListRow = (props) => {
 
 	return (
 		<div>
-			Quantity: {props.item.quantity} Expires: {expires}
-			<Button onClick={props.onDelete} icon={'delete'} minimal={true} intent={Intent.DANGER} text={'Delete entry'}/>
+			{props.i18n.t('stock.quantity')}: {props.item.quantity} {props.i18n.t('stock.expires')}: {expires}
+			<Button onClick={props.onDelete} icon={'delete'} minimal={true} intent={Intent.DANGER} text={props.i18n.t('stock.button_delete')}/>
 		</div>
 	)
 }

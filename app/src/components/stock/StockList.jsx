@@ -30,7 +30,7 @@ const StockList = ({ productId, stock, t, fetchStock, addStock, consumeStock, de
 			<section>
 				<Callout
 					intent={Intent.DANGER}
-					title={'Something went wrong with stock fetching'}>{stock.error}</Callout>
+					title={t('stock.error_fetch')}>{stock.error}</Callout>
 			</section>
 		)
 	}
@@ -42,7 +42,7 @@ const StockList = ({ productId, stock, t, fetchStock, addStock, consumeStock, de
 	let stockList
 
 	if (stock.items.length === 0) {
-		stockList = <Callout title={'No stock found for this product'}/>
+		stockList = <Callout title={t('stock.not_found')}/>
 	} else {
 		stockList = stock.items.map(item => <StockListRow onDelete={() => {
 			deleteStock(productId, item.id)
@@ -65,7 +65,7 @@ const StockList = ({ productId, stock, t, fetchStock, addStock, consumeStock, de
 					addStock(productId, quantity, date)
 				}}
 			/>
-			<h3>In stock</h3>
+			<h3>{t('stock.title_in_stock')}</h3>
 			{stockList}
 		</section>
 	)

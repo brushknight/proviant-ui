@@ -42,21 +42,21 @@ const AddForm = (props) => {
 
 	return (
 		<div>
-			<h3>Add</h3>
+			<h3>{props.i18n.t('stock.title_add')}</h3>
 			{formError}
-			<FormGroup label={'Quantity'} inline={true}>
+			<FormGroup label={props.i18n.t('stock.quantity')} inline={true}>
 				<NumericInput
 					min={1}
 					value={quantity}
 					onValueChange={value => setQuantity(value)}
 				/>
 			</FormGroup>
-			<FormGroup label={'Expires'} inline={true}>
+			<FormGroup label={props.i18n.t('stock.expires')} inline={true}>
 				<DateInput {...jsDateFormatter} />
 			</FormGroup>
 			<Button icon={'flame'} onClick={() => {
 				props.onSubmit(quantity, date)
-			}}>Add Stock <b>{quantity}</b></Button> {formLoading} {formSuccess}
+			}}>{props.i18n.t('stock.button_add')} <b>{quantity}</b></Button> {formLoading} {formSuccess}
 		</div>
 	)
 }

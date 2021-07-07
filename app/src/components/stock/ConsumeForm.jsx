@@ -28,9 +28,9 @@ const ConsumeForm = (props) => {
 
 	return (
 		<div>
-			<h3>Consume</h3>
+			<h3>{props.i18n.t('stock.title_consume')}</h3>
 			{consumeStockFormError}
-			<FormGroup label={'Quantity'} inline={true}>
+			<FormGroup label={props.i18n.t('stock.quantity')} inline={true}>
 				<NumericInput
 					min={1}
 					value={quantity}
@@ -39,7 +39,7 @@ const ConsumeForm = (props) => {
 			</FormGroup>
 			<Button icon={'flame'} onClick={() => {
 				props.onSubmit(quantity)
-			}}>Consume <b>{quantity}</b></Button> {consumeStockFormLoading} {consumeStockFormSuccess}
+			}}>{props.i18n.t('stock.button_consume')} <b>{quantity}</b></Button> {consumeStockFormLoading} {consumeStockFormSuccess}
 		</div>
 	)
 }

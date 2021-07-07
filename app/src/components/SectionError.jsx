@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 const SectionError = (props) => {
 	return (
 		<section className="content">
-			<Callout title={'oops... something went wrong'} intent={Intent.DANGER}>
+			<Callout title={props.i18n.t('global.ooops')} intent={Intent.DANGER}>
 				{props.error}
 			</Callout>
 		</section>

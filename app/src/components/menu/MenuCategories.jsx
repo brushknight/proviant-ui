@@ -42,7 +42,7 @@ const MenuCategories = ({ categories, t, fetchCategories, createCategory, resetC
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
 			<MenuDivider title={t('menu_category.title')}/>
-			<Callout title={'oops... something went wrong'} intent={Intent.DANGER}>
+			<Callout title={t('global.ooops')} intent={Intent.DANGER}>
 				{categories.error}
 			</Callout>
 		</Menu>

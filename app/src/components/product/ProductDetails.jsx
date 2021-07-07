@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom'
 import { compose } from 'redux'
 import { generateEditProductLink } from '../../utils/link'
 import { withTranslation } from 'react-i18next'
+import ProductsTags from './ProductTags'
 import PropTypes from 'prop-types'
 
 const ProductDetails = ({
@@ -62,46 +63,36 @@ const ProductDetails = ({
 		history.push(generateEditProductLink(filterType, listOrCategoryId, productId))
 	}
 
-	let productListTag
-
-	if (product.model.list) {
-		productListTag = <Tag>{product.model.list.title}</Tag>
-	}
-
-	let productCategoriesTags
-	if (product.model.categories) {
-		productCategoriesTags = product.model.categories.map((item) => {
-			return (<Tag key={item.id}>{item.title}</Tag>)
-		})
-	}
-
 	let backButton
 
 	if (closePopover) {
 		backButton = (
-			<Button icon={'cross'} minimal={true} onClick={closePopover}>Back</Button>
+			<Button icon={'cross'} minimal={true} onClick={closePopover}>{t('product.button_back')}</Button>
 		)
 	}
 
 	return <section>
 		<ButtonGroup>
 			{backButton}
-			<Button icon={'edit'} minimal={true} onClick={onEditHandler}>Edit product</Button>
+			<Button icon={'edit'} minimal={true} onClick={onEditHandler}>{t('product.button_edit')}</Button>
 			<Button onClick={() => {
 				deleteProduct(productId)
-			}} icon={'delete'} minimal={true} intent={Intent.DANGER}>Delete product</Button>
+			}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
 		</ButtonGroup>
 		<img src={product.model.image} alt={product.model.title} width={100} height={100}/>
 		<h1>{product.model.title}</h1>
 		<p>{product.model.description}</p>
-		<p><Tag minimal={true}>Barcode</Tag>{product.model.barcode}</p>
-		<p>List {productListTag}</p>
-		<p>Categories {productCategoriesTags}</p>
+		<p><Tag minimal={true}>{t('product.barcode')}</Tag>{product.model.barcode}</p>
+		<p>
+			<ProductsTags
+				list={product.model.list}
+				categories={product.model.categories}/>
+		</p>
 		<Button onClick={() => {
 			if (product.model.link) {
 				window.open(product.model.link)
 			}
-		}}>Link to buy</Button>
+		}}>{t('product.link_to_the_shop')}</Button>
 	</section>
 }
 
