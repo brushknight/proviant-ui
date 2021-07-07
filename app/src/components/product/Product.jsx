@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { useParams } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
 import ProductDetails from './ProductDetails'
 import PropTypes from 'prop-types'
-import StockList from '../StockList'
+import StockList from '../stock/StockList'
 
 const Product = (props) => {
 	const { id, productId } = useParams()
@@ -22,7 +23,8 @@ const Product = (props) => {
 
 Product.propTypes = {
 	closePopover: PropTypes.func,
-	filterType: PropTypes.string
+	filterType: PropTypes.string,
+	i18n: PropTypes.object
 }
 
-export default Product
+export default withTranslation('translations')(Product)

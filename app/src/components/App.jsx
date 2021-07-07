@@ -8,6 +8,7 @@ import ListEditForm from './list/ListEditForm'
 import MenuAddProduct from './menu/MenuAddProduct'
 import MenuCategories from './menu/MenuCategories'
 import MenuLists from './menu/MenuLists'
+import MenuSettings from './menu/MenuSettings'
 import ProductCreate from './product/ProductCreate'
 import ProductEditOverlay from './product/ProductEditOverlay'
 import ProductOverlay from './product/ProductOverlay'
@@ -24,7 +25,8 @@ const App = () => {
 							<MenuAddProduct/>
 							<MenuLists/>
 							<MenuCategories/>
-							{/* <MenuSettings/> */}
+							<MenuSettings/>
+
 						</nav>
 					</header>
 					<main className="page-main">

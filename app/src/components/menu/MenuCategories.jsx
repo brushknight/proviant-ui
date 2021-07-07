@@ -1,16 +1,19 @@
 import * as React from 'react'
 import { Callout, Classes, Intent, Menu, MenuDivider, Spinner } from '@blueprintjs/core'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createCategory, fetchCategories, resetCreateCategoryForm } from '../../redux/actions/categories'
-import { CreateForm } from './CreateForm'
 import { getCategories } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
+
+import CreateForm from './CreateForm'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
-const MenuCategories = ({ categories, fetchCategories, createCategory, resetCreateCategoryForm }) => {
+const MenuCategories = ({ categories, t, fetchCategories, createCategory, resetCreateCategoryForm }) => {
 	const history = useHistory()
 
 	useEffect(() => {
@@ -27,7 +30,7 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, resetCrea
 				Classes.ELEVATION_0
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
-			<MenuDivider title="Categories"/>
+			<MenuDivider title={t('menu_category.title')}/>
 			<Spinner/>
 		</Menu>
 	}
@@ -38,15 +41,15 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, resetCrea
 				Classes.ELEVATION_0
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
-			<MenuDivider title="Categories"/>
-			<Callout title={'oops... something went wrong'} intent={Intent.DANGER}>
+			<MenuDivider title={t('menu_category.title')}/>
+			<Callout title={t('global.ooops')} intent={Intent.DANGER}>
 				{categories.error}
 			</Callout>
 		</Menu>
 	}
 
 	const createForm = <CreateForm
-		placeholder="New Category"
+		placeholder={t('menu_category.create_form_placeholder')}
 		icon={'tag'}
 		onSubmit={(title) => createCategory(title)}
 		onReset={() => resetCreateCategoryForm()}
@@ -60,7 +63,7 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, resetCrea
 				Classes.ELEVATION_0
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
-			<MenuDivider title="Categories"/>
+			<MenuDivider title={t('menu_category.title')}/>
 			{createForm}
 		</Menu>
 	}
@@ -70,7 +73,7 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, resetCrea
 			Classes.ELEVATION_0
 		} page-header__navigation-list page-header__navigation-list--side-bar`}
 	>
-		<MenuDivider title="Categories"/>
+		<MenuDivider title={t('menu_category.title')}/>
 		{createForm}
 		{categories.items.map(item => (
 			<Item
@@ -93,20 +96,24 @@ MenuCategories.propTypes = {
 	categories: PropTypes.object,
 	fetchCategories: PropTypes.func,
 	createCategory: PropTypes.func,
-	resetCreateCategoryForm: PropTypes.func
+	resetCreateCategoryForm: PropTypes.func,
+	t: PropTypes.func
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
 	const categories = getCategories(state)
-	return { categories }
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	return { categories, t }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
+
 	return {
-		fetchCategories: () => dispatch(fetchCategories()),
-		createCategory: (title) => dispatch(createCategory(title)),
-		resetCreateCategoryForm: () => dispatch(resetCreateCategoryForm())
+		fetchCategories: () => dispatch(fetchCategories(locale)),
+		createCategory: (title) => dispatch(createCategory(title, locale)),
+		resetCreateCategoryForm: () => dispatch(resetCreateCategoryForm(locale))
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuCategories)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(MenuCategories)

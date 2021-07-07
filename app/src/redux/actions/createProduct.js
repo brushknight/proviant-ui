@@ -4,6 +4,7 @@ import {
 	ACTION_CREATE_PRODUCT_SENDING,
 	ACTION_CREATE_PRODUCT_SUCCESS
 } from './const'
+import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'
 
 const createProductSending = () => {
@@ -31,11 +32,11 @@ export const createProductFormReset = () => {
 	}
 }
 
-export const createProduct = (model) => {
+export const createProduct = (model, locale) => {
 	return (dispatch) => {
 		dispatch(createProductSending())
 		const json = JSON.stringify(model)
-		axios.post('/api/v1/product/', json)
+		axios.post('/api/v1/product/', json, generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(createProductSuccess(data.data))

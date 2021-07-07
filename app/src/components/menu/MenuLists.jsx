@@ -1,16 +1,18 @@
 import * as React from 'react'
-import { Callout, Classes, Intent, Menu, MenuDivider, MenuItem, Spinner } from '@blueprintjs/core'
+import { Callout, Classes, Intent, Menu, MenuDivider, Spinner } from '@blueprintjs/core'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { CreateForm } from './CreateForm'
 import { createList, fetchLists } from '../../redux/actions/lists'
 import { getLists } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
+import CreateForm from './CreateForm'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
-const MenuLists = ({ lists, fetchLists, createList }) => {
+const MenuLists = ({ lists, t, fetchLists, createList }) => {
 	const history = useHistory()
 
 	useEffect(() => {
@@ -31,7 +33,7 @@ const MenuLists = ({ lists, fetchLists, createList }) => {
 				Classes.ELEVATION_0
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
-			<MenuDivider title="Lists"/>
+			<MenuDivider title={t('menu_list.title')}/>
 			<Spinner/>
 		</Menu>
 	}
@@ -42,15 +44,15 @@ const MenuLists = ({ lists, fetchLists, createList }) => {
 				Classes.ELEVATION_0
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
-			<MenuDivider title="Lists"/>
-			<Callout title={'oops... something went wrong'} intent={Intent.DANGER}>
+			<MenuDivider title={t('menu_list.title')}/>
+			<Callout title={t('global.ooops')} intent={Intent.DANGER}>
 				{lists.error}
 			</Callout>
 		</Menu>
 	}
 
 	const createForm = <CreateForm
-		placeholder="New List"
+		placeholder={t('menu_list.create_form_placeholder')}
 		icon={'list'}
 		onSubmit={title => createList(title)}
 		status={lists.createForm.status}
@@ -63,12 +65,12 @@ const MenuLists = ({ lists, fetchLists, createList }) => {
 				Classes.ELEVATION_0
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
-			<MenuDivider title="Lists"/>
+			<MenuDivider title={t('menu_list.title')}/>
 			{createForm}
 			<Item
 				key={'all'}
 				icon="dot"
-				text={'All Products'}
+				text={t('menu_list.all_products')}
 				onClick={() => goToAllProduct()}
 			/>
 		</Menu>
@@ -79,9 +81,14 @@ const MenuLists = ({ lists, fetchLists, createList }) => {
 			Classes.ELEVATION_0
 		} page-header__navigation-list page-header__navigation-list--side-bar`}
 	>
-		<MenuDivider title="Lists"/>
+		<MenuDivider title={t('menu_list.title')}/>
 		{createForm}
-		<MenuItem icon="dot" text="All products" onClick={goToAllProduct}/>
+		<Item
+			key={'all'}
+			icon="dot"
+			text={t('menu_list.all_products')}
+			onClick={() => goToAllProduct()}
+		/>
 		{lists.items.map(item => (
 			<Item
 				key={item.id}
@@ -99,22 +106,26 @@ const MenuLists = ({ lists, fetchLists, createList }) => {
 	</Menu>
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
 	const lists = getLists(state)
-	return { lists }
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	return { lists, t }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
+
 	return {
-		fetchLists: () => dispatch(fetchLists()),
-		createList: (title) => dispatch(createList(title))
+		fetchLists: () => dispatch(fetchLists(locale)),
+		createList: (title) => dispatch(createList(title, locale))
 	}
 }
 
 MenuLists.propTypes = {
 	fetchLists: PropTypes.func,
 	createList: PropTypes.func,
-	lists: PropTypes.object
+	lists: PropTypes.object,
+	t: PropTypes.func
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuLists)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(MenuLists)

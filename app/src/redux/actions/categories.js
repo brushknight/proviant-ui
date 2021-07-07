@@ -5,8 +5,10 @@ import {
 	ACTION_CREATE_CATEGORY_SUCCESS,
 	ACTION_FETCH_CATEGORIES_FAIL,
 	ACTION_FETCH_CATEGORIES_LOADING,
-	ACTION_FETCH_CATEGORIES_SUCCESS, ACTION_UPDATE_CATEGORY_IN_LIST
+	ACTION_FETCH_CATEGORIES_SUCCESS,
+	ACTION_UPDATE_CATEGORY_IN_LIST
 } from './const'
+import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'
 
 const fetchCategoriesLoading = () => {
@@ -62,10 +64,10 @@ export const updateCategoryInList = (model) => {
 	}
 }
 
-export const fetchCategories = () => {
+export const fetchCategories = (locale) => {
 	return (dispatch) => {
 		dispatch(fetchCategoriesLoading())
-		axios.get('/api/v1/category/', {})
+		axios.get('/api/v1/category/', generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(fetchCategoriesSuccess(data.data))
@@ -77,11 +79,11 @@ export const fetchCategories = () => {
 	}
 }
 
-export const createCategory = (title) => {
+export const createCategory = (title, locale) => {
 	return (dispatch) => {
 		dispatch(createCategoryLoading())
 		const json = JSON.stringify({ title })
-		axios.post('/api/v1/category/', json)
+		axios.post('/api/v1/category/', json, generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(createCategorySuccess(data.data))

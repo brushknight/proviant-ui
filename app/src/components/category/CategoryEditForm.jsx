@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { Callout, InputGroup, Intent } from '@blueprintjs/core'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { deleteCategory, editCategoryReset, fetchEditCategory, updateCategory } from '../../redux/actions/editCategory'
 import { getEditCategory } from '../../redux/selectors'
 import {
-	STATUS_DEFAULT, STATUS_DELETED,
+	STATUS_DEFAULT,
+	STATUS_DELETED,
 	STATUS_EDITING,
 	STATUS_ERROR,
 	STATUS_FETCH_FAILED,
@@ -14,10 +16,11 @@ import {
 } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
 import Popover from '../Popover'
 import PropTypes from 'prop-types'
 
-const CategoryEditForm = ({ form, fetch, reset, update, remove }) => {
+const CategoryEditForm = ({ form, fetch, reset, update, remove, t }) => {
 	const history = useHistory()
 	const { id } = useParams()
 	const [title, setTitle] = useState('')
@@ -83,7 +86,7 @@ const CategoryEditForm = ({ form, fetch, reset, update, remove }) => {
 
 	let content = (
 		<InputGroup
-			placeholder={'Category title'}
+			placeholder={t('edit_category_form.placeholder')}
 			leftIcon={'tag'}
 			value={title}
 			intent={intent}
@@ -111,7 +114,7 @@ const CategoryEditForm = ({ form, fetch, reset, update, remove }) => {
 	return (
 		<Popover
 			isOpen={true}
-			title={'Edit Category'}
+			title={t('edit_category_form.title')}
 			onClose={onClose}
 			onSave={onSave}
 			onDelete={onDelete}
@@ -131,21 +134,25 @@ CategoryEditForm.propTypes = {
 	fetch: PropTypes.func,
 	reset: PropTypes.func,
 	update: PropTypes.func,
-	remove: PropTypes.func
+	remove: PropTypes.func,
+	t: PropTypes.func
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
 	const form = getEditCategory(state)
-	return { form }
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	return { form, t }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
+
 	return {
-		fetch: (id) => dispatch(fetchEditCategory(id)),
-		update: (id, title) => dispatch(updateCategory(id, title)),
-		reset: () => dispatch(editCategoryReset()),
-		remove: (id) => dispatch(deleteCategory(id))
+		fetch: (id) => dispatch(fetchEditCategory(id, locale)),
+		update: (id, title) => dispatch(updateCategory(id, title, locale)),
+		reset: () => dispatch(editCategoryReset(locale)),
+		remove: (id) => dispatch(deleteCategory(id, locale))
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryEditForm)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(CategoryEditForm)

@@ -1,21 +1,26 @@
 import * as React from 'react'
 import { Button, ButtonGroup, Callout, EditableText, InputGroup, Intent, Tag } from '@blueprintjs/core'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createProduct, createProductFormReset } from '../../redux/actions/createProduct'
 import { getCategories, getCreateProduct, getLists } from '../../redux/selectors'
 import { STATUS_CREATED, STATUS_ERROR } from '../../redux/reducers/consts'
 import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
+import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
 
-const ProductCreate = ({
-	form,
-	lists,
-	categories,
-	createProduct,
-	reset
-}) => {
+const ProductCreate = (
+	{
+		form,
+		lists,
+		categories,
+		createProduct,
+		t,
+		reset
+	}
+) => {
 	const history = useHistory()
 
 	const [title, setTitle] = useState('')
@@ -32,9 +37,9 @@ const ProductCreate = ({
 		history.push(url)
 	}
 
-	const textLinkToShop = <Tag minimal={true}>Link to shop</Tag>
-	const textLinkToPicture = <Tag minimal={true}>Link to picture</Tag>
-	const textBarcode = <Tag minimal={true}>Barcode</Tag>
+	const textLinkToShop = <Tag minimal={true}>{t('product_create.link_to_shop')}</Tag>
+	const textLinkToPicture = <Tag minimal={true}>{t('product_create.link_to_picture')}</Tag>
+	const textBarcode = <Tag minimal={true}>{t('product_create.barcode')}</Tag>
 
 	const convertListToValue = (model) => {
 		return { value: model.id, label: model.title }
@@ -133,7 +138,7 @@ const ProductCreate = ({
 		<Select
 			options={listsForSelect}
 			isMulti={false}
-			placeholder={'select list'}
+			placeholder={t('product_create.select_list')}
 			onChange={(event) => {
 				setList(
 					lists.items.find(item => item.id === event.value)
@@ -145,7 +150,7 @@ const ProductCreate = ({
 		<Select
 			options={categoriesForSelect}
 			isMulti={true}
-			placeholder={'select categories'}
+			placeholder={t('product_create.select_category')}
 			onChange={(data) => {
 				setCategoryList(data.map((item) => {
 					return categories.items.find(c => c.id === item.value)
@@ -162,13 +167,15 @@ const mapStateToProps = (state, ownProps) => {
 	const form = getCreateProduct(state)
 	const lists = getLists(state)
 	const categories = getCategories(state)
-	return { form, lists, categories }
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	return { form, lists, categories, t }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
 	return {
-		createProduct: (model) => dispatch(createProduct(model)),
-		reset: () => dispatch(createProductFormReset())
+		createProduct: (model) => dispatch(createProduct(model, locale)),
+		reset: () => dispatch(createProductFormReset(locale))
 	}
 }
 
@@ -177,7 +184,8 @@ ProductCreate.propTypes = {
 	reset: PropTypes.func,
 	form: PropTypes.object,
 	lists: PropTypes.object,
-	categories: PropTypes.object
+	categories: PropTypes.object,
+	t: PropTypes.func
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCreate)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductCreate)

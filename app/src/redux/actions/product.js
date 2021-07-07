@@ -7,6 +7,7 @@ import {
 	ACTION_FETCH_PRODUCT_NOT_FOUND,
 	ACTION_FETCH_PRODUCT_SUCCESS, ACTION_RESET_PRODUCT
 } from './const'
+import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'
 
 const fetchProductLoading = () => {
@@ -60,12 +61,10 @@ export const resetProduct = () => {
 	}
 }
 
-export const fetchProduct = (id) => {
+export const fetchProduct = (id, locale) => {
 	return (dispatch) => {
 		dispatch(fetchProductLoading())
-		axios.get('/api/v1/product/' + id + '/', {
-			headers: {}
-		})
+		axios.get('/api/v1/product/' + id + '/', generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(fetchProductSuccess(data.data))
@@ -81,12 +80,11 @@ export const fetchProduct = (id) => {
 	}
 }
 
-export const deleteProduct = (id) => {
+export const deleteProduct = (id, locale) => {
 	return (dispatch) => {
 		dispatch(deleteProductLoading())
-		axios.delete(`/api/v1/product/${id}/`)
+		axios.delete(`/api/v1/product/${id}/`, generateLocaleHeader(locale))
 			.then(response => {
-				const data = response.data
 				dispatch(deleteProductSuccess())
 			})
 			.catch(error => {

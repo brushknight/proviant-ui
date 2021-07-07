@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Button, Icon, MenuItem } from '@blueprintjs/core'
+import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
 const Item = (props) => {
@@ -32,7 +33,8 @@ Item.propTypes = {
 	key: PropTypes.string,
 	text: PropTypes.string,
 	button: PropTypes.object,
-	onClick: PropTypes.func
+	onClick: PropTypes.func,
+	i18n: PropTypes.object
 }
 
-export default Item
+export default withTranslation('translations')(Item)

@@ -1,0 +1,74 @@
+{
+  "translations": {
+    "global": {
+      "button_add_product": "Add Product",
+      "button_save": "Save",
+      "button_close": "Close",
+      "button_delete": "Delete",
+      "ooops": "oops... something went wrong"
+    },
+    "menu_list": {
+      "title": "Lists",
+      "create_form_placeholder": "New List",
+      "all_products": "All products"
+    },
+    "menu_category": {
+      "title": "Categories",
+      "create_form_placeholder": "New Category"
+    },
+    "edit_category_form": {
+      "title": "Edit Category",
+      "placeholder": "Category title"
+    },
+    "edit_list_form": {
+      "title": "Edit List",
+      "placeholder": "List title"
+    },
+    "product_list": {
+      "no_products_found": "No products found"
+    },
+    "product_list_row": {
+      "stock": "in stock:"
+    },
+    "product_edit": {
+      "not_found": "Not found",
+      "button_back": "Back",
+      "button_save": "Save",
+      "callout_updated": "Product updated",
+      "select_list": "Select list",
+      "select_categories": "Select categories",
+      "link_to_shop": "Link to shop",
+      "link_to_picture": "Link to picture",
+      "barcode": "Barcode"
+    },
+    "product_create": {
+      "button_back": "Back",
+      "button_save": "Save",
+      "callout_updated": "Product updated",
+      "select_list": "Select list",
+      "select_categories": "Select categories",
+      "link_to_shop": "Link to shop",
+      "link_to_picture": "Link to picture",
+      "barcode": "Barcode"
+    },
+    "product": {
+      "button_back": "Back",
+      "button_edit": "Edit",
+      "button_delete": "Delete",
+      "link_to_the_shop": "Link to the shop",
+      "barcode": "barcode"
+    },
+    "stock": {
+      "title_consume": "Consume",
+      "quantity": "Quantity",
+      "button_consume": "Consume",
+      "title_add": "Add",
+      "expires": "Expires",
+      "button_add": "Add Stock",
+      "title_in_stock": "In Stock",
+      "button_delete": "Delete",
+      "error_fetch": "Something went wrong with stock fetching",
+      "not_found": "No stock found for this product"
+    }
+  }
+}

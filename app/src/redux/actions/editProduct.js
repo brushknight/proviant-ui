@@ -6,6 +6,7 @@ import {
 	ACTION_EDIT_PRODUCT_SENDING,
 	ACTION_EDIT_PRODUCT_SUCCESS
 } from './const'
+import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'
 
 const editProductSending = () => {
@@ -41,12 +42,10 @@ export const editProductFormReset = () => {
 		type: ACTION_EDIT_PRODUCT_RESET
 	}
 }
-export const fetchEditProduct = (id) => {
+export const fetchEditProduct = (id, locale) => {
 	return (dispatch) => {
 		dispatch(editProductFetching())
-		axios.get('/api/v1/product/' + id + '/', {
-			headers: {}
-		})
+		axios.get('/api/v1/product/' + id + '/', generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(editProductFetched(data.data))
