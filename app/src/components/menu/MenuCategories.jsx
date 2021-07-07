@@ -3,13 +3,13 @@ import { Callout, Classes, Intent, Menu, MenuDivider, Spinner } from '@blueprint
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createCategory, fetchCategories, resetCreateCategoryForm } from '../../redux/actions/categories'
-import { CreateForm } from './CreateForm'
 import { getCategories } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation, withTranslation } from 'react-i18next'
 
+import CreateForm from './CreateForm'
 import Item from './Item'
 import PropTypes from 'prop-types'
 

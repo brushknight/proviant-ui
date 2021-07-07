@@ -12,12 +12,12 @@ import PropTypes from 'prop-types'
 import Select from 'react-select'
 
 const ProductCreate = ({
-	form,
-	lists,
-	categories,
-	createProduct,
-	reset
-}) => {
+												 form,
+												 lists,
+												 categories,
+												 createProduct,
+												 reset
+											 }) => {
 	const history = useHistory()
 
 	const [title, setTitle] = useState('')
@@ -167,10 +167,11 @@ const mapStateToProps = (state, ownProps) => {
 	return { form, lists, categories }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
 	return {
-		createProduct: (model) => dispatch(createProduct(model)),
-		reset: () => dispatch(createProductFormReset())
+		createProduct: (model) => dispatch(createProduct(model, locale)),
+		reset: () => dispatch(createProductFormReset(locale))
 	}
 }
 

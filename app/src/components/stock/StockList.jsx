@@ -1,14 +1,14 @@
 import * as React from 'react'
-import { addStock, consumeStock, deleteStock, fetchStock, stockAddFormFieldChanged } from '../redux/actions/stock'
+import { addStock, consumeStock, deleteStock, fetchStock } from '../../redux/actions/stock'
 import { Callout, Intent, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { getStock } from '../redux/selectors'
-import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND } from '../redux/reducers/consts'
+import { getStock } from '../../redux/selectors'
+import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { withTranslation } from 'react-i18next'
-import AddForm from './stock/AddForm'
-import ConsumeForm from './stock/ConsumeForm'
+import AddForm from './AddForm'
+import ConsumeForm from './ConsumeForm'
 import PropTypes from 'prop-types'
 import StockListRow from './StockListRow'
 
@@ -78,12 +78,13 @@ const mapStateToProps = (state, ownProps) => {
 	return { productId, stock }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
 	return {
-		fetchStock: (productId) => dispatch(fetchStock(productId)),
-		addStock: (productId, quantity, date) => dispatch(addStock(productId, quantity, date)),
-		consumeStock: (productId, quantity) => dispatch(consumeStock(productId, quantity)),
-		deleteStock: (productId, id) => dispatch(deleteStock(productId, id))
+		fetchStock: (productId) => dispatch(fetchStock(productId, locale)),
+		addStock: (productId, quantity, date) => dispatch(addStock(productId, quantity, date, locale)),
+		consumeStock: (productId, quantity) => dispatch(consumeStock(productId, quantity, locale)),
+		deleteStock: (productId, id) => dispatch(deleteStock(productId, id, locale))
 	}
 }
 

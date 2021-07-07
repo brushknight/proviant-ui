@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import ProductDetails from './ProductDetails'
 import PropTypes from 'prop-types'
-import StockList from '../StockList'
+import StockList from '../stock/StockList'
 
 const Product = (props) => {
 	const { id, productId } = useParams()

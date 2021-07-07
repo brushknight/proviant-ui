@@ -219,10 +219,11 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
 	return {
-		fetchProduct: (id) => dispatch(fetchEditProduct(id)),
-		updateProduct: (model) => dispatch(updateProduct(model)),
-		reset: () => dispatch(editProductFormReset()),
+		fetchProduct: (id) => dispatch(fetchEditProduct(id, locale)),
+		updateProduct: (model) => dispatch(updateProduct(model, locale)),
+		reset: () => dispatch(editProductFormReset(locale)),
 		closePopover: ownProps.closePopover
 	}
 }

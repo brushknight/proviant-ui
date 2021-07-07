@@ -1,14 +1,14 @@
 import * as React from 'react'
-import { Callout, Classes, Intent, Menu, MenuDivider, MenuItem, Spinner } from '@blueprintjs/core'
+import { Callout, Classes, Intent, Menu, MenuDivider, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { CreateForm } from './CreateForm'
 import { createList, fetchLists } from '../../redux/actions/lists'
 import { getLists } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation, withTranslation } from 'react-i18next'
+import CreateForm from './CreateForm'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
@@ -112,10 +112,12 @@ const mapStateToProps = state => {
 	return { lists }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
+
 	return {
-		fetchLists: () => dispatch(fetchLists()),
-		createList: (title) => dispatch(createList(title))
+		fetchLists: () => dispatch(fetchLists(locale)),
+		createList: (title) => dispatch(createList(title, locale))
 	}
 }
 

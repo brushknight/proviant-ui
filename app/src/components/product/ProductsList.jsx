@@ -97,9 +97,10 @@ const mapStateToProps = (state, ownProps) => {
 	return { products, categories, lists, filterType }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
 	return {
-		fetchProducts: (query) => dispatch(fetchProducts(query))
+		fetchProducts: (query) => dispatch(fetchProducts(query, locale))
 	}
 }
 

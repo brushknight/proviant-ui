@@ -2,9 +2,10 @@ import * as React from 'react'
 import { Button, Callout, InputGroup, Intent, Spinner, SpinnerSize } from '@blueprintjs/core'
 import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
+import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
-export const CreateForm = (props) => {
+const CreateForm = (props) => {
 	const [title, setTitle] = useState('')
 	const [isError, setIsError] = useState(props.error)
 
@@ -73,3 +74,5 @@ CreateForm.propTypes = {
 	icon: PropTypes.string,
 	value: PropTypes.string
 }
+
+export default withTranslation('translations')(CreateForm)

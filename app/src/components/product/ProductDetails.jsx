@@ -12,7 +12,16 @@ import { generateEditProductLink } from '../../utils/link'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
-const ProductDetails = ({ productId, product, filterType, listOrCategoryId, fetchProduct, deleteProduct, reset, closePopover }) => {
+const ProductDetails = ({
+	productId,
+	product,
+	filterType,
+	listOrCategoryId,
+	fetchProduct,
+	deleteProduct,
+	reset,
+	closePopover
+}) => {
 	const history = useHistory()
 
 	useEffect(() => {
@@ -104,10 +113,11 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
 	return {
-		fetchProduct: (id) => dispatch(fetchProduct(id)),
-		deleteProduct: (id) => dispatch(deleteProduct(id)),
-		reset: () => dispatch(resetProduct()),
+		fetchProduct: (id) => dispatch(fetchProduct(id, locale)),
+		deleteProduct: (id) => dispatch(deleteProduct(id, locale)),
+		reset: () => dispatch(resetProduct(locale)),
 		closePopover: ownProps.closePopover
 	}
 }
