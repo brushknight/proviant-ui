@@ -1,17 +1,74 @@
 {
   "translations": {
     "global": {
+      "button_add_product": "Новый продукт",
       "button_save": "Сохранить",
       "button_close": "Закрыть",
-      "button_delete": "Удалить"
+      "button_delete": "Удалить",
+      "ooops": "упс... что то пошло не так..."
+    },
+    "menu_list": {
+      "title": "Списки",
+      "create_form_placeholder": "Новый список",
+      "all_products": "Все продукты"
     },
     "menu_category": {
       "title": "Категории",
-      "create_form_placeholder": "Добавить Категорию"
+      "create_form_placeholder": "Новая категория"
     },
     "edit_category_form": {
-      "title": "Редактировать Категорию",
-      "placeholder": "Название Категории"
+      "title": "Редактирование категории",
+      "placeholder": "Название категории"
+    },
+    "edit_list_form": {
+      "title": "Редактирование списка",
+      "placeholder": "Название списка"
+    },
+    "product_list": {
+      "no_products_found": "Продуктов не найдено"
+    },
+    "product_list_row": {
+      "stock": "в остатке:"
+    },
+    "product_edit": {
+      "not_found": "Продукт не найден",
+      "button_back": "Назад",
+      "button_save": "Сохранить",
+      "callout_updated": "Продукт обновлен",
+      "select_list": "Выбрать список",
+      "select_categories": "Выбрать категории",
+      "link_to_shop": "Ссылка на магазин",
+      "link_to_picture": "Ссылка на изображение",
+      "barcode": "Штрихкод"
+    },
+    "product_create": {
+      "button_back": "Назад",
+      "button_save": "Сохранить",
+      "callout_updated": "Продукт обновлен",
+      "select_list": "Выбрать список",
+      "select_categories": "Выбрать категории",
+      "link_to_shop": "Ссылка на магазин",
+      "link_to_picture": "Ссылка на изображение",
+      "barcode": "Штрихкод"
+    },
+    "product": {
+      "button_back": "Назад",
+      "button_edit": "Редактировать",
+      "button_delete": "Удалить",
+      "link_to_the_shop": "Ссылка на магазин",
+      "barcode": "Штрихкод"
+    },
+    "stock": {
+      "title_consume": "Потребление",
+      "quantity": "Количество",
+      "button_consume": "Забрать",
+      "title_add": "Добавление",
+      "expires": "Истекает",
+      "button_add": "Добавить",
+      "title_in_stock": "В остатке",
+      "button_delete": "Удалить",
+      "error_fetch": "Что то пошло не так во время загрузки остатков",
+      "not_found": "Ничего не найдено для данного продукта на складе"
     }
   }
 }
