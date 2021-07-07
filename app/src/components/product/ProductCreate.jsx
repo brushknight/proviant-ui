@@ -1,11 +1,13 @@
 import * as React from 'react'
 import { Button, ButtonGroup, Callout, EditableText, InputGroup, Intent, Tag } from '@blueprintjs/core'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createProduct, createProductFormReset } from '../../redux/actions/createProduct'
 import { getCategories, getCreateProduct, getLists } from '../../redux/selectors'
 import { STATUS_CREATED, STATUS_ERROR } from '../../redux/reducers/consts'
 import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
+import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
 
@@ -180,4 +182,4 @@ ProductCreate.propTypes = {
 	categories: PropTypes.object
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCreate)
+export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(ProductCreate)

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Callout, Classes, Intent, Menu, MenuDivider, MenuItem, Spinner } from '@blueprintjs/core'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { CreateForm } from './CreateForm'
 import { createList, fetchLists } from '../../redux/actions/lists'
@@ -7,10 +8,12 @@ import { getLists } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useTranslation, withTranslation } from 'react-i18next'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
 const MenuLists = ({ lists, fetchLists, createList }) => {
+	const { t } = useTranslation()
 	const history = useHistory()
 
 	useEffect(() => {
@@ -31,7 +34,7 @@ const MenuLists = ({ lists, fetchLists, createList }) => {
 				Classes.ELEVATION_0
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
-			<MenuDivider title="Lists"/>
+			<MenuDivider title={t('menu_list.title')}/>
 			<Spinner/>
 		</Menu>
 	}
@@ -42,7 +45,7 @@ const MenuLists = ({ lists, fetchLists, createList }) => {
 				Classes.ELEVATION_0
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
-			<MenuDivider title="Lists"/>
+			<MenuDivider title={t('menu_list.title')}/>
 			<Callout title={'oops... something went wrong'} intent={Intent.DANGER}>
 				{lists.error}
 			</Callout>
@@ -50,7 +53,7 @@ const MenuLists = ({ lists, fetchLists, createList }) => {
 	}
 
 	const createForm = <CreateForm
-		placeholder="New List"
+		placeholder={t('menu_list.create_form_placeholder')}
 		icon={'list'}
 		onSubmit={title => createList(title)}
 		status={lists.createForm.status}
@@ -63,12 +66,12 @@ const MenuLists = ({ lists, fetchLists, createList }) => {
 				Classes.ELEVATION_0
 			} page-header__navigation-list page-header__navigation-list--side-bar`}
 		>
-			<MenuDivider title="Lists"/>
+			<MenuDivider title={t('menu_list.title')}/>
 			{createForm}
 			<Item
 				key={'all'}
 				icon="dot"
-				text={'All Products'}
+				text={t('menu_list.all_products')}
 				onClick={() => goToAllProduct()}
 			/>
 		</Menu>
@@ -79,9 +82,14 @@ const MenuLists = ({ lists, fetchLists, createList }) => {
 			Classes.ELEVATION_0
 		} page-header__navigation-list page-header__navigation-list--side-bar`}
 	>
-		<MenuDivider title="Lists"/>
+		<MenuDivider title={t('menu_list.title')}/>
 		{createForm}
-		<MenuItem icon="dot" text="All products" onClick={goToAllProduct}/>
+		<Item
+			key={'all'}
+			icon="dot"
+			text={t('menu_list.all_products')}
+			onClick={() => goToAllProduct()}
+		/>
 		{lists.items.map(item => (
 			<Item
 				key={item.id}
@@ -117,4 +125,4 @@ MenuLists.propTypes = {
 	lists: PropTypes.object
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuLists)
+export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(MenuLists)

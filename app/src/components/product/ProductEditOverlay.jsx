@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../const'
 import { generateProductLink } from '../../utils/link'
 import { Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
 import ProductEdit from './ProductEdit'
 import PropTypes from 'prop-types'
 
@@ -50,4 +50,4 @@ ProductEditOverlay.propTypes = {
 	filterType: PropTypes.string
 }
 
-export default ProductEditOverlay
+export default withTranslation('translations')(ProductEditOverlay)

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useParams } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
 import ProductDetails from './ProductDetails'
 import PropTypes from 'prop-types'
 import StockList from '../StockList'
@@ -25,4 +26,4 @@ Product.propTypes = {
 	filterType: PropTypes.string
 }
 
-export default Product
+export default withTranslation('translations')(Product)

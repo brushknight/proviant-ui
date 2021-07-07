@@ -1,9 +1,15 @@
 {
   "translations": {
     "global": {
+      "button_add_product": "Add Product",
       "button_save": "Save",
       "button_close": "Close",
       "button_delete": "Delete"
+    },
+    "menu_list": {
+      "title": "Lists",
+      "create_form_placeholder": "New List",
+      "all_products": "All products"
     },
     "menu_category": {
       "title": "Categories",
@@ -12,6 +18,27 @@
     "edit_category_form": {
       "title": "Edit Category",
       "placeholder": "Category title"
+    },
+    "edit_list_form": {
+      "title": "Edit List",
+      "placeholder": "List title"
+    },
+    "product_list": {
+      "no_products_found": "No products found"
+    },
+    "product_list_row": {
+      "stock": "in stock:"
+    },
+    "product_edit": {
+      "not_found": "Not found",
+      "button_back": "Back",
+      "button_save": "Save",
+      "callout_updated": "Product updated",
+      "select_list": "Select list",
+      "select_categories": "Select categories",
+      "link_to_shop": "Link to shop",
+      "link_to_picture": "Link to picture",
+      "barcode": "Barcode"
     }
   }
 }

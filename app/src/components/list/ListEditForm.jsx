@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Callout, InputGroup, Intent } from '@blueprintjs/core'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { deleteList, editListReset, fetchEditList, updateList } from '../../redux/actions/editList'
 import { getEditList } from '../../redux/selectors'
@@ -15,10 +16,13 @@ import {
 } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import { useTranslation, withTranslation } from 'react-i18next'
 import Popover from '../Popover'
 import PropTypes from 'prop-types'
 
 const ListEditForm = ({ form, fetch, reset, update, remove }) => {
+	const { t } = useTranslation()
+
 	const history = useHistory()
 	const { id } = useParams()
 	const [title, setTitle] = useState('')
@@ -84,7 +88,7 @@ const ListEditForm = ({ form, fetch, reset, update, remove }) => {
 
 	let content = (
 		<InputGroup
-			placeholder={'List title'}
+			placeholder={t('edit_list_form.placeholder')}
 			leftIcon={'tag'}
 			value={title}
 			intent={intent}
@@ -112,7 +116,7 @@ const ListEditForm = ({ form, fetch, reset, update, remove }) => {
 	return (
 		<Popover
 			isOpen={true}
-			title={'Edit List'}
+			title={t('edit_list_form.title')}
 			onClose={onClose}
 			onSave={onSave}
 			onDelete={onDelete}
@@ -149,4 +153,4 @@ const mapDispatchToProps = dispatch => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListEditForm)
+export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(ListEditForm)

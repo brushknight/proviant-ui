@@ -1,7 +1,7 @@
 import * as Classes from '@blueprintjs/core/lib/esnext/common/classes'
 import * as React from 'react'
 import { AnchorButton, Dialog, Intent, Spinner, SpinnerSize } from '@blueprintjs/core'
-import { useTranslation } from 'react-i18next'
+import { useTranslation, withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
 const Popover = (props) => {
@@ -90,4 +90,4 @@ Popover.propTypes = {
 	showProgress: PropTypes.bool
 }
 
-export default Popover
+export default withTranslation('translations')(Popover)

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Callout, Classes, Intent, Menu, MenuDivider, Spinner } from '@blueprintjs/core'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createCategory, fetchCategories, resetCreateCategoryForm } from '../../redux/actions/categories'
 import { CreateForm } from './CreateForm'
@@ -7,7 +8,8 @@ import { getCategories } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { useTranslation, withTranslation } from 'react-i18next'
+
 import Item from './Item'
 import PropTypes from 'prop-types'
 
@@ -104,12 +106,14 @@ const mapStateToProps = state => {
 	return { categories }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
+
 	return {
-		fetchCategories: () => dispatch(fetchCategories()),
-		createCategory: (title, locale) => dispatch(createCategory(title, locale)),
-		resetCreateCategoryForm: () => dispatch(resetCreateCategoryForm())
+		fetchCategories: () => dispatch(fetchCategories(locale)),
+		createCategory: (title) => dispatch(createCategory(title, locale)),
+		resetCreateCategoryForm: () => dispatch(resetCreateCategoryForm(locale))
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuCategories)
+export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(MenuCategories)

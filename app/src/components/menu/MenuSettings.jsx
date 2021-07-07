@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Classes, Menu, MenuItem } from '@blueprintjs/core'
+import { Classes, Menu } from '@blueprintjs/core'
+import { withTranslation } from 'react-i18next'
 import Localization from './Localization'
 
 class MenuSettings extends React.Component {
@@ -17,4 +18,4 @@ class MenuSettings extends React.Component {
 	}
 }
 
-export default MenuSettings
+export default withTranslation('translations')(MenuSettings)

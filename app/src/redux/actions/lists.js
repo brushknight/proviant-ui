@@ -7,6 +7,7 @@ import {
 	ACTION_FETCH_LIST_LOADING,
 	ACTION_FETCH_LIST_SUCCESS, ACTION_UPDATE_LIST_IN_LIST
 } from './const'
+import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'
 
 const fetchListLoading = () => {
@@ -56,12 +57,10 @@ export const updateListInList = model => {
 	}
 }
 
-export const fetchLists = () => {
+export const fetchLists = (locale) => {
 	return (dispatch) => {
 		dispatch(fetchListLoading())
-		axios.get('/api/v1/list/', {
-			headers: {}
-		})
+		axios.get('/api/v1/list/', generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(fetchListSuccess(data.data))
@@ -73,11 +72,11 @@ export const fetchLists = () => {
 	}
 }
 
-export const createList = (title) => {
+export const createList = (title, locale) => {
 	return (dispatch) => {
 		dispatch(createListLoading())
 		const json = JSON.stringify({ title })
-		axios.post('/api/v1/list/', json)
+		axios.post('/api/v1/list/', json, generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(createListSuccess(data.data))

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Callout, InputGroup, Intent } from '@blueprintjs/core'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { deleteCategory, editCategoryReset, fetchEditCategory, updateCategory } from '../../redux/actions/editCategory'
 import { getEditCategory } from '../../redux/selectors'
@@ -14,7 +15,7 @@ import {
 } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { useTranslation, withTranslation } from 'react-i18next'
 import Popover from '../Popover'
 import PropTypes from 'prop-types'
 
@@ -150,4 +151,4 @@ const mapDispatchToProps = dispatch => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryEditForm)
+export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(CategoryEditForm)

@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../const'
 import { useHistory } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
 const ProductsListRow = ({ product, categories, lists, filterType }) => {
+	const { t } = useTranslation()
 	const history = useHistory()
 	const list = lists.items.find(item => item.id === product.list_id)
 
@@ -44,7 +46,7 @@ const ProductsListRow = ({ product, categories, lists, filterType }) => {
 			<img src={product.image} width={30} height={30}/>
 			<span className="content__product-status"></span>
 			<span className="content__product-title">{product.title}</span>
-			<span className="content__product-stock">stock: {product.stock}</span>
+			<span className="content__product-stock">{t('product_list_row.stock')}{product.stock}</span>
 		</div>
 		<div className="content__product-sorting">
 			{productList}

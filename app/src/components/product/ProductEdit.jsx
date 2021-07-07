@@ -1,27 +1,19 @@
 import * as React from 'react'
 import { Button, ButtonGroup, Callout, EditableText, InputGroup, Intent, Tag } from '@blueprintjs/core'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
-import {
-	editProductFormChangeField,
-	editProductFormReset,
-	fetchEditProduct,
-	updateProduct
-} from '../../redux/actions/editProduct'
+import { editProductFormReset, fetchEditProduct, updateProduct } from '../../redux/actions/editProduct'
 import { getCategories, getEditProduct, getLists } from '../../redux/selectors'
 import {
-	PRODUCT_FIELD_BARCODE,
-	PRODUCT_FIELD_CATEGORIES,
-	PRODUCT_FIELD_DESCRIPTION,
-	PRODUCT_FIELD_IMAGE,
-	PRODUCT_FIELD_LINK,
-	PRODUCT_FIELD_LIST,
-	PRODUCT_FIELD_TITLE, STATUS_DEFAULT,
-	STATUS_ERROR, STATUS_FETCHED,
+	STATUS_DEFAULT,
+	STATUS_ERROR,
+	STATUS_FETCHED,
 	STATUS_FETCHING,
 	STATUS_NOT_FOUND,
 	STATUS_UPDATED
 } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
+import { useTranslation, withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import SectionError from '../SectionError'
 import SectionLoading from '../SectionLoading'
@@ -40,6 +32,8 @@ const ProductEdit = (
 		closePopover
 	}
 ) => {
+	const { t } = useTranslation()
+
 	useEffect(() => {
 		if (form.status === STATUS_DEFAULT) {
 			fetchProduct(productId)
@@ -73,7 +67,7 @@ const ProductEdit = (
 	}
 
 	if (form.status === STATUS_NOT_FOUND) {
-		return <SectionNotFound error={form.error} title={'Product not found'}/>
+		return <SectionNotFound error={form.error} title={t('product_edit.not_found')}/>
 	}
 
 	const onCancelHandler = () => {
@@ -81,9 +75,9 @@ const ProductEdit = (
 		reset()
 	}
 
-	const textLinkToShop = <Tag minimal={true}>Link to shop</Tag>
-	const textLinkToPicture = <Tag minimal={true}>Link to picture</Tag>
-	const textBarcode = <Tag minimal={true}>Barcode</Tag>
+	const textLinkToShop = <Tag minimal={true}>{t('product_edit.link_to_shop')}</Tag>
+	const textLinkToPicture = <Tag minimal={true}>{t('product_edit.link_to_picture')}</Tag>
+	const textBarcode = <Tag minimal={true}>{t('product_edit.barcode')}</Tag>
 
 	const controls = []
 
@@ -98,8 +92,8 @@ const ProductEdit = (
 			list_id: list ? list.id : 0,
 			category_ids: categoryList ? categoryList.map(item => item.id) : []
 		})
-	}} intent={Intent.SUCCESS}>Save</Button>)
-	controls.push(<Button icon={'undo'} minimal={true} onClick={onCancelHandler}>Back to product</Button>)
+	}} intent={Intent.SUCCESS}>{t('product_edit.button_save')}</Button>)
+	controls.push(<Button icon={'undo'} minimal={true} onClick={onCancelHandler}>{t('product_edit.button_back')}</Button>)
 
 	const convertListToValue = (model) => {
 		return { value: model.id, label: model.title }
@@ -134,7 +128,7 @@ const ProductEdit = (
 	let updatedCallout
 
 	if (form.status === STATUS_UPDATED) {
-		updatedCallout = <Callout icon={'tick'} intent={Intent.SUCCESS}>Product updated</Callout>
+		updatedCallout = <Callout icon={'tick'} intent={Intent.SUCCESS}>{t('product_edit.callout_updated')}</Callout>
 	}
 
 	return <section className="content">
@@ -191,7 +185,7 @@ const ProductEdit = (
 		<Select
 			options={listsForSelect}
 			isMulti={false}
-			placeholder={'select list'}
+			placeholder={t('product_edit.select_list')}
 			onChange={(event) => {
 				setList(
 					lists.items.find(item => item.id === event.value)
@@ -203,7 +197,7 @@ const ProductEdit = (
 		<Select
 			options={categoriesForSelect}
 			isMulti={true}
-			placeholder={'select categories'}
+			placeholder={t('product_edit.select_categories')}
 			onChange={(data) => {
 				setCategoryList(data.map((item) => {
 					return categories.items.find(c => c.id === item.value)
@@ -244,4 +238,4 @@ ProductEdit.propTypes = {
 	categories: PropTypes.object
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductEdit)
+export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(ProductEdit)

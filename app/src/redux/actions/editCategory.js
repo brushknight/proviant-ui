@@ -10,6 +10,7 @@ import {
 	ACTION_EDIT_CATEGORY_SENDING,
 	ACTION_EDIT_CATEGORY_SUCCESS
 } from './const'
+import { generateLocaleHeader } from '../../utils/i18n'
 import { updateCategoryInList } from './categories'
 import axios from 'axios'
 
@@ -73,12 +74,10 @@ export const editCategoryReset = (error) => {
 	}
 }
 
-export const fetchEditCategory = (id) => {
+export const fetchEditCategory = (id, locale) => {
 	return (dispatch) => {
 		dispatch(editCategoryFetching())
-		axios.get('/api/v1/category/' + id + '/', {
-			headers: {}
-		})
+		axios.get('/api/v1/category/' + id + '/', generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(editCategoryFetched(data.data))
@@ -94,13 +93,13 @@ export const fetchEditCategory = (id) => {
 	}
 }
 
-export const updateCategory = (id, title) => {
+export const updateCategory = (id, title, locale) => {
 	return (dispatch) => {
 		dispatch(editCategorySending())
 		const json = JSON.stringify({
 			id, title
 		})
-		axios.put(`/api/v1/category/${id}/`, json)
+		axios.put(`/api/v1/category/${id}/`, json, generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(editCategorySuccess(data.data))
@@ -117,9 +116,9 @@ export const updateCategory = (id, title) => {
 	}
 }
 
-export const deleteCategory = (id) => {
+export const deleteCategory = (id, locale) => {
 	return (dispatch) => {
-		axios.delete(`/api/v1/category/${id}/`)
+		axios.delete(`/api/v1/category/${id}/`, generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(deleteCategorySuccess(data.data))

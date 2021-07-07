@@ -7,7 +7,9 @@ import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS } from '
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
+import { compose } from 'redux'
 import { generateEditProductLink } from '../../utils/link'
+import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
 const ProductDetails = ({ productId, product, filterType, listOrCategoryId, fetchProduct, deleteProduct, reset, closePopover }) => {
@@ -121,4 +123,4 @@ ProductDetails.propTypes = {
 	closePopover: PropTypes.func
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails)
+export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(ProductDetails)

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Button, Callout, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../../redux/actions/products'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
@@ -7,10 +8,12 @@ import { getCategories, getLists, getProducts } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import { useTranslation, withTranslation } from 'react-i18next'
 import ProductsListRow from './ProductsListRow'
 import PropTypes from 'prop-types'
 
 const ProductsList = ({ products, categories, lists, filterType, fetchProducts }) => {
+	const { t } = useTranslation()
 	const history = useHistory()
 
 	let query = null
@@ -57,13 +60,13 @@ const ProductsList = ({ products, categories, lists, filterType, fetchProducts }
 		return (
 			<section className="content">
 				<NonIdealState
-					title={'No products found'}
+					title={t('product_list.no_products_found')}
 					icon={'search'}
 				>
 					<Button icon={'plus'} intent={Intent.PRIMARY} onClick={() => {
 						history.push('/product/new')
 					}}>
-						Add product
+						{t('global.button_add_product')}
 					</Button>
 				</NonIdealState>
 			</section>
@@ -108,4 +111,4 @@ ProductsList.propTypes = {
 	filterType: PropTypes.string
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductsList)
+export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(ProductsList)

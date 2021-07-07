@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { addStock, consumeStock, deleteStock, fetchStock, stockAddFormFieldChanged } from '../redux/actions/stock'
 import { Callout, Intent, Spinner } from '@blueprintjs/core'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { getStock } from '../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND } from '../redux/reducers/consts'
 import { useEffect } from 'react'
+import { withTranslation } from 'react-i18next'
 import AddForm from './stock/AddForm'
 import ConsumeForm from './stock/ConsumeForm'
 import PropTypes from 'prop-types'
@@ -95,4 +97,4 @@ StockList.propTypes = {
 	productId: PropTypes.string
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StockList)
+export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(StockList)
