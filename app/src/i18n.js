@@ -5,11 +5,23 @@ import languageEN from './locate/en/translate.json'
 import languageRU from './locate/ru/translate.json'
 // import XHR from 'i18next-xhr-backend'
 
+const langDetectorOptions = {
+	order: ['querystring', 'cookie'],
+	lookupQuerystring: 'lng',
+	lookupCookie: 'i18next',
+
+	// cache user language
+	caches: ['cookie']
+	// cookieMinutes: 10,
+	// cookieDomain: 'myDomain'
+}
+
 i18n
 	// .use(XHR)
 	.use(LanguageDetector)
 	.use(initReactI18next)
 	.init({
+		detection: langDetectorOptions,
 		resources: {
 			en: languageEN,
 			ru: languageRU
