@@ -7,13 +7,12 @@ import { getLists } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useTranslation, withTranslation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import CreateForm from './CreateForm'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
-const MenuLists = ({ lists, fetchLists, createList }) => {
-	const { t } = useTranslation()
+const MenuLists = ({ lists, t, fetchLists, createList }) => {
 	const history = useHistory()
 
 	useEffect(() => {
@@ -107,9 +106,10 @@ const MenuLists = ({ lists, fetchLists, createList }) => {
 	</Menu>
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
 	const lists = getLists(state)
-	return { lists }
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	return { lists, t }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -124,7 +124,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 MenuLists.propTypes = {
 	fetchLists: PropTypes.func,
 	createList: PropTypes.func,
-	lists: PropTypes.object
+	lists: PropTypes.object,
+	t: PropTypes.func
 }
 
-export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(MenuLists)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(MenuLists)

@@ -11,13 +11,16 @@ import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
 
-const ProductCreate = ({
-												 form,
-												 lists,
-												 categories,
-												 createProduct,
-												 reset
-											 }) => {
+const ProductCreate = (
+	{
+		form,
+		lists,
+		categories,
+		createProduct,
+		t,
+		reset
+	}
+) => {
 	const history = useHistory()
 
 	const [title, setTitle] = useState('')
@@ -164,7 +167,8 @@ const mapStateToProps = (state, ownProps) => {
 	const form = getCreateProduct(state)
 	const lists = getLists(state)
 	const categories = getCategories(state)
-	return { form, lists, categories }
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	return { form, lists, categories, t }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -180,7 +184,8 @@ ProductCreate.propTypes = {
 	reset: PropTypes.func,
 	form: PropTypes.object,
 	lists: PropTypes.object,
-	categories: PropTypes.object
+	categories: PropTypes.object,
+	t: PropTypes.func
 }
 
-export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(ProductCreate)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductCreate)

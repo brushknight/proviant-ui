@@ -16,13 +16,11 @@ import {
 } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { useTranslation, withTranslation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import Popover from '../Popover'
 import PropTypes from 'prop-types'
 
-const ListEditForm = ({ form, fetch, reset, update, remove }) => {
-	const { t } = useTranslation()
-
+const ListEditForm = ({ form, fetch, reset, update, remove, t }) => {
 	const history = useHistory()
 	const { id } = useParams()
 	const [title, setTitle] = useState('')
@@ -136,21 +134,24 @@ ListEditForm.propTypes = {
 	fetch: PropTypes.func,
 	reset: PropTypes.func,
 	update: PropTypes.func,
-	remove: PropTypes.func
+	remove: PropTypes.func,
+	t: PropTypes.func
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
 	const form = getEditList(state)
-	return { form }
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	return { form, t }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
 	return {
-		fetch: (id) => dispatch(fetchEditList(id)),
-		update: (id, title) => dispatch(updateList(id, title)),
-		reset: (id) => dispatch(editListReset(id)),
-		remove: (id) => dispatch(deleteList(id))
+		fetch: (id) => dispatch(fetchEditList(id, locale)),
+		update: (id, title) => dispatch(updateList(id, title, locale)),
+		reset: (id) => dispatch(editListReset(id, locale)),
+		remove: (id) => dispatch(deleteList(id, locale))
 	}
 }
 
-export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(ListEditForm)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ListEditForm)

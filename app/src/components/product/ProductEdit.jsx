@@ -13,7 +13,7 @@ import {
 	STATUS_UPDATED
 } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
-import { useTranslation, withTranslation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import SectionError from '../SectionError'
 import SectionLoading from '../SectionLoading'
@@ -29,11 +29,10 @@ const ProductEdit = (
 		fetchProduct,
 		updateProduct,
 		reset,
-		closePopover
+		closePopover,
+		t
 	}
 ) => {
-	const { t } = useTranslation()
-
 	useEffect(() => {
 		if (form.status === STATUS_DEFAULT) {
 			fetchProduct(productId)
@@ -215,7 +214,8 @@ const mapStateToProps = (state, ownProps) => {
 	const lists = getLists(state)
 	const categories = getCategories(state)
 	const productId = ownProps.productId
-	return { form, lists, categories, productId }
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	return { form, lists, categories, productId, t }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -236,7 +236,8 @@ ProductEdit.propTypes = {
 	productId: PropTypes.string,
 	form: PropTypes.object,
 	lists: PropTypes.object,
-	categories: PropTypes.object
+	categories: PropTypes.object,
+	t: PropTypes.func
 }
 
-export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(ProductEdit)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductEdit)

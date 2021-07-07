@@ -7,15 +7,13 @@ import { getCategories } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useTranslation, withTranslation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import CreateForm from './CreateForm'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
-const MenuCategories = ({ categories, fetchCategories, createCategory, resetCreateCategoryForm }) => {
-	const { t, i18n } = useTranslation()
-
+const MenuCategories = ({ categories, t, fetchCategories, createCategory, resetCreateCategoryForm }) => {
 	const history = useHistory()
 
 	useEffect(() => {
@@ -53,7 +51,7 @@ const MenuCategories = ({ categories, fetchCategories, createCategory, resetCrea
 	const createForm = <CreateForm
 		placeholder={t('menu_category.create_form_placeholder')}
 		icon={'tag'}
-		onSubmit={(title) => createCategory(title, i18n.language)}
+		onSubmit={(title) => createCategory(title)}
 		onReset={() => resetCreateCategoryForm()}
 		status={categories.createForm.status}
 		error={categories.createForm.error}
@@ -98,12 +96,14 @@ MenuCategories.propTypes = {
 	categories: PropTypes.object,
 	fetchCategories: PropTypes.func,
 	createCategory: PropTypes.func,
-	resetCreateCategoryForm: PropTypes.func
+	resetCreateCategoryForm: PropTypes.func,
+	t: PropTypes.func
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
 	const categories = getCategories(state)
-	return { categories }
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	return { categories, t }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -116,4 +116,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	}
 }
 
-export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(MenuCategories)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(MenuCategories)

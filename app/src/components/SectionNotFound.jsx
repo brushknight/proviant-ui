@@ -17,7 +17,8 @@ const SectionNotFound = (props) => {
 
 SectionNotFound.propTypes = {
 	error: PropTypes.string,
-	title: PropTypes.string
+	title: PropTypes.string,
+	i18n: PropTypes.object
 }
 
 export default withTranslation('translations')(SectionNotFound)

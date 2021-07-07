@@ -72,7 +72,8 @@ CreateForm.propTypes = {
 	error: PropTypes.string,
 	placeholder: PropTypes.string,
 	icon: PropTypes.string,
-	value: PropTypes.string
+	value: PropTypes.string,
+	i18n: PropTypes.object
 }
 
 export default withTranslation('translations')(CreateForm)

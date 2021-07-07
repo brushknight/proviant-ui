@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { withTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 
 class BreadCrumbs extends React.Component {
 	render () {
@@ -16,6 +17,10 @@ class BreadCrumbs extends React.Component {
 			</section>
 		)
 	}
+}
+
+BreadCrumbs.propTypes = {
+	i18n: PropTypes.object
 }
 
 export default withTranslation('translations')(BreadCrumbs)

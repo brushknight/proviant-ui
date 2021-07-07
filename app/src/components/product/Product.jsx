@@ -23,7 +23,8 @@ const Product = (props) => {
 
 Product.propTypes = {
 	closePopover: PropTypes.func,
-	filterType: PropTypes.string
+	filterType: PropTypes.string,
+	i18n: PropTypes.object
 }
 
 export default withTranslation('translations')(Product)

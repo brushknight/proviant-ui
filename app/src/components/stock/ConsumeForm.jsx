@@ -47,7 +47,8 @@ const ConsumeForm = (props) => {
 ConsumeForm.propTypes = {
 	status: PropTypes.string,
 	error: PropTypes.string,
-	onSubmit: PropTypes.func
+	onSubmit: PropTypes.func,
+	i18n: PropTypes.object
 }
 
 export default withTranslation('translations')(ConsumeForm)

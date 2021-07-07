@@ -8,12 +8,11 @@ import { getCategories, getLists, getProducts } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { useTranslation, withTranslation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import ProductsListRow from './ProductsListRow'
 import PropTypes from 'prop-types'
 
-const ProductsList = ({ products, categories, lists, filterType, fetchProducts }) => {
-	const { t } = useTranslation()
+const ProductsList = ({ products, categories, lists, filterType, t, fetchProducts }) => {
 	const history = useHistory()
 
 	let query = null
@@ -93,8 +92,8 @@ const mapStateToProps = (state, ownProps) => {
 	const categories = getCategories(state)
 	const lists = getLists(state)
 	const filterType = ownProps.filterType
-
-	return { products, categories, lists, filterType }
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	return { products, categories, lists, filterType, t }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -109,7 +108,8 @@ ProductsList.propTypes = {
 	products: PropTypes.object,
 	categories: PropTypes.object,
 	lists: PropTypes.object,
-	filterType: PropTypes.string
+	filterType: PropTypes.string,
+	t: PropTypes.func
 }
 
-export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(ProductsList)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductsList)

@@ -12,7 +12,7 @@ import ConsumeForm from './ConsumeForm'
 import PropTypes from 'prop-types'
 import StockListRow from './StockListRow'
 
-const StockList = ({ productId, stock, fetchStock, addStock, consumeStock, deleteStock }) => {
+const StockList = ({ productId, stock, t, fetchStock, addStock, consumeStock, deleteStock }) => {
 	useEffect(() => {
 		fetchStock(productId)
 	}, [productId])
@@ -75,7 +75,8 @@ const mapStateToProps = (state, ownProps) => {
 	const stock = getStock(state)
 	const productId = ownProps.productId
 
-	return { productId, stock }
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	return { productId, stock, t }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -95,7 +96,8 @@ StockList.propTypes = {
 	consumeStock: PropTypes.func,
 	deleteStock: PropTypes.func,
 	stock: PropTypes.object,
-	productId: PropTypes.string
+	productId: PropTypes.string,
+	t: PropTypes.func
 }
 
-export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(StockList)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(StockList)

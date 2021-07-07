@@ -17,7 +17,8 @@ const StockListRow = (props) => {
 
 StockListRow.propTypes = {
 	item: PropTypes.object,
-	onDelete: PropTypes.func
+	onDelete: PropTypes.func,
+	i18n: PropTypes.object
 }
 
 export default withTranslation('translations')(StockListRow)

@@ -14,7 +14,8 @@ const SectionError = (props) => {
 }
 
 SectionError.propTypes = {
-	error: PropTypes.string
+	error: PropTypes.string,
+	i18n: PropTypes.object
 }
 
 export default withTranslation('translations')(SectionError)

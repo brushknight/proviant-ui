@@ -33,7 +33,8 @@ Item.propTypes = {
 	key: PropTypes.string,
 	text: PropTypes.string,
 	button: PropTypes.object,
-	onClick: PropTypes.func
+	onClick: PropTypes.func,
+	i18n: PropTypes.object
 }
 
 export default withTranslation('translations')(Item)

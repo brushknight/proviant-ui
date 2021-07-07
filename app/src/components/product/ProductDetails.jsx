@@ -20,7 +20,8 @@ const ProductDetails = ({
 	fetchProduct,
 	deleteProduct,
 	reset,
-	closePopover
+	closePopover,
+	t
 }) => {
 	const history = useHistory()
 
@@ -109,7 +110,8 @@ const mapStateToProps = (state, ownProps) => {
 	const productId = ownProps.productId
 	const listOrCategoryId = ownProps.listOrCategoryId
 	const filterType = ownProps.filterType
-	return { productId, product, filterType, listOrCategoryId }
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	return { productId, product, filterType, listOrCategoryId, t }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -130,7 +132,8 @@ ProductDetails.propTypes = {
 	productId: PropTypes.string,
 	listOrCategoryId: PropTypes.string,
 	filterType: PropTypes.string,
-	closePopover: PropTypes.func
+	closePopover: PropTypes.func,
+	t: PropTypes.func
 }
 
-export default compose(withTranslation('translation'), connect(mapStateToProps, mapDispatchToProps))(ProductDetails)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductDetails)
