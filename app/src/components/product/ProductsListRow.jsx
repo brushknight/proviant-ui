@@ -38,22 +38,24 @@ const ProductsListRow = ({ product, categories, lists, filterType, i18n }) => {
 		}
 	}
 
-	return <div className="content__product-details" onClick={() => {
-		onClickHandler()
-	}}>
-		<div className="content__product-designation">
-			<img src={product.image} width={30} height={30}/>
-			<span className="content__product-status"></span>
-			<span className="content__product-title">{product.title}</span>
-			<span className="content__product-stock">{i18n.t('product_list_row.stock')}{product.stock}</span>
+	return (
+		<div className="content__product-details" onClick={() => {
+			onClickHandler()
+		}}>
+			<div className="content__product-designation">
+				<img src={product.image} width={30} height={30}/>
+				<span className="content__product-status"></span>
+				<span className="content__product-title">{product.title}</span>
+				<span className="content__product-stock">{i18n.t('product_list_row.stock')}{product.stock}</span>
+			</div>
+			<div className="content__product-sorting">
+				{productList}
+				{categoriesFound.map(category => (
+					<span key={category.id} className="content__product-category">{category.title}</span>
+				))}
+			</div>
 		</div>
-		<div className="content__product-sorting">
-			{productList}
-			{categoriesFound.map(category => (
-				<span key={category.id} className="content__product-category">{category.title}</span>
-			))}
-		</div>
-	</div>
+	)
 }
 
 ProductsListRow.propTypes = {
