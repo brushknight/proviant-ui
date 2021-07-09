@@ -30,7 +30,8 @@ const ProductEdit = (
 		updateProduct,
 		reset,
 		closePopover,
-		t
+		t,
+		className
 	}
 ) => {
 	useEffect(() => {
@@ -130,7 +131,7 @@ const ProductEdit = (
 		updatedCallout = <Callout icon={'tick'} intent={Intent.SUCCESS}>{t('product_edit.callout_updated')}</Callout>
 	}
 
-	return <section className="content">
+	return <section className={className}>
 		{updatedCallout}
 		{errorCallout}
 		<ButtonGroup>
@@ -237,7 +238,8 @@ ProductEdit.propTypes = {
 	form: PropTypes.object,
 	lists: PropTypes.object,
 	categories: PropTypes.object,
-	t: PropTypes.func
+	t: PropTypes.func,
+	className: PropTypes.string
 }
 
 export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductEdit)

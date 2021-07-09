@@ -1,23 +1,35 @@
 import * as React from 'react'
-import { generateProductLink } from '../../utils/link'
+import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
+import { generateCategoryLink, generateListLink } from '../../utils/link'
 import { Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
+import ProductCreate from './ProductCreate'
 import ProductEdit from './ProductEdit'
 import PropTypes from 'prop-types'
 
-const ProductEditOverlay = ({ filterType }) => {
+const ProductNewOverlay = ({ filterType }) => {
 	const { id, productId } = useParams()
 	const [isOpen, setIsOpen] = useState(false)
 	const history = useHistory()
 
 	useEffect(() => {
 		setIsOpen(true)
-	}, [id, productId])
+	}, [])
 
 	const onClose = () => {
-		history.push(generateProductLink(filterType, id, productId))
+		switch (filterType) {
+		case FILTER_TYPE_CATEGORY:
+			history.push(generateCategoryLink(id))
+			break
+		case FILTER_TYPE_LIST:
+			history.push(generateListLink(id))
+			break
+		default:
+			history.push('/')
+			break
+		}
 	}
 
 	const closePopover = () => {
@@ -32,8 +44,7 @@ const ProductEditOverlay = ({ filterType }) => {
 				onClose()
 			}}
 		>
-
-			<ProductEdit
+			<ProductCreate
 				className={'change_me-overlay-product-container-inner'}
 				productId={productId}
 				closePopover={closePopover}
@@ -43,8 +54,8 @@ const ProductEditOverlay = ({ filterType }) => {
 	)
 }
 
-ProductEditOverlay.propTypes = {
+ProductNewOverlay.propTypes = {
 	filterType: PropTypes.string
 }
 
-export default withTranslation('translations')(ProductEditOverlay)
+export default withTranslation('translations')(ProductNewOverlay)
