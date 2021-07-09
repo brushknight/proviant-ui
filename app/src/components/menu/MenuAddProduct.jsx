@@ -1,11 +1,21 @@
 import * as React from 'react'
 import { Classes, Intent, Menu, MenuItem } from '@blueprintjs/core'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
+
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
 const MenuAddProduct = (props) => {
 	const history = useHistory()
+	const location = useLocation()
+	let newProductUrl = location.pathname
+	if (newProductUrl.slice(-1) !== '/') {
+		newProductUrl += '/'
+	}
+
+	newProductUrl += 'product-new'
+
+	console.log(newProductUrl)
 
 	return (
 		<Menu
@@ -14,7 +24,8 @@ const MenuAddProduct = (props) => {
 			} page-header__navigation-list`}
 		>
 			<MenuItem icon="plus" text={props.i18n.t('global.button_add_product')} intent={Intent.PRIMARY} onClick={() => {
-				history.push('/product/new')
+				console.log(newProductUrl)
+				history.push(newProductUrl)
 			}}/>
 		</Menu>
 	)

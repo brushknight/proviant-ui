@@ -25,3 +25,11 @@ export const generateProductLink = (filterType, listOrCategoryId, productId) => 
 		console.error('unexpected filter type')
 	}
 }
+
+export const generateListLink = (listId) => {
+	return '/list/' + listId
+}
+
+export const generateCategoryLink = (listId) => {
+	return '/list/' + listId
+}

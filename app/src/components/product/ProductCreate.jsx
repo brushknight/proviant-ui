@@ -18,7 +18,8 @@ const ProductCreate = (
 		categories,
 		createProduct,
 		t,
-		reset
+		reset,
+		className
 	}
 ) => {
 	const history = useHistory()
@@ -85,7 +86,7 @@ const ProductCreate = (
 		})
 	}} intent={Intent.SUCCESS}>save new product</Button>)
 
-	return <section className="content">
+	return <section className={className}>
 		{errorCallout}
 		<ButtonGroup>
 			{controls}
@@ -185,7 +186,8 @@ ProductCreate.propTypes = {
 	form: PropTypes.object,
 	lists: PropTypes.object,
 	categories: PropTypes.object,
-	t: PropTypes.func
+	t: PropTypes.func,
+	className: PropTypes.string
 }
 
 export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductCreate)
