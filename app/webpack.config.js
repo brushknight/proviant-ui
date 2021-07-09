@@ -3,67 +3,67 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: path.resolve(__dirname, './src/index.js'),
-  target: 'web',
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        include: /src/
-      },
-      {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/'
-            }
-          }
-        ]
-      },
-      {
-        test: /\.less$/i,
-        use: [
-          // compiles Less to CSS
-          'style-loader',
-          'css-loader',
-          'less-loader'
-        ]
-      }
-    ]
-  },
-  resolve: {
-    extensions: ['*', '.js', '.jsx']
-  },
-  output: {
-    path: path.resolve(__dirname, './dist')
-  },
-  devServer: {
-    contentBase: path.resolve(__dirname, './dist'),
-    historyApiFallback: true,
-    disableHostCheck: true,
-    port: 9000,
-    hot: true,
-    proxy: {
-      '/api': 'http://127.0.0.1:8080/'
-    }
-  },
-  // alias: { 'react-dom': '@hot-loader/react-dom'  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': '{}'
-    }),
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src/index.html'),
-      filename: 'index.html'
-    })
-  ]
+	entry: path.resolve(__dirname, './src/index.js'),
+	target: 'web',
+	module: {
+		rules: [
+			{
+				test: /\.(js|jsx)$/,
+				loader: 'babel-loader',
+				exclude: /node_modules/,
+				include: /src/
+			},
+			{
+				test: /\.css$/i,
+				use: ['style-loader', 'css-loader']
+			},
+			{
+				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]',
+							outputPath: 'fonts/'
+						}
+					}
+				]
+			},
+			{
+				test: /\.less$/i,
+				use: [
+					// compiles Less to CSS
+					'style-loader',
+					'css-loader',
+					'less-loader'
+				]
+			}
+		]
+	},
+	resolve: {
+		extensions: ['*', '.js', '.jsx']
+	},
+	output: {
+		path: path.resolve(__dirname, './dist')
+	},
+	devServer: {
+		contentBase: path.resolve(__dirname, './dist'),
+		historyApiFallback: true,
+		disableHostCheck: true,
+		port: 9000,
+		hot: true,
+		proxy: {
+			'/api': 'http://10.0.0.50:13001/'
+		}
+	},
+	// alias: { 'react-dom': '@hot-loader/react-dom'  },
+	plugins: [
+		new webpack.DefinePlugin({
+			'process.env': '{}'
+		}),
+		new HtmlWebpackPlugin({
+			template: path.resolve(__dirname, 'src/index.html'),
+			filename: 'index.html'
+		})
+	]
 }

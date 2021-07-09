@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, ButtonGroup, Callout, Intent, NonIdealState, Spinner, Tag } from '@blueprintjs/core'
+import { Button, ButtonGroup, Callout, Icon, Intent, NonIdealState, Spinner, Tag } from '@blueprintjs/core'
 import { connect } from 'react-redux'
 import { deleteProduct, fetchProduct, resetProduct } from '../../redux/actions/product'
 import { getProduct } from '../../redux/selectors'
@@ -67,33 +67,60 @@ const ProductDetails = ({
 
 	if (closePopover) {
 		backButton = (
-			<Button icon={'cross'} minimal={true} onClick={closePopover}>{t('product.button_back')}</Button>
+			<button className='product__button-back' onClick={closePopover}>
+				<Icon iconSize={32} icon={'cross'}/>
+			</button>
 		)
 	}
+	const imageStyle = {
+		backgroundImage: 'url(' + product.model.image + ')'
+	}
 
-	return <section>
-		<ButtonGroup>
+	return (
+		<section className='product'>
 			{backButton}
-			<Button icon={'edit'} minimal={true} onClick={onEditHandler}>{t('product.button_edit')}</Button>
-			<Button onClick={() => {
-				deleteProduct(productId)
-			}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
-		</ButtonGroup>
-		<img src={product.model.image} alt={product.model.title} width={100} height={100}/>
-		<h1>{product.model.title}</h1>
-		<p>{product.model.description}</p>
-		<p><Tag minimal={true}>{t('product.barcode')}</Tag>{product.model.barcode}</p>
-		<p>
-			<ProductsTags
-				list={product.model.list}
-				categories={product.model.categories}/>
-		</p>
-		<Button onClick={() => {
-			if (product.model.link) {
-				window.open(product.model.link)
-			}
-		}}>{t('product.link_to_the_shop')}</Button>
-	</section>
+			<div className='product__wrapper-image'>
+				<div className='product__image' style={imageStyle}>
+				</div>
+				<div className='product__edit product__edit--tablet-width-min'>
+					<Button className='tablet-hide-width-max' icon={'edit'} minimal={true} onClick={onEditHandler}>{t('product.button_edit')}</Button>
+					<Button className='tablet-hide-width-max' onClick={() => {
+						deleteProduct(productId)
+					}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
+					<p className='product__barcode'><Tag minimal={true}>{t('product.barcode')}</Tag>{product.model.barcode}</p>
+					<Button className='tablet-hide-width-max' minimal={true} onClick={() => {
+						if (product.model.link) {
+							window.open(product.model.link)
+						}
+					}}>{t('product.link_to_the_shop')}</Button>
+				</div>
+			</div>
+
+			<div className='product__wrapper-details'>
+				<div className='product__edit product__edit--tablet-width-max tablet-hide-width-min'>
+					<Button onClick={() => {
+						if (product.model.link) {
+							window.open(product.model.link)
+						}
+					}}
+					minimal={true}
+					>{t('product.link_to_the_shop')}</Button>
+					<ButtonGroup>
+						<Button icon={'edit'} minimal={true} onClick={onEditHandler}>{t('product.button_edit')}</Button>
+						<Button onClick={() => {
+							deleteProduct(productId)
+						}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
+					</ButtonGroup>
+				</div>
+				<h1>{product.model.title}</h1>
+				<p className='product__description'>{product.model.description}</p>
+				<ProductsTags className='product__tags'
+
+					list={product.model.list}
+					categories={product.model.categories}/>
+			</div>
+		</section>
+	)
 }
 
 const mapStateToProps = (state, ownProps) => {
