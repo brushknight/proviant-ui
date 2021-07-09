@@ -67,7 +67,7 @@ const ProductDetails = ({
 
 	if (closePopover) {
 		backButton = (
-			<button className='product__button-back' onClick={closePopover}>
+			<button className='product-details__button-back' onClick={closePopover}>
 				<Icon iconSize={32} icon={'cross'}/>
 			</button>
 		)
@@ -77,17 +77,17 @@ const ProductDetails = ({
 	}
 
 	return (
-		<section className='product'>
+		<section className='product-details'>
 			{backButton}
-			<div className='product__wrapper-image'>
-				<div className='product__image' style={imageStyle}>
+			<div className='product-details__wrapper-image'>
+				<div className='product-details__image' style={imageStyle}>
 				</div>
-				<div className='product__edit product__edit--tablet-width-min'>
+				<div className='product-details__edit product-details__edit--tablet-width-min'>
 					<Button className='tablet-hide-width-max' icon={'edit'} minimal={true} onClick={onEditHandler}>{t('product.button_edit')}</Button>
 					<Button className='tablet-hide-width-max' onClick={() => {
 						deleteProduct(productId)
 					}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
-					<p className='product__barcode'><Tag minimal={true}>{t('product.barcode')}</Tag>{product.model.barcode}</p>
+					<p className='product-details__barcode'><Tag minimal={true}>{t('product.barcode')}</Tag>{product.model.barcode}</p>
 					<Button className='tablet-hide-width-max' minimal={true} onClick={() => {
 						if (product.model.link) {
 							window.open(product.model.link)
@@ -96,8 +96,8 @@ const ProductDetails = ({
 				</div>
 			</div>
 
-			<div className='product__wrapper-details'>
-				<div className='product__edit product__edit--tablet-width-max tablet-hide-width-min'>
+			<div className='product-details__wrapper-details'>
+				<div className='product-details__edit product-details__edit--tablet-width-max tablet-hide-width-min'>
 					<Button onClick={() => {
 						if (product.model.link) {
 							window.open(product.model.link)
@@ -113,8 +113,8 @@ const ProductDetails = ({
 					</ButtonGroup>
 				</div>
 				<h1>{product.model.title}</h1>
-				<p className='product__description'>{product.model.description}</p>
-				<ProductsTags className='product__tags'
+				<p className='product-details__description'>{product.model.description}</p>
+				<ProductsTags className='product-details__tags'
 
 					list={product.model.list}
 					categories={product.model.categories}/>

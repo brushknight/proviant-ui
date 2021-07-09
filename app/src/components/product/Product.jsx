@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import ProductDetails from './ProductDetails'
+import ProductStock from '../stock/ProductStock'
 import PropTypes from 'prop-types'
-import StockList from '../stock/StockList'
 
 const Product = (props) => {
 	const { id, productId } = useParams()
@@ -16,7 +16,9 @@ const Product = (props) => {
 				listOrCategoryId={id}
 				filterType={props.filterType}
 			/>
-			<StockList productId={productId}/>
+			<ProductStock
+				productId={productId}
+			/>
 		</div>
 	)
 }

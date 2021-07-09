@@ -12,31 +12,31 @@ import ConsumeForm from './ConsumeForm'
 import PropTypes from 'prop-types'
 import StockListRow from './StockListRow'
 
-const StockList = ({ productId, stock, t, fetchStock, addStock, consumeStock, deleteStock }) => {
+const ProductStock = ({ productId, stock, t, fetchStock, addStock, consumeStock, deleteStock }) => {
 	useEffect(() => {
 		fetchStock(productId)
 	}, [productId])
 
 	if (stock.status === STATUS_LOADING) {
 		return (
-			<section>
+			<div className='product-stock'>
 				<Spinner/>
-			</section>
+			</div>
 		)
 	}
 
 	if (stock.status === STATUS_ERROR) {
 		return (
-			<section>
+			<div className='product-stock'>
 				<Callout
 					intent={Intent.DANGER}
 					title={t('stock.error_fetch')}>{stock.error}</Callout>
-			</section>
+			</div>
 		)
 	}
 
 	if (stock.status === STATUS_NOT_FOUND) {
-		return <section></section>
+		return <div className='product-stock'></div>
 	}
 
 	let stockList
@@ -50,24 +50,28 @@ const StockList = ({ productId, stock, t, fetchStock, addStock, consumeStock, de
 	}
 
 	return (
-		<section>
-			<ConsumeForm
-				status={stock.consumeForm.status}
-				error={stock.consumeForm.error}
-				onSubmit={quantity => {
-					consumeStock(productId, quantity)
-				}}
-			/>
-			<AddForm
-				status={stock.addForm.status}
-				error={stock.addForm.error}
-				onSubmit={(quantity, date) => {
-					addStock(productId, quantity, date)
-				}}
-			/>
-			<h3>{t('stock.title_in_stock')}</h3>
-			{stockList}
-		</section>
+		<div className='product-stock'>
+			<div className='product-stock__form'>
+				<ConsumeForm
+					status={stock.consumeForm.status}
+					error={stock.consumeForm.error}
+					onSubmit={quantity => {
+						consumeStock(productId, quantity)
+					}}
+				/>
+				<AddForm
+					status={stock.addForm.status}
+					error={stock.addForm.error}
+					onSubmit={(quantity, date) => {
+						addStock(productId, quantity, date)
+					}}
+				/>
+			</div>
+			<div className='product-stock__list'>
+				<h3>{t('stock.title_in_stock')}</h3>
+				{stockList}
+			</div>
+		</div>
 	)
 }
 
@@ -89,7 +93,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	}
 }
 
-StockList.propTypes = {
+ProductStock.propTypes = {
 	fetchStock: PropTypes.func,
 	stockAddFormFieldChanged: PropTypes.func,
 	addStock: PropTypes.func,
@@ -100,4 +104,4 @@ StockList.propTypes = {
 	t: PropTypes.func
 }
 
-export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(StockList)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductStock)
