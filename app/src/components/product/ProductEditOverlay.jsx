@@ -32,11 +32,13 @@ const ProductEditOverlay = ({ filterType }) => {
 				onClose()
 			}}
 		>
-			<ProductEdit
-				className={'product-overlay'}
-				productId={productId}
-				closePopover={closePopover}
-			/>
+			<div className={'product-overlay'}>
+				<ProductEdit
+					className={'product-overlay__inner'}
+					productId={productId}
+					closePopover={closePopover}
+				/>
+			</div>
 		</Overlay>
 	)
 }
