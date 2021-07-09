@@ -9,7 +9,7 @@ const Product = (props) => {
 	const { id, productId } = useParams()
 
 	return (
-		<div className="content">
+		<div className={props.className}>
 			<ProductDetails
 				closePopover={props.closePopover}
 				productId={productId}
@@ -24,7 +24,8 @@ const Product = (props) => {
 Product.propTypes = {
 	closePopover: PropTypes.func,
 	filterType: PropTypes.string,
-	i18n: PropTypes.object
+	i18n: PropTypes.object,
+	className: PropTypes.string
 }
 
 export default withTranslation('translations')(Product)
