@@ -45,7 +45,7 @@ const ProductNewOverlay = ({ filterType }) => {
 			}}
 		>
 			<ProductCreate
-				className={'change_me-overlay-product-container-inner'}
+				className={'product-overlay'}
 				productId={productId}
 				closePopover={closePopover}
 			/>
