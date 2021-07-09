@@ -2,6 +2,7 @@ import * as React from 'react'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../const'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
+import ProductsTags from './ProductTags'
 import PropTypes from 'prop-types'
 
 const ProductsListRow = ({ product, categories, lists, filterType, i18n }) => {
@@ -16,12 +17,6 @@ const ProductsListRow = ({ product, categories, lists, filterType, i18n }) => {
 			categoriesFound.push(category)
 		}
 	})
-
-	let productList = ''
-
-	if (list != null) {
-		productList = <span className="content__product-list">{list.title}</span>
-	}
 
 	const onClickHandler = () => {
 		switch (filterType) {
@@ -39,21 +34,15 @@ const ProductsListRow = ({ product, categories, lists, filterType, i18n }) => {
 	}
 
 	return (
-		<div className="content__product-details" onClick={() => {
-			onClickHandler()
-		}}>
-			<div className="content__product-designation">
+
+		<div className="product-list__product-row product-row" onClick={onClickHandler}>
+			<div className="product-row__product-designation">
 				<img src={product.image} width={30} height={30}/>
-				<span className="content__product-status"></span>
-				<span className="content__product-title">{product.title}</span>
-				<span className="content__product-stock">{i18n.t('product_list_row.stock')}{product.stock}</span>
+				<span className="product-row__product-status"></span>
+				<span className="product-row__product-title">{product.title}</span>
+				<span className="product-row__product-stock">{i18n.t('product_list_row.stock')}{product.stock}</span>
 			</div>
-			<div className="content__product-sorting">
-				{productList}
-				{categoriesFound.map(category => (
-					<span key={category.id} className="content__product-category">{category.title}</span>
-				))}
-			</div>
+			<ProductsTags list={list} categories={categoriesFound} className="product-row__product-sorting" />
 		</div>
 	)
 }

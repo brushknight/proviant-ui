@@ -70,8 +70,8 @@ const ProductDetails = ({
 			<Button icon={'cross'} minimal={true} onClick={closePopover}>{t('product.button_back')}</Button>
 		)
 	}
-	let imageStyle = {
-		backgroundImage: 'url('+ product.model.image + ')'
+	const imageStyle = {
+		backgroundImage: 'url(' + product.model.image + ')'
 	}
 
 	return (
@@ -110,13 +110,12 @@ const ProductDetails = ({
 					</ButtonGroup>
 				</div>
 
-
 				<h1>{product.model.title}</h1>
 				<p>{product.model.description}</p>
 				<div>
 					<ProductsTags
-					list={product.model.list}
-					categories={product.model.categories}/>
+						list={product.model.list}
+						categories={product.model.categories}/>
 				</div>
 			</div>
 		</section>

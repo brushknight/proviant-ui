@@ -39,7 +39,7 @@ const ProductsList = ({ products, categories, lists, filterType, t, fetchProduct
 
 	if (products.status === STATUS_LOADING) {
 		return (
-			<section className="content">
+			<section className="product-list">
 				<Spinner/>
 			</section>
 		)
@@ -47,7 +47,7 @@ const ProductsList = ({ products, categories, lists, filterType, t, fetchProduct
 
 	if (products.status === STATUS_ERROR) {
 		return (
-			<section className="content">
+			<section className="product-list">
 				<Callout title={'oops... something went wrong'} intent={Intent.DANGER}>
 					{products.error}
 				</Callout>
@@ -57,7 +57,7 @@ const ProductsList = ({ products, categories, lists, filterType, t, fetchProduct
 
 	if (products.items.length === 0) {
 		return (
-			<section className="content">
+			<section className="product-list">
 				<NonIdealState
 					title={t('product_list.no_products_found')}
 					icon={'search'}
@@ -73,7 +73,7 @@ const ProductsList = ({ products, categories, lists, filterType, t, fetchProduct
 	}
 
 	return (
-		<section className="content">
+		<section className="product-list">
 			{products.items.map(product => (
 				<ProductsListRow
 					filterType={filterType}
