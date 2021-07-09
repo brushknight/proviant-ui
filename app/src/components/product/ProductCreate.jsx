@@ -69,7 +69,7 @@ const ProductCreate = (
 	let errorCallout
 
 	if (form.status === STATUS_ERROR) {
-		errorCallout = <Callout icon={null} intent={Intent.DANGER}>{form.error}</Callout>
+		errorCallout = <Callout icon={null} intent={Intent.DANGER}>{t(form.error)}</Callout>
 	}
 
 	const controls = []
@@ -151,7 +151,7 @@ const ProductCreate = (
 		<Select
 			options={categoriesForSelect}
 			isMulti={true}
-			placeholder={t('product_create.select_category')}
+			placeholder={t('product_create.select_categories')}
 			onChange={(data) => {
 				setCategoryList(data.map((item) => {
 					return categories.items.find(c => c.id === item.value)

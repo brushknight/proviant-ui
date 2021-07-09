@@ -69,6 +69,9 @@
       "button_delete": "Delete",
       "error_fetch": "Something went wrong with stock fetching",
       "not_found": "No stock found for this product"
+    },
+    "product_validator": {
+      "error_empty_list": "Product list should not be empty"
     }
   }
 }

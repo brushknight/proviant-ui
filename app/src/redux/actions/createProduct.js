@@ -5,6 +5,7 @@ import {
 	ACTION_CREATE_PRODUCT_SUCCESS
 } from './const'
 import { generateLocaleHeader } from '../../utils/i18n'
+import { validateProduct } from '../../validators/product'
 import axios from 'axios'
 
 const createProductSending = () => {
@@ -34,6 +35,13 @@ export const createProductFormReset = () => {
 
 export const createProduct = (model, locale) => {
 	return (dispatch) => {
+		const error = validateProduct(model)
+
+		if (error) {
+			dispatch(createProductFail(error))
+			return
+		}
+
 		dispatch(createProductSending())
 		const json = JSON.stringify(model)
 		axios.post('/api/v1/product/', json, generateLocaleHeader(locale))
