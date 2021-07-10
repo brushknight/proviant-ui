@@ -6,27 +6,6 @@
   }
 }
 
-.product-details__button-back {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 35px;
-  height: 35px;
-  padding: 0;
-
-  color: @light-gray;
-
-  border: none;
-  background-color: transparent;
-
-  cursor: pointer;
-
-  &:hover {
-   color: @dark;
-  }
-}
-
 .product-details__wrapper-image {
   display: flex;
   justify-content: space-around;
@@ -66,9 +45,20 @@
   padding: 5px 10px;
 }
 
+.product-details__barcode-text {
+  display: inline-block;
+  margin: 0 5px 0 0;
+}
+
 .product-details__description {
   margin: 0;
-  padding-bottom: 20px;
+  padding: 0 0 20px;
+}
+
+.product-details__stock {
+  padding: 0 0 20px;
+
+  font-size: 20px;
 }
 
 .product-details__tags {

@@ -1,17 +1,29 @@
 .product-row {
+  position: relative;
+
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  width: 97%;
+  width: 100%;
   min-height: 50px;
   padding: 7px 10px;
 
   cursor: pointer;
-  border-bottom: 1px solid @light;
 
   &:hover{
     background-color: @light;
   }
+}
+
+.product-row::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+
+  width: 99%;
+  height: 1px;
+
+  background-color: @light;
 }
 
 //1
@@ -21,6 +33,15 @@
   align-items: center;
   margin: 3px 0;
   padding: 0 20px 0 0;
+}
+
+.product-row__image {
+  width: 30px;
+  height: 30px;
+
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .product-row__product-status {
@@ -35,7 +56,7 @@
 }
 
 .product-row__product-stock {
-  padding-left: 10px;
+  padding-left: 20px;
 }
 
 //2

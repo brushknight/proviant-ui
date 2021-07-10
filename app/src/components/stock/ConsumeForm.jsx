@@ -27,7 +27,7 @@ const ConsumeForm = (props) => {
 	}
 
 	return (
-		<div>
+		<div className='product-stock__consume'>
 			<h3>{props.i18n.t('stock.title_consume')}</h3>
 			{consumeStockFormError}
 			<FormGroup label={props.i18n.t('stock.quantity')} inline={true}>

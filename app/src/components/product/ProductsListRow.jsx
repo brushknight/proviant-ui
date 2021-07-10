@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../const'
+import { Icon } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import ProductsTags from './ProductTags'
@@ -35,14 +36,17 @@ const ProductsListRow = ({ product, categories, lists, filterType, i18n }) => {
 		}
 	}
 
-	return (
+	const imageStyle = {
+		backgroundImage: 'url(' + product.image + ')'
+	}
 
+	return (
 		<div className="product-list__product-row product-row" onClick={onClickHandler}>
 			<div className="product-row__product-designation">
-				<img src={product.image} width={30} height={30}/>
-				<span className="product-row__product-status"></span>
+				<div className='product-row__image' style={imageStyle}>
+				</div>
 				<span className="product-row__product-title">{product.title}</span>
-				<span className="product-row__product-stock">{i18n.t('product_list_row.stock')}{product.stock}</span>
+				<div className="product-row__product-stock product-stock-icon"><Icon className='product-stock-icon__icon' icon={'cube'}/>{product.stock}</div>
 			</div>
 			<ProductsTags list={list} categories={categoriesFound} className="product-row__product-sorting" />
 		</div>

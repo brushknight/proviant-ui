@@ -68,7 +68,7 @@ const ProductStock = ({ productId, stock, t, fetchStock, addStock, consumeStock,
 				/>
 			</div>
 			<div className='product-stock__list'>
-				<h3>{t('stock.title_in_stock')}</h3>
+				<h3 className='product-stock__title'>{t('stock.title_in_stock')}</h3>
 				{stockList}
 			</div>
 		</div>

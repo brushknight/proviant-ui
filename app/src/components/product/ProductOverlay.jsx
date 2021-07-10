@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../const'
-import { Overlay } from '@blueprintjs/core'
+import { Icon, Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
@@ -43,13 +43,16 @@ const ProductOverlay = ({ filterType }) => {
 				onClose()
 			}}
 		>
-			<div className={'product-overlay'}>
+			<section className={'product-overlay'}>
+				<button className='product-overlay__button-back' onClick={closePopover}>
+					<Icon iconSize={32} icon={'cross'}/>
+				</button>
 				<Product
 					className={'product-overlay__inner'}
 					closePopover={closePopover}
 					filterType={filterType}
 				/>
-			</div>
+			</section>
 		</Overlay>
 	)
 }

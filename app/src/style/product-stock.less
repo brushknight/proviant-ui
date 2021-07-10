@@ -1,15 +1,15 @@
 .product-stock {
-  padding: 20px 0 0;
+  padding: 40px 0 0;
 }
 
 .product-stock__form {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
-.product-stock__form:first-child::before {
+.product-stock__consume::before {
   content: "";
   position: absolute;
   top: 20px;
@@ -19,4 +19,22 @@
   height: 85%;
 
   background: @light-gray;
+}
+
+.product-stock__list {
+  padding: 20px 0;
+}
+
+.product-stock__row-quantity {
+  display: inline-block;
+  width: 150px;
+}
+
+.product-stock__row-expires {
+  display: inline-block;
+  width: 160px;
+}
+
+.product-stock__row-value {
+  padding-left: 10px;
 }
