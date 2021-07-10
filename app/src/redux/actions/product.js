@@ -8,6 +8,7 @@ import {
 	ACTION_FETCH_PRODUCT_NOT_FOUND,
 	ACTION_FETCH_PRODUCT_SUCCESS, ACTION_RESET_PRODUCT, ACTION_UPDATE_PRODUCT_STOCK
 } from './const'
+import { deleteProductInList } from './products'
 import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'
 
@@ -103,6 +104,7 @@ export const deleteProduct = (id, locale) => {
 		axios.delete(`/api/v1/product/${id}/`, generateLocaleHeader(locale))
 			.then(response => {
 				dispatch(deleteProductSuccess())
+				dispatch(deleteProductInList(id))
 			})
 			.catch(error => {
 				const errorMsq = error.message

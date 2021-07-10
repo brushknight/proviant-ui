@@ -1,5 +1,5 @@
 import {
-	ACTION_AMEND_PRODUCT_STOCK_IN_LIST,
+	ACTION_AMEND_PRODUCT_STOCK_IN_LIST, ACTION_DELETE_PRODUCT_IN_LIST,
 	ACTION_FETCH_PRODUCTS_FAIL,
 	ACTION_FETCH_PRODUCTS_LOADING,
 	ACTION_FETCH_PRODUCTS_SUCCESS,
@@ -28,6 +28,16 @@ export default function (state = initialState(), action) {
 			}
 
 			return item
+		})
+
+		return {
+			...state,
+			items: newItems
+		}
+	case ACTION_DELETE_PRODUCT_IN_LIST:
+
+		newItems = state.items.filter((item) => {
+			return Number(item.id) !== Number(action.id)
 		})
 
 		return {
