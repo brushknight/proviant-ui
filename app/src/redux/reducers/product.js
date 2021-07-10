@@ -1,11 +1,12 @@
 import {
+	ACTION_AMEND_PRODUCT_STOCK,
 	ACTION_DELETE_PRODUCT_FAIL,
 	ACTION_DELETE_PRODUCT_LOADING,
 	ACTION_DELETE_PRODUCT_SUCCESS,
 	ACTION_FETCH_PRODUCT_FAIL,
 	ACTION_FETCH_PRODUCT_LOADING,
 	ACTION_FETCH_PRODUCT_NOT_FOUND,
-	ACTION_FETCH_PRODUCT_SUCCESS, ACTION_RESET_PRODUCT
+	ACTION_FETCH_PRODUCT_SUCCESS, ACTION_RESET_PRODUCT, ACTION_UPDATE_PRODUCT_STOCK
 } from '../actions/const'
 import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS } from './consts'
 
@@ -20,7 +21,8 @@ const emptyModel = () => {
 		category_ids: [],
 		categories: [],
 		list_id: '',
-		list: ''
+		list: '',
+		stock: 0
 	}
 }
 
@@ -34,7 +36,35 @@ const initialState = () => {
 }
 
 export default function (state = initialState(), action) {
+	let newProduct
+
 	switch (action.type) {
+	case ACTION_AMEND_PRODUCT_STOCK:
+
+		newProduct = state.model
+
+		newProduct.stock += action.delta.quantity
+
+		return {
+			...state,
+			model: newProduct
+		}
+	case ACTION_UPDATE_PRODUCT_STOCK:
+
+		newProduct = state.model
+
+		newProduct.stock = 0
+
+		if (action.items) {
+			action.items.forEach((item) => {
+				newProduct.stock += item.quantity
+			})
+		}
+
+		return {
+			...state,
+			model: newProduct
+		}
 	case ACTION_RESET_PRODUCT:
 		return {
 			...initialState()

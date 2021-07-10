@@ -54,7 +54,7 @@ const AddForm = (props) => {
 			<FormGroup label={props.i18n.t('stock.expires')} inline={true}>
 				<DateInput {...jsDateFormatter} />
 			</FormGroup>
-			<Button icon={'flame'} onClick={() => {
+			<Button icon={'cube-add'} onClick={() => {
 				props.onSubmit(quantity, date)
 			}}>{props.i18n.t('stock.button_add')} <b>{quantity}</b></Button> {formLoading} {formSuccess}
 		</div>

@@ -13,6 +13,8 @@ import {
 	ACTION_FETCH_STOCK_NOT_FOUND,
 	ACTION_FETCH_STOCK_SUCCESS
 } from './const'
+import { amendProductStock, updateProductStock } from './product'
+import { amendProductStockInList, updateProductStockInList } from './products'
 import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'
 
@@ -127,9 +129,11 @@ export const addStock = (productId, quantity, date, locale) => {
 			.then(response => {
 				const data = response.data
 				dispatch(addStockSuccess(data.data))
+				dispatch(amendProductStock(productId, data.data))
+				dispatch(amendProductStockInList(productId, data.data))
 			})
 			.catch(error => {
-				if (error.response.status) {
+				if (error.response && error.response.status) {
 					dispatch(addStockFail(error.response.data.error))
 				} else {
 					dispatch(addStockFail(error.message))
@@ -150,9 +154,11 @@ export const consumeStock = (productId, quantity, locale) => {
 			.then(response => {
 				const data = response.data
 				dispatch(consumeStockSuccess(data.data))
+				dispatch(updateProductStock(productId, data.data))
+				dispatch(updateProductStockInList(productId, data.data))
 			})
 			.catch(error => {
-				if (error.response.status) {
+				if (error.response && error.response.status) {
 					dispatch(consumeStockFail(error.response.data.error))
 				} else {
 					dispatch(consumeStockFail(error.message))

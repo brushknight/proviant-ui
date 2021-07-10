@@ -1,11 +1,12 @@
 import {
+	ACTION_AMEND_PRODUCT_STOCK,
 	ACTION_DELETE_PRODUCT_FAIL,
 	ACTION_DELETE_PRODUCT_LOADING,
 	ACTION_DELETE_PRODUCT_SUCCESS,
 	ACTION_FETCH_PRODUCT_FAIL,
 	ACTION_FETCH_PRODUCT_LOADING,
 	ACTION_FETCH_PRODUCT_NOT_FOUND,
-	ACTION_FETCH_PRODUCT_SUCCESS, ACTION_RESET_PRODUCT
+	ACTION_FETCH_PRODUCT_SUCCESS, ACTION_RESET_PRODUCT, ACTION_UPDATE_PRODUCT_STOCK
 } from './const'
 import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'
@@ -58,6 +59,22 @@ const deleteProductLoading = () => {
 export const resetProduct = () => {
 	return {
 		type: ACTION_RESET_PRODUCT
+	}
+}
+
+export const updateProductStock = (productId, items) => {
+	return {
+		type: ACTION_UPDATE_PRODUCT_STOCK,
+		productId,
+		items
+	}
+}
+
+export const amendProductStock = (productId, delta) => {
+	return {
+		type: ACTION_AMEND_PRODUCT_STOCK,
+		productId,
+		delta
 	}
 }
 

@@ -7,6 +7,7 @@ import {
 	ACTION_EDIT_PRODUCT_SUCCESS
 } from './const'
 import { generateLocaleHeader } from '../../utils/i18n'
+import { updateProductInList } from './products'
 import axios from 'axios'
 
 const editProductSending = () => {
@@ -69,6 +70,7 @@ export const updateProduct = (model) => {
 			.then(response => {
 				const data = response.data
 				dispatch(editProductSuccess(data.data))
+				dispatch(updateProductInList(data.data))
 			})
 			.catch(error => {
 				const errorMsq = error.message

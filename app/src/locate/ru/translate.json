@@ -39,7 +39,8 @@
       "select_categories": "Выбрать категории",
       "link_to_shop": "Ссылка на магазин",
       "link_to_picture": "Ссылка на изображение",
-      "barcode": "Штрихкод"
+      "barcode": "Штрихкод",
+      "in_stock": "В остатке"
     },
     "product_create": {
       "button_back": "Назад",

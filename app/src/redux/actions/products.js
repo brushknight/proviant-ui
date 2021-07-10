@@ -1,4 +1,10 @@
-import { ACTION_FETCH_PRODUCTS_FAIL, ACTION_FETCH_PRODUCTS_LOADING, ACTION_FETCH_PRODUCTS_SUCCESS } from './const'
+import {
+	ACTION_AMEND_PRODUCT_STOCK, ACTION_AMEND_PRODUCT_STOCK_IN_LIST,
+	ACTION_FETCH_PRODUCTS_FAIL,
+	ACTION_FETCH_PRODUCTS_LOADING,
+	ACTION_FETCH_PRODUCTS_SUCCESS, ACTION_UPDATE_PRODUCT_IN_LIST,
+	ACTION_UPDATE_PRODUCT_STOCK, ACTION_UPDATE_PRODUCT_STOCK_IN_LIST
+} from './const'
 import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'
 
@@ -19,6 +25,29 @@ const fetchProductSuccess = payload => {
 	return {
 		type: ACTION_FETCH_PRODUCTS_SUCCESS,
 		payload: payload
+	}
+}
+
+export const updateProductInList = (item) => {
+	return {
+		type: ACTION_UPDATE_PRODUCT_IN_LIST,
+		item
+	}
+}
+
+export const updateProductStockInList = (productId, items) => {
+	return {
+		type: ACTION_UPDATE_PRODUCT_STOCK_IN_LIST,
+		productId,
+		items
+	}
+}
+
+export const amendProductStockInList = (productId, delta) => {
+	return {
+		type: ACTION_AMEND_PRODUCT_STOCK_IN_LIST,
+		productId,
+		delta
 	}
 }
 

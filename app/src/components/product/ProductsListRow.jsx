@@ -11,12 +11,14 @@ const ProductsListRow = ({ product, categories, lists, filterType, i18n }) => {
 
 	const categoriesFound = []
 
-	product.category_ids.forEach((categoryId) => {
-		const category = categories.items.find(item => item.id === categoryId)
-		if (category != null) {
-			categoriesFound.push(category)
-		}
-	})
+	if (product.category_ids) {
+		product.category_ids.forEach((categoryId) => {
+			const category = categories.items.find(item => item.id === categoryId)
+			if (category != null) {
+				categoriesFound.push(category)
+			}
+		})
+	}
 
 	const onClickHandler = () => {
 		switch (filterType) {

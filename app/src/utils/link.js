@@ -26,10 +26,23 @@ export const generateProductLink = (filterType, listOrCategoryId, productId) => 
 	}
 }
 
+export const generateNewProductLink = (filterType, listOrCategoryId) => {
+	switch (filterType) {
+	case FILTER_TYPE_CATEGORY:
+		return '/category/' + listOrCategoryId + '/product-new'
+	case FILTER_TYPE_LIST:
+		return '/list/' + listOrCategoryId + '/product-new'
+	case FILTER_TYPE_NONE:
+		return '/product-new'
+	default:
+		console.error('unexpected filter type')
+	}
+}
+
 export const generateListLink = (listId) => {
 	return '/list/' + listId
 }
 
 export const generateCategoryLink = (listId) => {
-	return '/list/' + listId
+	return '/category/' + listId
 }

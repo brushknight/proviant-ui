@@ -87,7 +87,9 @@ const ProductDetails = ({
 					<Button className='tablet-hide-width-max' onClick={() => {
 						deleteProduct(productId)
 					}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
-					<p className='product-details__barcode'><Tag minimal={true}>{t('product.barcode')}</Tag>{product.model.barcode}</p>
+					<p className='product-details__barcode'>
+						<Tag minimal={true}>{t('product.barcode')}</Tag>{product.model.barcode}
+					</p>
 					<Button className='tablet-hide-width-max' minimal={true} onClick={() => {
 						if (product.model.link) {
 							window.open(product.model.link)
@@ -113,9 +115,9 @@ const ProductDetails = ({
 					</ButtonGroup>
 				</div>
 				<h1>{product.model.title}</h1>
+				<p>{t('product.in_stock')} {product.model.stock}</p>
 				<p className='product-details__description'>{product.model.description}</p>
 				<ProductsTags className='product-details__tags'
-
 					list={product.model.list}
 					categories={product.model.categories}/>
 			</div>

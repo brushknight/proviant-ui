@@ -56,7 +56,8 @@
       "button_edit": "Edit",
       "button_delete": "Delete",
       "link_to_the_shop": "Link to the shop",
-      "barcode": "barcode"
+      "barcode": "barcode",
+      "in_stock": "in stock"
     },
     "stock": {
       "title_consume": "Consume",

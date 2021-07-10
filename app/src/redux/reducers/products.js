@@ -1,42 +1,92 @@
 import {
-  ACTION_FETCH_PRODUCTS_FAIL,
-  ACTION_FETCH_PRODUCTS_LOADING,
-  ACTION_FETCH_PRODUCTS_SUCCESS
+	ACTION_AMEND_PRODUCT_STOCK_IN_LIST,
+	ACTION_FETCH_PRODUCTS_FAIL,
+	ACTION_FETCH_PRODUCTS_LOADING,
+	ACTION_FETCH_PRODUCTS_SUCCESS,
+	ACTION_UPDATE_PRODUCT_IN_LIST,
+	ACTION_UPDATE_PRODUCT_STOCK_IN_LIST
 } from '../actions/const'
 import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING } from './consts'
 
 const initialState = () => {
-  return {
-    items: [],
-    status: STATUS_DEFAULT,
-    error: null
-  }
+	return {
+		items: [],
+		status: STATUS_DEFAULT,
+		error: null
+	}
 }
 
 export default function (state = initialState(), action) {
-  switch (action.type) {
-    case ACTION_FETCH_PRODUCTS_FAIL:
-      return {
-        ...state,
-        error: action.error,
-        status: STATUS_ERROR
-      }
-    case ACTION_FETCH_PRODUCTS_LOADING:
-      return {
-        ...state,
-        status: STATUS_LOADING,
-        error: null
-      }
+	let newItems
 
-    case ACTION_FETCH_PRODUCTS_SUCCESS:
-      return {
-        ...state,
-        items: action.payload,
-        status: STATUS_LOADED,
-        error: null
-      }
+	switch (action.type) {
+	case ACTION_AMEND_PRODUCT_STOCK_IN_LIST:
 
-    default:
-      return state
-  }
+		newItems = state.items.map((item) => {
+			if (Number(item.id) === Number(action.productId)) {
+				item.stock += action.delta.quantity
+			}
+
+			return item
+		})
+
+		return {
+			...state,
+			items: newItems
+		}
+	case ACTION_UPDATE_PRODUCT_STOCK_IN_LIST:
+
+		newItems = state.items.map((item) => {
+			if (Number(item.id) === Number(action.productId)) {
+				if (action.items) {
+					action.items.forEach((stockItem) => {
+						item.stock += stockItem.quantity
+					})
+				}
+			}
+
+			return item
+		})
+
+		return {
+			...state,
+			items: newItems
+		}
+	case ACTION_FETCH_PRODUCTS_FAIL:
+		return {
+			...state,
+			error: action.error,
+			status: STATUS_ERROR
+		}
+	case ACTION_UPDATE_PRODUCT_IN_LIST:
+
+		newItems = state.items.map((item) => {
+			if (Number(item.id) === Number(action.item.id)) {
+				return action.item
+			}
+			return item
+		})
+
+		return {
+			...state,
+			items: newItems
+		}
+	case ACTION_FETCH_PRODUCTS_LOADING:
+		return {
+			...state,
+			status: STATUS_LOADING,
+			error: null
+		}
+
+	case ACTION_FETCH_PRODUCTS_SUCCESS:
+		return {
+			...state,
+			items: action.payload,
+			status: STATUS_LOADED,
+			error: null
+		}
+
+	default:
+		return state
+	}
 }

@@ -68,12 +68,17 @@ export const ACTION_DELETE_PRODUCT_SUCCESS = 'delete/product/success'
 export const ACTION_DELETE_PRODUCT_FAIL = 'delete/product/fail'
 
 export const ACTION_RESET_PRODUCT = 'reset/product'
+export const ACTION_UPDATE_PRODUCT_STOCK = 'update/product/stock'
+export const ACTION_AMEND_PRODUCT_STOCK = 'amend/product/stock'
+export const ACTION_UPDATE_PRODUCT_STOCK_IN_LIST = 'update/product/stock_in_list'
+export const ACTION_AMEND_PRODUCT_STOCK_IN_LIST = 'amend/product/stock_in_list'
 
 // products
 
 export const ACTION_FETCH_PRODUCTS_SUCCESS = 'fetch/products/success'
 export const ACTION_FETCH_PRODUCTS_FAIL = 'fetch/products/fail'
 export const ACTION_FETCH_PRODUCTS_LOADING = 'fetch/products/loading'
+export const ACTION_UPDATE_PRODUCT_IN_LIST = 'update/product_in_list'
 
 // edit category
 export const ACTION_EDIT_CATEGORY_FETCHED = 'update/category/fetched'

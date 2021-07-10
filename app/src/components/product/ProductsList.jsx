@@ -4,6 +4,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../../redux/actions/products'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
+import { generateNewProductLink } from '../../utils/link'
 import { getCategories, getLists, getProducts } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
@@ -63,7 +64,7 @@ const ProductsList = ({ products, categories, lists, filterType, t, fetchProduct
 					icon={'search'}
 				>
 					<Button icon={'plus'} intent={Intent.PRIMARY} onClick={() => {
-						history.push('/product/new')
+						history.push(generateNewProductLink(filterType, id))
 					}}>
 						{t('global.button_add_product')}
 					</Button>
