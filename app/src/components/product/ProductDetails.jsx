@@ -63,22 +63,12 @@ const ProductDetails = ({
 		history.push(generateEditProductLink(filterType, listOrCategoryId, productId))
 	}
 
-	let backButton
-
-	if (closePopover) {
-		backButton = (
-			<button className='product-details__button-back' onClick={closePopover}>
-				<Icon iconSize={32} icon={'cross'}/>
-			</button>
-		)
-	}
 	const imageStyle = {
 		backgroundImage: 'url(' + product.model.image + ')'
 	}
 
 	return (
-		<section className='product-details'>
-			{backButton}
+		<div className='product-details'>
 			<div className='product-details__wrapper-image'>
 				<div className='product-details__image' style={imageStyle}>
 				</div>
@@ -87,9 +77,9 @@ const ProductDetails = ({
 					<Button className='tablet-hide-width-max' onClick={() => {
 						deleteProduct(productId)
 					}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
-					<p className='product-details__barcode'>
-						<Tag minimal={true}>{t('product.barcode')}</Tag>{product.model.barcode}
-					</p>
+					<span className='product-details__barcode'>
+						<p className='product-details__barcode-text'>Barcode:</p>{product.model.barcode}
+					</span>
 					<Button className='tablet-hide-width-max' minimal={true} onClick={() => {
 						if (product.model.link) {
 							window.open(product.model.link)
@@ -115,13 +105,13 @@ const ProductDetails = ({
 					</ButtonGroup>
 				</div>
 				<h1>{product.model.title}</h1>
-				<p>{t('product.in_stock')} {product.model.stock}</p>
 				<p className='product-details__description'>{product.model.description}</p>
+				<div className="product-details__stock product-stock-icon"><Icon className='product-stock-icon__icon' icon={'cube'} iconSize={22}/>{product.model.stock}</div>
 				<ProductsTags className='product-details__tags'
 					list={product.model.list}
 					categories={product.model.categories}/>
 			</div>
-		</section>
+		</div>
 	)
 }
 

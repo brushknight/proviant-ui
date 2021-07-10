@@ -41,7 +41,7 @@ const AddForm = (props) => {
 	}
 
 	return (
-		<div>
+		<div className='product-stock__add'>
 			<h3>{props.i18n.t('stock.title_add')}</h3>
 			{formError}
 			<FormGroup label={props.i18n.t('stock.quantity')} inline={true}>
