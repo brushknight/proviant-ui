@@ -36,11 +36,15 @@ const ProductsListRow = ({ product, categories, lists, filterType, i18n }) => {
 		}
 	}
 
-	return (
+	const imageStyle = {
+		backgroundImage: 'url(' + product.image + ')'
+	}
 
+	return (
 		<div className="product-list__product-row product-row" onClick={onClickHandler}>
 			<div className="product-row__product-designation">
-				<img src={product.image} width={30} height={30}/>
+				<div className='product-row__image' style={imageStyle}>
+				</div>
 				<span className="product-row__product-title">{product.title}</span>
 				<div className="product-row__product-stock product-stock-icon"><Icon className='product-stock-icon__icon' icon={'cube'}/>{product.stock}</div>
 			</div>

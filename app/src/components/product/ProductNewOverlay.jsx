@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
 import { generateCategoryLink, generateListLink } from '../../utils/link'
-import { Overlay } from '@blueprintjs/core'
+import { Icon, Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
@@ -45,6 +45,9 @@ const ProductNewOverlay = ({ filterType }) => {
 			}}
 		>
 			<div className={'product-overlay'}>
+				<button className='product-overlay__button-back' onClick={closePopover}>
+					<Icon iconSize={32} icon={'cross'}/>
+				</button>
 				<ProductCreate
 					className={'product-overlay__inner'}
 					productId={productId}
