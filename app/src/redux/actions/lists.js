@@ -82,7 +82,7 @@ export const createList = (title, locale) => {
 				dispatch(createListSuccess(data.data))
 			})
 			.catch(error => {
-				if (error.response.status === 400) {
+				if (error.response && error.response.status === 400) {
 					dispatch(createListFail(error.response.data.error))
 				} else {
 					dispatch(createListFail(error.message))

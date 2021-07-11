@@ -107,7 +107,7 @@ export const fetchStock = (productId, locale) => {
 				dispatch(fetchStockSuccess(data.data))
 			})
 			.catch(error => {
-				if (error.response.status === 404) {
+				if (error.response && error.response.status === 404) {
 					dispatch(fetchStockNotFound(error.response.data.error))
 				} else {
 					dispatch(fetchStockFail(error.message))
@@ -176,7 +176,7 @@ export const deleteStock = (productId, id, locale) => {
 				dispatch(deleteStockSuccess(data.data))
 			})
 			.catch(error => {
-				if (error.response.status) {
+				if (error.response && error.response.status) {
 					dispatch(deleteStockFail(error.response.data.error))
 				} else {
 					dispatch(deleteStockFail(error.message))

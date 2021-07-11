@@ -84,7 +84,7 @@ export const fetchEditCategory = (id, locale) => {
 			})
 			.catch(error => {
 				const errorMsq = error.message
-				if (error.response.status === 404) {
+				if (error.response && error.response.status === 404) {
 					dispatch(editCategoryFetchFail(error.response.data.error))
 				} else {
 					dispatch(editCategoryFetchFail(errorMsq))

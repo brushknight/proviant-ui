@@ -50,7 +50,7 @@ export const createProduct = (model, locale) => {
 				dispatch(createProductSuccess(data.data))
 			})
 			.catch(error => {
-				if (error.response.status && error.response.data.error) {
+				if (error.response && error.response.status && error.response.data.error) {
 					dispatch(createProductFail(error.response.data.error))
 				} else {
 					const errorMsq = error.message
