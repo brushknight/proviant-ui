@@ -33,9 +33,6 @@ const ProductEditOverlay = ({ filterType }) => {
 			}}
 		>
 			<div className={'product-overlay'}>
-				<button className='product-overlay__button-back' onClick={closePopover}>
-					<Icon iconSize={32} icon={'cross'}/>
-				</button>
 				<ProductEdit
 					className={'product-overlay__inner product-overlay__inner--fixed'}
 					productId={productId}

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, ButtonGroup, Callout, EditableText, InputGroup, Intent, Tag } from '@blueprintjs/core'
+import { Button, Callout, EditableText, Icon, InputGroup, Intent, Tag } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { editProductFormReset, fetchEditProduct, updateProduct } from '../../redux/actions/editProduct'
@@ -14,6 +14,7 @@ import {
 } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
+import ProductsOverlayCloseButton from './ProductOverlayCloseButton'
 import PropTypes from 'prop-types'
 import SectionError from '../SectionError'
 import SectionLoading from '../SectionLoading'
@@ -70,7 +71,7 @@ const ProductEdit = (
 		return <SectionNotFound error={form.error} title={t('product_edit.not_found')}/>
 	}
 
-	const onCancelHandler = () => {
+	const onCloseHandler = () => {
 		closePopover()
 		reset()
 	}
@@ -115,98 +116,104 @@ const ProductEdit = (
 		updatedCallout = <Callout icon={'tick'} intent={Intent.SUCCESS}>{t('product_edit.callout_updated')}</Callout>
 	}
 
+	const submitHandler = () => {
+		updateProduct({
+			id: form.model.id,
+			title,
+			description,
+			link,
+			image,
+			barcode,
+			list_id: list ? list.id : 0,
+			category_ids: categoryList ? categoryList.map(item => item.id) : []
+		})
+	}
+
 	const imageStyle = {
 		backgroundImage: 'url(' + image + ')'
 	}
 
-	return <section className={className + ' product-edit'}>
-		{updatedCallout}
-		{errorCallout}
-		<div className='product-edit__image' style={imageStyle}>
-		</div>
-		<div className='product-edit__text'>
-			<h1>
+	return (
+		<section className={className + ' product-edit'}>
+			<ProductsOverlayCloseButton onClick={onCloseHandler}/>
+			{updatedCallout}
+			{errorCallout}
+			<div className='product-edit__image' style={imageStyle}>
+			</div>
+			<div className='product-edit__text'>
+				<h1>
+					<EditableText
+						multiline={false}
+						minLines={1}
+						maxLines={1}
+						value={title}
+						onChange={(value) => {
+							setTitle(value)
+						}}
+					/>
+				</h1>
 				<EditableText
-					multiline={false}
-					minLines={1}
-					maxLines={1}
-					value={title}
+					className='product-edit__description'
+					multiline={true}
+					minLines={3}
+					maxLines={100}
+					value={description}
 					onChange={(value) => {
-						setTitle(value)
+						setDescription(value)
 					}}
 				/>
-			</h1>
-			<EditableText
-				className='product-edit__description'
-				multiline={true}
-				minLines={3}
-				maxLines={100}
-				value={description}
-				onChange={(value) => {
-					setDescription(value)
+			</div>
+			<InputGroup className='product-edit__input'
+				fill={true}
+				leftElement={textLinkToShop}
+				value={link}
+				onChange={(event) => {
+					setLink(event.target.value)
 				}}
 			/>
-		</div>
-		<InputGroup className='product-edit__input'
-			fill={true}
-			leftElement={textLinkToShop}
-			value={link}
-			onChange={(event) => {
-				setLink(event.target.value)
-			}}
-		/>
-		<InputGroup className='product-edit__input'
-			fill={true}
-			leftElement={textLinkToPicture}
-			value={image}
-			onChange={(event) => {
-				setImage(event.target.value)
-			}}
-		/>
-		<InputGroup className='product-edit__input'
-			fill={true}
-			leftElement={textBarcode}
-			value={barcode}
-			onChange={(event) => {
-				setBarcode(event.target.value)
-			}}
-		/>
-		<Select className='product-edit__input product-edit__input--list-select'
-			options={listsForSelect}
-			isMulti={false}
-			placeholder={t('product_edit.select_list')}
-			onChange={(event) => {
-				setList(
-					lists.items.find(item => item.id === event.value)
-				)
-			}}
-			value={list ? convertListToValue(list) : null}
-		/>
-		<Select className='product-edit__input product-edit__input--categories-select'
-			options={categoriesForSelect}
-			isMulti={true}
-			placeholder={t('product_edit.select_categories')}
-			onChange={(data) => {
-				setCategoryList(data.map((item) => {
-					return categories.items.find(c => c.id === item.value)
-				}))
-			}}
-			value={categoriesSelected}
-		/>
-		<Button icon={'tick'} minimal={true} onClick={() => {
-			updateProduct({
-				id: form.model.id,
-				title,
-				description,
-				link,
-				image,
-				barcode,
-				list_id: list ? list.id : 0,
-				category_ids: categoryList ? categoryList.map(item => item.id) : []
-			})
-		}} intent={Intent.SUCCESS}>{t('product_edit.button_save')}</Button>
+			<InputGroup className='product-edit__input'
+				fill={true}
+				leftElement={textLinkToPicture}
+				value={image}
+				onChange={(event) => {
+					setImage(event.target.value)
+				}}
+			/>
+			<InputGroup className='product-edit__input'
+				fill={true}
+				leftElement={textBarcode}
+				value={barcode}
+				onChange={(event) => {
+					setBarcode(event.target.value)
+				}}
+			/>
+			<Select className='product-edit__input product-edit__input--list-select'
+				options={listsForSelect}
+				isMulti={false}
+				placeholder={t('product_edit.select_list')}
+				onChange={(event) => {
+					setList(
+						lists.items.find(item => item.id === event.value)
+					)
+				}}
+				value={list ? convertListToValue(list) : null}
+			/>
+			<Select className='product-edit__input product-edit__input--categories-select'
+				options={categoriesForSelect}
+				isMulti={true}
+				placeholder={t('product_edit.select_categories')}
+				onChange={(data) => {
+					setCategoryList(data.map((item) => {
+						return categories.items.find(c => c.id === item.value)
+					}))
+				}}
+				value={categoriesSelected}
+			/>
+			<Button icon={'tick'} large={true} minimal={true} onClick={submitHandler}
+				intent={Intent.SUCCESS}>{t('product_edit.button_save')}</Button>
 
-	</section>
+		</section>
+	)
 }
 
 const mapStateToProps = (state, ownProps) => {

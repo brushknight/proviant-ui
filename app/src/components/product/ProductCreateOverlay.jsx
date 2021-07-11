@@ -1,15 +1,15 @@
 import * as React from 'react'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
 import { generateCategoryLink, generateListLink } from '../../utils/link'
-import { Icon, Overlay } from '@blueprintjs/core'
+import { Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import ProductCreate from './ProductCreate'
-import ProductEdit from './ProductEdit'
+import ProductsOverlayCloseButton from './ProductOverlayCloseButton'
 import PropTypes from 'prop-types'
 
-const ProductNewOverlay = ({ filterType }) => {
+const ProductCreateOverlay = ({ filterType }) => {
 	const { id, productId } = useParams()
 	const [isOpen, setIsOpen] = useState(false)
 	const history = useHistory()
@@ -45,11 +45,9 @@ const ProductNewOverlay = ({ filterType }) => {
 			}}
 		>
 			<div className={'product-overlay'}>
-				<button className='product-overlay__button-back' onClick={closePopover}>
-					<Icon iconSize={32} icon={'cross'}/>
-				</button>
+				<ProductsOverlayCloseButton onClick={closePopover}/>
 				<ProductCreate
-					className={'product-overlay__inner'}
+					className={'product-overlay__inner product-overlay__inner--fixed'}
 					productId={productId}
 					closePopover={closePopover}
 				/>
@@ -59,8 +57,8 @@ const ProductNewOverlay = ({ filterType }) => {
 	)
 }
 
-ProductNewOverlay.propTypes = {
+ProductCreateOverlay.propTypes = {
 	filterType: PropTypes.string
 }
 
-export default withTranslation('translations')(ProductNewOverlay)
+export default withTranslation('translations')(ProductCreateOverlay)
