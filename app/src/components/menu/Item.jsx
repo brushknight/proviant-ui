@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Icon, MenuItem } from '@blueprintjs/core'
+import { Button, Icon } from '@blueprintjs/core'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
@@ -12,20 +12,17 @@ const Item = (props) => {
 			props.button.action()
 		}
 		button = (
-			<Button small={true} minimal={true}>
-				<Icon onClick={onClick} icon={props.button.icon}/>
+			<Button onClick={onClick} className={'change_me-menu-item__button'} small={true} minimal={true}>
+				<Icon icon={props.button.icon}/>
 			</Button>
 		)
 	}
 
 	return (
-		<MenuItem
-			icon="dot"
-			key={props.key}
-			text={props.text}
-			labelElement={button}
-			onClick={props.onClick}
-		/>
+		<li onClick={props.onClick} className={'change_me-menu-item'} key={props.key}>
+			{props.text}
+			{button}
+		</li>
 	)
 }
 

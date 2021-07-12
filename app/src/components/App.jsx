@@ -32,7 +32,7 @@ const App = () => {
 						</nav>
 					</header>
 					<main className="page-main">
-						<BreadCrumbs/>
+						{/* <BreadCrumbs/> */}
 						<Switch>
 
 							<Route path="/list/:id">
