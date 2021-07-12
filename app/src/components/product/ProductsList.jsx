@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Callout, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
+import { Button, Callout, InputGroup, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../../redux/actions/products'

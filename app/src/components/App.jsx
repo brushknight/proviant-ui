@@ -15,6 +15,7 @@ import ProductCreateOverlay from './product/ProductCreateOverlay'
 import ProductEditOverlay from './product/ProductEditOverlay'
 import ProductOverlay from './product/ProductOverlay'
 import ProductsList from './product/ProductsList'
+import Sandbox from './Sandbox'
 import store from '../redux/store'
 
 const App = () => {
@@ -34,7 +35,9 @@ const App = () => {
 					<main className="page-main">
 						{/* <BreadCrumbs/> */}
 						<Switch>
-
+							<Route path='/sandbox'>
+								<Sandbox/>
+							</Route>
 							<Route path="/list/:id">
 								<ProductsList filterType={FILTER_TYPE_LIST}/>
 								<Route path="/list/:id/product-new">

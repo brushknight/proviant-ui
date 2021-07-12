@@ -1,4 +1,3 @@
-import './button.less'
 import * as React from 'react'
 import { Icon } from '@blueprintjs/core'
 import PropTypes from 'prop-types'
