@@ -18,11 +18,17 @@
     },
     "edit_category_form": {
       "title": "Редактирование категории",
-      "placeholder": "Название категории"
+      "placeholder": "Название категории",
+      "button_save": "Сохранить",
+      "button_delete": "Удалить",
+      "button_cancel": "Отмена"
     },
     "edit_list_form": {
       "title": "Редактирование списка",
-      "placeholder": "Название списка"
+      "placeholder": "Название списка",
+      "button_save": "Сохранить",
+      "button_delete": "Удалить",
+      "button_cancel": "Отмена"
     },
     "product_list": {
       "no_products_found": "Продуктов не найдено"

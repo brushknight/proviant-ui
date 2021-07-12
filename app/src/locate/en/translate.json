@@ -18,11 +18,17 @@
     },
     "edit_category_form": {
       "title": "Edit Category",
-      "placeholder": "Category title"
+      "placeholder": "Category title",
+      "button_save": "Save",
+      "button_delete": "Delete",
+      "button_cancel": "Cancel"
     },
     "edit_list_form": {
       "title": "Edit List",
-      "placeholder": "List title"
+      "placeholder": "List title",
+      "button_save": "Save",
+      "button_delete": "Delete",
+      "button_cancel": "Cancel"
     },
     "product_list": {
       "no_products_found": "No products found"

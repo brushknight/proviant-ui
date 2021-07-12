@@ -126,7 +126,7 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 					minimal={true}
 					intent={Intent.DANGER}
 					icon={'delete'}
-					text={t('list_edit.button_delete')}
+					text={t('edit_list_form.button_delete')}
 					onClick={onDelete}
 				/>
 				<Button
@@ -134,7 +134,7 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 					minimal={true}
 					intent={Intent.NONE}
 					icon={'cross'}
-					text={t('list_edit.button_cancel')}
+					text={t('edit_list_form.button_cancel')}
 					onClick={onClose}
 				/>
 				<Button
@@ -142,7 +142,7 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 					minimal={true}
 					intent={Intent.SUCCESS}
 					icon={'tick'}
-					text={t('list_edit.button_save')}
+					text={t('edit_list_form.button_save')}
 					onClick={onSave}
 				/>
 			</ButtonGroup>
