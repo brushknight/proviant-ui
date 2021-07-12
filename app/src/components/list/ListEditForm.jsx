@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Callout, InputGroup, Intent } from '@blueprintjs/core'
+import { Button, ButtonGroup, Callout, InputGroup, Intent, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { deleteList, editListReset, fetchEditList, updateList } from '../../redux/actions/editList'
@@ -11,21 +11,18 @@ import {
 	STATUS_ERROR,
 	STATUS_FETCH_FAILED,
 	STATUS_FETCHED,
-	STATUS_SENDING,
+	STATUS_FETCHING,
 	STATUS_UPDATED
 } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
-import Popover from '../Popover'
 import PropTypes from 'prop-types'
 
-const ListEditForm = ({ form, fetch, reset, update, remove, t }) => {
+const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 	const history = useHistory()
 	const { id } = useParams()
 	const [title, setTitle] = useState('')
-	let showButtons = true
-	let showProgress = false
 	const [formStatus, setFormStatus] = useState(form.status)
 
 	const onClose = () => {
@@ -73,59 +70,83 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t }) => {
 		intent = Intent.DANGER
 	}
 
+	if (form.status === STATUS_FETCHING) {
+		return (
+			<div className={className}>
+				<Spinner
+					size={80}
+				/>
+			</div>
+		)
+	}
+
 	let error
 
 	if (form.status === STATUS_ERROR) {
-		showButtons = true
 		error = (
 			<Callout intent={Intent.DANGER}>
 				{form.error}
 			</Callout>
 		)
 	}
-
-	let content = (
-		<InputGroup
-			placeholder={t('edit_list_form.placeholder')}
-			leftIcon={'tag'}
-			value={title}
-			intent={intent}
-			onChange={(e) => {
-				setTitle(e.target.value)
-				setFormStatus(STATUS_EDITING)
-			}}
-		/>
-	)
 
 	if (form.status === STATUS_FETCH_FAILED) {
-		content = null
-		showButtons = false
-		error = (
-			<Callout intent={Intent.DANGER}>
-				{form.error}
-			</Callout>
+		return (
+			<div className={className}>
+				<Callout intent={Intent.DANGER}>
+					{form.error}
+				</Callout>
+			</div>
 		)
 	}
 
-	if (form.status === STATUS_SENDING) {
-		showProgress = true
-	}
+	// let showProgress
+	//
+	// if (form.status === STATUS_SENDING) {
+	// 	showProgress = true
+	// }
 
 	return (
-		<Popover
-			isOpen={true}
-			title={t('edit_list_form.title')}
-			onClose={onClose}
-			onSave={onSave}
-			onDelete={onDelete}
-			showButtons={showButtons}
-			showProgress={showProgress}
-		>
-			{content}
+		<form className={className}>
 			{error}
-
-		</Popover>
-
+			<h1>{t('edit_list_form.title')}</h1>
+			<InputGroup
+				placeholder={t('edit_list_form.placeholder')}
+				leftIcon={'list'}
+				value={title}
+				intent={intent}
+				onChange={(e) => {
+					setTitle(e.target.value)
+					setFormStatus(STATUS_EDITING)
+				}}
+			/>
+			<ButtonGroup>
+				<Button
+					large={true}
+					minimal={true}
+					intent={Intent.DANGER}
+					icon={'delete'}
+					text={t('list_edit.button_delete')}
+					onClick={onDelete}
+				/>
+				<Button
+					large={true}
+					minimal={true}
+					intent={Intent.NONE}
+					icon={'cross'}
+					text={t('list_edit.button_cancel')}
+					onClick={onClose}
+				/>
+				<Button
+					large={true}
+					minimal={true}
+					intent={Intent.SUCCESS}
+					icon={'tick'}
+					text={t('list_edit.button_save')}
+					onClick={onSave}
+				/>
+			</ButtonGroup>
+		</form>
 	)
 }
 
@@ -135,13 +156,15 @@ ListEditForm.propTypes = {
 	reset: PropTypes.func,
 	update: PropTypes.func,
 	remove: PropTypes.func,
-	t: PropTypes.func
+	t: PropTypes.func,
+	className: PropTypes.string
 }
 
 const mapStateToProps = (state, ownProps) => {
 	const form = getEditList(state)
 	const t = ownProps.i18n.t.bind(ownProps.i18n)
-	return { form, t }
+	const className = ownProps.className
+	return { form, t, className }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {

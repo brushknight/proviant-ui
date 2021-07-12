@@ -4,7 +4,9 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import BreadCrumbs from './BreadCrumbs'
 import CategoryEditForm from './category/CategoryEditForm'
+import CategoryEditOverlay from './category/CategoryEditOverlay'
 import ListEditForm from './list/ListEditForm'
+import ListEditOverlay from './list/ListEditOverlay'
 import MenuAddProduct from './menu/MenuAddProduct'
 import MenuCategories from './menu/MenuCategories'
 import MenuLists from './menu/MenuLists'
@@ -39,7 +41,7 @@ const App = () => {
 									<ProductCreateOverlay filterType={FILTER_TYPE_LIST}/>
 								</Route>
 								<Route path="/list/:id/edit">
-									<ListEditForm/>
+									<ListEditOverlay/>
 								</Route>
 								<Route path="/list/:id/product-edit/:productId">
 									<ProductEditOverlay filterType={FILTER_TYPE_LIST}/>
@@ -54,7 +56,7 @@ const App = () => {
 									<ProductCreateOverlay filterType={FILTER_TYPE_CATEGORY}/>
 								</Route>
 								<Route path="/category/:id/edit">
-									<CategoryEditForm/>
+									<CategoryEditOverlay/>
 								</Route>
 								<Route path="/category/:id/product-edit/:productId">
 									<ProductEditOverlay filterType={FILTER_TYPE_CATEGORY}/>
