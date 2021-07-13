@@ -16,7 +16,6 @@ const CategoryCreateForm = ({ form, create, reset, t, className }) => {
 	const [formStatus, setFormStatus] = useState(form.status)
 
 	const onClose = () => {
-		console.log('close form')
 		history.goBack()
 		reset()
 	}
@@ -38,7 +37,8 @@ const CategoryCreateForm = ({ form, create, reset, t, className }) => {
 	let intent = Intent.NONE
 
 	if (formStatus === STATUS_CREATED) {
-		onClose()
+		history.push('/category/' + form.model.id)
+		reset()
 	}
 
 	if (formStatus === STATUS_ERROR) {

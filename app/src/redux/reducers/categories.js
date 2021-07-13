@@ -12,7 +12,10 @@ import { STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOA
 
 const emptyCreateForm = () => {
 	return {
-		title: '',
+		model: {
+			id: 0,
+			title: ''
+		},
 		error: '',
 		status: STATUS_DEFAULT
 	}
@@ -83,7 +86,7 @@ export default function (state = initialState(), action) {
 		items.push(action.category)
 
 		const createCategorySuccessForm = emptyCreateForm()
-		createCategorySuccessForm.title = action.category.title
+		createCategorySuccessForm.model = action.category
 		createCategorySuccessForm.status = STATUS_CREATED
 
 		return {

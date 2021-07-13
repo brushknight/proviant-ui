@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Callout, InputGroup, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
+import { Callout, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../../redux/actions/products'
@@ -10,6 +10,7 @@ import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
+import Button from '../generic/Button'
 import ProductsListRow from './ProductsListRow'
 import PropTypes from 'prop-types'
 
@@ -63,11 +64,21 @@ const ProductsList = ({ products, categories, lists, filterType, t, fetchProduct
 					title={t('product_list.no_products_found')}
 					icon={'search'}
 				>
-					<Button icon={'plus'} intent={Intent.PRIMARY} onClick={() => {
-						history.push(generateNewProductLink(filterType, id))
-					}}>
-						{t('global.button_add_product')}
-					</Button>
+
+					<Button
+						icon="plus"
+						className={'button--add-product'}
+						text={t('global.button_add_product')}
+						onClick={() => {
+							history.push(generateNewProductLink(filterType, id))
+						}}
+					/>
+
+					{/* <Button icon={'plus'} intent={Intent.PRIMARY} onClick={() => { */}
+					{/*	history.push(generateNewProductLink(filterType, id)) */}
+					{/* }}> */}
+					{/*	{t('global.button_add_product')} */}
+					{/* </Button> */}
 				</NonIdealState>
 			</section>
 		)
