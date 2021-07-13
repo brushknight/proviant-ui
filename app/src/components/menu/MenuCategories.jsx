@@ -9,7 +9,6 @@ import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import Button from '../generic/Button'
-import CreateForm from './CreateForm'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
@@ -20,12 +19,12 @@ const MenuCategories = ({ categories, t, fetchCategories, createList }) => {
 		fetchCategories()
 	}, [])
 
-	const goToAllProduct = () => {
-		history.push('/')
-	}
-
 	const goToList = (id) => {
 		history.push(`/category/${id}`)
+	}
+
+	const createCategory = () => {
+		history.push('/category-new')
 	}
 
 	if (categories.status === STATUS_LOADING) {
@@ -52,28 +51,18 @@ const MenuCategories = ({ categories, t, fetchCategories, createList }) => {
 		</Menu>
 	}
 
-	const createForm = <CreateForm
-		placeholder={t('menu_category.create_form_placeholder')}
-		icon={'tag'}
-		onSubmit={title => createList(title)}
-		status={categories.createForm.status}
-		error={categories.createForm.error}
-	/>
-
 	if (categories.items.length === 0) {
 		return (
 			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
 				<li className={'menu__title'}>
 					{t('menu_category.title')}
-					<Button className={'menu__title-button'} text={'add'}/>
+					<Button
+						className={'menu__title-button'}
+						text={'add'}
+						icon={'plus'}
+						onClick={createCategory}
+					/>
 				</li>
-				{createForm}
-				<Item
-					key={'all'}
-					icon="dot"
-					text={t('menu_category.all_products')}
-					onClick={() => goToAllProduct()}
-				/>
 			</ul>
 		)
 	}
@@ -86,15 +75,9 @@ const MenuCategories = ({ categories, t, fetchCategories, createList }) => {
 					className={'menu__title-button'}
 					text={'add'}
 					icon={'plus'}
+					onClick={createCategory}
 				/>
 			</li>
-			{createForm}
-			<Item
-				key={'all'}
-				icon="dot"
-				text={t('menu_category.all_products')}
-				onClick={() => goToAllProduct()}
-			/>
 			{categories.items.map(item => (
 				<Item
 					key={item.id}

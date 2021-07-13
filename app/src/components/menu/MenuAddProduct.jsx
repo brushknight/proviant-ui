@@ -21,7 +21,7 @@ const MenuAddProduct = (props) => {
 	return (
 		<Button
 			icon="plus"
-			className={'change_me-button--add-product'}
+			className={'page-header__add-product'}
 			text={props.i18n.t('global.button_add_product')}
 			onClick={() => {
 				console.log(newProductUrl)
