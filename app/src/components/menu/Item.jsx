@@ -12,14 +12,14 @@ const Item = (props) => {
 			props.button.action()
 		}
 		button = (
-			<Button onClick={onClick} className={'change_me-menu-item__button'} small={true} minimal={true}>
+			<Button onClick={onClick} className={'menu__item-button'} small={true} minimal={true}>
 				<Icon icon={props.button.icon}/>
 			</Button>
 		)
 	}
 
 	return (
-		<li onClick={props.onClick} className={'change_me-menu-item'} key={props.key}>
+		<li onClick={props.onClick} className={'menu__item'} key={props.key}>
 			{props.text}
 			{button}
 		</li>

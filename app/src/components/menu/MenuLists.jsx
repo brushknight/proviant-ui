@@ -62,10 +62,10 @@ const MenuLists = ({ lists, t, fetchLists, createList }) => {
 
 	if (lists.items.length === 0) {
 		return (
-			<ul className={'change_me-menu page-header__navigation-list page-header__navigation-list--side-bar'}>
-				<li className={'change_me-menu-title'}>
+			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+				<li className={'menu__title'}>
 					{t('menu_list.title')}
-					<Button className={'change_me-menu-title__button'} text={'add'}/>
+					<Button className={'menu__title-button'} text={'add'}/>
 				</li>
 				{createForm}
 				<Item
@@ -79,11 +79,11 @@ const MenuLists = ({ lists, t, fetchLists, createList }) => {
 	}
 
 	return (
-		<ul className={'change_me-menu page-header__navigation-list page-header__navigation-list--side-bar'}>
-			<li className={'change_me-menu-title'}>
+		<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+			<li className={'menu__title'}>
 				{t('menu_list.title')}
 				<Button
-					className={'change_me-menu-title__button'}
+					className={'menu__title-button'}
 					text={'add'}
 					icon={'plus'}
 				/>

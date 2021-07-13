@@ -6,11 +6,11 @@ const Button = (props) => {
 	let icon
 
 	if (props.icon) {
-		icon = <Icon className={'change_me-button__icon'} iconSize={16} icon={props.icon}/>
+		icon = <Icon className={'button__icon'} iconSize={16} icon={props.icon}/>
 	}
 
 	return (
-		<button className={'change_me-button ' + props.className} onClick={props.onClick}>
+		<button className={'button ' + props.className} onClick={props.onClick}>
 			{icon}
 			{props.text}
 		</button>
