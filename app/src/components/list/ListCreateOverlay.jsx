@@ -3,10 +3,10 @@ import { Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
-import CategoryCreateForm from './CategoryCreateForm'
+import ListCreateForm from './ListCreateForm'
 import ProductsOverlayCloseButton from '../product/ProductOverlayCloseButton'
 
-const CategoryCreateOverlay = () => {
+const ListCreateOverlay = () => {
 	const [isOpen, setIsOpen] = useState(false)
 	const history = useHistory()
 
@@ -32,7 +32,7 @@ const CategoryCreateOverlay = () => {
 		>
 			<div className={'product-overlay'}>
 				<ProductsOverlayCloseButton onClick={closePopover}/>
-				<CategoryCreateForm
+				<ListCreateForm
 					className={'product-overlay__inner product-overlay__inner--fixed'}
 				/>
 			</div>
@@ -40,4 +40,4 @@ const CategoryCreateOverlay = () => {
 	)
 }
 
-export default withTranslation('translations')(CategoryCreateOverlay)
+export default withTranslation('translations')(ListCreateOverlay)

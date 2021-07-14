@@ -1,4 +1,5 @@
 import {
+	ACTION_CREATE_CATEGORY_RESET,
 	ACTION_CREATE_LIST_FAIL,
 	ACTION_CREATE_LIST_LOADING,
 	ACTION_CREATE_LIST_SUCCESS,
@@ -8,11 +9,14 @@ import {
 	ACTION_FETCH_LIST_SUCCESS,
 	ACTION_UPDATE_LIST_IN_LIST
 } from '../actions/const'
-import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING } from './consts'
+import { STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING } from './consts'
 
 const emptyCreateForm = () => {
 	return {
-		title: '',
+		model: {
+			id: 0,
+			title: ''
+		},
 		error: '',
 		status: STATUS_DEFAULT
 	}
@@ -30,6 +34,12 @@ const initialState = () => {
 export default function (state = initialState(), action) {
 	let items = []
 	switch (action.type) {
+	case ACTION_CREATE_CATEGORY_RESET:
+		return {
+			...state,
+			error: null,
+			createForm: emptyCreateForm()
+		}
 	case ACTION_DELETE_LIST_IN_LIST:
 		items = state.items
 		items = items.filter(item => item.id !== action.id)
@@ -77,12 +87,15 @@ export default function (state = initialState(), action) {
 	case ACTION_CREATE_LIST_SUCCESS:
 		items = state.items
 		items.push(action.list)
+
+		const createSuccessForm = emptyCreateForm()
+		createSuccessForm.model = action.list
+		createSuccessForm.status = STATUS_CREATED
+
 		return {
 			...state,
 			items: items,
-			status: STATUS_LOADED,
-			error: null,
-			createForm: emptyCreateForm()
+			createForm: createSuccessForm
 		}
 	case ACTION_CREATE_LIST_LOADING:
 		const createFormLoading = state.createForm

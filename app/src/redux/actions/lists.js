@@ -1,7 +1,7 @@
 import {
 	ACTION_CHANGE_CREATE_LIST_FORM,
 	ACTION_CREATE_LIST_FAIL,
-	ACTION_CREATE_LIST_LOADING,
+	ACTION_CREATE_LIST_LOADING, ACTION_CREATE_LIST_RESET,
 	ACTION_CREATE_LIST_SUCCESS,
 	ACTION_FETCH_LIST_FAIL,
 	ACTION_FETCH_LIST_LOADING,
@@ -54,6 +54,11 @@ export const updateListInList = model => {
 	return {
 		type: ACTION_UPDATE_LIST_IN_LIST,
 		model
+	}
+}
+export const resetCreateListForm = () => {
+	return {
+		type: ACTION_CREATE_LIST_RESET
 	}
 }
 

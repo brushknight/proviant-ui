@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { Callout, Classes, Icon, Intent, Menu, MenuDivider, Spinner } from '@blueprintjs/core'
+import { Callout, Classes, Intent, Menu, MenuDivider, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { createList, fetchLists } from '../../redux/actions/lists'
+import { fetchLists } from '../../redux/actions/lists'
 import { getLists } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
@@ -13,7 +13,7 @@ import CreateForm from './CreateForm'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
-const MenuLists = ({ lists, t, fetchLists, createList }) => {
+const MenuLists = ({ lists, t, fetchLists }) => {
 	const history = useHistory()
 
 	useEffect(() => {
@@ -26,6 +26,10 @@ const MenuLists = ({ lists, t, fetchLists, createList }) => {
 
 	const goToList = (id) => {
 		history.push(`/list/${id}`)
+	}
+
+	const createList = () => {
+		history.push('/list-new')
 	}
 
 	if (lists.status === STATUS_LOADING) {
@@ -52,22 +56,18 @@ const MenuLists = ({ lists, t, fetchLists, createList }) => {
 		</Menu>
 	}
 
-	const createForm = <CreateForm
-		placeholder={t('menu_list.create_form_placeholder')}
-		icon={'list'}
-		onSubmit={title => createList(title)}
-		status={lists.createForm.status}
-		error={lists.createForm.error}
-	/>
-
 	if (lists.items.length === 0) {
 		return (
 			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
 				<li className={'menu__title'}>
 					{t('menu_list.title')}
-					<Button className={'menu__title-button'} text={'add'}/>
+					<Button
+						className={'menu__title-button'}
+						text={'add'}
+						icon={'plus'}
+						onClick={createList}
+					/>
 				</li>
-				{createForm}
 				<Item
 					key={'all'}
 					icon="dot"
@@ -86,9 +86,9 @@ const MenuLists = ({ lists, t, fetchLists, createList }) => {
 					className={'menu__title-button'}
 					text={'add'}
 					icon={'plus'}
+					onClick={createList}
 				/>
 			</li>
-			{createForm}
 			<Item
 				key={'all'}
 				icon="dot"
@@ -123,14 +123,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	const locale = ownProps.i18n.language
 
 	return {
-		fetchLists: () => dispatch(fetchLists(locale)),
-		createList: (title) => dispatch(createList(title, locale))
+		fetchLists: () => dispatch(fetchLists(locale))
 	}
 }
 
 MenuLists.propTypes = {
 	fetchLists: PropTypes.func,
-	createList: PropTypes.func,
 	lists: PropTypes.object,
 	t: PropTypes.func
 }

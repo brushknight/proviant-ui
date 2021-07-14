@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Intent } from '@blueprintjs/core'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { withTranslation } from 'react-i18next'
