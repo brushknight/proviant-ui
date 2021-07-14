@@ -5,7 +5,8 @@
       "button_save": "Save",
       "button_close": "Close",
       "button_delete": "Delete",
-      "ooops": "oops... something went wrong"
+      "ooops": "oops... something went wrong",
+      "button_add": "add"
     },
     "menu_list": {
       "title": "Lists",
@@ -28,6 +29,18 @@
       "placeholder": "List title",
       "button_save": "Save",
       "button_delete": "Delete",
+      "button_cancel": "Cancel"
+    },
+    "create_category_form": {
+      "title": "Create Category",
+      "placeholder": "Category title",
+      "button_create": "Create",
+      "button_cancel": "Cancel"
+    },
+    "create_list_form": {
+      "title": "Create List",
+      "placeholder": "List title",
+      "button_create": "Create",
       "button_cancel": "Cancel"
     },
     "product_list": {

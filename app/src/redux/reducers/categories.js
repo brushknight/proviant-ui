@@ -1,5 +1,4 @@
 import {
-	ACTION_CHANGE_CREATE_CATEGORY_FORM,
 	ACTION_CREATE_CATEGORY_FAIL,
 	ACTION_CREATE_CATEGORY_LOADING,
 	ACTION_CREATE_CATEGORY_RESET,
@@ -9,11 +8,14 @@ import {
 	ACTION_FETCH_CATEGORIES_SUCCESS,
 	ACTION_UPDATE_CATEGORY_IN_LIST
 } from '../actions/const'
-import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING } from './consts'
+import { STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING } from './consts'
 
 const emptyCreateForm = () => {
 	return {
-		title: '',
+		model: {
+			id: 0,
+			title: ''
+		},
 		error: '',
 		status: STATUS_DEFAULT
 	}
@@ -53,13 +55,6 @@ export default function (state = initialState(), action) {
 			...state,
 			items
 		}
-	case ACTION_CHANGE_CREATE_CATEGORY_FORM:
-		return {
-			...state,
-			createForm: {
-				title: action.title
-			}
-		}
 	case ACTION_FETCH_CATEGORIES_FAIL:
 		return {
 			...state,
@@ -90,11 +85,15 @@ export default function (state = initialState(), action) {
 		items = state.items
 		items.push(action.category)
 
+		const createCategorySuccessForm = emptyCreateForm()
+		createCategorySuccessForm.model = action.category
+		createCategorySuccessForm.status = STATUS_CREATED
+
 		return {
 			...state,
 			items: items,
 			error: null,
-			createForm: emptyCreateForm()
+			createForm: createCategorySuccessForm
 		}
 	case ACTION_CREATE_CATEGORY_LOADING:
 		const createFormLoading = state.createForm

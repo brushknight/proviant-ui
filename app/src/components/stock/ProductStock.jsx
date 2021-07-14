@@ -36,7 +36,7 @@ const ProductStock = ({ productId, stock, t, fetchStock, addStock, consumeStock,
 	}
 
 	if (stock.status === STATUS_NOT_FOUND) {
-		return <div className='product-stock'></div>
+		return <div className='product-stock'/>
 	}
 
 	let stockList
@@ -44,26 +44,33 @@ const ProductStock = ({ productId, stock, t, fetchStock, addStock, consumeStock,
 	if (stock.items.length === 0) {
 		stockList = <Callout title={t('stock.not_found')}/>
 	} else {
-		stockList = stock.items.map(item => <StockListRow onDelete={() => {
-			deleteStock(productId, item.id)
-		}} item={item}/>)
+		stockList = stock.items.map(item => (
+			<StockListRow
+				key={'stock-' + item.id}
+				onDelete={() => {
+					deleteStock(productId, item.id)
+				}}
+				item={item}
+			/>
+		)
+		)
 	}
 
 	return (
 		<div className='product-stock'>
 			<div className='product-stock__form'>
-				<ConsumeForm
-					status={stock.consumeForm.status}
-					error={stock.consumeForm.error}
-					onSubmit={quantity => {
-						consumeStock(productId, quantity)
-					}}
-				/>
 				<AddForm
 					status={stock.addForm.status}
 					error={stock.addForm.error}
 					onSubmit={(quantity, date) => {
 						addStock(productId, quantity, date)
+					}}
+				/>
+				<ConsumeForm
+					status={stock.consumeForm.status}
+					error={stock.consumeForm.error}
+					onSubmit={quantity => {
+						consumeStock(productId, quantity)
 					}}
 				/>
 			</div>

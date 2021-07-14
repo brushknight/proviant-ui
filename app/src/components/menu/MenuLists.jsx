@@ -1,19 +1,22 @@
 import * as React from 'react'
-import { Callout, Classes, Intent, Menu, MenuDivider, Spinner } from '@blueprintjs/core'
+import { Callout, Intent, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { createList, fetchLists } from '../../redux/actions/lists'
+import { fetchLists } from '../../redux/actions/lists'
 import { getLists } from '../../redux/selectors'
+import { parseLocationFromUri, ROUTE_LIST, ROUTE_ROOT } from '../../utils/link'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
-import CreateForm from './CreateForm'
+import Button from '../generic/Button'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
-const MenuLists = ({ lists, t, fetchLists, createList }) => {
+const MenuLists = ({ lists, t, fetchLists }) => {
 	const history = useHistory()
+	const location = useLocation()
+	const currentRoute = parseLocationFromUri(location.pathname)
 
 	useEffect(() => {
 		fetchLists()
@@ -27,83 +30,92 @@ const MenuLists = ({ lists, t, fetchLists, createList }) => {
 		history.push(`/list/${id}`)
 	}
 
+	const createList = () => {
+		history.push('/list-new')
+	}
+
 	if (lists.status === STATUS_LOADING) {
-		return <Menu
-			className={`${
-				Classes.ELEVATION_0
-			} page-header__navigation-list page-header__navigation-list--side-bar`}
-		>
-			<MenuDivider title={t('menu_list.title')}/>
-			<Spinner/>
-		</Menu>
+		return (
+			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+				<li className={'menu__title'}>
+					{t('menu_list.title')}
+				</li>
+				<Spinner/>
+			</ul>
+		)
 	}
 
 	if (lists.status === STATUS_ERROR) {
-		return <Menu
-			className={`${
-				Classes.ELEVATION_0
-			} page-header__navigation-list page-header__navigation-list--side-bar`}
-		>
-			<MenuDivider title={t('menu_list.title')}/>
-			<Callout title={t('global.ooops')} intent={Intent.DANGER}>
-				{lists.error}
-			</Callout>
-		</Menu>
+		return (
+			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+				<li className={'menu__title'}>
+					{t('menu_list.title')}
+				</li>
+				<Callout title={t('global.ooops')} intent={Intent.DANGER}>
+					{lists.error}
+				</Callout>
+			</ul>
+		)
 	}
 
-	const createForm = <CreateForm
-		placeholder={t('menu_list.create_form_placeholder')}
-		icon={'list'}
-		onSubmit={title => createList(title)}
-		status={lists.createForm.status}
-		error={lists.createForm.error}
-	/>
-
 	if (lists.items.length === 0) {
-		return <Menu
-			className={`${
-				Classes.ELEVATION_0
-			} page-header__navigation-list page-header__navigation-list--side-bar`}
-		>
-			<MenuDivider title={t('menu_list.title')}/>
-			{createForm}
+		return (
+			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+				<li className={'menu__title'}>
+					{t('menu_list.title')}
+					<Button
+						className={'menu__title-button'}
+						text={t('global.button_add')}
+						icon={'plus'}
+						onClick={createList}
+					/>
+				</li>
+				<Item
+					key={'all'}
+					icon="dot"
+					text={t('menu_list.all_products')}
+					onClick={() => goToAllProduct()}
+					isActive={currentRoute.route === ROUTE_ROOT}
+				/>
+			</ul>
+		)
+	}
+
+	return (
+		<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+			<li className={'menu__title'}>
+				{t('menu_list.title')}
+				<Button
+					className={'menu__title-button'}
+					text={t('global.button_add')}
+					icon={'plus'}
+					onClick={createList}
+				/>
+			</li>
 			<Item
 				key={'all'}
 				icon="dot"
 				text={t('menu_list.all_products')}
 				onClick={() => goToAllProduct()}
+				isActive={currentRoute.route === ROUTE_ROOT}
 			/>
-		</Menu>
-	}
-
-	return <Menu
-		className={`${
-			Classes.ELEVATION_0
-		} page-header__navigation-list page-header__navigation-list--side-bar`}
-	>
-		<MenuDivider title={t('menu_list.title')}/>
-		{createForm}
-		<Item
-			key={'all'}
-			icon="dot"
-			text={t('menu_list.all_products')}
-			onClick={() => goToAllProduct()}
-		/>
-		{lists.items.map(item => (
-			<Item
-				key={item.id}
-				icon="dot"
-				text={item.title}
-				onClick={() => goToList(item.id)}
-				button={{
-					icon: 'edit',
-					action: () => {
-						history.push('/list/' + item.id + '/edit')
-					}
-				}}
-			/>
-		))}
-	</Menu>
+			{lists.items.map(item => (
+				<Item
+					key={item.id}
+					icon="dot"
+					text={item.title}
+					onClick={() => goToList(item.id)}
+					isActive={currentRoute.route === ROUTE_LIST && currentRoute.id === item.id}
+					button={{
+						icon: 'edit',
+						action: () => {
+							history.push('/list/' + item.id + '/edit')
+						}
+					}}
+				/>
+			))}
+		</ul>
+	)
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -116,14 +128,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	const locale = ownProps.i18n.language
 
 	return {
-		fetchLists: () => dispatch(fetchLists(locale)),
-		createList: (title) => dispatch(createList(title, locale))
+		fetchLists: () => dispatch(fetchLists(locale))
 	}
 }
 
 MenuLists.propTypes = {
 	fetchLists: PropTypes.func,
-	createList: PropTypes.func,
 	lists: PropTypes.object,
 	t: PropTypes.func
 }

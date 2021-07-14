@@ -29,9 +29,6 @@ export const ACTION_CREATE_CATEGORY_SUCCESS = 'create/category/success'
 export const ACTION_CREATE_CATEGORY_RESET = 'create/category/reset'
 export const ACTION_CREATE_CATEGORY_FAIL = 'create/category/fail'
 export const ACTION_CREATE_CATEGORY_LOADING = 'create/category/loading'
-
-export const ACTION_CHANGE_CREATE_CATEGORY_FORM = 'change/create-category-form'
-
 // lists
 
 export const ACTION_FETCH_LIST_SUCCESS = 'fetch/list/success'
@@ -41,6 +38,7 @@ export const ACTION_FETCH_LIST_LOADING = 'fetch/list/loading'
 export const ACTION_CREATE_LIST_SUCCESS = 'create/list/success'
 export const ACTION_CREATE_LIST_FAIL = 'create/list/fail'
 export const ACTION_CREATE_LIST_LOADING = 'create/list/loading'
+export const ACTION_CREATE_LIST_RESET = 'create/list/reset'
 export const ACTION_UPDATE_LIST_IN_LIST = 'update/list/in_list'
 
 // product

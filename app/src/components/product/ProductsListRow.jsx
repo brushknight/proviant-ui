@@ -45,8 +45,8 @@ const ProductsListRow = ({ product, categories, lists, filterType, i18n }) => {
 			<div className="product-row__product-designation">
 				<div className='product-row__image' style={imageStyle}>
 				</div>
-				<span className="product-row__product-title">{product.title}</span>
 				<div className="product-row__product-stock product-stock-icon"><Icon className='product-stock-icon__icon' icon={'cube'}/>{product.stock}</div>
+				<span className="product-row__product-title">{product.title}</span>
 			</div>
 			<ProductsTags list={list} categories={categoriesFound} className="product-row__product-sorting" />
 		</div>

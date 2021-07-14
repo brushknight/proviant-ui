@@ -2,102 +2,101 @@ import * as React from 'react'
 import { Callout, Classes, Intent, Menu, MenuDivider, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { createCategory, fetchCategories, resetCreateCategoryForm } from '../../redux/actions/categories'
+import { createCategory, fetchCategories } from '../../redux/actions/categories'
 import { getCategories } from '../../redux/selectors'
+import { parseLocationFromUri, ROUTE_CATEGORY, ROUTE_LIST } from '../../utils/link'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
-
-import CreateForm from './CreateForm'
+import Button from '../generic/Button'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
-const MenuCategories = ({ categories, t, fetchCategories, createCategory, resetCreateCategoryForm }) => {
+const MenuCategories = ({ categories, t, fetchCategories, createList }) => {
 	const history = useHistory()
+	const currentRoute = parseLocationFromUri(location.pathname)
 
 	useEffect(() => {
 		fetchCategories()
 	}, [])
 
-	const goToCategory = (id) => {
+	const goToList = (id) => {
 		history.push(`/category/${id}`)
 	}
 
+	const createCategory = () => {
+		history.push('/category-new')
+	}
+
 	if (categories.status === STATUS_LOADING) {
-		return <Menu
-			className={`${
-				Classes.ELEVATION_0
-			} page-header__navigation-list page-header__navigation-list--side-bar`}
-		>
-			<MenuDivider title={t('menu_category.title')}/>
-			<Spinner/>
-		</Menu>
+		return (
+			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+				<li className={'menu__title'}>
+					{t('menu_category.title')}
+				</li>
+				<Spinner/>
+			</ul>
+		)
 	}
 
 	if (categories.status === STATUS_ERROR) {
-		return <Menu
-			className={`${
-				Classes.ELEVATION_0
-			} page-header__navigation-list page-header__navigation-list--side-bar`}
-		>
-			<MenuDivider title={t('menu_category.title')}/>
-			<Callout title={t('global.ooops')} intent={Intent.DANGER}>
-				{categories.error}
-			</Callout>
-		</Menu>
+		return (
+			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+				<li className={'menu__title'}>
+					{t('menu_category.title')}
+				</li>
+				<Callout title={t('global.ooops')} intent={Intent.DANGER}>
+					{categories.error}
+				</Callout>
+			</ul>
+		)
 	}
-
-	const createForm = <CreateForm
-		placeholder={t('menu_category.create_form_placeholder')}
-		icon={'tag'}
-		onSubmit={(title) => createCategory(title)}
-		onReset={() => resetCreateCategoryForm()}
-		status={categories.createForm.status}
-		error={categories.createForm.error}
-	/>
 
 	if (categories.items.length === 0) {
-		return <Menu
-			className={`${
-				Classes.ELEVATION_0
-			} page-header__navigation-list page-header__navigation-list--side-bar`}
-		>
-			<MenuDivider title={t('menu_category.title')}/>
-			{createForm}
-		</Menu>
+		return (
+			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+				<li className={'menu__title'}>
+					{t('menu_category.title')}
+					<Button
+						className={'menu__title-button'}
+						text={t('global.button_add')}
+						icon={'plus'}
+						onClick={createCategory}
+					/>
+				</li>
+			</ul>
+		)
 	}
 
-	return <Menu
-		className={`${
-			Classes.ELEVATION_0
-		} page-header__navigation-list page-header__navigation-list--side-bar`}
-	>
-		<MenuDivider title={t('menu_category.title')}/>
-		{createForm}
-		{categories.items.map(item => (
-			<Item
-				key={item.id}
-				icon="dot"
-				text={item.title}
-				onClick={() => goToCategory(item.id)}
-				button={{
-					icon: 'edit',
-					action: () => {
-						history.push('/category/' + item.id + '/edit')
-					}
-				}}
-			/>
-		))}
-	</Menu>
-}
-
-MenuCategories.propTypes = {
-	categories: PropTypes.object,
-	fetchCategories: PropTypes.func,
-	createCategory: PropTypes.func,
-	resetCreateCategoryForm: PropTypes.func,
-	t: PropTypes.func
+	return (
+		<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+			<li className={'menu__title'}>
+				{t('menu_category.title')}
+				<Button
+					className={'menu__title-button'}
+					text={t('global.button_add')}
+					icon={'plus'}
+					onClick={createCategory}
+				/>
+			</li>
+			{categories.items.map(item => (
+				<Item
+					key={item.id}
+					icon="dot"
+					text={item.title}
+					onClick={() => goToList(item.id)}
+					isActive={currentRoute.route === ROUTE_CATEGORY && currentRoute.id === item.id}
+					button={{
+						icon: 'edit',
+						action: () => {
+							history.push('/category/' + item.id + '/edit')
+						}
+					}}
+				/>
+			))}
+		</ul>
+	)
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -111,9 +110,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		fetchCategories: () => dispatch(fetchCategories(locale)),
-		createCategory: (title) => dispatch(createCategory(title, locale)),
-		resetCreateCategoryForm: () => dispatch(resetCreateCategoryForm(locale))
+		createList: (title) => dispatch(createCategory(title, locale))
 	}
+}
+
+MenuCategories.propTypes = {
+	fetchCategories: PropTypes.func,
+	createList: PropTypes.func,
+	categories: PropTypes.object,
+	t: PropTypes.func
 }
 
 export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(MenuCategories)

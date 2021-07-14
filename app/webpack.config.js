@@ -53,6 +53,7 @@ module.exports = {
 		port: 9000,
 		hot: true,
 		proxy: {
+			// '/api': 'http://10.0.0.50:13000/'
 			'/api': 'http://localhost:8080/'
 		}
 	},

@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { Classes, Intent, Menu, MenuItem } from '@blueprintjs/core'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { withTranslation } from 'react-i18next'
+import Button from '../generic/Button'
 import PropTypes from 'prop-types'
 
 const MenuAddProduct = (props) => {
@@ -18,16 +18,15 @@ const MenuAddProduct = (props) => {
 	console.log(newProductUrl)
 
 	return (
-		<Menu
-			className={`${
-				Classes.ELEVATION_0
-			} page-header__navigation-list`}
-		>
-			<MenuItem icon="plus" text={props.i18n.t('global.button_add_product')} intent={Intent.PRIMARY} onClick={() => {
+		<Button
+			icon="plus"
+			className={'button--add-product page-header__add-product'}
+			text={props.i18n.t('global.button_add_product')}
+			onClick={() => {
 				console.log(newProductUrl)
 				history.push(newProductUrl)
-			}}/>
-		</Menu>
+			}}
+		/>
 	)
 }
 
