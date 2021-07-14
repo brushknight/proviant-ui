@@ -4,6 +4,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createCategory, fetchCategories } from '../../redux/actions/categories'
 import { getCategories } from '../../redux/selectors'
+import { parseLocationFromUri, ROUTE_CATEGORY, ROUTE_LIST } from '../../utils/link'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -14,6 +15,7 @@ import PropTypes from 'prop-types'
 
 const MenuCategories = ({ categories, t, fetchCategories, createList }) => {
 	const history = useHistory()
+	const currentRoute = parseLocationFromUri(location.pathname)
 
 	useEffect(() => {
 		fetchCategories()
@@ -28,27 +30,27 @@ const MenuCategories = ({ categories, t, fetchCategories, createList }) => {
 	}
 
 	if (categories.status === STATUS_LOADING) {
-		return <Menu
-			className={`${
-				Classes.ELEVATION_0
-			} page-header__navigation-list page-header__navigation-list--side-bar`}
-		>
-			<MenuDivider title={t('menu_category.title')}/>
-			<Spinner/>
-		</Menu>
+		return (
+			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+				<li className={'menu__title'}>
+					{t('menu_category.title')}
+				</li>
+				<Spinner/>
+			</ul>
+		)
 	}
 
 	if (categories.status === STATUS_ERROR) {
-		return <Menu
-			className={`${
-				Classes.ELEVATION_0
-			} page-header__navigation-list page-header__navigation-list--side-bar`}
-		>
-			<MenuDivider title={t('menu_category.title')}/>
-			<Callout title={t('global.ooops')} intent={Intent.DANGER}>
-				{categories.error}
-			</Callout>
-		</Menu>
+		return (
+			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+				<li className={'menu__title'}>
+					{t('menu_category.title')}
+				</li>
+				<Callout title={t('global.ooops')} intent={Intent.DANGER}>
+					{categories.error}
+				</Callout>
+			</ul>
+		)
 	}
 
 	if (categories.items.length === 0) {
@@ -84,6 +86,7 @@ const MenuCategories = ({ categories, t, fetchCategories, createList }) => {
 					icon="dot"
 					text={item.title}
 					onClick={() => goToList(item.id)}
+					isActive={currentRoute.route === ROUTE_CATEGORY && currentRoute.id === item.id}
 					button={{
 						icon: 'edit',
 						action: () => {

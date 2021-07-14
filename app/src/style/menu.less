@@ -30,10 +30,20 @@
   min-height: 32px;
   box-sizing: border-box;
   cursor: pointer;
+  color: black;
+  font-weight: normal;
 
   &:hover{
+    font-weight: normal;
+    color: black;
     background-color: @gray-hover;
   }
+}
+
+.menu__item--active, .menu__item--active:hover{
+  background-color: @menu-active-bg;
+  color: @white;
+  font-weight: bold;
 }
 
 .menu__item-button{

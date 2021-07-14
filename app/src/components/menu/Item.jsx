@@ -18,8 +18,14 @@ const Item = (props) => {
 		)
 	}
 
+	let className = 'menu__item'
+
+	if (props.isActive) {
+		className += ' menu__item--active'
+	}
+
 	return (
-		<li onClick={props.onClick} className={'menu__item'} key={props.key}>
+		<li onClick={props.onClick} className={className} key={props.key}>
 			{props.text}
 			{button}
 		</li>
@@ -31,6 +37,7 @@ Item.propTypes = {
 	text: PropTypes.string,
 	button: PropTypes.object,
 	onClick: PropTypes.func,
+	isActive: PropTypes.bool,
 	i18n: PropTypes.object
 }
 

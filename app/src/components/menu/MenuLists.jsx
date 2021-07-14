@@ -1,20 +1,22 @@
 import * as React from 'react'
-import { Callout, Classes, Intent, Menu, MenuDivider, Spinner } from '@blueprintjs/core'
+import { Callout, Intent, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { fetchLists } from '../../redux/actions/lists'
 import { getLists } from '../../redux/selectors'
+import { parseLocationFromUri, ROUTE_LIST, ROUTE_ROOT } from '../../utils/link'
 import { STATUS_ERROR, STATUS_LOADING } from '../../redux/reducers/consts'
 import { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import Button from '../generic/Button'
-import CreateForm from './CreateForm'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
 const MenuLists = ({ lists, t, fetchLists }) => {
 	const history = useHistory()
+	const location = useLocation()
+	const currentRoute = parseLocationFromUri(location.pathname)
 
 	useEffect(() => {
 		fetchLists()
@@ -33,27 +35,27 @@ const MenuLists = ({ lists, t, fetchLists }) => {
 	}
 
 	if (lists.status === STATUS_LOADING) {
-		return <Menu
-			className={`${
-				Classes.ELEVATION_0
-			} page-header__navigation-list page-header__navigation-list--side-bar`}
-		>
-			<MenuDivider title={t('menu_list.title')}/>
-			<Spinner/>
-		</Menu>
+		return (
+			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+				<li className={'menu__title'}>
+					{t('menu_list.title')}
+				</li>
+				<Spinner/>
+			</ul>
+		)
 	}
 
 	if (lists.status === STATUS_ERROR) {
-		return <Menu
-			className={`${
-				Classes.ELEVATION_0
-			} page-header__navigation-list page-header__navigation-list--side-bar`}
-		>
-			<MenuDivider title={t('menu_list.title')}/>
-			<Callout title={t('global.ooops')} intent={Intent.DANGER}>
-				{lists.error}
-			</Callout>
-		</Menu>
+		return (
+			<ul className={'menu page-header__navigation-list page-header__navigation-list--side-bar'}>
+				<li className={'menu__title'}>
+					{t('menu_list.title')}
+				</li>
+				<Callout title={t('global.ooops')} intent={Intent.DANGER}>
+					{lists.error}
+				</Callout>
+			</ul>
+		)
 	}
 
 	if (lists.items.length === 0) {
@@ -73,6 +75,7 @@ const MenuLists = ({ lists, t, fetchLists }) => {
 					icon="dot"
 					text={t('menu_list.all_products')}
 					onClick={() => goToAllProduct()}
+					isActive={currentRoute.route === ROUTE_ROOT}
 				/>
 			</ul>
 		)
@@ -94,6 +97,7 @@ const MenuLists = ({ lists, t, fetchLists }) => {
 				icon="dot"
 				text={t('menu_list.all_products')}
 				onClick={() => goToAllProduct()}
+				isActive={currentRoute.route === ROUTE_ROOT}
 			/>
 			{lists.items.map(item => (
 				<Item
@@ -101,6 +105,7 @@ const MenuLists = ({ lists, t, fetchLists }) => {
 					icon="dot"
 					text={item.title}
 					onClick={() => goToList(item.id)}
+					isActive={currentRoute.route === ROUTE_LIST && currentRoute.id === item.id}
 					button={{
 						icon: 'edit',
 						action: () => {
