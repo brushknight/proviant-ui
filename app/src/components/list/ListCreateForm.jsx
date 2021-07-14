@@ -61,7 +61,7 @@ const ListCreateForm = ({ form, create, reset, t, className }) => {
 			<h1>{t('create_list_form.title')}</h1>
 			<InputGroup
 				placeholder={t('create_list_form.placeholder')}
-				leftIcon={'tag'}
+				leftIcon={'list'}
 				value={title}
 				intent={intent}
 				onChange={(e) => {
@@ -83,7 +83,7 @@ const ListCreateForm = ({ form, create, reset, t, className }) => {
 					minimal={true}
 					intent={Intent.SUCCESS}
 					icon={'tick'}
-					text={t('create_list_form.button_save')}
+					text={t('create_list_form.button_create')}
 					onClick={onCreate}
 				/>
 			</ButtonGroup>

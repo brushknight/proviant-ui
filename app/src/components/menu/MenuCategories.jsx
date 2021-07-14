@@ -58,7 +58,7 @@ const MenuCategories = ({ categories, t, fetchCategories, createList }) => {
 					{t('menu_category.title')}
 					<Button
 						className={'menu__title-button'}
-						text={'add'}
+						text={t('global.button_add')}
 						icon={'plus'}
 						onClick={createCategory}
 					/>
@@ -73,7 +73,7 @@ const MenuCategories = ({ categories, t, fetchCategories, createList }) => {
 				{t('menu_category.title')}
 				<Button
 					className={'menu__title-button'}
-					text={'add'}
+					text={t('global.button_add')}
 					icon={'plus'}
 					onClick={createCategory}
 				/>

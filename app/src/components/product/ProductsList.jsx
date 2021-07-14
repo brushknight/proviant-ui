@@ -86,6 +86,9 @@ const ProductsList = ({ products, categories, lists, filterType, t, fetchProduct
 
 	return (
 		<section className="product-list">
+			{/* <div className={'search'}> */}
+			{/*	<input type={'text'}/> */}
+			{/* </div> */}
 			{products.items.map(product => (
 				<ProductsListRow
 					filterType={filterType}

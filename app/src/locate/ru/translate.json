@@ -5,7 +5,8 @@
       "button_save": "Сохранить",
       "button_close": "Закрыть",
       "button_delete": "Удалить",
-      "ooops": "упс... что то пошло не так..."
+      "ooops": "упс... что то пошло не так...",
+      "button_add": "добавить"
     },
     "menu_list": {
       "title": "Списки",
@@ -28,6 +29,18 @@
       "placeholder": "Название списка",
       "button_save": "Сохранить",
       "button_delete": "Удалить",
+      "button_cancel": "Отмена"
+    },
+    "create_category_form": {
+      "title": "Новая Категория",
+      "placeholder": "Название категории",
+      "button_create": "Создать",
+      "button_cancel": "Отмена"
+    },
+    "create_list_form": {
+      "title": "Новый Список",
+      "placeholder": "Название списка",
+      "button_create": "Создать",
       "button_cancel": "Отмена"
     },
     "product_list": {

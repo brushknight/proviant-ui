@@ -83,7 +83,7 @@ const CategoryCreateForm = ({ form, create, reset, t, className }) => {
 					minimal={true}
 					intent={Intent.SUCCESS}
 					icon={'tick'}
-					text={t('create_category_form.button_save')}
+					text={t('create_category_form.button_create')}
 					onClick={onCreate}
 				/>
 			</ButtonGroup>

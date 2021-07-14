@@ -63,7 +63,7 @@ const MenuLists = ({ lists, t, fetchLists }) => {
 					{t('menu_list.title')}
 					<Button
 						className={'menu__title-button'}
-						text={'add'}
+						text={t('global.button_add')}
 						icon={'plus'}
 						onClick={createList}
 					/>
@@ -84,7 +84,7 @@ const MenuLists = ({ lists, t, fetchLists }) => {
 				{t('menu_list.title')}
 				<Button
 					className={'menu__title-button'}
-					text={'add'}
+					text={t('global.button_add')}
 					icon={'plus'}
 					onClick={createList}
 				/>
