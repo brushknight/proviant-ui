@@ -53,6 +53,7 @@ export const ACTION_EDIT_PRODUCT_FETCHED = 'update/product/fetched'
 export const ACTION_EDIT_PRODUCT_SENDING = 'update/product/sending'
 export const ACTION_EDIT_PRODUCT_SUCCESS = 'update/product/success'
 export const ACTION_EDIT_PRODUCT_FAIL = 'update/product/fail'
+export const ACTION_EDIT_PRODUCT_FETCH_FAIL = 'update/product/fetch_fail'
 export const ACTION_EDIT_PRODUCT_RESET = 'update/product/reset'
 
 export const ACTION_CREATE_PRODUCT_SUCCESS = 'create/product/success'

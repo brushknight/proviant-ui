@@ -14,3 +14,11 @@ const toBase64 = file => new Promise((resolve, reject) => {
 	reader.onload = () => resolve(reader.result)
 	reader.onerror = error => reject(error)
 })
+
+export const isImageValid = (file) => {
+	if (file.size > 1024 * 1024 * 10) {
+		return false
+	}
+
+	return true
+}

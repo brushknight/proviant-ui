@@ -3,11 +3,11 @@ import { Button, Callout, EditableText, FileInput, InputGroup, Intent, Tag } fro
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createProduct, createProductFormReset } from '../../redux/actions/createProduct'
-import { fileToBase64 } from '../../utils/image'
+import { fileToBase64, isImageValid } from '../../utils/image'
 import { getCategories, getCreateProduct, getLists } from '../../redux/selectors'
-import { STATUS_CREATED, STATUS_ERROR } from '../../redux/reducers/consts'
+import { STATUS_CREATED, STATUS_EDITING, STATUS_ERROR } from '../../redux/reducers/consts'
+import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
@@ -24,7 +24,8 @@ const ProductCreate = (
 	}
 ) => {
 	const history = useHistory()
-
+	const [error, setError] = useState('')
+	const [status, setStatus] = useState('')
 	const [title, setTitle] = useState('')
 	const [description, setDescription] = useState('')
 	const [link, setLink] = useState('')
@@ -32,6 +33,11 @@ const ProductCreate = (
 	const [barcode, setBarcode] = useState('')
 	const [list, setList] = useState(null)
 	const [categoryList, setCategoryList] = useState([])
+
+	useEffect(() => {
+		setStatus(form.status)
+		setError(form.error)
+	}, [form.status])
 
 	if (form.status === STATUS_CREATED) {
 		const url = '/product/' + form.model.id
@@ -68,8 +74,8 @@ const ProductCreate = (
 
 	let errorCallout
 
-	if (form.status === STATUS_ERROR) {
-		errorCallout = <Callout icon={null} intent={Intent.DANGER}>{t(form.error)}</Callout>
+	if (status === STATUS_ERROR) {
+		errorCallout = <Callout icon={null} intent={Intent.DANGER}>{t(error)}</Callout>
 	}
 
 	const submitHandler = () => {
@@ -100,8 +106,10 @@ const ProductCreate = (
 						minLines={1}
 						maxLines={1}
 						value={title}
+						placeholder={t('product_create.title')}
 						onChange={(value) => {
 							setTitle(value)
+							setStatus(STATUS_EDITING)
 						}}
 					/>
 				</h1>
@@ -111,8 +119,10 @@ const ProductCreate = (
 					minLines={3}
 					maxLines={100}
 					value={description}
+					placeholder={t('product_create.description')}
 					onChange={(value) => {
 						setDescription(value)
+						setStatus(STATUS_EDITING)
 					}}
 				/>
 			</div>
@@ -120,9 +130,18 @@ const ProductCreate = (
 				className='product-edit__input'
 				disabled={false}
 				fill={true}
-				text="Choose file..."
+				text={t('product_create.choose_picture')}
 				onInputChange={(e) => {
+					const file = e.target.files[0]
+
+					if (!isImageValid(file)) {
+						setError('global.error.image_not_valid')
+						setStatus(STATUS_ERROR)
+						return
+					}
+
 					fileToBase64(e.target.files[0]).then(base64 => setImageBase64(base64))
+					setStatus(STATUS_EDITING)
 				}}
 			/>
 			<InputGroup
@@ -132,6 +151,7 @@ const ProductCreate = (
 				value={link}
 				onChange={(event) => {
 					setLink(event.target.value)
+					setStatus(STATUS_EDITING)
 				}}
 			/>
 			<InputGroup
@@ -141,6 +161,7 @@ const ProductCreate = (
 				value={barcode}
 				onChange={(event) => {
 					setBarcode(event.target.value)
+					setStatus(STATUS_EDITING)
 				}}
 			/>
 			<Select
@@ -152,6 +173,7 @@ const ProductCreate = (
 					setList(
 						lists.items.find(item => item.id === event.value)
 					)
+					setStatus(STATUS_EDITING)
 				}}
 				value={list ? convertListToValue(list) : null}
 			/>
@@ -164,11 +186,18 @@ const ProductCreate = (
 					setCategoryList(data.map((item) => {
 						return categories.items.find(c => c.id === item.value)
 					}))
+					setStatus(STATUS_EDITING)
 				}}
 				value={categoriesSelected}
 			/>
-			<Button icon={'tick'} large={true} minimal={true} onClick={submitHandler}
-				intent={Intent.SUCCESS}>{t('product_edit.button_save')}</Button>
+			<Button
+				disabled={status === STATUS_ERROR}
+				icon={'tick'}
+				large={true}
+				minimal={true}
+				onClick={submitHandler}
+				intent={Intent.SUCCESS}
+			>{t('product_edit.button_save')}</Button>
 
 		</section>
 	)
