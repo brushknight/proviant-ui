@@ -15,8 +15,6 @@ const MenuAddProduct = (props) => {
 
 	newProductUrl += 'product-new'
 
-	console.log(newProductUrl)
-
 	return (
 		<Button
 			icon="plus"
