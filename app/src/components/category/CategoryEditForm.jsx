@@ -30,8 +30,10 @@ const CategoryEditForm = ({ form, fetch, reset, update, remove, t, className }) 
 		reset()
 	}
 
-	const onSave = () => {
+	const onSubmit = (e) => {
+		e.preventDefault()
 		update(Number(id), title)
+		reset()
 	}
 
 	const onDelete = () => {
@@ -107,10 +109,14 @@ const CategoryEditForm = ({ form, fetch, reset, update, remove, t, className }) 
 	// }
 
 	return (
-		<form className={className}>
+		<form
+			className={className}
+			onSubmit={onSubmit}
+		>
 			{error}
 			<h1>{t('edit_category_form.title')}</h1>
 			<InputGroup
+				autoFocus={true}
 				placeholder={t('edit_category_form.placeholder')}
 				leftIcon={'tag'}
 				value={title}
@@ -138,12 +144,12 @@ const CategoryEditForm = ({ form, fetch, reset, update, remove, t, className }) 
 					onClick={onClose}
 				/>
 				<Button
+					type={'submit'}
 					large={true}
 					minimal={true}
 					intent={Intent.SUCCESS}
 					icon={'tick'}
 					text={t('edit_category_form.button_save')}
-					onClick={onSave}
 				/>
 			</ButtonGroup>
 		</form>

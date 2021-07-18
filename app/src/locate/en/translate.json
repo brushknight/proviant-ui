@@ -6,7 +6,10 @@
       "button_close": "Close",
       "button_delete": "Delete",
       "ooops": "oops... something went wrong",
-      "button_add": "add"
+      "button_add": "add",
+      "error": {
+        "image_not_valid": "Image is not passing our checks (>10MB)"
+      }
     },
     "menu_list": {
       "title": "Lists",
@@ -58,7 +61,10 @@
       "select_categories": "Select categories",
       "link_to_shop": "Link to shop",
       "link_to_picture": "Link to picture",
-      "barcode": "Barcode"
+      "barcode": "Barcode",
+      "choose_picture": "Choose product picture",
+      "title": "Check here to set title",
+      "description": "Click here to set description"
     },
     "product_create": {
       "button_back": "Back",
@@ -68,7 +74,10 @@
       "select_categories": "Select categories",
       "link_to_shop": "Link to shop",
       "link_to_picture": "Link to picture",
-      "barcode": "Barcode"
+      "barcode": "Barcode",
+      "choose_picture": "Choose product picture",
+      "title": "Check here to set title",
+      "description": "Click here to set description"
     },
     "product": {
       "button_back": "Back",

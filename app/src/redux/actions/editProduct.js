@@ -1,5 +1,5 @@
 import {
-	ACTION_EDIT_PRODUCT_FAIL,
+	ACTION_EDIT_PRODUCT_FAIL, ACTION_EDIT_PRODUCT_FETCH_FAIL,
 	ACTION_EDIT_PRODUCT_FETCHED,
 	ACTION_EDIT_PRODUCT_FETCHING,
 	ACTION_EDIT_PRODUCT_RESET,
@@ -32,6 +32,12 @@ const editProductFetched = (model) => {
 		model: model
 	}
 }
+const editProductFetchFail = (error) => {
+	return {
+		type: ACTION_EDIT_PRODUCT_FETCH_FAIL,
+		error: error
+	}
+}
 const editProductFail = (error) => {
 	return {
 		type: ACTION_EDIT_PRODUCT_FAIL,
@@ -54,9 +60,9 @@ export const fetchEditProduct = (id, locale) => {
 			.catch(error => {
 				const errorMsq = error.message
 				if (error.response && error.response.status === 404) {
-					dispatch(editProductFail(error.response.data.error))
+					dispatch(editProductFetchFail(error.response.data.error))
 				} else {
-					dispatch(editProductFail(errorMsq))
+					dispatch(editProductFetchFail(errorMsq))
 				}
 			})
 	}

@@ -1,12 +1,13 @@
 import * as React from 'react'
-import { Button, Callout, EditableText, Icon, InputGroup, Intent, Tag } from '@blueprintjs/core'
+import { Button, Callout, EditableText, FileInput, InputGroup, Intent, Tag } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createProduct, createProductFormReset } from '../../redux/actions/createProduct'
+import { fileToBase64, isImageValid } from '../../utils/image'
 import { getCategories, getCreateProduct, getLists } from '../../redux/selectors'
-import { STATUS_CREATED, STATUS_ERROR } from '../../redux/reducers/consts'
+import { STATUS_CREATED, STATUS_EDITING, STATUS_ERROR } from '../../redux/reducers/consts'
+import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
@@ -23,14 +24,20 @@ const ProductCreate = (
 	}
 ) => {
 	const history = useHistory()
-
+	const [error, setError] = useState('')
+	const [status, setStatus] = useState('')
 	const [title, setTitle] = useState('')
 	const [description, setDescription] = useState('')
 	const [link, setLink] = useState('')
-	const [image, setImage] = useState('')
+	const [imageBase64, setImageBase64] = useState('')
 	const [barcode, setBarcode] = useState('')
 	const [list, setList] = useState(null)
 	const [categoryList, setCategoryList] = useState([])
+
+	useEffect(() => {
+		setStatus(form.status)
+		setError(form.error)
+	}, [form.status])
 
 	if (form.status === STATUS_CREATED) {
 		const url = '/product/' + form.model.id
@@ -39,7 +46,6 @@ const ProductCreate = (
 	}
 
 	const textLinkToShop = <Tag minimal={true}>{t('product_create.link_to_shop')}</Tag>
-	const textLinkToPicture = <Tag minimal={true}>{t('product_create.link_to_picture')}</Tag>
 	const textBarcode = <Tag minimal={true}>{t('product_create.barcode')}</Tag>
 
 	const convertListToValue = (model) => {
@@ -68,8 +74,8 @@ const ProductCreate = (
 
 	let errorCallout
 
-	if (form.status === STATUS_ERROR) {
-		errorCallout = <Callout icon={null} intent={Intent.DANGER}>{t(form.error)}</Callout>
+	if (status === STATUS_ERROR) {
+		errorCallout = <Callout icon={null} intent={Intent.DANGER}>{t(error)}</Callout>
 	}
 
 	const submitHandler = () => {
@@ -77,7 +83,7 @@ const ProductCreate = (
 			title,
 			description,
 			link,
-			image,
+			image_base64: imageBase64,
 			barcode,
 			list_id: list ? list.id : 0,
 			category_ids: categoryList ? categoryList.map(item => item.id) : []
@@ -85,7 +91,7 @@ const ProductCreate = (
 	}
 
 	const imageStyle = {
-		backgroundImage: 'url(' + image + ')'
+		backgroundImage: 'url(' + imageBase64 + ')'
 	}
 
 	return (
@@ -100,8 +106,10 @@ const ProductCreate = (
 						minLines={1}
 						maxLines={1}
 						value={title}
+						placeholder={t('product_create.title')}
 						onChange={(value) => {
 							setTitle(value)
+							setStatus(STATUS_EDITING)
 						}}
 					/>
 				</h1>
@@ -111,36 +119,53 @@ const ProductCreate = (
 					minLines={3}
 					maxLines={100}
 					value={description}
+					placeholder={t('product_create.description')}
 					onChange={(value) => {
 						setDescription(value)
+						setStatus(STATUS_EDITING)
 					}}
 				/>
 			</div>
-			<InputGroup className='product-edit__input'
+			<FileInput
+				className='product-edit__input'
+				disabled={false}
+				fill={true}
+				text={t('product_create.choose_picture')}
+				onInputChange={(e) => {
+					const file = e.target.files[0]
+
+					if (!isImageValid(file)) {
+						setError('global.error.image_not_valid')
+						setStatus(STATUS_ERROR)
+						return
+					}
+
+					fileToBase64(e.target.files[0]).then(base64 => setImageBase64(base64))
+					setStatus(STATUS_EDITING)
+				}}
+			/>
+			<InputGroup
+				className='product-edit__input'
 				fill={true}
 				leftElement={textLinkToShop}
 				value={link}
 				onChange={(event) => {
 					setLink(event.target.value)
+					setStatus(STATUS_EDITING)
 				}}
 			/>
-			<InputGroup className='product-edit__input'
-				fill={true}
-				leftElement={textLinkToPicture}
-				value={image}
-				onChange={(event) => {
-					setImage(event.target.value)
-				}}
-			/>
-			<InputGroup className='product-edit__input'
+			<InputGroup
+				className='product-edit__input'
 				fill={true}
 				leftElement={textBarcode}
 				value={barcode}
 				onChange={(event) => {
 					setBarcode(event.target.value)
+					setStatus(STATUS_EDITING)
 				}}
 			/>
-			<Select className='product-edit__input product-edit__input--list-select'
+			<Select
+				className='product-edit__input product-edit__input--list-select'
 				options={listsForSelect}
 				isMulti={false}
 				placeholder={t('product_edit.select_list')}
@@ -148,10 +173,12 @@ const ProductCreate = (
 					setList(
 						lists.items.find(item => item.id === event.value)
 					)
+					setStatus(STATUS_EDITING)
 				}}
 				value={list ? convertListToValue(list) : null}
 			/>
-			<Select className='product-edit__input product-edit__input--categories-select'
+			<Select
+				className='product-edit__input product-edit__input--categories-select'
 				options={categoriesForSelect}
 				isMulti={true}
 				placeholder={t('product_edit.select_categories')}
@@ -159,10 +186,18 @@ const ProductCreate = (
 					setCategoryList(data.map((item) => {
 						return categories.items.find(c => c.id === item.value)
 					}))
+					setStatus(STATUS_EDITING)
 				}}
 				value={categoriesSelected}
 			/>
-			<Button icon={'tick'} large={true} minimal={true} onClick={submitHandler} intent={Intent.SUCCESS}>{t('product_edit.button_save')}</Button>
+			<Button
+				disabled={status === STATUS_ERROR}
+				icon={'tick'}
+				large={true}
+				minimal={true}
+				onClick={submitHandler}
+				intent={Intent.SUCCESS}
+			>{t('product_edit.button_save')}</Button>
 
 		</section>
 	)

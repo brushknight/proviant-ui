@@ -20,7 +20,8 @@ const ListCreateForm = ({ form, create, reset, t, className }) => {
 		reset()
 	}
 
-	const onCreate = () => {
+	const onSubmit = (e) => {
+		e.preventDefault()
 		create(title)
 	}
 
@@ -56,10 +57,14 @@ const ListCreateForm = ({ form, create, reset, t, className }) => {
 	}
 
 	return (
-		<form className={className}>
+		<form
+			className={className}
+			onSubmit={onSubmit}
+		>
 			{error}
 			<h1>{t('create_list_form.title')}</h1>
 			<InputGroup
+				autoFocus={true}
 				placeholder={t('create_list_form.placeholder')}
 				leftIcon={'list'}
 				value={title}
@@ -79,12 +84,12 @@ const ListCreateForm = ({ form, create, reset, t, className }) => {
 					onClick={onClose}
 				/>
 				<Button
+					type={'submit'}
 					large={true}
 					minimal={true}
 					intent={Intent.SUCCESS}
 					icon={'tick'}
 					text={t('create_list_form.button_create')}
-					onClick={onCreate}
 				/>
 			</ButtonGroup>
 		</form>

@@ -1,12 +1,20 @@
 import {
-	ACTION_EDIT_PRODUCT_FAIL,
+	ACTION_EDIT_PRODUCT_FAIL, ACTION_EDIT_PRODUCT_FETCH_FAIL,
 	ACTION_EDIT_PRODUCT_FETCHED,
 	ACTION_EDIT_PRODUCT_FETCHING,
 	ACTION_EDIT_PRODUCT_RESET,
 	ACTION_EDIT_PRODUCT_SENDING,
 	ACTION_EDIT_PRODUCT_SUCCESS
 } from '../actions/const'
-import { STATUS_DEFAULT, STATUS_ERROR, STATUS_FETCHED, STATUS_FETCHING, STATUS_SENDING, STATUS_UPDATED } from './consts'
+import {
+	STATUS_DEFAULT,
+	STATUS_ERROR,
+	STATUS_FETCH_FAILED,
+	STATUS_FETCHED,
+	STATUS_FETCHING,
+	STATUS_SENDING,
+	STATUS_UPDATED
+} from './consts'
 
 const emptyModel = () => {
 	return {
@@ -53,6 +61,12 @@ export default function (state = initialState(), action) {
 			...state,
 			status: STATUS_SENDING
 
+		}
+	case ACTION_EDIT_PRODUCT_FETCH_FAIL:
+		return {
+			...initialState(),
+			status: STATUS_FETCH_FAILED,
+			error: action.error
 		}
 	case ACTION_EDIT_PRODUCT_FAIL:
 		return {

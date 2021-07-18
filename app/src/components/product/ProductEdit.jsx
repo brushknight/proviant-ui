@@ -1,12 +1,15 @@
 import * as React from 'react'
-import { Button, Callout, EditableText, Icon, InputGroup, Intent, Tag } from '@blueprintjs/core'
+import { Button, Callout, EditableText, FileInput, InputGroup, Intent, Tag } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { editProductFormReset, fetchEditProduct, updateProduct } from '../../redux/actions/editProduct'
+import { fileToBase64, isImageValid } from '../../utils/image'
 import { getCategories, getEditProduct, getLists } from '../../redux/selectors'
 import {
 	STATUS_DEFAULT,
+	STATUS_EDITING,
 	STATUS_ERROR,
+	STATUS_FETCH_FAILED,
 	STATUS_FETCHED,
 	STATUS_FETCHING,
 	STATUS_NOT_FOUND,
@@ -49,26 +52,38 @@ const ProductEdit = (
 			setList(form.model.list)
 			setCategoryList(form.model.categories)
 		}
+
+		if (form.status === STATUS_ERROR) {
+			setError(form.error)
+		}
+
+		if (form.status === STATUS_NOT_FOUND) {
+			setError(form.error)
+		}
+		setStatus(form.status)
 	}, [productId, form.status])
 
+	const [error, setError] = useState(form.error)
+	const [status, setStatus] = useState(form.status)
 	const [title, setTitle] = useState(form.model.title)
 	const [description, setDescription] = useState(form.model.description)
 	const [link, setLink] = useState(form.model.link)
 	const [image, setImage] = useState(form.model.image)
+	const [imageBase64, setImageBase64] = useState('')
 	const [barcode, setBarcode] = useState(form.model.barcode)
 	const [list, setList] = useState(form.model.list)
 	const [categoryList, setCategoryList] = useState(form.model.categories)
 
-	if (form.status === STATUS_FETCHING) {
+	if (status === STATUS_FETCHING) {
 		return <SectionLoading/>
 	}
 
-	if (form.status === STATUS_ERROR) {
-		return <SectionError error={form.error}/>
+	if (status === STATUS_FETCH_FAILED) {
+		return <SectionError error={error}/>
 	}
 
-	if (form.status === STATUS_NOT_FOUND) {
-		return <SectionNotFound error={form.error} title={t('product_edit.not_found')}/>
+	if (status === STATUS_NOT_FOUND) {
+		return <SectionNotFound error={error} title={t('product_edit.not_found')}/>
 	}
 
 	const onCloseHandler = () => {
@@ -77,7 +92,6 @@ const ProductEdit = (
 	}
 
 	const textLinkToShop = <Tag minimal={true}>{t('product_edit.link_to_shop')}</Tag>
-	const textLinkToPicture = <Tag minimal={true}>{t('product_edit.link_to_picture')}</Tag>
 	const textBarcode = <Tag minimal={true}>{t('product_edit.barcode')}</Tag>
 
 	const convertListToValue = (model) => {
@@ -106,13 +120,13 @@ const ProductEdit = (
 
 	let errorCallout
 
-	if (form.status === STATUS_ERROR) {
-		errorCallout = <Callout icon={null} intent={Intent.DANGER}>{form.error}</Callout>
+	if (status === STATUS_ERROR) {
+		errorCallout = <Callout icon={null} intent={Intent.DANGER}>{t(error)}</Callout>
 	}
 
 	let updatedCallout
 
-	if (form.status === STATUS_UPDATED) {
+	if (status === STATUS_UPDATED) {
 		updatedCallout = <Callout icon={'tick'} intent={Intent.SUCCESS}>{t('product_edit.callout_updated')}</Callout>
 	}
 
@@ -122,15 +136,23 @@ const ProductEdit = (
 			title,
 			description,
 			link,
-			image,
+			image_base64: imageBase64,
 			barcode,
 			list_id: list ? list.id : 0,
 			category_ids: categoryList ? categoryList.map(item => item.id) : []
 		})
 	}
 
-	const imageStyle = {
-		backgroundImage: 'url(' + image + ')'
+	let imageStyle
+
+	if (imageBase64 !== '') {
+		imageStyle = {
+			backgroundImage: 'url(' + imageBase64 + ')'
+		}
+	} else {
+		imageStyle = {
+			backgroundImage: 'url(' + image + ')'
+		}
 	}
 
 	return (
@@ -147,8 +169,10 @@ const ProductEdit = (
 						minLines={1}
 						maxLines={1}
 						value={title}
+						placeholder={t('product_edit.title')}
 						onChange={(value) => {
 							setTitle(value)
+							setStatus(STATUS_EDITING)
 						}}
 					/>
 				</h1>
@@ -158,36 +182,53 @@ const ProductEdit = (
 					minLines={3}
 					maxLines={100}
 					value={description}
+					placeholder={t('product_edit.description')}
 					onChange={(value) => {
 						setDescription(value)
+						setStatus(STATUS_EDITING)
 					}}
 				/>
 			</div>
-			<InputGroup className='product-edit__input'
+			<FileInput
+				className='product-edit__input'
+				disabled={false}
+				fill={true}
+				text={t('product_edit.choose_picture')}
+				onInputChange={(e) => {
+					const file = e.target.files[0]
+
+					if (!isImageValid(file)) {
+						setError('global.error.image_not_valid')
+						setStatus(STATUS_ERROR)
+						return
+					}
+
+					fileToBase64(file).then(base64 => setImageBase64(base64))
+					setStatus(STATUS_EDITING)
+				}}
+			/>
+			<InputGroup
+				className='product-edit__input'
 				fill={true}
 				leftElement={textLinkToShop}
 				value={link}
 				onChange={(event) => {
 					setLink(event.target.value)
+					setStatus(STATUS_EDITING)
 				}}
 			/>
-			<InputGroup className='product-edit__input'
-				fill={true}
-				leftElement={textLinkToPicture}
-				value={image}
-				onChange={(event) => {
-					setImage(event.target.value)
-				}}
-			/>
-			<InputGroup className='product-edit__input'
+			<InputGroup
+				className='product-edit__input'
 				fill={true}
 				leftElement={textBarcode}
 				value={barcode}
 				onChange={(event) => {
 					setBarcode(event.target.value)
+					setStatus(STATUS_EDITING)
 				}}
 			/>
-			<Select className='product-edit__input product-edit__input--list-select'
+			<Select
+				className='product-edit__input product-edit__input--list-select'
 				options={listsForSelect}
 				isMulti={false}
 				placeholder={t('product_edit.select_list')}
@@ -195,10 +236,12 @@ const ProductEdit = (
 					setList(
 						lists.items.find(item => item.id === event.value)
 					)
+					setStatus(STATUS_EDITING)
 				}}
 				value={list ? convertListToValue(list) : null}
 			/>
-			<Select className='product-edit__input product-edit__input--categories-select'
+			<Select
+				className='product-edit__input product-edit__input--categories-select'
 				options={categoriesForSelect}
 				isMulti={true}
 				placeholder={t('product_edit.select_categories')}
@@ -206,11 +249,18 @@ const ProductEdit = (
 					setCategoryList(data.map((item) => {
 						return categories.items.find(c => c.id === item.value)
 					}))
+					setStatus(STATUS_EDITING)
 				}}
 				value={categoriesSelected}
 			/>
-			<Button icon={'tick'} large={true} minimal={true} onClick={submitHandler}
-				intent={Intent.SUCCESS}>{t('product_edit.button_save')}</Button>
+			<Button
+				disabled={status === STATUS_ERROR}
+				icon={'tick'}
+				large={true}
+				minimal={true}
+				onClick={submitHandler}
+				intent={Intent.SUCCESS}
+			>{t('product_edit.button_save')}</Button>
 
 		</section>
 	)
