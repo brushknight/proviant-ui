@@ -23,6 +23,7 @@ const ListCreateForm = ({ form, create, reset, t, className }) => {
 	const onSubmit = (e) => {
 		e.preventDefault()
 		create(title)
+		reset()
 	}
 
 	useEffect(() => {

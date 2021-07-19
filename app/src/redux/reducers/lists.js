@@ -1,7 +1,7 @@
 import {
-	ACTION_CREATE_CATEGORY_RESET,
 	ACTION_CREATE_LIST_FAIL,
 	ACTION_CREATE_LIST_LOADING,
+	ACTION_CREATE_LIST_RESET,
 	ACTION_CREATE_LIST_SUCCESS,
 	ACTION_DELETE_LIST_IN_LIST,
 	ACTION_FETCH_LIST_FAIL,
@@ -34,7 +34,7 @@ const initialState = () => {
 export default function (state = initialState(), action) {
 	let items = []
 	switch (action.type) {
-	case ACTION_CREATE_CATEGORY_RESET:
+	case ACTION_CREATE_LIST_RESET:
 		return {
 			...state,
 			error: null,
