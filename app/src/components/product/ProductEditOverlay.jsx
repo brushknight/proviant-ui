@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { generateProductLink } from '../../utils/link'
-import { Icon, Overlay } from '@blueprintjs/core'
+import { Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
@@ -20,11 +20,6 @@ const ProductEditOverlay = ({ filterType }) => {
 		history.push(generateProductLink(filterType, id, productId))
 	}
 
-	const closePopover = () => {
-		setIsOpen(false)
-		onClose()
-	}
-
 	return (
 		<Overlay
 			isOpen={isOpen}
@@ -36,7 +31,6 @@ const ProductEditOverlay = ({ filterType }) => {
 				<ProductEdit
 					className={'product-overlay__inner product-overlay__inner--fixed'}
 					productId={productId}
-					closePopover={closePopover}
 				/>
 			</div>
 		</Overlay>

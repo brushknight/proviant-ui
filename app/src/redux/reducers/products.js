@@ -49,6 +49,7 @@ export default function (state = initialState(), action) {
 		newItems = state.items.map((item) => {
 			if (Number(item.id) === Number(action.productId)) {
 				if (action.items) {
+					item.stock = 0
 					action.items.forEach((stockItem) => {
 						item.stock += stockItem.quantity
 					})

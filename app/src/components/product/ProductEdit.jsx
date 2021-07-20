@@ -280,13 +280,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		fetchProduct: (id) => dispatch(fetchEditProduct(id, locale)),
 		updateProduct: (model) => dispatch(updateProduct(model, locale)),
-		reset: () => dispatch(editProductFormReset(locale)),
-		closePopover: ownProps.closePopover
+		reset: () => dispatch(editProductFormReset(locale))
 	}
 }
 
 ProductEdit.propTypes = {
-	closePopover: PropTypes.func,
 	fetchProduct: PropTypes.func,
 	updateProduct: PropTypes.func,
 	reset: PropTypes.func,

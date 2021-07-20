@@ -25,14 +25,16 @@
       "placeholder": "Category title",
       "button_save": "Save",
       "button_delete": "Delete",
-      "button_cancel": "Cancel"
+      "button_cancel": "Cancel",
+      "delete_confirmation": "Are you sure that you want to delete category"
     },
     "edit_list_form": {
       "title": "Edit List",
       "placeholder": "List title",
       "button_save": "Save",
       "button_delete": "Delete",
-      "button_cancel": "Cancel"
+      "button_cancel": "Cancel",
+      "delete_confirmation": "Are you sure that you want to delete list"
     },
     "create_category_form": {
       "title": "Create Category",
@@ -83,21 +85,26 @@
       "button_back": "Back",
       "button_edit": "Edit",
       "button_delete": "Delete",
+      "button_cancel": "Cancel",
       "link_to_the_shop": "Link to the shop",
       "barcode": "barcode",
-      "in_stock": "in stock"
+      "in_stock": "in stock",
+      "delete_confirmation": "Are you sure that you want to delete product"
     },
     "stock": {
       "title_consume": "Consume",
       "quantity": "Quantity",
       "button_consume": "Consume",
+      "button_cancel": "Cancel",
       "title_add": "Add",
       "expires": "Expires",
       "button_add": "Add Stock",
       "title_in_stock": "In Stock",
       "button_delete": "Delete",
       "error_fetch": "Something went wrong with stock fetching",
-      "not_found": "No stock found for this product"
+      "not_found": "No stock found for this product",
+      "delete_confirmation": "Are you sure that you want to delete stock"
+
     },
     "product_validator": {
       "error_empty_list": "Product list should not be empty"

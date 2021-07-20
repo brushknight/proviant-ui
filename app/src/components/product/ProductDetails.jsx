@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { Button, ButtonGroup, Callout, Icon, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
+import { Alert, Button, ButtonGroup, Callout, Icon, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
 import { connect } from 'react-redux'
 import { deleteProduct, fetchProduct, resetProduct } from '../../redux/actions/product'
 import { getProduct } from '../../redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS } from '../../redux/reducers/consts'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { compose } from 'redux'
@@ -22,10 +22,11 @@ const ProductDetails = ({
 	fetchProduct,
 	deleteProduct,
 	reset,
-	closePopover,
 	t
 }) => {
 	const history = useHistory()
+
+	const [deleteAlert, setDeleteAlert] = useState(false)
 
 	useEffect(() => {
 		fetchProduct(productId)
@@ -86,6 +87,29 @@ const ProductDetails = ({
 
 	return (
 		<div className='product-details'>
+			<Alert
+				cancelButtonText={t('product.button_cancel')}
+				confirmButtonText={t('product.button_delete')}
+				icon="delete"
+				intent={Intent.DANGER}
+				isOpen={deleteAlert}
+				onCancel={() => {
+					setDeleteAlert(false)
+				}}
+				onClose={() => {
+					setDeleteAlert(false)
+				}}
+				canOutsideClickCancel={true}
+				onConfirm={() => {
+					deleteProduct(productId)
+				}}
+				canEscapeKeyCancel={true}
+			>
+				<p>
+					{t('product.delete_confirmation')} <br/>
+					<b>{product.model.title}</b>
+				</p>
+			</Alert>
 			<div className='product-details__wrapper-image'>
 				<div className='product-details__image' style={imageStyle}>
 				</div>
@@ -93,7 +117,7 @@ const ProductDetails = ({
 					<Button className='tablet-hide-width-max' icon={'edit'} minimal={true}
 						onClick={onEditHandler}>{t('product.button_edit')}</Button>
 					<Button className='tablet-hide-width-max' onClick={() => {
-						deleteProduct(productId)
+						setDeleteAlert(true)
 					}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
 					{barcodeImg}
 
@@ -117,7 +141,7 @@ const ProductDetails = ({
 					<ButtonGroup>
 						<Button icon={'edit'} minimal={true} onClick={onEditHandler}>{t('product.button_edit')}</Button>
 						<Button onClick={() => {
-							deleteProduct(productId)
+							setDeleteAlert(true)
 						}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
 					</ButtonGroup>
 				</div>

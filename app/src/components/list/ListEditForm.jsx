@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, ButtonGroup, Callout, InputGroup, Intent, Spinner } from '@blueprintjs/core'
+import { Alert, Button, ButtonGroup, Callout, InputGroup, Intent, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { deleteList, editListReset, fetchEditList, updateList } from '../../redux/actions/editList'
@@ -24,6 +24,7 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 	const { id } = useParams()
 	const [title, setTitle] = useState('')
 	const [formStatus, setFormStatus] = useState(form.status)
+	const [deleteAlert, setDeleteAlert] = useState(false)
 
 	const onClose = () => {
 		history.push('/list/' + id)
@@ -113,6 +114,29 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 			className={className}
 			onSubmit={onSubmit}
 		>
+			<Alert
+				cancelButtonText={t('edit_list_form.button_cancel')}
+				confirmButtonText={t('edit_list_form.button_delete')}
+				icon="delete"
+				intent={Intent.DANGER}
+				isOpen={deleteAlert}
+				onCancel={() => {
+					setDeleteAlert(false)
+				}}
+				onClose={() => {
+					setDeleteAlert(false)
+				}}
+				canOutsideClickCancel={true}
+				onConfirm={() => {
+					onDelete()
+				}}
+				canEscapeKeyCancel={true}
+			>
+				<p>
+					{t('edit_list_form.delete_confirmation')} <br/>
+					<b>{title}</b>
+				</p>
+			</Alert>
 			{error}
 			<h1>{t('edit_list_form.title')}</h1>
 			<InputGroup
@@ -133,7 +157,9 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 					intent={Intent.DANGER}
 					icon={'delete'}
 					text={t('edit_list_form.button_delete')}
-					onClick={onDelete}
+					onClick={() => {
+						setDeleteAlert(true)
+					}}
 				/>
 				<Button
 					large={true}
