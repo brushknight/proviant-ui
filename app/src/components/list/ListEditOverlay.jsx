@@ -1,4 +1,7 @@
 import * as React from 'react'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { editListReset } from '../../redux/actions/editList'
 import { Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
@@ -7,17 +10,18 @@ import ListEditForm from './ListEditForm'
 import ProductsOverlayCloseButton from '../product/ProductOverlayCloseButton'
 import PropTypes from 'prop-types'
 
-const ListEditOverlay = ({ filterType }) => {
-	const { id, productId } = useParams()
+const ListEditOverlay = ({ filterType, reset }) => {
+	const { id } = useParams()
 	const [isOpen, setIsOpen] = useState(false)
 	const history = useHistory()
 
 	useEffect(() => {
 		setIsOpen(true)
-	}, [id, productId])
+	}, [id])
 
 	const onClose = () => {
 		history.goBack()
+		reset()
 	}
 
 	const closePopover = () => {
@@ -43,7 +47,18 @@ const ListEditOverlay = ({ filterType }) => {
 }
 
 ListEditOverlay.propTypes = {
-	filterType: PropTypes.string
+	filterType: PropTypes.string,
+	reset: PropTypes.func
+}
+const mapStateToProps = (state, ownProps) => {
+	return {}
 }
 
-export default withTranslation('translations')(ListEditOverlay)
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
+	return {
+		reset: (id) => dispatch(editListReset(id, locale))
+	}
+}
+
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ListEditOverlay)

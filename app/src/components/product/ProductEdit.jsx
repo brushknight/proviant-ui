@@ -17,6 +17,7 @@ import {
 } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
+import product from '../../redux/reducers/product'
 import ProductsOverlayCloseButton from './ProductOverlayCloseButton'
 import PropTypes from 'prop-types'
 import SectionError from '../SectionError'
@@ -39,6 +40,10 @@ const ProductEdit = (
 	}
 ) => {
 	useEffect(() => {
+		if (Number(form.model.id) > 0 && Number(form.model.id) !== Number(productId)) {
+			reset()
+		}
+
 		if (form.status === STATUS_DEFAULT) {
 			fetchProduct(productId)
 		}
@@ -293,7 +298,8 @@ ProductEdit.propTypes = {
 	lists: PropTypes.object,
 	categories: PropTypes.object,
 	t: PropTypes.func,
-	className: PropTypes.string
+	className: PropTypes.string,
+	closePopover: PropTypes.func
 }
 
 export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductEdit)

@@ -26,15 +26,21 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 	const [formStatus, setFormStatus] = useState(form.status)
 	const [deleteAlert, setDeleteAlert] = useState(false)
 
+	const formReset = () => {
+		setTitle('')
+		setFormStatus(STATUS_DEFAULT)
+		reset()
+	}
+
 	const onClose = () => {
 		history.push('/list/' + id)
-		reset()
+		formReset()
 	}
 
 	const onSubmit = (e) => {
 		e.preventDefault()
 		update(Number(id), title)
-		reset()
+		formReset()
 	}
 
 	const onDelete = () => {
@@ -42,13 +48,20 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 	}
 
 	useEffect(() => {
+		if (Number(form.model.id) > 0 && Number(form.model.id) !== Number(id)) {
+			formReset()
+		}
+
 		if (form.status === STATUS_DEFAULT) {
+			formReset()
 			setTitle('')
 			fetch(Number(id))
 		}
+
 		if (form.status === STATUS_FETCHED) {
 			setTitle(form.model.title)
 		}
+
 		if (form.status === STATUS_UPDATED) {
 			setTitle(form.model.title)
 		}
@@ -66,7 +79,7 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 
 	if (formStatus === STATUS_DELETED) {
 		history.push('/')
-		reset()
+		formReset()
 	}
 
 	if (formStatus === STATUS_ERROR || formStatus === STATUS_FETCH_FAILED) {
