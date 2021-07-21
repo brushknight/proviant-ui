@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import CategoryEditForm from './CategoryEditForm'
-import ProductsOverlayCloseButton from '../product/ProductOverlayCloseButton'
+import OverlayCloseButton from '../generic/OverlayCloseButton'
 import PropTypes from 'prop-types'
 
 const CategoryEditOverlay = ({ filterType }) => {
@@ -33,7 +33,7 @@ const CategoryEditOverlay = ({ filterType }) => {
 			}}
 		>
 			<div className={'product-overlay'}>
-				<ProductsOverlayCloseButton onClick={closePopover}/>
+				<OverlayCloseButton onClick={closePopover}/>
 				<CategoryEditForm
 					className={'product-overlay__inner product-overlay__inner--fixed'}
 				/>

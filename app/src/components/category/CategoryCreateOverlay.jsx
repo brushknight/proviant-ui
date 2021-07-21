@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import CategoryCreateForm from './CategoryCreateForm'
-import ProductsOverlayCloseButton from '../product/ProductOverlayCloseButton'
+import OverlayCloseButton from '../generic/OverlayCloseButton'
 
 const CategoryCreateOverlay = () => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -31,7 +31,7 @@ const CategoryCreateOverlay = () => {
 			}}
 		>
 			<div className={'product-overlay'}>
-				<ProductsOverlayCloseButton onClick={closePopover}/>
+				<OverlayCloseButton onClick={closePopover}/>
 				<CategoryCreateForm
 					className={'product-overlay__inner product-overlay__inner--fixed'}
 				/>

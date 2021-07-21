@@ -7,6 +7,7 @@ import { Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
+import OverlayCloseButton from '../generic/OverlayCloseButton'
 import ProductEdit from './ProductEdit'
 import PropTypes from 'prop-types'
 
@@ -37,6 +38,8 @@ const ProductEditOverlay = ({ filterType, reset }) => {
 			}}
 		>
 			<div className={'product-overlay'}>
+				<OverlayCloseButton onClick={closePopover}/>
+
 				<ProductEdit
 					className={'product-overlay__inner product-overlay__inner--fixed'}
 					productId={productId}

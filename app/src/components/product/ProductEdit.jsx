@@ -17,8 +17,6 @@ import {
 } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
-import product from '../../redux/reducers/product'
-import ProductsOverlayCloseButton from './ProductOverlayCloseButton'
 import PropTypes from 'prop-types'
 import SectionError from '../SectionError'
 import SectionLoading from '../SectionLoading'
@@ -34,7 +32,6 @@ const ProductEdit = (
 		fetchProduct,
 		updateProduct,
 		reset,
-		closePopover,
 		t,
 		className
 	}
@@ -89,11 +86,6 @@ const ProductEdit = (
 
 	if (status === STATUS_NOT_FOUND) {
 		return <SectionNotFound error={error} title={t('product_edit.not_found')}/>
-	}
-
-	const onCloseHandler = () => {
-		closePopover()
-		reset()
 	}
 
 	const textLinkToShop = <Tag minimal={true}>{t('product_edit.link_to_shop')}</Tag>
@@ -162,7 +154,6 @@ const ProductEdit = (
 
 	return (
 		<section className={className + ' product-edit'}>
-			<ProductsOverlayCloseButton onClick={onCloseHandler}/>
 			{updatedCallout}
 			{errorCallout}
 			<div className='product-edit__image' style={imageStyle}>
@@ -298,8 +289,7 @@ ProductEdit.propTypes = {
 	lists: PropTypes.object,
 	categories: PropTypes.object,
 	t: PropTypes.func,
-	className: PropTypes.string,
-	closePopover: PropTypes.func
+	className: PropTypes.string
 }
 
 export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductEdit)

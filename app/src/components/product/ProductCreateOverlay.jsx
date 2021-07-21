@@ -5,8 +5,8 @@ import { Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
+import OverlayCloseButton from '../generic/OverlayCloseButton'
 import ProductCreate from './ProductCreate'
-import ProductsOverlayCloseButton from './ProductOverlayCloseButton'
 import PropTypes from 'prop-types'
 
 const ProductCreateOverlay = ({ filterType }) => {
@@ -45,7 +45,7 @@ const ProductCreateOverlay = ({ filterType }) => {
 			}}
 		>
 			<div className={'product-overlay'}>
-				<ProductsOverlayCloseButton onClick={closePopover}/>
+				<OverlayCloseButton onClick={closePopover}/>
 				<ProductCreate
 					className={'product-overlay__inner product-overlay__inner--fixed'}
 					productId={productId}
