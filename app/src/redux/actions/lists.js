@@ -7,7 +7,7 @@ import {
 	ACTION_FETCH_LIST_LOADING,
 	ACTION_FETCH_LIST_SUCCESS, ACTION_UPDATE_LIST_IN_LIST
 } from './const'
-import { generateApiUrl } from '../../utils/link'
+import { generateCoreApiUrl } from '../../utils/link'
 import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'
 
@@ -66,7 +66,7 @@ export const resetCreateListForm = () => {
 export const fetchLists = (locale) => {
 	return (dispatch) => {
 		dispatch(fetchListLoading())
-		axios.get(generateApiUrl('/list/'), generateLocaleHeader(locale))
+		axios.get(generateCoreApiUrl('/list/'), generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(fetchListSuccess(data.data))
@@ -82,7 +82,7 @@ export const createList = (title, locale) => {
 	return (dispatch) => {
 		dispatch(createListLoading())
 		const json = JSON.stringify({ title })
-		axios.post(generateApiUrl('/list/'), json, generateLocaleHeader(locale))
+		axios.post(generateCoreApiUrl('/list/'), json, generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(createListSuccess(data.data))

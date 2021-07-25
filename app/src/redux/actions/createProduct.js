@@ -4,7 +4,7 @@ import {
 	ACTION_CREATE_PRODUCT_SENDING,
 	ACTION_CREATE_PRODUCT_SUCCESS
 } from './const'
-import { generateApiUrl } from '../../utils/link'
+import { generateCoreApiUrl } from '../../utils/link'
 import { generateLocaleHeader } from '../../utils/i18n'
 import { validateProduct } from '../../validators/product'
 import axios from 'axios'
@@ -45,7 +45,7 @@ export const createProduct = (model, locale) => {
 
 		dispatch(createProductSending())
 		const json = JSON.stringify(model)
-		axios.post(generateApiUrl('/product/'), json, generateLocaleHeader(locale))
+		axios.post(generateCoreApiUrl('/product/'), json, generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(createProductSuccess(data.data))
