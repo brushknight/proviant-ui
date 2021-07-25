@@ -15,6 +15,7 @@ import {
 } from './const'
 import { amendProductStock, updateProductStock } from './product'
 import { amendProductStockInList, updateProductStockInList } from './products'
+import { generateApiUrl } from '../../utils/link'
 import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'
 
@@ -101,7 +102,7 @@ const consumeStockFail = (error) => {
 export const fetchStock = (productId, locale) => {
 	return (dispatch) => {
 		dispatch(fetchStockLoading())
-		axios.get(`/api/v1/product/${productId}/stock/`, generateLocaleHeader(locale))
+		axios.get(generateApiUrl(`/product/${productId}/stock/`), generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(fetchStockSuccess(data.data))
@@ -125,7 +126,7 @@ export const addStock = (productId, quantity, date, locale) => {
 	return (dispatch) => {
 		dispatch(addStockLoading())
 		const json = JSON.stringify(dto)
-		axios.post(`/api/v1/product/${productId}/add/`, json, generateLocaleHeader(locale))
+		axios.post(generateApiUrl(`/product/${productId}/add/`), json, generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(addStockSuccess(data.data))
@@ -150,7 +151,7 @@ export const consumeStock = (productId, quantity, locale) => {
 	return (dispatch) => {
 		dispatch(consumeStockLoading())
 		const json = JSON.stringify(dto)
-		axios.post(`/api/v1/product/${productId}/consume/`, json, generateLocaleHeader(locale))
+		axios.post(generateApiUrl(`/product/${productId}/consume/`), json, generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(consumeStockSuccess(data.data))
@@ -170,7 +171,7 @@ export const consumeStock = (productId, quantity, locale) => {
 export const deleteStock = (productId, id, locale) => {
 	return (dispatch) => {
 		dispatch(deleteStockLoading())
-		axios.delete(`/api/v1/product/${productId}/stock/${id}/`, generateLocaleHeader(locale))
+		axios.delete(generateApiUrl(`/product/${productId}/stock/${id}/`), generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(deleteStockSuccess(data.data))

@@ -54,7 +54,7 @@ module.exports = {
 		hot: true,
 		proxy: {
 			// '/api': 'http://10.0.0.50:13000/'
-			'/api': 'http://localhost:8080/',
+			'/api': 'http://localhost:8090/',
 			'/content': 'http://localhost:8080/'
 		}
 	},

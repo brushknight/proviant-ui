@@ -7,3 +7,4 @@ export const getProduct = store => store.product
 export const getEditProduct = store => store.editProduct
 export const getCreateProduct = store => store.createProduct
 export const getStock = store => store.stock
+export const getUser = store => store.user

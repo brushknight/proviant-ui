@@ -8,7 +8,9 @@ import {
 	ACTION_FETCH_CATEGORIES_SUCCESS,
 	ACTION_UPDATE_CATEGORY_IN_LIST
 } from './const'
+import { generateApiUrl } from '../../utils/link'
 import { generateLocaleHeader } from '../../utils/i18n'
+import { userUnauthorized } from './user'
 import axios from 'axios'
 
 const fetchCategoriesLoading = () => {
@@ -67,14 +69,28 @@ export const updateCategoryInList = (model) => {
 export const fetchCategories = (locale) => {
 	return (dispatch) => {
 		dispatch(fetchCategoriesLoading())
-		axios.get('/api/v1/category/', generateLocaleHeader(locale))
+		axios.get(generateApiUrl('/category/'), generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(fetchCategoriesSuccess(data.data))
 			})
 			.catch(error => {
 				const errorMsq = error.message
-				dispatch(fetchCategoriesFail(errorMsq))
+
+				if (error.response) {
+					switch (error.response.status) {
+					case 400:
+						dispatch(fetchCategoriesFail(error.response.data.error))
+						break
+					case 401:
+						dispatch(userUnauthorized())
+						break
+					default:
+						dispatch(fetchCategoriesFail(error.response.data.error))
+					}
+				} else {
+					fetchCategoriesFail(errorMsq)
+				}
 			})
 	}
 }
@@ -83,17 +99,27 @@ export const createCategory = (title, locale) => {
 	return (dispatch) => {
 		dispatch(createCategoryLoading())
 		const json = JSON.stringify({ title })
-		axios.post('/api/v1/category/', json, generateLocaleHeader(locale))
+		axios.post(generateApiUrl('/category/'), json, generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(createCategorySuccess(data.data))
 			})
 			.catch(error => {
 				const errorMsq = error.message
-				if (error.response && error.response.status === 400) {
-					dispatch(createCategoryFail(error.response.data.error))
+
+				if (error.response) {
+					switch (error.response.status) {
+					case 400:
+						dispatch(createCategoryFail(error.response.data.error))
+						break
+					case 401:
+						dispatch(userUnauthorized())
+						break
+					default:
+						dispatch(createCategoryFail(error.response.data.error))
+					}
 				} else {
-					dispatch(createCategoryFail(errorMsq))
+					createCategoryFail(errorMsq)
 				}
 			})
 	}

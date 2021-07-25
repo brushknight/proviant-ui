@@ -105,3 +105,6 @@ export const ACTION_EDIT_LIST_RESET = 'update/list/reset'
 export const ACTION_DELETE_LIST_FAIL = 'delete/list/fail'
 export const ACTION_DELETE_LIST_SUCCESS = 'delete/list/success'
 export const ACTION_DELETE_LIST_IN_LIST = 'delete/list/in_list'
+
+// user
+export const ACTION_USER_UNAUTHORIZED = 'user/unauthorized'

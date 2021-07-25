@@ -80,3 +80,7 @@ export const generateListLink = (listId) => {
 export const generateCategoryLink = (listId) => {
 	return '/category/' + listId
 }
+
+export const generateApiUrl = (uri) => {
+	return '/api/v1/core' + uri
+}

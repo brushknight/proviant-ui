@@ -6,6 +6,7 @@ import CategoryCreateOverlay from './category/CategoryCreateOverlay'
 import CategoryEditOverlay from './category/CategoryEditOverlay'
 import ListCreateOverlay from './list/ListCreateOverlay'
 import ListEditOverlay from './list/ListEditOverlay'
+import Login from './user/Login'
 import MenuAddProduct from './menu/MenuAddProduct'
 import MenuCategories from './menu/MenuCategories'
 import MenuLists from './menu/MenuLists'
@@ -23,6 +24,7 @@ const App = () => {
 			<Provider store={store}>
 				<React.StrictMode>
 					<div className="page-body">
+						<Login/>
 						<header className="page-header">
 							<nav className="page-header__navigation">
 								<MenuAddProduct/>
