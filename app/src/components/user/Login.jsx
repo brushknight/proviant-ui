@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { actionLogin } from '../../redux/actions/user'
-import { Callout, InputGroup, Intent, Overlay } from '@blueprintjs/core'
+import { Callout, H2, InputGroup, Intent, Overlay } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { getUser } from '../../redux/selectors'
@@ -47,6 +47,7 @@ const Login = ({ t, user, login }) => {
 			}}
 		>
 			<section className={'auth-form'}>
+				<h2>Login</h2>
 				<form className={'auth-form__inner'} onSubmit={(e) => {
 					e.preventDefault()
 					login(email)
@@ -61,6 +62,7 @@ const Login = ({ t, user, login }) => {
 					/>
 					<Button disabled={status === STATUS_SENDING || status === STATUS_ERROR} type={'submit'}
 						className={'button--login'} text={'Login'}/>
+					<a href="#">{t('login.dont_have_account')}</a>
 				</form>
 			</section>
 		</Overlay>

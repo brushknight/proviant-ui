@@ -27,6 +27,13 @@
 }
 
 .button--login{
+  background-color: transparent;
   border: @button-default-hover 2px solid;
   width: 100%;
+
+  &:disabled{
+    background-color: @button-disabled;
+    border: @button-disabled 2px solid;
+    cursor: default;
+  }
 }
