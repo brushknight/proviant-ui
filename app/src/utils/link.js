@@ -1,4 +1,5 @@
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../const'
+import { isSaaS } from './run_mode'
 
 const CATEGORY_REGEX = /\/category\/(\d*)/
 const LIST_REGEX = /\/list\/(\d*)/
@@ -86,5 +87,9 @@ export const generateCoreAuthUrl = (uri) => {
 }
 
 export const generateCoreApiUrl = (uri) => {
+	if (isSaaS()) {
+		return '/api/v1/core' + uri
+	}
+
 	return '/api/v1' + uri
 }

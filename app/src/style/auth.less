@@ -22,13 +22,17 @@
 
   color: @button-default-hover;
 
-  border: 1px solid @button-default-hover;
+  border: 2px solid @gray-hover;
   border-radius: 3px;
 
   outline: none;
 
+  &:focus{
+    border: 2px solid @color-link-hover;
+  }
+
   &--error {
-    border: 1px solid @color-error;
+    border: 2px solid @color-error;
   }
 }
 
@@ -40,7 +44,7 @@
 }
 
 .auth-form__button {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .auth-form__link {

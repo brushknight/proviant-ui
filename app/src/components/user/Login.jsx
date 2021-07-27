@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { actionLogin } from '../../redux/actions/user'
-import { Callout, H2, InputGroup, Intent, Overlay } from '@blueprintjs/core'
+import { actionLogin, loginResetError } from '../../redux/actions/user'
+import { Callout, Overlay } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { getUser } from '../../redux/selectors'
@@ -10,13 +10,13 @@ import { withTranslation } from 'react-i18next'
 import Button from '../generic/Button'
 import PropTypes from 'prop-types'
 
-const Login = ({ t, user, login }) => {
+const Login = ({ t, user, login, resetError }) => {
 	const [email, setEmail] = useState('')
 	const [status, setStatus] = useState(user.status)
 
 	useEffect(() => {
 		setStatus(user.status)
-	}, [user.status])
+	}, [user.status, user.error])
 
 	if (status === STATUS_SUCCESS) {
 		return (
@@ -54,13 +54,24 @@ const Login = ({ t, user, login }) => {
 						login(email)
 					}}>
 
-						<input className={'auth-form__email ' + (status === STATUS_ERROR ? 'auth-form__email--error' : '')} type={'email'} required form="novalidatedform" onChange={(e) => {
-							setEmail(e.target.value)
-							setStatus(STATUS_EDITING)
-						}}/>
+						<input
+							className={'auth-form__email ' + (status === STATUS_ERROR ? 'auth-form__email--error' : '')}
+							type={'email'}
+							required
+							form="novalidatedform"
+							onFocus={() => {
+								setStatus(STATUS_EDITING)
+								resetError()
+							}}
+							onChange={(e) => {
+								setEmail(e.target.value)
+								setStatus(STATUS_EDITING)
+								resetError()
+							}}/>
 						{error}
 
-						<Button disabled={status === STATUS_SENDING || status === STATUS_ERROR} type={'submit'} className={'auth-form__button button--login'} text={'Login'}/>
+						<Button disabled={status === STATUS_SENDING || status === STATUS_ERROR} type={'submit'}
+							className={'auth-form__button button--login'} text={'Login'}/>
 						<a className={'auth-form__link'} href="#">{t('login.dont_have_account')}</a>
 					</form>
 				</div>
@@ -78,13 +89,15 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const locale = ownProps.i18n.language
 	return {
-		login: (email) => dispatch(actionLogin(email, locale))
+		login: (email) => dispatch(actionLogin(email, locale)),
+		resetError: () => dispatch(loginResetError())
 	}
 }
 
 Login.propTypes = {
 	user: PropTypes.object,
 	login: PropTypes.func,
+	resetError: PropTypes.func,
 	t: PropTypes.func
 }
 

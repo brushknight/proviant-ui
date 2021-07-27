@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../const'
+import { isSaaS } from '../utils/run_mode'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import CategoryCreateOverlay from './category/CategoryCreateOverlay'
@@ -24,7 +25,9 @@ const App = () => {
 			<Provider store={store}>
 				<React.StrictMode>
 					<div className="page-body">
+						{isSaaS() === true &&
 						<Login/>
+						}
 						<header className="page-header">
 							<nav className="page-header__navigation">
 								<MenuAddProduct/>

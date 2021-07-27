@@ -1,6 +1,6 @@
 import {
 	ACTION_USER_LOGIN_EMAIL_SENT,
-	ACTION_USER_LOGIN_FAIL,
+	ACTION_USER_LOGIN_FAIL, ACTION_USER_LOGIN_RESET_ERROR,
 	ACTION_USER_LOGIN_SENDING,
 	ACTION_USER_UNAUTHORIZED
 } from '../actions/const'
@@ -15,6 +15,12 @@ const initialState = () => {
 
 export default function (state = initialState(), action) {
 	switch (action.type) {
+	case ACTION_USER_LOGIN_RESET_ERROR:
+		return {
+			...state,
+			status: STATUS_UNAUTHORIZED,
+			error: ''
+		}
 	case ACTION_USER_UNAUTHORIZED:
 		return {
 			...state,

@@ -1,6 +1,6 @@
 import {
 	ACTION_USER_LOGIN_EMAIL_SENT,
-	ACTION_USER_LOGIN_FAIL,
+	ACTION_USER_LOGIN_FAIL, ACTION_USER_LOGIN_RESET_ERROR,
 	ACTION_USER_LOGIN_SENDING,
 	ACTION_USER_UNAUTHORIZED
 } from './const'
@@ -31,6 +31,12 @@ const loginSending = () => {
 const loginEmailSent = () => {
 	return {
 		type: ACTION_USER_LOGIN_EMAIL_SENT
+	}
+}
+
+export const loginResetError = () => {
+	return {
+		type: ACTION_USER_LOGIN_RESET_ERROR
 	}
 }
 
