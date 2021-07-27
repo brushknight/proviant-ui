@@ -108,6 +108,21 @@
     },
     "product_validator": {
       "error_empty_list": "Product list should not be empty"
+    },
+    "register": {
+      "title": "Create an account",
+      "email_placeholder": "enter your email",
+      "button": "Continue",
+      "have_account": "I already have an account, let me in"
+    },
+    "login": {
+      "title": "Login",
+      "email_placeholder": "enter your email",
+      "button": "Continue",
+      "dont_have_account": "I dont have an account, create one",
+      "error": {
+        "email_not_valid": "Enter valid email please"
+      }
     }
   }
 }

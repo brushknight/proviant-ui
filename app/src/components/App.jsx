@@ -16,6 +16,7 @@ import ProductCreateOverlay from './product/ProductCreateOverlay'
 import ProductEditOverlay from './product/ProductEditOverlay'
 import ProductOverlay from './product/ProductOverlay'
 import ProductsList from './product/ProductsList'
+import Register from './user/Register'
 import Sandbox from './Sandbox'
 import store from '../redux/store'
 
@@ -25,9 +26,7 @@ const App = () => {
 			<Provider store={store}>
 				<React.StrictMode>
 					<div className="page-body">
-						{isSaaS() === true &&
-						<Login/>
-						}
+
 						<header className="page-header">
 							<nav className="page-header__navigation">
 								<MenuAddProduct/>
@@ -38,6 +37,16 @@ const App = () => {
 						</header>
 						<main className="page-main">
 							<Switch>
+								{isSaaS() === true &&
+								<Route path='/login'>
+									<Login/>
+								</Route>
+								}
+								{isSaaS() === true &&
+								<Route path='/register'>
+									<Register/>
+								</Route>
+								}
 								<Route path='/sandbox'>
 									<Sandbox/>
 								</Route>

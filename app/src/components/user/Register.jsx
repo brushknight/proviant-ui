@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { actionLogin, loginResetError } from '../../redux/actions/user'
+import { actionRegister, registerResetError } from '../../redux/actions/register'
 import { Callout, Overlay } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { getUser } from '../../redux/selectors'
+import { getRegister, getUser } from '../../redux/selectors'
 import { STATUS_DEFAULT, STATUS_EDITING, STATUS_ERROR, STATUS_SENDING, STATUS_SUCCESS } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -11,50 +12,36 @@ import { withTranslation } from 'react-i18next'
 import Button from '../generic/Button'
 import PropTypes from 'prop-types'
 
-const Login = ({ t, user, login, resetError }) => {
+const Register = ({ t, form, register, resetError }) => {
 	const history = useHistory()
 
 	const [email, setEmail] = useState('')
-	const [status, setStatus] = useState(user.status)
+	const [status, setStatus] = useState(form.status)
 
 	useEffect(() => {
-		setStatus(user.status)
-	}, [user.status])
-
-	if (status === STATUS_SUCCESS) {
-		return (
-			<Overlay
-				isOpen={status === STATUS_SUCCESS}
-				onClose={() => {
-				}}
-			>
-				<section className={'auth-form'}>
-					<Callout title={t('login.check_your_email')}/>
-				</section>
-			</Overlay>
-		)
-	}
+		setStatus(form.status)
+	}, [form.status])
 
 	let error
 
 	if (status === STATUS_ERROR) {
 		error = (
-			<span className={'auth-form__error'}>{t(user.error)}</span>
+			<span className={'auth-form__error'}>{t(form.error)}</span>
 		)
 	}
 
 	return (
 		<Overlay
-			isOpen={status !== STATUS_DEFAULT}
+			isOpen={true}
 			onClose={() => {
 			}}
 		>
 			<section className={'auth-form'}>
 				<div className={'auth-form__wrapper'}>
-					<h1 className={'auth-form__title'}>{t('login.title')}</h1>
+					<h1 className={'auth-form__title'}>{t('register.title')}</h1>
 					<form className={'auth-form__inner'} onSubmit={(e) => {
 						e.preventDefault()
-						login(email)
+						register(email)
 					}}>
 
 						<input
@@ -62,7 +49,7 @@ const Login = ({ t, user, login, resetError }) => {
 							type={'email'}
 							required
 							form="novalidatedform"
-							placeholder={t('login.email_placeholder')}
+							placeholder={t('register.email_placeholder')}
 							onFocus={() => {
 								setStatus(STATUS_EDITING)
 								resetError()
@@ -75,10 +62,10 @@ const Login = ({ t, user, login, resetError }) => {
 						{error}
 
 						<Button disabled={status === STATUS_SENDING || status === STATUS_ERROR} type={'submit'}
-							className={'auth-form__button button--login'} text={t('login.button')}/>
+							className={'auth-form__button button--login'} text={t('register.button')}/>
 						<a className={'auth-form__link'} onClick={() => {
-							history.push('/register')
-						}}>{t('login.dont_have_account')}</a>
+							history.push('/login')
+						}}>{t('register.have_account')}</a>
 					</form>
 				</div>
 			</section>
@@ -88,23 +75,23 @@ const Login = ({ t, user, login, resetError }) => {
 
 const mapStateToProps = (state, ownProps) => {
 	const t = ownProps.i18n.t.bind(ownProps.i18n)
-	const user = getUser(state)
-	return { t, user }
+	const form = getRegister(state)
+	return { t, form }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const locale = ownProps.i18n.language
 	return {
-		login: (email) => dispatch(actionLogin(email, locale)),
-		resetError: () => dispatch(loginResetError())
+		register: (email) => dispatch(actionRegister(email, locale)),
+		resetError: () => dispatch(registerResetError())
 	}
 }
 
-Login.propTypes = {
-	user: PropTypes.object,
-	login: PropTypes.func,
+Register.propTypes = {
+	form: PropTypes.object,
+	register: PropTypes.func,
 	resetError: PropTypes.func,
 	t: PropTypes.func
 }
 
-export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(Login)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(Register)
