@@ -86,5 +86,5 @@ export const generateCoreAuthUrl = (uri) => {
 }
 
 export const generateCoreApiUrl = (uri) => {
-	return '/api/v1/core' + uri
+	return '/api/v1' + uri
 }

@@ -36,7 +36,7 @@ const Login = ({ t, user, login }) => {
 
 	if (status === STATUS_ERROR) {
 		error = (
-			<Callout intent={Intent.DANGER}>{t(user.error)}</Callout>
+			<span className={'auth-form__error'}>{t(user.error)}</span>
 		)
 	}
 
@@ -47,23 +47,23 @@ const Login = ({ t, user, login }) => {
 			}}
 		>
 			<section className={'auth-form'}>
-				<h2>Login</h2>
-				<form className={'auth-form__inner'} onSubmit={(e) => {
-					e.preventDefault()
-					login(email)
-				}}>
-					{error}
-					<InputGroup
-						value={email}
-						onChange={(event) => {
-							setEmail(event.target.value)
+				<div className={'auth-form__wrapper'}>
+					<h1 className={'auth-form__title'}>Login</h1>
+					<form className={'auth-form__inner'} onSubmit={(e) => {
+						e.preventDefault()
+						login(email)
+					}}>
+
+						<input className={'auth-form__email ' + (status === STATUS_ERROR ? 'auth-form__email--error' : '')} type={'email'} required form="novalidatedform" onChange={(e) => {
+							setEmail(e.target.value)
 							setStatus(STATUS_EDITING)
-						}}
-					/>
-					<Button disabled={status === STATUS_SENDING || status === STATUS_ERROR} type={'submit'}
-						className={'button--login'} text={'Login'}/>
-					<a href="#">{t('login.dont_have_account')}</a>
-				</form>
+						}}/>
+						{error}
+
+						<Button disabled={status === STATUS_SENDING || status === STATUS_ERROR} type={'submit'} className={'auth-form__button button--login'} text={'Login'}/>
+						<a className={'auth-form__link'} href="#">{t('login.dont_have_account')}</a>
+					</form>
+				</div>
 			</section>
 		</Overlay>
 	)

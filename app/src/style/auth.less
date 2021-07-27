@@ -3,8 +3,55 @@
   width: 100%;
   height: 100%;
   display: flex;
+  justify-content: center;
+  padding-top: 200px;
 }
 
-.auth-form__inner{
+.auth-form__wrapper {
+  width: 320px;
+}
 
+.auth-form__title {
+  color: @button-default-hover;
+}
+
+.auth-form__email {
+  width: 100%;
+  height: 30px;
+  padding: 0 10px;
+
+  color: @button-default-hover;
+
+  border: 1px solid @button-default-hover;
+  border-radius: 3px;
+
+  outline: none;
+
+  &--error {
+    border: 1px solid @color-error;
+  }
+}
+
+.auth-form__error {
+  display: block;
+  padding: 3px 0 5px;
+
+  color: @color-error;
+}
+
+.auth-form__button {
+  margin-top: 10px;
+}
+
+.auth-form__link {
+  display: block;
+  padding-top: 10px;
+
+  color: @color-link;
+
+  &:hover {
+    color: @color-link-hover;
+
+    text-decoration: none;
+  }
 }
