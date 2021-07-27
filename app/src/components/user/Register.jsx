@@ -22,6 +22,10 @@ const Register = ({ t, form, register, resetError }) => {
 		setStatus(form.status)
 	}, [form.status])
 
+	if (status === STATUS_SUCCESS) {
+		history.push('/finish-auth')
+	}
+
 	let error
 
 	if (status === STATUS_ERROR) {

@@ -123,6 +123,11 @@
       "error": {
         "email_not_valid": "Enter valid email please"
       }
+    },
+    "finish_auth": {
+      "title": "Finish authentication",
+      "text": "We have sent you an email with disposal link to finish your authentication. Open your mailbox and click the link.",
+      "button": "Open Gmail"
     }
   }
 }

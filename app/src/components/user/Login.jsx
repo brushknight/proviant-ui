@@ -22,17 +22,7 @@ const Login = ({ t, user, login, resetError }) => {
 	}, [user.status])
 
 	if (status === STATUS_SUCCESS) {
-		return (
-			<Overlay
-				isOpen={status === STATUS_SUCCESS}
-				onClose={() => {
-				}}
-			>
-				<section className={'auth-form'}>
-					<Callout title={t('login.check_your_email')}/>
-				</section>
-			</Overlay>
-		)
+		history.push('/finish-auth')
 	}
 
 	let error

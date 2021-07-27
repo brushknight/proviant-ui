@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import CategoryCreateOverlay from './category/CategoryCreateOverlay'
 import CategoryEditOverlay from './category/CategoryEditOverlay'
+import FinishAuth from './user/FinishAuth'
 import ListCreateOverlay from './list/ListCreateOverlay'
 import ListEditOverlay from './list/ListEditOverlay'
 import Login from './user/Login'
@@ -45,6 +46,11 @@ const App = () => {
 								{isSaaS() === true &&
 								<Route path='/register'>
 									<Register/>
+								</Route>
+								}
+								{isSaaS() === true &&
+								<Route path='/finish-auth'>
+									<FinishAuth/>
 								</Route>
 								}
 								<Route path='/sandbox'>
