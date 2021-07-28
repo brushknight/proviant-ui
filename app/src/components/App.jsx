@@ -38,21 +38,19 @@ const App = () => {
 						</header>
 						<main className="page-main">
 							<Switch>
-								{isSaaS() === true &&
+
 								<Route path='/login'>
 									<Login/>
 								</Route>
-								}
-								{isSaaS() === true &&
+
 								<Route path='/register'>
 									<Register/>
 								</Route>
-								}
-								{isSaaS() === true &&
+
 								<Route path='/finish-auth'>
 									<FinishAuth/>
 								</Route>
-								}
+
 								<Route path='/sandbox'>
 									<Sandbox/>
 								</Route>

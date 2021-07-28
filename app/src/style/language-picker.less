@@ -1,0 +1,49 @@
+.language-picker__list {
+  display: flex;
+  padding: 5px;
+
+  background-color: @default-gray-bg;
+  border-radius: 25px;
+}
+
+.language-picker__item {
+  position: relative;
+}
+
+.language-picker__item:not(:last-child) {
+  margin-right: 5px;
+}
+
+.language-picker__input {
+  display: none;
+}
+
+.language-picker__label {
+  display: block;
+  width: 40px;
+  height: 40px;
+
+  color: @white;
+  text-align: center;
+  line-height: 35px;
+
+
+  border-radius: 50%;
+  opacity: .3;
+
+  &--en {
+    background-color: #0a58ca;
+  }
+
+  &--ru {
+    background-color: #dc3545;
+  }
+}
+
+.language-picker__input:hover + .language-picker__label {
+  opacity: 1;
+}
+
+.language-picker__input:checked + .language-picker__label {
+  opacity: 1;
+}

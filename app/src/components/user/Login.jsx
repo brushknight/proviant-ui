@@ -35,7 +35,7 @@ const Login = ({ t, user, login, resetError }) => {
 
 	return (
 		<Overlay
-			isOpen={status !== STATUS_DEFAULT}
+			isOpen={true}
 			onClose={() => {
 			}}
 		>

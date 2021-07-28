@@ -13,9 +13,9 @@ const FinishAuth = ({ t }) => {
 			onClose={() => {
 			}}
 		>
-			<section className={'auth-form'}>
-				<div className={'auth-form__wrapper'}>
-					<h1 className={'auth-form__title'}>{t('finish_auth.title')}</h1>
+			<section className={'finish-auth'}>
+				<div className={'finish-auth__wrapper'}>
+					<h1 className={'finish-auth__title'}>{t('finish_auth.title')}</h1>
 					<p>{t('finish_auth.text')}</p>
 					<Button
 						text={t('finish_auth.button')}
@@ -24,6 +24,18 @@ const FinishAuth = ({ t }) => {
 							window.location.href = 'https://mail.google.com/mail/u/0/#inbox'
 						}}
 					/>
+				</div>
+				<div className={'finish-auth__language-picker language-picker'}>
+					<ul className={'language-picker__list'}>
+						<li className={'language-picker__item'}>
+							<input className={'language-picker__input'} type={'radio'} name={'language'} value={'ru'} id={'language-picker-ru'}/>
+							<label className={'language-picker__label language-picker__label--ru'} htmlFor={'language-picker-ru'}>рус</label>
+						</li>
+						<li className={'language-picker__item'}>
+							<input className={'language-picker__input'} type={'radio'} name={'language'} value={'en'} id={'language-picker-en'}/>
+							<label className={'language-picker__label language-picker__label--en'} htmlFor={'language-picker-en'}>eng</label>
+						</li>
+					</ul>
 				</div>
 			</section>
 		</Overlay>
