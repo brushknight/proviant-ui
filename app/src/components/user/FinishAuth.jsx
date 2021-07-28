@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Overlay } from '@blueprintjs/core'
 import { withTranslation } from 'react-i18next'
 import Button from '../generic/Button'
+import LanguagePicker from '../generic/LanguagePicker'
 import PropTypes from 'prop-types'
 
 const FinishAuth = ({ t }) => {
@@ -25,18 +26,7 @@ const FinishAuth = ({ t }) => {
 						}}
 					/>
 				</div>
-				<div className={'finish-auth__language-picker language-picker'}>
-					<ul className={'language-picker__list'}>
-						<li className={'language-picker__item'}>
-							<input className={'language-picker__input'} type={'radio'} name={'language'} value={'ru'} id={'language-picker-ru'}/>
-							<label className={'language-picker__label language-picker__label--ru'} htmlFor={'language-picker-ru'}>рус</label>
-						</li>
-						<li className={'language-picker__item'}>
-							<input className={'language-picker__input'} type={'radio'} name={'language'} value={'en'} id={'language-picker-en'}/>
-							<label className={'language-picker__label language-picker__label--en'} htmlFor={'language-picker-en'}>eng</label>
-						</li>
-					</ul>
-				</div>
+				<LanguagePicker className={'finish-auth__language-picker'}/>
 			</section>
 		</Overlay>
 	)

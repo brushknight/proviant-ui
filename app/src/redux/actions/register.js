@@ -4,7 +4,7 @@ import {
 	ACTION_USER_REGISTER_SENDING,
 	ACTION_USER_UNAUTHORIZED
 } from './const'
-import { generateCoreAuthUrl } from '../../utils/link'
+import { generateAuthApiUrl } from '../../utils/link'
 import { generateLocaleHeader } from '../../utils/i18n'
 import { validateEmail } from '../../validators/user'
 import axios from 'axios'
@@ -53,7 +53,7 @@ export const actionRegister = (email, locale) => {
 		const json = JSON.stringify({
 			email
 		})
-		axios.post(generateCoreAuthUrl('/register/'), json, generateLocaleHeader(locale))
+		axios.post(generateAuthApiUrl('/register/'), json, generateLocaleHeader(locale))
 			.then(response => {
 				dispatch(registerEmailSent())
 			})

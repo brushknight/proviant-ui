@@ -1,13 +1,21 @@
-import {
-	ACTION_USER_LOGIN_EMAIL_SENT,
-	ACTION_USER_LOGIN_FAIL, ACTION_USER_LOGIN_RESET_ERROR,
-	ACTION_USER_LOGIN_SENDING,
-	ACTION_USER_UNAUTHORIZED
-} from './const'
-import { generateCoreAuthUrl } from '../../utils/link'
+import { ACTION_USER_FETCH_FAILED, ACTION_USER_LOADED, ACTION_USER_UNAUTHORIZED } from './const'
+import { generateAuthApiUrl } from '../../utils/link'
 import { generateLocaleHeader } from '../../utils/i18n'
-import { validateEmail } from '../../validators/user'
 import axios from 'axios'
+
+const fetchUserSuccess = (user) => {
+	return {
+		type: ACTION_USER_LOADED,
+		user
+	}
+}
+
+const fetchUserFailed = (error) => {
+	return {
+		type: ACTION_USER_FETCH_FAILED,
+		error
+	}
+}
 
 export const userUnauthorized = () => {
 	return {
@@ -15,54 +23,28 @@ export const userUnauthorized = () => {
 	}
 }
 
-const loginFail = (error) => {
-	return {
-		type: ACTION_USER_LOGIN_FAIL,
-		error
-	}
-}
-
-const loginSending = () => {
-	return {
-		type: ACTION_USER_LOGIN_SENDING
-	}
-}
-
-const loginEmailSent = () => {
-	return {
-		type: ACTION_USER_LOGIN_EMAIL_SENT
-	}
-}
-
-export const loginResetError = () => {
-	return {
-		type: ACTION_USER_LOGIN_RESET_ERROR
-	}
-}
-
-export const actionLogin = (email, locale) => {
+export const fetchUser = (locale) => {
 	return (dispatch) => {
-		const error = validateEmail(email)
-
-		if (error) {
-			dispatch(loginFail(error))
-			return
-		}
-
-		dispatch(loginSending())
-		const json = JSON.stringify({
-			email
-		})
-		axios.post(generateCoreAuthUrl('/login/'), json, generateLocaleHeader(locale))
+		axios.get(generateAuthApiUrl('/user/'), generateLocaleHeader(locale))
 			.then(response => {
-				dispatch(loginEmailSent())
+				const data = response.data
+				dispatch(fetchUserSuccess(data.data))
 			})
 			.catch(error => {
-				if (error.response && error.response.status && error.response.data.error) {
-					dispatch(loginFail(error.response.data.error))
+				const errorMsq = error.message
+				if (error.response) {
+					switch (error.response.status) {
+					case 400:
+						dispatch(fetchUserFailed(error.response.data.error))
+						break
+					case 401:
+						dispatch(userUnauthorized())
+						break
+					default:
+						dispatch(fetchUserFailed(error.response.data.error))
+					}
 				} else {
-					const errorMsq = error.message
-					dispatch(loginFail(errorMsq))
+					fetchUserFailed(errorMsq)
 				}
 			})
 	}

@@ -1,47 +1,43 @@
-import {
-	ACTION_USER_LOGIN_EMAIL_SENT,
-	ACTION_USER_LOGIN_FAIL, ACTION_USER_LOGIN_RESET_ERROR,
-	ACTION_USER_LOGIN_SENDING,
-	ACTION_USER_UNAUTHORIZED
-} from '../actions/const'
-import { STATUS_DEFAULT, STATUS_ERROR, STATUS_SENDING, STATUS_SUCCESS, STATUS_UNAUTHORIZED } from './consts'
+import { ACTION_USER_FETCH_FAILED, ACTION_USER_LOADED, ACTION_USER_UNAUTHORIZED } from '../actions/const'
+import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_UNAUTHORIZED } from './consts'
+
+const emptyUser = () => {
+	return {
+		email: '',
+		accountId: '',
+		userId: ''
+	}
+}
 
 const initialState = () => {
 	return {
 		status: STATUS_DEFAULT,
-		error: ''
+		error: '',
+		model: emptyUser()
 	}
 }
 
 export default function (state = initialState(), action) {
+	console.log(action)
 	switch (action.type) {
-	case ACTION_USER_LOGIN_RESET_ERROR:
-		return {
-			...state,
-			status: STATUS_UNAUTHORIZED,
-			error: ''
-		}
 	case ACTION_USER_UNAUTHORIZED:
 		return {
 			...state,
 			status: STATUS_UNAUTHORIZED
 		}
-	case ACTION_USER_LOGIN_EMAIL_SENT:
+	case ACTION_USER_LOADED:
 		return {
 			...state,
-			status: STATUS_SUCCESS
+			status: STATUS_LOADED,
+			model: action.user
 		}
-	case ACTION_USER_LOGIN_FAIL:
+	case ACTION_USER_FETCH_FAILED:
 		return {
 			...state,
 			status: STATUS_ERROR,
 			error: action.error
 		}
-	case ACTION_USER_LOGIN_SENDING:
-		return {
-			...state,
-			status: STATUS_SENDING
-		}
+
 	default:
 		return state
 	}

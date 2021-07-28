@@ -33,7 +33,9 @@ const App = () => {
 								<MenuAddProduct/>
 								<MenuLists/>
 								<MenuCategories/>
-								<MenuSettings/>
+								{isSaaS() &&
+									<MenuSettings/>
+								}
 							</nav>
 						</header>
 						<main className="page-main">

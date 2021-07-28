@@ -1,15 +1,15 @@
 import * as React from 'react'
-import { actionLogin, loginResetError } from '../../redux/actions/user'
 import { actionRegister, registerResetError } from '../../redux/actions/register'
-import { Callout, Overlay } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { getRegister, getUser } from '../../redux/selectors'
-import { STATUS_DEFAULT, STATUS_EDITING, STATUS_ERROR, STATUS_SENDING, STATUS_SUCCESS } from '../../redux/reducers/consts'
+import { getRegister } from '../../redux/selectors'
+import { Overlay } from '@blueprintjs/core'
+import { STATUS_EDITING, STATUS_ERROR, STATUS_SENDING, STATUS_SUCCESS } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import Button from '../generic/Button'
+import LanguagePicker from '../generic/LanguagePicker'
 import PropTypes from 'prop-types'
 
 const Register = ({ t, form, register, resetError }) => {
@@ -65,13 +65,21 @@ const Register = ({ t, form, register, resetError }) => {
 							}}/>
 						{error}
 
-						<Button disabled={status === STATUS_SENDING || status === STATUS_ERROR} type={'submit'}
-							className={'auth-form__button button--login'} text={t('register.button')}/>
-						<a className={'auth-form__link'} onClick={() => {
-							history.push('/login')
-						}}>{t('register.have_account')}</a>
+						<Button
+							disabled={status === STATUS_SENDING || status === STATUS_ERROR}
+							type={'submit'}
+							className={'auth-form__button button--login'}
+							text={t('register.button')}
+						/>
+						<a
+							className={'auth-form__link'}
+							onClick={() => {
+								history.push('/login')
+							}}
+						>{t('register.have_account')}</a>
 					</form>
 				</div>
+				<LanguagePicker className={'finish-auth__language-picker'}/>
 			</section>
 		</Overlay>
 	)

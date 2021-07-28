@@ -82,7 +82,7 @@ export const generateCategoryLink = (listId) => {
 	return '/category/' + listId
 }
 
-export const generateCoreAuthUrl = (uri) => {
+export const generateAuthApiUrl = (uri) => {
 	return '/api/v1/auth' + uri
 }
 
