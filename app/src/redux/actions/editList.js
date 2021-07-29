@@ -10,6 +10,7 @@ import {
 	ACTION_EDIT_LIST_SENDING,
 	ACTION_EDIT_LIST_SUCCESS
 } from './const'
+import { generateCoreApiUrl } from '../../utils/link'
 import { generateLocaleHeader } from '../../utils/i18n'
 import { updateListInList } from './lists'
 import axios from 'axios'
@@ -78,7 +79,7 @@ export const editListReset = (error) => {
 export const fetchEditList = (id, locale) => {
 	return (dispatch) => {
 		dispatch(editListFetching())
-		axios.get('/api/v1/list/' + id + '/', generateLocaleHeader(locale))
+		axios.get(generateCoreApiUrl(`/list/${id}/`), generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(editListFetched(data.data))
@@ -100,7 +101,7 @@ export const updateList = (id, title, locale) => {
 		const json = JSON.stringify({
 			id, title
 		})
-		axios.put(`/api/v1/list/${id}/`, json, generateLocaleHeader(locale))
+		axios.put(generateCoreApiUrl(`/list/${id}/`), json, generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(editListSuccess(data.data))
@@ -119,7 +120,7 @@ export const updateList = (id, title, locale) => {
 
 export const deleteList = (id, locale) => {
 	return (dispatch) => {
-		axios.delete(`/api/v1/list/${id}/`, generateLocaleHeader(locale))
+		axios.delete(generateCoreApiUrl(`/list/${id}/`), generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(deleteListSuccess(data.data))

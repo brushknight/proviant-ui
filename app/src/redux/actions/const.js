@@ -105,3 +105,20 @@ export const ACTION_EDIT_LIST_RESET = 'update/list/reset'
 export const ACTION_DELETE_LIST_FAIL = 'delete/list/fail'
 export const ACTION_DELETE_LIST_SUCCESS = 'delete/list/success'
 export const ACTION_DELETE_LIST_IN_LIST = 'delete/list/in_list'
+
+// user
+export const ACTION_USER_UNAUTHORIZED = 'user/unauthorized'
+export const ACTION_USER_LOADED = 'user/loaded'
+export const ACTION_USER_FETCH_FAILED = 'user/fetch/failed'
+
+// login
+export const ACTION_USER_LOGIN_FAIL = 'user/login/fail'
+export const ACTION_USER_LOGIN_SENDING = 'user/login/sending'
+export const ACTION_USER_LOGIN_EMAIL_SENT = 'user/login/email_sent'
+export const ACTION_USER_LOGIN_RESET_ERROR = 'user/login/reset/error'
+
+// register
+export const ACTION_USER_REGISTER_FAIL = 'user/register/fail'
+export const ACTION_USER_REGISTER_SENDING = 'user/register/sending'
+export const ACTION_USER_REGISTER_EMAIL_SENT = 'user/register/email_sent'
+export const ACTION_USER_REGISTER_RESET_ERROR = 'user/register/reset/error'

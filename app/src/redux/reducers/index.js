@@ -5,9 +5,12 @@ import editCategory from './editCategory'
 import editList from './editList'
 import editProduct from './editProduct'
 import lists from './lists'
+import login from './login'
 import product from './product'
 import products from './products'
+import register from './register'
 import stock from './stock'
+import user from './user'
 
 export default combineReducers({
 	lists,
@@ -18,5 +21,8 @@ export default combineReducers({
 	createProduct,
 	editCategory,
 	editList,
-	stock
+	stock,
+	login,
+	register,
+	user
 })

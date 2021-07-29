@@ -7,6 +7,7 @@ import {
 	ACTION_UPDATE_PRODUCT_IN_LIST,
 	ACTION_UPDATE_PRODUCT_STOCK_IN_LIST
 } from './const'
+import { generateCoreApiUrl } from '../../utils/link'
 import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'
 
@@ -72,7 +73,7 @@ export const fetchProducts = (query, locale) => {
 
 	return (dispatch) => {
 		dispatch(fetchProductLoading())
-		axios.get(`/api/v1/product/${queryString}`, generateLocaleHeader(locale))
+		axios.get(generateCoreApiUrl(`/product/${queryString}`), generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(fetchProductSuccess(data.data))

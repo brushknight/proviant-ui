@@ -11,7 +11,7 @@
   outline: none;
   box-sizing: border-box;
 
-  &:hover{
+  &:hover:not(:disabled){
     background-color: @button-default-hover;
     color: @button-color-hover;
     text-shadow: 1px 1px @button-color-shadow-hover;
@@ -24,4 +24,18 @@
 
 .button--add-product{
   border: @button-default-hover 2px solid;
+}
+
+.button--login{
+  background-color: transparent;
+  border: @button-default-hover 2px solid;
+  width: 100%;
+
+  &:disabled{
+    opacity: .4;
+
+    background-color: @button-disabled;
+    border: @button-disabled 2px solid;
+    cursor: default;
+  }
 }

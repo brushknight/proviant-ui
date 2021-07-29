@@ -6,6 +6,7 @@ import {
 	ACTION_EDIT_PRODUCT_SENDING,
 	ACTION_EDIT_PRODUCT_SUCCESS
 } from './const'
+import { generateCoreApiUrl } from '../../utils/link'
 import { generateLocaleHeader } from '../../utils/i18n'
 import { updateProductInList } from './products'
 import axios from 'axios'
@@ -52,7 +53,7 @@ export const editProductFormReset = () => {
 export const fetchEditProduct = (id, locale) => {
 	return (dispatch) => {
 		dispatch(editProductFetching())
-		axios.get('/api/v1/product/' + id + '/', generateLocaleHeader(locale))
+		axios.get(generateCoreApiUrl(`/product/${id}/`), generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
 				dispatch(editProductFetched(data.data))
@@ -72,7 +73,7 @@ export const updateProduct = (model) => {
 	return (dispatch) => {
 		dispatch(editProductSending())
 		const json = JSON.stringify(model)
-		axios.put(`/api/v1/product/${model.id}/`, json)
+		axios.put(generateCoreApiUrl(`/product/${model.id}/`), json)
 			.then(response => {
 				const data = response.data
 				dispatch(editProductSuccess(data.data))

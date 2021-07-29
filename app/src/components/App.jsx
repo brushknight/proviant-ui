@@ -1,11 +1,14 @@
 import * as React from 'react'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../const'
+import { isSaaS } from '../utils/run_mode'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import CategoryCreateOverlay from './category/CategoryCreateOverlay'
 import CategoryEditOverlay from './category/CategoryEditOverlay'
+import FinishAuth from './user/FinishAuth'
 import ListCreateOverlay from './list/ListCreateOverlay'
 import ListEditOverlay from './list/ListEditOverlay'
+import Login from './user/Login'
 import MenuAddProduct from './menu/MenuAddProduct'
 import MenuCategories from './menu/MenuCategories'
 import MenuLists from './menu/MenuLists'
@@ -14,25 +17,44 @@ import ProductCreateOverlay from './product/ProductCreateOverlay'
 import ProductEditOverlay from './product/ProductEditOverlay'
 import ProductOverlay from './product/ProductOverlay'
 import ProductsList from './product/ProductsList'
+import Register from './user/Register'
 import Sandbox from './Sandbox'
 import store from '../redux/store'
+import User from './user/User'
 
 const App = () => {
 	return (
 		<Router>
 			<Provider store={store}>
+				<User/>
 				<React.StrictMode>
 					<div className="page-body">
+
 						<header className="page-header">
 							<nav className="page-header__navigation">
 								<MenuAddProduct/>
 								<MenuLists/>
 								<MenuCategories/>
-								<MenuSettings/>
+								{isSaaS() &&
+									<MenuSettings/>
+								}
 							</nav>
 						</header>
 						<main className="page-main">
 							<Switch>
+
+								<Route path='/login'>
+									<Login/>
+								</Route>
+
+								<Route path='/register'>
+									<Register/>
+								</Route>
+
+								<Route path='/finish-auth'>
+									<FinishAuth/>
+								</Route>
+
 								<Route path='/sandbox'>
 									<Sandbox/>
 								</Route>

@@ -1,4 +1,5 @@
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../const'
+import { isSaaS } from './run_mode'
 
 const CATEGORY_REGEX = /\/category\/(\d*)/
 const LIST_REGEX = /\/list\/(\d*)/
@@ -79,4 +80,16 @@ export const generateListLink = (listId) => {
 
 export const generateCategoryLink = (listId) => {
 	return '/category/' + listId
+}
+
+export const generateAuthApiUrl = (uri) => {
+	return '/api/v1/auth' + uri
+}
+
+export const generateCoreApiUrl = (uri) => {
+	if (isSaaS()) {
+		return '/api/v1/core' + uri
+	}
+
+	return '/api/v1' + uri
 }
