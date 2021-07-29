@@ -25,7 +25,7 @@ const LanguagePicker = ({ className, i18n, updateLocale }) => {
 					/>
 					<label
 						className={'language-picker__label language-picker__label--ru'}
-						htmlFor={'language-picker-ru'}>рус</label>
+						htmlFor={'language-picker-ru'}/>
 				</li>
 				<li className={'language-picker__item'}>
 					<input
@@ -42,7 +42,7 @@ const LanguagePicker = ({ className, i18n, updateLocale }) => {
 					/>
 					<label
 						className={'language-picker__label language-picker__label--en'}
-						htmlFor={'language-picker-en'}>eng</label>
+						htmlFor={'language-picker-en'}/>
 				</li>
 			</ul>
 		</div>
