@@ -1,3 +1,5 @@
+import { getCookie } from '../utils/cookies'
+
 export const getLists = store => store.lists
 export const getCategories = store => store.categories
 export const getEditCategory = store => store.editCategory
@@ -10,3 +12,9 @@ export const getStock = store => store.stock
 export const getLogin = store => store.login
 export const getUser = store => store.user
 export const getRegister = store => store.register
+export const getLocale = (store) => {
+	if (store.user.model && store.user.model.locale) {
+		return store.user.model.locale
+	}
+	return getCookie('user-locale')
+}

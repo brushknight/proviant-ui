@@ -1,6 +1,8 @@
 import { ACTION_USER_FETCH_FAILED, ACTION_USER_LOADED, ACTION_USER_UNAUTHORIZED } from './const'
 import { generateAuthApiUrl } from '../../utils/link'
 import { generateLocaleHeader } from '../../utils/i18n'
+import { isSaaS } from '../../utils/run_mode'
+import { setCookie } from '../../utils/cookies'
 import axios from 'axios'
 
 const fetchUserSuccess = (user) => {
@@ -24,8 +26,14 @@ export const userUnauthorized = () => {
 }
 
 export const updateLocale = (locale) => {
+	if (isSaaS()) {
+		return (dispatch) => {
+			axios.get(generateAuthApiUrl('/locale/'), generateLocaleHeader(locale))
+		}
+	}
+
 	return (dispatch) => {
-		axios.get(generateAuthApiUrl('/locale/'), generateLocaleHeader(locale))
+		setCookie('user-locale', locale, 365 * 5)
 	}
 }
 

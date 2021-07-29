@@ -20,11 +20,13 @@ import ProductsList from './product/ProductsList'
 import Register from './user/Register'
 import Sandbox from './Sandbox'
 import store from '../redux/store'
+import User from './user/User'
 
 const App = () => {
 	return (
 		<Router>
 			<Provider store={store}>
+				<User/>
 				<React.StrictMode>
 					<div className="page-body">
 
