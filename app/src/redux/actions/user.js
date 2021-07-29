@@ -23,6 +23,12 @@ export const userUnauthorized = () => {
 	}
 }
 
+export const updateLocale = (locale) => {
+	return (dispatch) => {
+		axios.get(generateAuthApiUrl('/locale/'), generateLocaleHeader(locale))
+	}
+}
+
 export const fetchUser = (locale) => {
 	return (dispatch) => {
 		axios.get(generateAuthApiUrl('/user/'), generateLocaleHeader(locale))

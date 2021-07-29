@@ -1,8 +1,12 @@
 import * as React from 'react'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { fetchUser, updateLocale } from '../../redux/actions/user'
+import { getUser } from '../../redux/selectors'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
-const LanguagePicker = ({ className, i18n }) => {
+const LanguagePicker = ({ className, i18n, updateLocale }) => {
 	return (
 		<div className={'language-picker ' + className}>
 			<ul className={'language-picker__list'}>
@@ -16,6 +20,7 @@ const LanguagePicker = ({ className, i18n }) => {
 						checked={i18n.language === 'ru'}
 						onChange={(e) => {
 							i18n.changeLanguage('ru')
+							updateLocale('ru')
 						}}
 					/>
 					<label
@@ -32,6 +37,7 @@ const LanguagePicker = ({ className, i18n }) => {
 						checked={i18n.language === 'en'}
 						onChange={(e) => {
 							i18n.changeLanguage('en')
+							updateLocale('en')
 						}}
 					/>
 					<label
@@ -43,9 +49,29 @@ const LanguagePicker = ({ className, i18n }) => {
 	)
 }
 
-LanguagePicker.propTypes = {
-	className: PropTypes.string,
-	i18n: PropTypes.object
+const mapStateToProps = (state, ownProps) => {
+	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	const i18n = ownProps.i18n
+	const user = getUser(state)
+	return { t, i18n, user }
 }
 
-export default withTranslation('translations')(LanguagePicker)
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = ownProps.i18n.language
+
+	return {
+		fetchUser: () => dispatch(fetchUser(locale)),
+		updateLocale: (l) => dispatch(updateLocale(l))
+	}
+}
+
+LanguagePicker.propTypes = {
+	className: PropTypes.string,
+	t: PropTypes.func,
+	i18n: PropTypes.object,
+	user: PropTypes.object,
+	fetchUser: PropTypes.func,
+	updateLocale: PropTypes.func
+}
+
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(LanguagePicker)

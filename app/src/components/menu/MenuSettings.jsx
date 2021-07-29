@@ -11,12 +11,15 @@ import { withTranslation } from 'react-i18next'
 import LanguagePicker from '../generic/LanguagePicker'
 import PropTypes from 'prop-types'
 
-const MenuSettings = ({ t, user, fetchUser }) => {
+const MenuSettings = ({ t, i18n, user, fetchUser }) => {
 	const history = useHistory()
 
 	useEffect(() => {
 		fetchUser()
-	}, [])
+		if (user.model.locale) {
+			i18n.changeLanguage(user.model.locale)
+		}
+	}, [user.status])
 
 	if (user.status === STATUS_UNAUTHORIZED) {
 		history.push('/login')
@@ -42,8 +45,9 @@ const MenuSettings = ({ t, user, fetchUser }) => {
 
 const mapStateToProps = (state, ownProps) => {
 	const t = ownProps.i18n.t.bind(ownProps.i18n)
+	const i18n = ownProps.i18n
 	const user = getUser(state)
-	return { t, user }
+	return { t, i18n, user }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -56,6 +60,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 MenuSettings.propTypes = {
 	t: PropTypes.func,
+	i18n: PropTypes.object,
 	user: PropTypes.object,
 	fetchUser: PropTypes.func
 }
