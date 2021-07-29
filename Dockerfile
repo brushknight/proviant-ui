@@ -22,7 +22,7 @@ RUN npm install
 RUN IS_SAAS=${IS_SAAS} npm run build
 
 # archive release assets
-RUN cd /proviant-ui/app/dist && tar -zcvf /proviant-ui/ui-release-$TAG.tar.gz .
+RUN cd /proviant-ui/app/dist && tar -zcvf /proviant-ui/ui-release-$TAG-$PACKAGE_SUFFIX.tar.gz .
 
 # check what is in the archive
 RUN mkdir /tmp/ui-release/
