@@ -46,4 +46,4 @@ RUN tar -xvf /proviant-ui/ui-release-$TAG-$PACKAGE_SUFFIX.tar.gz -C /tmp/ui-rele
 RUN ls -la /tmp/ui-release/
 
 # upload
-RUN GITHUB_TOKEN=$GITHUB_TOKEN gh release upload $TAG /proviant-ui/ui-release-$TAG-$PACKAGE_SUFFIX.tar.gz --repo brushknight/proviant-ui
+RUN GITHUB_TOKEN=$GITHUB_TOKEN gh release upload $TAG /proviant-ui/ui-release-$TAG-$PACKAGE_SUFFIX.tar.gz --repo proviant-io/ui
