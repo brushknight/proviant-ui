@@ -13,10 +13,18 @@ env:
 
 jobs:
 
-  build:
-    name: Build and publish assets
+  build-ce:
+    name: Build and publish assets for CE
     runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2
-      - run: make docker/release
+      - run: make docker/release/ce
+
+  build-saas:
+    name: Build and publish assets fpr SaaS
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: make docker/release/saas

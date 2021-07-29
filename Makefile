@@ -3,7 +3,7 @@ TAG := dev
 endif
 
 .PHONY: docker/release/ce
-docker/release:
+docker/release/ce:
 	docker build --no-cache \
 	--build-arg IS_SAAS=0 \
 	--build-arg PACKAGE_SUFFIX='ce' \
@@ -12,7 +12,7 @@ docker/release:
 	-f Dockerfile .
 
 .PHONY: docker/release/saas
-docker/release:
+docker/release/saas:
 	docker build --no-cache \
 	--build-arg IS_SAAS=1 \
 	--build-arg PACKAGE_SUFFIX='saas' \
