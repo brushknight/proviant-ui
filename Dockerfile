@@ -29,6 +29,7 @@ COPY ./container/nginx.upstream.conf /etc/nginx/conf.d/upstream.conf
 # publish archives to release page
 FROM node:latest as publish
 
+ARG GITHUB_TOKEN=''
 ARG TAG='dev'
 ARG GH_VERSION='1.1.0'
 
