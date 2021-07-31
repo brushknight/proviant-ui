@@ -38,12 +38,14 @@ RUN dpkg -i gh_${GH_VERSION}_linux_amd64.deb
 # archive release assets
 COPY --from=build /proviant-ui/app/dist /proviant-ui/app/dist
 
-RUN cd /proviant-ui/app/dist && tar -zcvf /proviant-ui/ui-release-$TAG-$PACKAGE_SUFFIX.tar.gz .
+RUN cd /proviant-ui/app/dist && tar -zcvf /proviant-ui/ui-release-${TAG}-${PACKAGE_SUFFIX}.tar.gz .
 
 # check what is in the archive
 RUN mkdir /tmp/ui-release/
-RUN tar -xvf /proviant-ui/ui-release-$TAG-$PACKAGE_SUFFIX.tar.gz -C /tmp/ui-release/
+RUN tar -xvf /proviant-ui/ui-release-${TAG}-${PACKAGE_SUFFIX}.tar.gz -C /tmp/ui-release/
 RUN ls -la /tmp/ui-release/
 
+RUN echo "GITHUB_TOKEN=${GITHUB_TOKEN}"
+
 # upload
-RUN GITHUB_TOKEN=$GITHUB_TOKEN gh release upload $TAG /proviant-ui/ui-release-$TAG-$PACKAGE_SUFFIX.tar.gz --repo proviant-io/ui
+RUN GITHUB_TOKEN=${GITHUB_TOKEN} gh release upload $TAG /proviant-ui/ui-release-${TAG}-${PACKAGE_SUFFIX}.tar.gz --repo proviant-io/ui
