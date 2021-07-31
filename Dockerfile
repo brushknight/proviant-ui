@@ -32,6 +32,7 @@ FROM node:latest as publish
 ARG GITHUB_TOKEN=''
 ARG TAG='dev'
 ARG GH_VERSION='1.1.0'
+ARG PACKAGE_SUFFIX='ce'
 
 RUN curl -L https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.deb -o gh_${GH_VERSION}_linux_amd64.deb
 RUN dpkg -i gh_${GH_VERSION}_linux_amd64.deb
@@ -45,8 +46,6 @@ RUN cd /proviant-ui/app/dist && tar -zcvf /proviant-ui/ui-release-${TAG}-${PACKA
 RUN mkdir /tmp/ui-release/
 RUN tar -xvf /proviant-ui/ui-release-${TAG}-${PACKAGE_SUFFIX}.tar.gz -C /tmp/ui-release/
 RUN ls -la /tmp/ui-release/
-
-RUN echo "GITHUB_TOKEN=${GITHUB_TOKEN}"
 
 # upload
 RUN GITHUB_TOKEN=${GITHUB_TOKEN} gh release upload $TAG /proviant-ui/ui-release-${TAG}-${PACKAGE_SUFFIX}.tar.gz --repo proviant-io/ui
