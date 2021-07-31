@@ -11,6 +11,7 @@ import { withTranslation } from 'react-i18next'
 import Button from '../generic/Button'
 import LanguagePicker from '../generic/LanguagePicker'
 import PropTypes from 'prop-types'
+import Version from '../generic/Version'
 
 const Login = ({ t, user, login, resetError }) => {
 	const history = useHistory()
@@ -80,6 +81,7 @@ const Login = ({ t, user, login, resetError }) => {
 					</form>
 				</div>
 				<LanguagePicker className={'finish-auth__language-picker'}/>
+				<Version className={'auth-form__version'} />
 			</section>
 		</Overlay>
 	)

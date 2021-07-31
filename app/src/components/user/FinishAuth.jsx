@@ -6,6 +6,7 @@ import { withTranslation } from 'react-i18next'
 import Button from '../generic/Button'
 import LanguagePicker from '../generic/LanguagePicker'
 import PropTypes from 'prop-types'
+import Version from '../generic/Version'
 
 const FinishAuth = ({ t }) => {
 	return (
@@ -26,6 +27,7 @@ const FinishAuth = ({ t }) => {
 					/>
 				</div>
 				<LanguagePicker className={'finish-auth__language-picker'}/>
+				<Version className={'finish-auth__version'} />
 			</section>
 		</Overlay>
 	)

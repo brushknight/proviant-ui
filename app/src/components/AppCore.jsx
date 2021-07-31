@@ -23,7 +23,7 @@ import ProductOverlay from './product/ProductOverlay'
 import ProductsList from './product/ProductsList'
 import PropTypes from 'prop-types'
 import Sandbox from './Sandbox'
-import Version from './menu/Version'
+import Version from './generic/Version'
 
 const AppCore = ({ user }) => {
 	const history = useHistory()

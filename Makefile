@@ -26,6 +26,7 @@ docker/release/saas:
 docker/build:
 	docker build --no-cache \
 	--build-arg IS_SAAS=1 \
+	--build-arg TAG \
 	--target container \
 	-t brushknight/proviant-ui:$(TAG) \
 	-t brushknight/proviant-ui:latest \

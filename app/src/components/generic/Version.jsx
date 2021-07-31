@@ -8,7 +8,7 @@ import { version } from '../../utils/env'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
-const Version = ({ versions, fetchCoreVersion }) => {
+const Version = ({ versions, fetchCoreVersion, className }) => {
 	const uiVersion = version()
 
 	useEffect(() => {
@@ -26,7 +26,7 @@ const Version = ({ versions, fetchCoreVersion }) => {
 	}
 
 	return (
-		<div className={'version'}>
+		<div className={'version ' + className}>
 			<span className={'version__item'}>ui: <a target={'_blank'} href={'https://github.com/proviant-io/ui/releases/tag/' + uiVersion} rel="noreferrer">{uiVersion}</a></span>
 			{coreVersion}
 		</div>
@@ -48,6 +48,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 Version.propTypes = {
 	versions: PropTypes.object,
+	className: PropTypes.string,
 	fetchCoreVersion: PropTypes.func
 }
 

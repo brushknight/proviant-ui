@@ -2,6 +2,7 @@
 FROM node:latest as build
 LABEL maintainer="Grigorii Merkushev <brushknight@gmail.com>"
 
+ARG TAG='dev'
 ARG GITHUB_TOKEN=''
 ARG IS_SAAS=0
 ARG PACKAGE_SUFFIX='ce'
@@ -18,13 +19,17 @@ RUN IS_SAAS=${IS_SAAS} VERSION=${TAG} npm run build
 
 # create nginx with compiled UI app
 FROM nginx:1.21 as container
+ARG TAG='dev'
 LABEL maintainer="Grigorii Merkushev <brushknight@gmail.com>"
 COPY --from=build /proviant-ui/app/dist /usr/share/nginx/html
 # Copy the default nginx.conf provided by tiangolo/node-frontend
 COPY  ./container/index.html /usr/share/nginx/html/index.html
 COPY ./container/nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./container/nginx.upstream.conf /etc/nginx/conf.d/upstream.conf
-
+# Update verison of UI in index.html
+RUN echo "TAG=${TAG}"
+RUN sed -i "s/VERSION/${TAG}/g" /usr/share/nginx/html/index.html
+RUN cat /usr/share/nginx/html/index.html
 
 # publish archives to release page
 FROM node:latest as publish
