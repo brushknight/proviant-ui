@@ -13,7 +13,7 @@ WORKDIR /proviant-ui/app
 
 # install deps and build
 RUN npm install
-RUN IS_SAAS=${IS_SAAS} npm run build
+RUN IS_SAAS=${IS_SAAS} VERSION=${TAG} npm run build
 
 
 # create nginx with compiled UI app

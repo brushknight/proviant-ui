@@ -11,6 +11,7 @@ import products from './products'
 import register from './register'
 import stock from './stock'
 import user from './user'
+import version from './version'
 
 export default combineReducers({
 	lists,
@@ -24,5 +25,6 @@ export default combineReducers({
 	stock,
 	login,
 	register,
-	user
+	user,
+	version
 })

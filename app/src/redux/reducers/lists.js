@@ -51,8 +51,6 @@ export default function (state = initialState(), action) {
 	case ACTION_UPDATE_LIST_IN_LIST:
 		items = state.items
 
-		console.log(action.model)
-
 		items = items.map(item => {
 			if (item.id === action.model.id) {
 				return action.model

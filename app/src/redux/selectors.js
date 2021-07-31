@@ -12,6 +12,7 @@ export const getStock = store => store.stock
 export const getLogin = store => store.login
 export const getUser = store => store.user
 export const getRegister = store => store.register
+export const getVersion = store => store.version
 export const getLocale = (store) => {
 	if (store.user.model && store.user.model.locale) {
 		return store.user.model.locale

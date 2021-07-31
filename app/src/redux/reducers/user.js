@@ -18,7 +18,6 @@ const initialState = () => {
 }
 
 export default function (state = initialState(), action) {
-	console.log(action)
 	switch (action.type) {
 	case ACTION_USER_UNAUTHORIZED:
 		return {

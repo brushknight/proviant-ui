@@ -1,7 +1,7 @@
 import { ACTION_USER_FETCH_FAILED, ACTION_USER_LOADED, ACTION_USER_UNAUTHORIZED } from './const'
 import { generateAuthApiUrl } from '../../utils/link'
 import { generateLocaleHeader } from '../../utils/i18n'
-import { isSaaS } from '../../utils/run_mode'
+import { isSaaS } from '../../utils/env'
 import { setCookie } from '../../utils/cookies'
 import axios from 'axios'
 

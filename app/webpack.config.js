@@ -75,7 +75,8 @@ module.exports = {
 	plugins: [
 		new webpack.DefinePlugin({
 			'process.env': {
-				is_saas: process.env.IS_SAAS || 0
+				is_saas: process.env.IS_SAAS || 0,
+				version: JSON.stringify(process.env.VERSION) || JSON.stringify('dev')
 			}
 		}),
 		new HtmlWebpackPlugin({

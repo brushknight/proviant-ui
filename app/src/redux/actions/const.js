@@ -122,3 +122,6 @@ export const ACTION_USER_REGISTER_FAIL = 'user/register/fail'
 export const ACTION_USER_REGISTER_SENDING = 'user/register/sending'
 export const ACTION_USER_REGISTER_EMAIL_SENT = 'user/register/email_sent'
 export const ACTION_USER_REGISTER_RESET_ERROR = 'user/register/reset/error'
+
+// version
+export const ACTION_VERSION_CORE_LOADED = 'version/core/loaded'

@@ -21,7 +21,6 @@ const MenuAddProduct = (props) => {
 			className={'button--add-product page-header__add-product'}
 			text={props.i18n.t('global.button_add_product')}
 			onClick={() => {
-				console.log(newProductUrl)
 				history.push(newProductUrl)
 			}}
 		/>

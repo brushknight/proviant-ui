@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../const'
 import { getUser } from '../redux/selectors'
-import { isSaaS } from '../utils/run_mode'
+import { isSaaS } from '../utils/env'
 import { Route, useHistory } from 'react-router-dom'
 import { Spinner } from '@blueprintjs/core'
 import { STATUS_LOADED, STATUS_UNAUTHORIZED } from '../redux/reducers/consts'
@@ -23,6 +23,7 @@ import ProductOverlay from './product/ProductOverlay'
 import ProductsList from './product/ProductsList'
 import PropTypes from 'prop-types'
 import Sandbox from './Sandbox'
+import Version from './menu/Version'
 
 const AppCore = ({ user }) => {
 	const history = useHistory()
@@ -52,6 +53,7 @@ const AppCore = ({ user }) => {
 					{isSaaS() &&
 					<MenuSettings/>
 					}
+					<Version/>
 				</nav>
 			</header>
 			<main className="page-main">
