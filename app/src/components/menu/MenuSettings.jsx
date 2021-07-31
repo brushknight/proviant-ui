@@ -5,7 +5,6 @@ import { fetchUser } from '../../redux/actions/user'
 import { getUser } from '../../redux/selectors'
 import { Icon, Spinner } from '@blueprintjs/core'
 import { STATUS_LOADED, STATUS_UNAUTHORIZED } from '../../redux/reducers/consts'
-import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import LanguagePicker from '../generic/LanguagePicker'
@@ -14,13 +13,6 @@ import PropTypes from 'prop-types'
 const MenuSettings = ({ t, i18n, user, fetchUser }) => {
 	const history = useHistory()
 
-	useEffect(() => {
-		fetchUser()
-		if (user.model.locale) {
-			i18n.changeLanguage(user.model.locale)
-		}
-	}, [user.status])
-
 	if (user.status === STATUS_UNAUTHORIZED) {
 		history.push('/login')
 		return (<div/>)
@@ -28,17 +20,19 @@ const MenuSettings = ({ t, i18n, user, fetchUser }) => {
 
 	if (user.status !== STATUS_LOADED) {
 		return (
-			<ul className={'menu'}>
+			<ul className={'menu menu--bottom'}>
+				<LanguagePicker className={''}/>
 				<Spinner size={16}/>
-				<LanguagePicker className={'finish-auth__language-picker'}/>
 			</ul>
 		)
 	}
 
+	const userEmail = user.model ? user.model.email : ''
+
 	return (
-		<ul className={'menu'}>
-			<li className={'menu__item'}><Icon icon={'cog'}/>{user.model.email}</li>
-			<LanguagePicker className={'finish-auth__language-picker'}/>
+		<ul className={'menu menu--bottom'}>
+			<LanguagePicker className={''}/>
+			<li className={'menu__item'}><Icon icon={'cog'}/>{userEmail}</li>
 		</ul>
 	)
 }

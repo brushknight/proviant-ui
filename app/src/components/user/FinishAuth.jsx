@@ -19,11 +19,10 @@ const FinishAuth = ({ t }) => {
 					<h1 className={'finish-auth__title'}>{t('finish_auth.title')}</h1>
 					<p>{t('finish_auth.text')}</p>
 					<Button
+						link={'https://mail.google.com/mail/u/0/#inbox'}
 						text={t('finish_auth.button')}
 						className={'button--login'}
-						onClick={() => {
-							window.location.href = 'https://mail.google.com/mail/u/0/#inbox'
-						}}
+						icon={'envelope'}
 					/>
 				</div>
 				<LanguagePicker className={'finish-auth__language-picker'}/>
