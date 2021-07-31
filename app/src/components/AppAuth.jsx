@@ -1,11 +1,30 @@
 import * as React from 'react'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { getUser } from '../redux/selectors'
 import { isSaaS } from '../utils/run_mode'
-import { Route } from 'react-router-dom'
+import { Route, useHistory } from 'react-router-dom'
+import { Spinner } from '@blueprintjs/core'
+import { STATUS_LOADED } from '../redux/reducers/consts'
+import { useEffect } from 'react'
+import { withTranslation } from 'react-i18next'
 import FinishAuth from './user/FinishAuth'
 import Login from './user/Login'
+import PropTypes from 'prop-types'
 import Register from './user/Register'
 
-const AppAuth = () => {
+const AppAuth = ({ user }) => {
+	const history = useHistory()
+
+	useEffect(() => {
+		if (isSaaS() && user.status === STATUS_LOADED) {
+			history.push('/')
+			return (
+				<Spinner/>
+			)
+		}
+	}, [user.status])
+
 	if (!isSaaS()) {
 		return (
 			<div/>
@@ -29,4 +48,17 @@ const AppAuth = () => {
 	)
 }
 
-export default AppAuth
+const mapStateToProps = (state, ownProps) => {
+	const user = getUser(state)
+	return { user }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+	return {}
+}
+
+AppAuth.propTypes = {
+	user: PropTypes.object
+}
+
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(AppAuth)

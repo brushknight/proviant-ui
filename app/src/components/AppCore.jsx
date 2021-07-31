@@ -7,6 +7,7 @@ import { isSaaS } from '../utils/run_mode'
 import { Route, useHistory } from 'react-router-dom'
 import { Spinner } from '@blueprintjs/core'
 import { STATUS_LOADED, STATUS_UNAUTHORIZED } from '../redux/reducers/consts'
+import { useEffect } from 'react'
 import { withTranslation } from 'react-i18next'
 import CategoryCreateOverlay from './category/CategoryCreateOverlay'
 import CategoryEditOverlay from './category/CategoryEditOverlay'
@@ -26,17 +27,19 @@ import Sandbox from './Sandbox'
 const AppCore = ({ user }) => {
 	const history = useHistory()
 
-	if (isSaaS() && user.status === STATUS_UNAUTHORIZED) {
-		// history.push('/login')
-		return (
-			<Spinner/>
-		)
-	}
-	if (isSaaS() && user.status !== STATUS_LOADED) {
-		return (
-			<Spinner/>
-		)
-	}
+	useEffect(() => {
+		if (isSaaS() && user.status === STATUS_UNAUTHORIZED) {
+			history.push('/login')
+			return (
+				<Spinner/>
+			)
+		}
+		if (isSaaS() && user.status !== STATUS_LOADED) {
+			return (
+				<Spinner/>
+			)
+		}
+	}, [user.status])
 
 	return (
 		<div className="page-body">
