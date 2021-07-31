@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../const'
 import { getUser } from '../redux/selectors'
 import { isSaaS } from '../utils/env'
-import { Route, useHistory } from 'react-router-dom'
+import { Route, useHistory, useLocation } from 'react-router-dom'
 import { Spinner } from '@blueprintjs/core'
 import { STATUS_LOADED, STATUS_UNAUTHORIZED } from '../redux/reducers/consts'
 import { useEffect } from 'react'
@@ -27,20 +27,23 @@ import Version from './generic/Version'
 
 const AppCore = ({ user }) => {
 	const history = useHistory()
+	const location = useLocation()
 
 	useEffect(() => {
 		if (isSaaS() && user.status === STATUS_UNAUTHORIZED) {
-			history.push('/login')
-			return (
-				<Spinner/>
-			)
-		}
-		if (isSaaS() && user.status !== STATUS_LOADED) {
-			return (
-				<Spinner/>
-			)
+			const uri = location.pathname
+
+			if (!(uri === '/login' || uri === '/register' || uri === '/finish-auth')) {
+				history.push('/login')
+			}
 		}
 	}, [user.status])
+
+	if (isSaaS() && user.status !== STATUS_LOADED) {
+		return (
+			<Spinner/>
+		)
+	}
 
 	return (
 		<div className="page-body">

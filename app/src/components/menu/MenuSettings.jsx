@@ -4,20 +4,12 @@ import { connect } from 'react-redux'
 import { fetchUser } from '../../redux/actions/user'
 import { getUser } from '../../redux/selectors'
 import { Icon, Spinner } from '@blueprintjs/core'
-import { STATUS_LOADED, STATUS_UNAUTHORIZED } from '../../redux/reducers/consts'
-import { useHistory } from 'react-router-dom'
+import { STATUS_LOADED } from '../../redux/reducers/consts'
 import { withTranslation } from 'react-i18next'
 import LanguagePicker from '../generic/LanguagePicker'
 import PropTypes from 'prop-types'
 
 const MenuSettings = ({ t, i18n, user, fetchUser }) => {
-	const history = useHistory()
-
-	if (user.status === STATUS_UNAUTHORIZED) {
-		history.push('/login')
-		return (<div/>)
-	}
-
 	if (user.status !== STATUS_LOADED) {
 		return (
 			<ul className={'menu menu--bottom'}>
