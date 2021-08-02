@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, BrowserRouter as Switch } from 'react-router-dom'
+import { BrowserRouter as Router, BrowserRouter as Switch, Route } from 'react-router-dom'
 
 import AppAuth from './AppAuth'
 import AppCore from './AppCore'
+import Sandbox from './Sandbox'
 import store from '../redux/store'
 import User from './user/User'
 
@@ -14,8 +15,11 @@ const App = () => {
 				<User/>
 				<React.StrictMode>
 					<Switch>
+						<Route path='/sandbox'>
+							<Sandbox/>
+						</Route>
 						<AppAuth/>
-						<AppCore/>
+						{/* <AppCore/> */}
 					</Switch>
 				</React.StrictMode>
 			</Provider>

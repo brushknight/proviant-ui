@@ -61,9 +61,6 @@ const AppCore = ({ user }) => {
 			</header>
 			<main className="page-main">
 
-				<Route path='/sandbox'>
-					<Sandbox/>
-				</Route>
 				<Route path="/list/:id">
 					<ProductsList filterType={FILTER_TYPE_LIST}/>
 					<Route path="/list/:id/product-new">
