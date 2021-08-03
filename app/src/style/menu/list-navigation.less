@@ -1,5 +1,7 @@
 .list-navigation {
   position: relative;
+
+  margin-right: auto;
 }
 
 .list-navigation__wrapper-fot-button-toggle {
@@ -9,39 +11,47 @@
 .list-navigation__button-toggle {
   position: relative;
 
-  width: 50px;
+  width: 30px;
+  padding: 0;
 
   background-color: transparent;
   border: none;
 
   cursor: pointer;
+  outline: none;
 }
 
-.list-navigation__button-toggle--close {
-  &::before {
-    content: "";
-    position: absolute;
-    top: 6px;
-    left: 6px;
+.list-navigation__button-toggle-icon {
+  display: block;
+}
 
-    width: 22.9px;
-    height: 4px;
+.list-navigation__button-toggle-svg {
+  width: 25px;
+  height: 25px;
+}
 
-    background-color: black;
-    box-shadow: 0 10px 0 0 black, 0 20px 0 0 black;
-  }
+.list-navigation__button-toggle:hover .list-navigation__button-toggle-path,
+.list-navigation__button-toggle:active .list-navigation__button-toggle-path {
+  fill: @white;
+}
+
+.list-navigation__button-toggle-icon--hidden {
+  display: none;
 }
 
 .list-navigation__title {
   margin: 0;
+  padding: 0 0 7px 10px;
 
-  font-size: 15px;
+  font-size: 20px;
 }
 
 .list-navigation__wrapper-for-list {
   position: absolute;
 
-  display: none;
-
   background-color: #5c7080;
+}
+
+.list-navigation__wrapper-for-list--hidden {
+  display: none;
 }
