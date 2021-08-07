@@ -1,6 +1,4 @@
 .list-navigation {
-  position: relative;
-
   margin-right: auto;
 }
 
@@ -9,8 +7,6 @@
 }
 
 .list-navigation__button-toggle {
-  position: relative;
-
   width: 30px;
   padding: 0;
 
@@ -48,10 +44,135 @@
 
 .list-navigation__wrapper-for-list {
   position: absolute;
+  top: 46px;
+  left: 0;
 
-  background-color: #5c7080;
+  width: 100%;
+  height: calc(100vh - 46px);
+  padding: 15px;
+
+  background-color: @default-gray-bg;
+
+  overflow-y: scroll;
 }
 
 .list-navigation__wrapper-for-list--hidden {
   display: none;
 }
+
+.list-navigation__wrapper-for-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-navigation__title-list {
+  margin: 0;
+}
+
+.list-navigation__title-button {
+  display: flex;
+  align-items: center;
+  height: 28px;
+
+  color: @button-default-hover;
+  font-size: 15px;
+
+  background-color: @white;
+  border: 2px solid @button-default-hover;
+  border-radius: 3px;
+
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    color: @white;
+
+    background-color: @button-default-hover;
+  }
+}
+
+.list-navigation__title-button-path {
+  fill: @button-default-hover;
+}
+
+.list-navigation__title-button:hover .list-navigation__title-button-path {
+  fill: @white;
+}
+
+.list-navigation__list {
+  padding: 0 0 70px;
+}
+
+.list-navigation__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 15px 0 0;
+}
+
+.list-navigation__item-title {
+  width: 250px;
+  margin: 0;
+}
+
+.list-navigation__item-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30px;
+  height: 30px;
+
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: @button-default-hover;
+    border-radius: 3px;
+  }
+}
+
+.list-navigation__item-button-svg {
+  width: 20px;
+  height: 20px;
+}
+
+.list-navigation__item-button-path {
+  fill: @button-default-hover;
+}
+
+.list-navigation__item-button:hover .list-navigation__item-button-path {
+  fill: @white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
