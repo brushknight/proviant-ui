@@ -39,7 +39,7 @@ export default function (state = initialState(), action) {
 
 		return {
 			...state,
-			items
+			items: items || []
 		}
 	case ACTION_UPDATE_CATEGORY_IN_LIST:
 		items = state.items
@@ -53,7 +53,7 @@ export default function (state = initialState(), action) {
 
 		return {
 			...state,
-			items
+			items: items || []
 		}
 	case ACTION_FETCH_CATEGORIES_FAIL:
 		return {
@@ -71,7 +71,7 @@ export default function (state = initialState(), action) {
 	case ACTION_FETCH_CATEGORIES_SUCCESS:
 		return {
 			...state,
-			items: action.payload,
+			items: action.payload || [],
 			status: STATUS_LOADED,
 			error: null
 		}
@@ -91,7 +91,7 @@ export default function (state = initialState(), action) {
 
 		return {
 			...state,
-			items: items,
+			items: items || [],
 			error: null,
 			createForm: createCategorySuccessForm
 		}

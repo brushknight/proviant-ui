@@ -67,8 +67,7 @@ module.exports = {
 		hot: true,
 		proxy: {
 			// '/api': 'http://10.0.0.50:13001/',
-			'/api': 'http://localhost:8090/',
-			'/content': 'http://localhost:8080/'
+			'/': 'http://localhost:8090/',
 		}
 	},
 	// alias: { 'react-dom': '@hot-loader/react-dom'  },

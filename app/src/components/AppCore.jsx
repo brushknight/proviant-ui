@@ -64,55 +64,54 @@ const AppCore = ({ user }) => {
 				<Route path='/sandbox'>
 					<Sandbox/>
 				</Route>
-				<Route path="/list/:id">
-					<ProductsList filterType={FILTER_TYPE_LIST}/>
-					<Route path="/list/:id/product-new">
-						<ProductCreateOverlay filterType={FILTER_TYPE_LIST}/>
-					</Route>
-					<Route path="/list/:id/edit">
-						<ListEditOverlay/>
-					</Route>
-					<Route path="/list/:id/product-edit/:productId">
-						<ProductEditOverlay filterType={FILTER_TYPE_LIST}/>
-					</Route>
-					<Route path="/list/:id/product/:productId">
-						<ProductOverlay filterType={FILTER_TYPE_LIST}/>
-					</Route>
-				</Route>
-				<Route path="/category/:id">
-					<ProductsList filterType={FILTER_TYPE_CATEGORY}/>
-					<Route path="/category/:id/product-new">
-						<ProductCreateOverlay filterType={FILTER_TYPE_CATEGORY}/>
-					</Route>
-					<Route path="/category/:id/edit">
-						<CategoryEditOverlay/>
-					</Route>
-					<Route path="/category/:id/product-edit/:productId">
-						<ProductEditOverlay filterType={FILTER_TYPE_CATEGORY}/>
-					</Route>
-					<Route path="/category/:id/product/:productId">
-						<ProductOverlay filterType={FILTER_TYPE_CATEGORY}/>
-					</Route>
-				</Route>
-				<Route path="/">
+				<Route exact={true} path={["/", "/category-new", "/list-new", "/product-new", "/product-edit/:productId", "/product/:productId"]}>
 					<ProductsList filterType={FILTER_TYPE_NONE}/>
-					<Route path="/category-new">
+					<Route exact={true} path="/category-new">
 						<CategoryCreateOverlay/>
 					</Route>
-					<Route path="/list-new">
+					<Route exact={true} path="/list-new">
 						<ListCreateOverlay/>
 					</Route>
-					<Route path="/product-new">
+					<Route exact={true} path="/product-new">
 						<ProductCreateOverlay filterType={FILTER_TYPE_NONE}/>
 					</Route>
-					<Route path="/product-edit/:productId/">
+					<Route exact={true} path="/product-edit/:productId/">
 						<ProductEditOverlay filterType={FILTER_TYPE_NONE}/>
 					</Route>
-					<Route path="/product/:productId">
+					<Route exact={true} path="/product/:productId">
 						<ProductOverlay filterType={FILTER_TYPE_NONE}/>
 					</Route>
 				</Route>
-
+				<Route exact={true} path={["/list/:id", "/list/:id/product-new", "/list/:id/edit", "/list/:id/product-edit/:productId", "/list/:id/product/:productId"]}>
+					<ProductsList filterType={FILTER_TYPE_LIST}/>
+					<Route exact={true} path="/list/:id/product-new">
+						<ProductCreateOverlay filterType={FILTER_TYPE_LIST}/>
+					</Route>
+					<Route exact={true} path="/list/:id/edit">
+						<ListEditOverlay/>
+					</Route>
+					<Route exact={true} path="/list/:id/product-edit/:productId">
+						<ProductEditOverlay filterType={FILTER_TYPE_LIST}/>
+					</Route>
+					<Route exact={true} path="/list/:id/product/:productId">
+						<ProductOverlay filterType={FILTER_TYPE_LIST}/>
+					</Route>
+				</Route>
+				<Route exact={true} path={["/category/:id", "/category/:id/product-new", "/category/:id/edit", "/category/:id/product-edit/:productId", "/category/:id/product/:productId"]}>
+					<ProductsList filterType={FILTER_TYPE_CATEGORY}/>
+					<Route exact={true} path="/category/:id/product-new">
+						<ProductCreateOverlay filterType={FILTER_TYPE_CATEGORY}/>
+					</Route>
+					<Route exact={true} path="/category/:id/edit">
+						<CategoryEditOverlay/>
+					</Route>
+					<Route exact={true} path="/category/:id/product-edit/:productId">
+						<ProductEditOverlay filterType={FILTER_TYPE_CATEGORY}/>
+					</Route>
+					<Route exact={true} path="/category/:id/product/:productId">
+						<ProductOverlay filterType={FILTER_TYPE_CATEGORY}/>
+					</Route>
+				</Route>
 			</main>
 		</div>
 	)
