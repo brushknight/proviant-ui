@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Button from './generic/Button'
 
 const Sandbox = () => {
 	return (
@@ -21,7 +20,7 @@ const Sandbox = () => {
 						</button>
 						<h1 className={'list-navigation__title'}>Список 1</h1>
 					</div>
-					<div className={'list-navigation__wrapper-for-list'}>
+					<div className={'list-navigation__wrapper-for-list list-navigation__wrapper-for-list--hidden'}>
 						<div className={'list-navigation__wrapper-for-title'}>
 							<h2 className={'list-navigation__title-list'}>Списки</h2>
 							<button className={'list-navigation__title-button'}>
@@ -62,11 +61,13 @@ const Sandbox = () => {
 						</svg>
 					</button>
 					<div className={'search__wrapper search__wrapper--hidden'}>
-						<input className={'search__search'}/>
+						<div className={'search__wrapper-search-input'}>
+							<input className={'search__search-input'}/>
+						</div>
 						<div className={'search__categories'}>Тут будут категории</div>
 					</div>
 				</div>
-				<a className={'page-header__profile-link profile-link'}>
+				<a href={'#'} className={'page-header__profile-link profile-link'}>
 					<svg className={'profile-link__svg'} data-icon="user" width="16" height="16" viewBox="0 0 16 16">
 						<path className={'profile-link__path'} d="M7.99-.01A7.998 7.998 0 00.03 8.77c.01.09.03.18.04.28.02.15.04.31.07.47.02.11.05.22.08.34.03.13.06.26.1.38.04.12.08.25.12.37.04.11.08.21.12.32a6.583 6.583 0 00.3.65c.07.14.14.27.22.4.04.07.08.13.12.2l.27.42.1.13a7.973
 					7.973 0 003.83 2.82c.03.01.05.02.07.03.37.12.75.22 1.14.29l.2.03c.39.06.79.1 1.2.1s.81-.04 1.2-.1l.2-.03c.39-.07.77-.16 1.14-.29.03-.01.05-.02.07-.03a8.037 8.037 0 003.83-2.82c.03-.04.06-.08.09-.13.1-.14.19-.28.28-.42.04-.07.08-.13.12-.2.08-.13.15-.27.22-.41.04-.08.08-.17.12-.26.06-.13.11-.26.17-.39.04-.1.08-.21.12-.32.04-.12.08-.24.12-.37.04-.13.07-.25.1-.38.03-.11.06-.22.08-.34.03-.16.05-.31.07-.47.01-.09.03-.18.04-.28.02-.26.04-.51.04-.78-.03-4.41-3.61-7.99-8.03-7.99zm0 14.4c-1.98 0-3.75-.9-4.92-2.31.67-.36 1.49-.66

@@ -27,7 +27,8 @@
 }
 
 .list-navigation__button-toggle:hover .list-navigation__button-toggle-path,
-.list-navigation__button-toggle:active .list-navigation__button-toggle-path {
+.list-navigation__button-toggle:active .list-navigation__button-toggle-path,
+.list-navigation__button-toggle:focus .list-navigation__button-toggle-path {
   fill: @white;
 }
 
@@ -43,7 +44,7 @@
 }
 
 .list-navigation__wrapper-for-list {
-  position: absolute;
+  position: fixed;
   top: 46px;
   left: 0;
 
@@ -85,7 +86,9 @@
   outline: none;
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:active,
+  &:focus {
     color: @white;
 
     background-color: @button-default-hover;
@@ -96,7 +99,9 @@
   fill: @button-default-hover;
 }
 
-.list-navigation__title-button:hover .list-navigation__title-button-path {
+.list-navigation__title-button:hover .list-navigation__title-button-path,
+.list-navigation__title-button:active .list-navigation__title-button-path,
+.list-navigation__title-button:focus .list-navigation__title-button-path {
   fill: @white;
 }
 
@@ -128,8 +133,11 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+  outline: none;
 
-  &:hover {
+  &:hover,
+  &:active,
+  &:focus {
     background-color: @button-default-hover;
     border-radius: 3px;
   }
@@ -144,7 +152,9 @@
   fill: @button-default-hover;
 }
 
-.list-navigation__item-button:hover .list-navigation__item-button-path {
+.list-navigation__item-button:hover .list-navigation__item-button-path,
+.list-navigation__item-button:active .list-navigation__item-button-path,
+.list-navigation__item-button:focus .list-navigation__item-button-path {
   fill: @white;
 }
 
