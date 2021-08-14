@@ -12,6 +12,7 @@ import Button from '../generic/Button'
 import LanguagePicker from '../generic/LanguagePicker'
 import PropTypes from 'prop-types'
 import Version from '../generic/Version'
+import {GA_PAGE_LOGIN, pageView} from "../../utils/ga";
 
 const Login = ({ t, user, login, resetError }) => {
 	const history = useHistory()
@@ -34,6 +35,8 @@ const Login = ({ t, user, login, resetError }) => {
 			<span className={'auth-form__error'}>{t(user.error)}</span>
 		)
 	}
+
+	pageView(GA_PAGE_LOGIN)
 
 	return (
 		<Overlay

@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
+import {GA_PAGE_LIST_CREATE, pageView} from "../../utils/ga";
 
 const ListCreateForm = ({ form, create, reset, t, className }) => {
 	const history = useHistory()
@@ -56,6 +57,8 @@ const ListCreateForm = ({ form, create, reset, t, className }) => {
 			</Callout>
 		)
 	}
+
+	pageView(GA_PAGE_LIST_CREATE)
 
 	return (
 		<form
