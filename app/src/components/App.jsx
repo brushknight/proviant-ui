@@ -6,8 +6,12 @@ import AppAuth from './AppAuth'
 import AppCore from './AppCore'
 import store from '../redux/store'
 import User from './user/User'
+import {init} from "../utils/ga";
 
 const App = () => {
+
+	init()
+
 	return (
 		<Router>
 			<Provider store={store}>
