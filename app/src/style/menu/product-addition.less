@@ -2,21 +2,53 @@
   position: fixed;
   bottom: 20px;
   left: 0;
-  z-index: 100;
+  z-index: 10;
 
   display: flex;
   justify-content: center;
   width: 100%;
+
+  @media (min-width: 768px) {
+    position: absolute;
+    bottom: -105px;
+
+    justify-content: space-between;
+    align-items: center;
+
+    height: 50px;
+    padding: 0 5px;
+
+    background-color: @default-gray-bg;
+  }
 }
 
 .product-addition__input--hidden {
   display: none;
+
+  border: 1px solid @button-default-hover;
+  border-radius: 3px;
+
+  outline: none;
+
+  &:hover,
+  &:active,
+  &:focus {
+    border: 2px solid @button-default-hover;
+  }
+
+  @media (min-width: 768px) {
+    flex-grow: 1;
+    display: block;
+    height: 30px;
+    margin: 0 5px 0 0;
+
+    line-height: 30px;
+  }
 }
 
 .product-addition__button {
   display: flex;
   align-items: center;
-  width: calc(100% - 40px);
   height: 46px;
   padding: 0 0 0 15px;
 
@@ -38,11 +70,25 @@
 
     background-color: @button-default-hover;
   }
+
+  @media (max-width: 767px) {
+    width: calc(100% - 40px);
+  }
+
+  @media (min-width: 768px) {
+    height: 30px;
+    padding: 0 5px;
+  }
 }
 
 .product-addition__button-svg {
   width: 35px;
   height: 35px;
+
+  @media (min-width: 768px) {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .product-addition__button-path {
@@ -60,4 +106,18 @@
   height: 100%;
   margin: auto;
   padding: 6px 0 0;
+
+  @media (min-width: 768px) {
+    padding: 0 0 0 0;
+  }
+}
+
+.product-addition__button-text-tablet {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+    height: 100%;
+
+  }
 }

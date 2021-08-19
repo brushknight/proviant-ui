@@ -1,4 +1,20 @@
 .profile-link {
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.profile-link__email {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;padding: 0 10px 0 0;
+  }
+}
+
+.profile-link__link {
+  display: block;
   width: 35px;
   padding: 6px 0 0 7px;
 
@@ -8,9 +24,9 @@
   outline: none;
 }
 
-.profile-link:hover .profile-link__path,
-.profile-link:active .profile-link__path,
-.profile-link:focus .profile-link__path {
+.profile-link__link:hover .profile-link__path,
+.profile-link__link:active .profile-link__path,
+.profile-link__link:focus .profile-link__path {
   fill: @white;
 }
 
