@@ -1,0 +1,91 @@
+import * as React from 'react'
+import {useEffect} from 'react'
+import {Callout, Intent, Spinner} from '@blueprintjs/core'
+import {compose} from 'redux'
+import {connect} from 'react-redux'
+import {STATUS_FETCH_FAILED, STATUS_LOADING} from '../../redux/reducers/consts'
+import {useParams} from 'react-router-dom'
+import {withTranslation} from 'react-i18next'
+import PropTypes from 'prop-types'
+import {GA_PAGE_SHOPPING_LIST, pageView} from "../../utils/ga";
+import {getShoppingList} from "../../redux/selectors";
+import {fetchItems} from "../../redux/actions/shoppingList";
+import ShoppingListRow from "./ShoppingListRow";
+import ProductsListRow from "../product/ProductsListRow";
+
+const ShoppingList = ({status, error, model, items, t, fetchItems}) => {
+
+    const {id} = useParams()
+
+    useEffect(() => {
+        fetchItems(id)
+    }, [id])
+
+    if (status === STATUS_LOADING) {
+        return (
+            <section className={'shopping-list'}>
+                <Spinner/>
+            </section>
+        )
+    }
+
+    if (status === STATUS_FETCH_FAILED) {
+        return (
+            <section className={'shopping-list'}>
+                <Callout title={t('global.ooops')} intent={Intent.DANGER}>
+                    {error}
+                </Callout>
+            </section>
+        )
+    }
+
+    if (items.length === 0) {
+        return (
+            <section className={'shopping-list'}>
+                <div>no items yet</div>
+            </section>
+        )
+    }
+
+    pageView(GA_PAGE_SHOPPING_LIST)
+
+    console.log(items)
+
+    return (
+        <section className={'shopping-list'}>
+            {items.map(item => (
+                <ShoppingListRow
+                    item={item}
+                />
+            ))}
+        </section>
+    )
+}
+
+const mapStateToProps = (state, ownProps) => {
+    const shoppingList = getShoppingList(state)
+
+    const t = ownProps.i18n.t.bind(ownProps.i18n)
+    return {
+        model: shoppingList.model,
+        items: shoppingList.model.items,
+        status: shoppingList.status,
+        error: shoppingList.error,
+        t
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    const locale = ownProps.i18n.language
+    return {
+        fetchItems: (query) => dispatch(fetchItems(query, locale))
+    }
+}
+
+ShoppingList.propTypes = {
+    model: PropTypes.object,
+    fetchItems: PropTypes.func,
+    t: PropTypes.func
+}
+
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ShoppingList)

@@ -11,6 +11,7 @@ export const getCreateProduct = store => store.createProduct
 export const getStock = store => store.stock
 export const getLogin = store => store.login
 export const getUser = store => store.user
+export const getShoppingList = store => store.shoppingList
 export const getRegister = store => store.register
 export const getVersion = store => store.version
 export const getLocale = (store) => {

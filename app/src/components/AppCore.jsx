@@ -24,16 +24,19 @@ import ProductsList from './product/ProductsList'
 import PropTypes from 'prop-types'
 import Sandbox from './Sandbox'
 import Version from './generic/Version'
+import ShoppingList from "./shopping/ShoppingList";
 
 const AppCore = ({ user }) => {
 	const history = useHistory()
 	const location = useLocation()
 
 	useEffect(() => {
+		console.log(user.status)
 		if (isSaaS() && user.status === STATUS_UNAUTHORIZED) {
 			const uri = location.pathname
 
 			if (!(uri === '/login' || uri === '/register' || uri === '/finish-auth')) {
+				console.log("redirect to /login")
 				history.push('/login')
 			}
 		}
@@ -63,6 +66,9 @@ const AppCore = ({ user }) => {
 
 				<Route path='/sandbox'>
 					<Sandbox/>
+				</Route>
+				<Route exact={true} path='/shopping/:id'>
+					<ShoppingList/>
 				</Route>
 				<Route exact={true} path={["/", "/category-new", "/list-new", "/product-new", "/product-edit/:productId", "/product/:productId"]}>
 					<ProductsList filterType={FILTER_TYPE_NONE}/>
