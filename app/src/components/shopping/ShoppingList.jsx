@@ -57,6 +57,7 @@ const ShoppingList = ({status, error, model, items, t, fetchItems, checkItem, un
             />
             {items.map(item => (
                 <ShoppingListRow
+                    listId={id}
                     item={item}
                     onCheck={() => {
                         checkItem(id, item.id)

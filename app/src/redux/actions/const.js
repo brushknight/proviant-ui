@@ -133,11 +133,16 @@ export const ACTION_SHOPPING_LIST_UPDATE_ITEM_SENDING = 'shopping_list/update_it
 export const ACTION_SHOPPING_LIST_UPDATE_ITEM_SUCCESS = 'shopping_list/update_item/success'
 export const ACTION_SHOPPING_LIST_UPDATE_ITEM_FAIL = 'shopping_list/update_item/fail'
 
-
 // shopping form
 export const ACTION_CREATE_SHOPPING_LIST_ITEM_FAIL = 'shopping_list_form/create/fail'
 export const ACTION_CREATE_SHOPPING_LIST_ITEM_SUCCESS = 'shopping_list_form/create/success'
 export const ACTION_CREATE_SHOPPING_LIST_ITEM_SENDING = 'shopping_list_form/create/sending'
+
+// edit form
+export const ACTION_SHOPPING_LIST_ITEM_EDIT_RESET = 'shopping_list_item/edit/reset'
+export const ACTION_SHOPPING_LIST_ITEM_EDIT_FAIL = 'shopping_list_item/edit/fail'
+export const ACTION_SHOPPING_LIST_ITEM_EDIT_SUCCESS = 'shopping_list_item/edit/success'
+export const ACTION_SHOPPING_LIST_ITEM_EDIT_SENDING = 'shopping_list_item/edit/sending'
 
 // version
 export const ACTION_VERSION_CORE_LOADED = 'version/core/loaded'

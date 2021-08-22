@@ -14,6 +14,7 @@ import user from './user'
 import version from './version'
 import shoppingList from './shopping/list'
 import shoppingForm from './shopping/form'
+import shoppingEdit from './shopping/edit'
 
 export default combineReducers({
 	lists,
@@ -30,5 +31,6 @@ export default combineReducers({
 	user,
 	version,
 	shoppingList,
-	shoppingForm
+	shoppingForm,
+	shoppingEdit
 })

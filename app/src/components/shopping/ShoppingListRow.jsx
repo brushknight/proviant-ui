@@ -1,8 +1,11 @@
 import * as React from 'react'
 import {withTranslation} from 'react-i18next'
 import PropTypes from 'prop-types'
+import {useHistory} from "react-router-dom";
 
-const ShoppingListRow = ({item, onCheck, onUncheck, i18n}) => {
+const ShoppingListRow = ({item, listId, onCheck, onUncheck, i18n}) => {
+    const history = useHistory()
+
 
     let tickClassModification = ''
     let rowClassModification = ''
@@ -11,7 +14,8 @@ const ShoppingListRow = ({item, onCheck, onUncheck, i18n}) => {
         rowClassModification = 'shopping-list-item--checked'
     }
 
-    const onTick = () => {
+    const onTick = (e) => {
+        e.stopPropagation()
         if (item.checked) {
             onUncheck()
         } else {
@@ -20,7 +24,9 @@ const ShoppingListRow = ({item, onCheck, onUncheck, i18n}) => {
     }
 
     return (
-        <div className={'shopping-list-item ' + rowClassModification}>
+        <div className={'shopping-list-item ' + rowClassModification} onClick={() => {
+            history.push('/shopping/' + listId + '/' + item.id)
+        }}>
             <div className={'shopping-list-item__title'}>{item.title}</div>
             <div className={'shopping-list-item__quantity'}>{item.quantity}</div>
             <div

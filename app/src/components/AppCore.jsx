@@ -25,6 +25,7 @@ import PropTypes from 'prop-types'
 import Sandbox from './Sandbox'
 import Version from './generic/Version'
 import ShoppingList from "./shopping/ShoppingList";
+import ShoppingListItemOverlay from "./shopping/ShoppingListItemOverlay";
 
 const AppCore = ({ user }) => {
 	const history = useHistory()
@@ -65,8 +66,11 @@ const AppCore = ({ user }) => {
 				<Route path='/sandbox'>
 					<Sandbox/>
 				</Route>
-				<Route exact={true} path='/shopping/:id'>
+				<Route exact={true} path={['/shopping/:id', '/shopping/:id/:itemId']}>
 					<ShoppingList/>
+					<Route exact={true} path='/shopping/:id/:itemId'>
+						<ShoppingListItemOverlay/>
+					</Route>
 				</Route>
 				<Route exact={true} path={["/", "/category-new", "/list-new", "/product-new", "/product-edit/:productId", "/product/:productId"]}>
 					<ProductsList filterType={FILTER_TYPE_NONE}/>
