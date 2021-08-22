@@ -14,6 +14,7 @@ export const getStock = store => store.stock
 export const getLogin = store => store.login
 export const getUser = store => store.user
 export const getShoppingList = store => store.shoppingList
+export const getShoppingLists = store => store.shoppingLists
 export const getShoppingListItem = (store, itemId) => {
 
     if (store.shoppingList.status === STATUS_LOADED || store.shoppingList.status === STATUS_DEFAULT) {

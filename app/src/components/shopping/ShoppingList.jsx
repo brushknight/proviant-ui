@@ -43,7 +43,9 @@ const ShoppingList = ({status, error, model, items, t, fetchItems, checkItem, un
     if (items.length === 0) {
         return (
             <section className={'shopping-list'}>
-                <div>no items yet</div>
+                <ShoppingForm
+                    listId={Number(id)}
+                />
             </section>
         )
     }

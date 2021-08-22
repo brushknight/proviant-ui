@@ -59,6 +59,7 @@ const ShoppingForm = ({submitForm, error, listId, status, t}) => {
         <div className={'shopping-list__form'}>
             <form onSubmit={onSubmit}>
                 <input
+                    className={'shopping-list-form__title'}
                     type={'text'}
                     value={title}
                     placeholder={t('shopping_list_form.title')}
@@ -67,6 +68,7 @@ const ShoppingForm = ({submitForm, error, listId, status, t}) => {
                         setErrorInternal(null)
                     }}/>
                 <input
+                    className={'shopping-list-form__quantity'}
                     type={'number'}
                     value={quantity}
                     placeholder={t('shopping_list_form.quantity')}
@@ -74,7 +76,11 @@ const ShoppingForm = ({submitForm, error, listId, status, t}) => {
                         setQuantity(Number(e.target.value))
                         setErrorInternal(null)
                     }}/>
-                <button disabled={errorInternal !== null} type={'submit'}>
+                <button
+                    className={'shopping-list-form__button'}
+                    disabled={errorInternal !== null}
+                    type={'submit'}
+                >
                     {t('shopping_list_form.button_add')}
                 </button>
             </form>

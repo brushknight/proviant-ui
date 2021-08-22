@@ -26,6 +26,7 @@ import Sandbox from './Sandbox'
 import Version from './generic/Version'
 import ShoppingList from "./shopping/ShoppingList";
 import ShoppingListItemOverlay from "./shopping/ShoppingListItemOverlay";
+import ShoppingListRedirect from "./shopping/ShoppingListRedirect";
 
 const AppCore = ({ user }) => {
 	const history = useHistory()
@@ -66,6 +67,11 @@ const AppCore = ({ user }) => {
 				<Route path='/sandbox'>
 					<Sandbox/>
 				</Route>
+
+				<Route exact={true} path={['/shopping']}>
+					<ShoppingListRedirect/>
+				</Route>
+
 				<Route exact={true} path={['/shopping/:id', '/shopping/:id/:itemId']}>
 					<ShoppingList/>
 					<Route exact={true} path='/shopping/:id/:itemId'>

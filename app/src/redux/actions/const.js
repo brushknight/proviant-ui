@@ -123,6 +123,11 @@ export const ACTION_USER_REGISTER_EMAIL_SENT = 'user/register/email_sent'
 export const ACTION_USER_REGISTER_RESET_ERROR = 'user/register/reset/error'
 
 // shopping list
+export const ACTION_FETCH_SHOPPING_LISTS_FAIL = 'shopping_lists/fetch/fail'
+export const ACTION_FETCH_SHOPPING_LISTS_SUCCESS = 'shopping_lists/fetch/success'
+export const ACTION_FETCH_SHOPPING_LISTS_LOADING = 'shopping_lists/fetch/loading'
+
+// shopping list
 export const ACTION_FETCH_SHOPPING_LIST_FAIL = 'shopping_list/fetch/fail'
 export const ACTION_FETCH_SHOPPING_LIST_SUCCESS = 'shopping_list/fetch/success'
 export const ACTION_FETCH_SHOPPING_LIST_LOADING = 'shopping_list/fetch/loading'
