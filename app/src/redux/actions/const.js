@@ -1,4 +1,3 @@
-
 // stock
 
 export const ACTION_FETCH_STOCK_SUCCESS = 'fetch/stock/success'
@@ -129,6 +128,10 @@ export const ACTION_FETCH_SHOPPING_LIST_SUCCESS = 'shopping_list/fetch/success'
 export const ACTION_FETCH_SHOPPING_LIST_LOADING = 'shopping_list/fetch/loading'
 
 export const ACTION_SHOPPING_LIST_ADD_ITEM = 'shopping_list/add_item'
+export const ACTION_SHOPPING_LIST_UPDATE_ITEM = 'shopping_list/update_item'
+export const ACTION_SHOPPING_LIST_UPDATE_ITEM_SENDING = 'shopping_list/update_item/sending'
+export const ACTION_SHOPPING_LIST_UPDATE_ITEM_SUCCESS = 'shopping_list/update_item/success'
+export const ACTION_SHOPPING_LIST_UPDATE_ITEM_FAIL = 'shopping_list/update_item/fail'
 
 
 // shopping form

@@ -9,12 +9,12 @@ import {withTranslation} from 'react-i18next'
 import PropTypes from 'prop-types'
 import {GA_PAGE_SHOPPING_LIST, pageView} from "../../utils/ga";
 import {getShoppingList} from "../../redux/selectors";
-import {fetchItems} from "../../redux/actions/shoppingList";
+import {shoppingListFetchItems} from "../../redux/actions/shopping/list";
 import ShoppingListRow from "./ShoppingListRow";
-import ProductsListRow from "../product/ProductsListRow";
 import ShoppingForm from "./ShoppingForm";
+import {shoppingListItemCheck, shoppingListItemUncheck} from "../../redux/actions/shopping/tick";
 
-const ShoppingList = ({status, error, model, items, t, fetchItems}) => {
+const ShoppingList = ({status, error, model, items, t, fetchItems, checkItem, uncheckItem}) => {
 
     const {id} = useParams()
 
@@ -50,8 +50,6 @@ const ShoppingList = ({status, error, model, items, t, fetchItems}) => {
 
     pageView(GA_PAGE_SHOPPING_LIST)
 
-    console.log(items)
-
     return (
         <section className={'shopping-list'}>
             <ShoppingForm
@@ -60,6 +58,12 @@ const ShoppingList = ({status, error, model, items, t, fetchItems}) => {
             {items.map(item => (
                 <ShoppingListRow
                     item={item}
+                    onCheck={() => {
+                        checkItem(id, item.id)
+                    }}
+                    onUncheck={() => {
+                        uncheckItem(id, item.id)
+                    }}
                 />
             ))}
         </section>
@@ -82,13 +86,17 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     const locale = ownProps.i18n.language
     return {
-        fetchItems: (query) => dispatch(fetchItems(query, locale))
+        fetchItems: (query) => dispatch(shoppingListFetchItems(query, locale)),
+        checkItem: (listId, id) => dispatch(shoppingListItemCheck(listId, id, locale)),
+        uncheckItem: (listId, id) => dispatch(shoppingListItemUncheck(listId, id, locale))
     }
 }
 
 ShoppingList.propTypes = {
     model: PropTypes.object,
     fetchItems: PropTypes.func,
+    checkItem: PropTypes.func,
+    uncheckItem: PropTypes.func,
     t: PropTypes.func
 }
 

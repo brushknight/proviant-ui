@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {withTranslation} from 'react-i18next'
 import PropTypes from 'prop-types'
 import {getShoppingForm} from "../../redux/selectors";
-import {shoppingFormSubmit} from "../../redux/actions/shoppingForm";
+import {shoppingFormSubmit} from "../../redux/actions/shopping/form";
 import {STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR} from "../../redux/reducers/consts";
 import {Callout, Intent} from "@blueprintjs/core";
 

@@ -2,12 +2,11 @@ import {
     ACTION_FETCH_SHOPPING_LIST_FAIL,
     ACTION_FETCH_SHOPPING_LIST_LOADING,
     ACTION_FETCH_SHOPPING_LIST_SUCCESS,
-    ACTION_SHOPPING_LIST_ADD_ITEM
-} from "./const";
+    ACTION_SHOPPING_LIST_ADD_ITEM, ACTION_SHOPPING_LIST_UPDATE_ITEM
+} from "../const";
 import axios from "axios";
-import {generateCoreApiUrl} from "../../utils/link";
-import {generateLocaleHeader} from "../../utils/i18n";
-
+import {generateCoreApiUrl} from "../../../utils/link";
+import {generateLocaleHeader} from "../../../utils/i18n";
 
 const fetchLoading = () => {
     return {
@@ -36,7 +35,14 @@ export const shoppingListAddItem = (item) => {
     }
 }
 
-export const fetchItems = (id, locale) => {
+export const shoppingListUpdateItem = (item) => {
+    return {
+        type: ACTION_SHOPPING_LIST_UPDATE_ITEM,
+        item
+    }
+}
+
+export const shoppingListFetchItems = (id, locale) => {
     return (dispatch) => {
         dispatch(fetchLoading())
         axios.get(generateCoreApiUrl(`/shopping_list/${id}/`), generateLocaleHeader(locale))

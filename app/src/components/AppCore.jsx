@@ -31,12 +31,10 @@ const AppCore = ({ user }) => {
 	const location = useLocation()
 
 	useEffect(() => {
-		console.log(user.status)
 		if (isSaaS() && user.status === STATUS_UNAUTHORIZED) {
 			const uri = location.pathname
 
 			if (!(uri === '/login' || uri === '/register' || uri === '/finish-auth')) {
-				console.log("redirect to /login")
 				history.push('/login')
 			}
 		}

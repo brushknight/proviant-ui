@@ -6,7 +6,7 @@ import {
     STATUS_LOADED,
     STATUS_LOADING,
     STATUS_SENDING
-} from './consts'
+} from '../consts'
 import {
     ACTION_CREATE_SHOPPING_LIST_ITEM_FAIL,
     ACTION_CREATE_SHOPPING_LIST_ITEM_SENDING,
@@ -14,7 +14,7 @@ import {
     ACTION_FETCH_SHOPPING_LIST_FAIL,
     ACTION_FETCH_SHOPPING_LIST_LOADING,
     ACTION_FETCH_SHOPPING_LIST_SUCCESS
-} from "../actions/const";
+} from "../../actions/const";
 
 
 const initialState = () => {
