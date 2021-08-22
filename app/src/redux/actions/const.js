@@ -129,6 +129,7 @@ export const ACTION_FETCH_SHOPPING_LIST_LOADING = 'shopping_list/fetch/loading'
 
 export const ACTION_SHOPPING_LIST_ADD_ITEM = 'shopping_list/add_item'
 export const ACTION_SHOPPING_LIST_UPDATE_ITEM = 'shopping_list/update_item'
+export const ACTION_SHOPPING_LIST_DELETE_ITEM = 'shopping_list/delete_item'
 export const ACTION_SHOPPING_LIST_UPDATE_ITEM_SENDING = 'shopping_list/update_item/sending'
 export const ACTION_SHOPPING_LIST_UPDATE_ITEM_SUCCESS = 'shopping_list/update_item/success'
 export const ACTION_SHOPPING_LIST_UPDATE_ITEM_FAIL = 'shopping_list/update_item/fail'
@@ -143,6 +144,11 @@ export const ACTION_SHOPPING_LIST_ITEM_EDIT_RESET = 'shopping_list_item/edit/res
 export const ACTION_SHOPPING_LIST_ITEM_EDIT_FAIL = 'shopping_list_item/edit/fail'
 export const ACTION_SHOPPING_LIST_ITEM_EDIT_SUCCESS = 'shopping_list_item/edit/success'
 export const ACTION_SHOPPING_LIST_ITEM_EDIT_SENDING = 'shopping_list_item/edit/sending'
+
+// shopping list delete
+export const ACTION_SHOPPING_LIST_ITEM_DELETE_FAIL = 'shopping_list_item/delete/fail'
+export const ACTION_SHOPPING_LIST_ITEM_DELETE_SUCCESS = 'shopping_list_item/delete/success'
+export const ACTION_SHOPPING_LIST_ITEM_DELETE_SENDING = 'shopping_list_item/delete/sending'
 
 // version
 export const ACTION_VERSION_CORE_LOADED = 'version/core/loaded'

@@ -34,7 +34,7 @@ const ShoppingForm = ({submitForm, error, listId, status, t}) => {
         [status]
     )
 
-    if (statusInternal === STATUS_CREATED){
+    if (statusInternal === STATUS_CREATED) {
         emptyForm()
     }
 
@@ -58,15 +58,25 @@ const ShoppingForm = ({submitForm, error, listId, status, t}) => {
     return (
         <div className={'shopping-list__form'}>
             <form onSubmit={onSubmit}>
-                <input type={'text'} value={title} onChange={(e) => {
-                    setTitle(e.target.value)
-                    setErrorInternal(null)
-                }}/>
-                <input type={'number'} value={quantity} onChange={(e) => {
-                    setQuantity(Number(e.target.value))
-                    setErrorInternal(null)
-                }}/>
-                <button disabled={errorInternal !== null} type={'submit'}>Добавить</button>
+                <input
+                    type={'text'}
+                    value={title}
+                    placeholder={t('shopping_list_form.title')}
+                    onChange={(e) => {
+                        setTitle(e.target.value)
+                        setErrorInternal(null)
+                    }}/>
+                <input
+                    type={'number'}
+                    value={quantity}
+                    placeholder={t('shopping_list_form.quantity')}
+                    onChange={(e) => {
+                        setQuantity(Number(e.target.value))
+                        setErrorInternal(null)
+                    }}/>
+                <button disabled={errorInternal !== null} type={'submit'}>
+                    {t('shopping_list_form.button_add')}
+                </button>
             </form>
             {errorBlock}
         </div>

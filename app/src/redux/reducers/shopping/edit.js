@@ -1,5 +1,7 @@
-import {STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR, STATUS_SENDING, STATUS_UPDATED} from '../consts'
+import {STATUS_CREATED, STATUS_DEFAULT, STATUS_DELETED, STATUS_ERROR, STATUS_SENDING, STATUS_UPDATED} from '../consts'
 import {
+    ACTION_SHOPPING_LIST_ITEM_DELETE_FAIL,
+    ACTION_SHOPPING_LIST_ITEM_DELETE_SENDING, ACTION_SHOPPING_LIST_ITEM_DELETE_SUCCESS,
     ACTION_SHOPPING_LIST_ITEM_EDIT_FAIL, ACTION_SHOPPING_LIST_ITEM_EDIT_RESET,
     ACTION_SHOPPING_LIST_ITEM_EDIT_SENDING,
     ACTION_SHOPPING_LIST_ITEM_EDIT_SUCCESS
@@ -22,12 +24,14 @@ export default function (state = initialState(), action) {
                 status: STATUS_DEFAULT,
                 error: null
             }
+        case ACTION_SHOPPING_LIST_ITEM_DELETE_SENDING:
         case ACTION_SHOPPING_LIST_ITEM_EDIT_SENDING:
             return {
                 ...state,
                 status: STATUS_SENDING,
                 error: null
             }
+        case ACTION_SHOPPING_LIST_ITEM_DELETE_FAIL:
         case ACTION_SHOPPING_LIST_ITEM_EDIT_FAIL:
             return {
                 ...state,
@@ -38,6 +42,12 @@ export default function (state = initialState(), action) {
             return {
                 ...state,
                 status: STATUS_UPDATED,
+                error: null
+            }
+        case ACTION_SHOPPING_LIST_ITEM_DELETE_SUCCESS:
+            return {
+                ...state,
+                status: STATUS_DELETED,
                 error: null
             }
         default:

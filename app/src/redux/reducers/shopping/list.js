@@ -3,7 +3,7 @@ import {
     ACTION_FETCH_SHOPPING_LIST_FAIL,
     ACTION_FETCH_SHOPPING_LIST_LOADING,
     ACTION_FETCH_SHOPPING_LIST_SUCCESS,
-    ACTION_SHOPPING_LIST_ADD_ITEM,
+    ACTION_SHOPPING_LIST_ADD_ITEM, ACTION_SHOPPING_LIST_DELETE_ITEM,
     ACTION_SHOPPING_LIST_UPDATE_ITEM
 } from "../../actions/const";
 
@@ -63,6 +63,20 @@ const updateItem = (model, itemToUpdate) => {
     }
 }
 
+
+const deleteItem = (model, idToDelete) => {
+
+    let newItems = model.items.filter((item) => {
+        return Number(item.id) !== Number(idToDelete)
+    })
+
+    return {
+        title: model.title,
+        items: newItems,
+        id: model.id,
+    }
+}
+
 const initialState = () => {
     return {
         model: defaultModel(),
@@ -74,6 +88,14 @@ const initialState = () => {
 export default function (state = initialState(), action) {
 
     switch (action.type) {
+        case ACTION_SHOPPING_LIST_DELETE_ITEM:
+
+            return {
+                ...state,
+                status: STATUS_DEFAULT,
+                error: null,
+                model: transform(deleteItem(state.model, action.id))
+            }
         case ACTION_SHOPPING_LIST_UPDATE_ITEM:
 
             return {

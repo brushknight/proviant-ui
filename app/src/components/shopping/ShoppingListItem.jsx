@@ -6,11 +6,33 @@ import {getShoppingList, getShoppingListEdit, getShoppingListItem} from "../../r
 import {shoppingListItemCheck, shoppingListItemUncheck} from "../../redux/actions/shopping/tick";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {STATUS_DEFAULT, STATUS_EDITING, STATUS_ERROR, STATUS_LOADED, STATUS_UPDATED} from "../../redux/reducers/consts";
+import {
+    STATUS_DEFAULT,
+    STATUS_DELETED,
+    STATUS_EDITING,
+    STATUS_ERROR,
+    STATUS_LOADED,
+    STATUS_UPDATED
+} from "../../redux/reducers/consts";
 import {Button, InputGroup, Intent, NumericInput} from "@blueprintjs/core";
-import {shoppingListItemReset, shoppingListItemUpdate} from "../../redux/actions/shopping/edit";
+import {shoppingItemUpdate, shoppingListItemReset} from "../../redux/actions/shopping/edit";
+import {shoppingItemDelete} from "../../redux/actions/shopping/delete";
 
-const ShoppingListItem = ({listId, id, item, fetchStatus, status, fetchError, error, t, className, updateItem, reset, closePopover}) => {
+const ShoppingListItem = ({
+                              listId,
+                              id,
+                              item,
+                              fetchStatus,
+                              status,
+                              fetchError,
+                              error,
+                              t,
+                              className,
+                              updateItem,
+                              deleteItem,
+                              reset,
+                              closePopover
+                          }) => {
 
     const [title, setTitle] = useState('')
     const [quantity, setQuantity] = useState(0)
@@ -31,7 +53,7 @@ const ShoppingListItem = ({listId, id, item, fetchStatus, status, fetchError, er
 
         setStatusInternal(status)
 
-        if (status === STATUS_UPDATED){
+        if (status === STATUS_UPDATED || status === STATUS_DELETED) {
             emptyForm()
             reset()
             closePopover()
@@ -40,7 +62,6 @@ const ShoppingListItem = ({listId, id, item, fetchStatus, status, fetchError, er
     }, [
         fetchStatus, status
     ])
-
 
 
     const onSubmit = (e) => {
@@ -53,9 +74,10 @@ const ShoppingListItem = ({listId, id, item, fetchStatus, status, fetchError, er
     }
 
     return (
-        <div className={className}>
+        <div className={'shopping-list-edit ' + className}>
             <form onSubmit={onSubmit}>
                 <InputGroup
+                    className={'shopping-list-edit__title'}
                     autoFocus={true}
                     placeholder={t('shopping_list_item.title')}
                     leftIcon={'tag'}
@@ -66,11 +88,12 @@ const ShoppingListItem = ({listId, id, item, fetchStatus, status, fetchError, er
                     }}
                 />
                 <NumericInput
+                    className={'shopping-list-edit__quantity'}
                     min={1}
                     value={quantity}
                     onValueChange={value => setQuantity(value)}
                 />
-                <div>
+                <div className={'shopping-list-edit__buttons'}>
                     <Button
                         disabled={statusInternal === STATUS_ERROR}
                         icon={'tick'}
@@ -86,6 +109,9 @@ const ShoppingListItem = ({listId, id, item, fetchStatus, status, fetchError, er
                         minimal={true}
                         intent={Intent.DANGER}
                         type={'button'}
+                        onClick={() => {
+                            deleteItem(listId, id)
+                        }}
                     >{t('shopping_list_item.button_delete')}</Button>
                 </div>
             </form>
@@ -117,7 +143,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         checkItem: (listId, id) => dispatch(shoppingListItemCheck(listId, id, locale)),
         uncheckItem: (listId, id) => dispatch(shoppingListItemUncheck(listId, id, locale)),
-        updateItem: (listId, id, dto) => dispatch(shoppingListItemUpdate(listId, id, dto, locale)),
+        updateItem: (listId, id, dto) => dispatch(shoppingItemUpdate(listId, id, dto, locale)),
+        deleteItem: (listId, id) => dispatch(shoppingItemDelete(listId, id, locale)),
         reset: () => dispatch(shoppingListItemReset())
     }
 }
@@ -126,6 +153,7 @@ ShoppingListItem.propTypes = {
     item: PropTypes.object,
     itemId: PropTypes.number,
     updateItem: PropTypes.func,
+    deleteItem: PropTypes.func,
     reset: PropTypes.func,
     closePopover: PropTypes.func,
     className: PropTypes.string,

@@ -2,7 +2,9 @@ import {
     ACTION_FETCH_SHOPPING_LIST_FAIL,
     ACTION_FETCH_SHOPPING_LIST_LOADING,
     ACTION_FETCH_SHOPPING_LIST_SUCCESS,
-    ACTION_SHOPPING_LIST_ADD_ITEM, ACTION_SHOPPING_LIST_UPDATE_ITEM
+    ACTION_SHOPPING_LIST_ADD_ITEM,
+    ACTION_SHOPPING_LIST_DELETE_ITEM,
+    ACTION_SHOPPING_LIST_UPDATE_ITEM
 } from "../const";
 import axios from "axios";
 import {generateCoreApiUrl} from "../../../utils/link";
@@ -39,6 +41,13 @@ export const shoppingListUpdateItem = (item) => {
     return {
         type: ACTION_SHOPPING_LIST_UPDATE_ITEM,
         item
+    }
+}
+
+export const shoppingListDeleteItem = (id) => {
+    return {
+        type: ACTION_SHOPPING_LIST_DELETE_ITEM,
+        id
     }
 }
 
