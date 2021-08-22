@@ -12,6 +12,7 @@ import {getShoppingList} from "../../redux/selectors";
 import {fetchItems} from "../../redux/actions/shoppingList";
 import ShoppingListRow from "./ShoppingListRow";
 import ProductsListRow from "../product/ProductsListRow";
+import ShoppingForm from "./ShoppingForm";
 
 const ShoppingList = ({status, error, model, items, t, fetchItems}) => {
 
@@ -53,6 +54,9 @@ const ShoppingList = ({status, error, model, items, t, fetchItems}) => {
 
     return (
         <section className={'shopping-list'}>
+            <ShoppingForm
+                listId={Number(id)}
+            />
             {items.map(item => (
                 <ShoppingListRow
                     item={item}

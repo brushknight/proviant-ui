@@ -128,6 +128,14 @@ export const ACTION_FETCH_SHOPPING_LIST_FAIL = 'shopping_list/fetch/fail'
 export const ACTION_FETCH_SHOPPING_LIST_SUCCESS = 'shopping_list/fetch/success'
 export const ACTION_FETCH_SHOPPING_LIST_LOADING = 'shopping_list/fetch/loading'
 
+export const ACTION_SHOPPING_LIST_ADD_ITEM = 'shopping_list/add_item'
+
+
+// shopping form
+export const ACTION_CREATE_SHOPPING_LIST_ITEM_FAIL = 'shopping_list_form/create/fail'
+export const ACTION_CREATE_SHOPPING_LIST_ITEM_SUCCESS = 'shopping_list_form/create/success'
+export const ACTION_CREATE_SHOPPING_LIST_ITEM_SENDING = 'shopping_list_form/create/sending'
+
 // version
 export const ACTION_VERSION_CORE_LOADED = 'version/core/loaded'
 
