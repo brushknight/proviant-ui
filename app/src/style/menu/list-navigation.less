@@ -32,6 +32,10 @@
 
   cursor: pointer;
   outline: none;
+
+  @media (min-width: 1200px) {
+    display: none;
+  }
 }
 
 .list-navigation__button-toggle-icon {
@@ -62,15 +66,20 @@
 
 .list-navigation__wrapper-for-list--hidden {
   display: none;
+
+  @media (min-width: 1200px) {
+    display: block;
+  }
 }
 
 .list-navigation__wrapper-for-list {
   position: fixed;
   top: 46px;
   left: 0;
+  z-index: 5;
 
-  width: 100%;
   height: calc(100vh - 46px);
+  width: 100%;
   padding: 15px;
 
   background-color: @default-gray-bg;
@@ -79,7 +88,13 @@
 
   @media (min-width: 768px) {
     z-index: 30;
+
     width: 300px;
+  }
+
+  @media (min-width: 1200px) {
+    position: absolute;
+    height: calc(100% - 100px);
   }
 }
 
@@ -179,32 +194,3 @@
 .list-navigation__item-button:focus .list-navigation__item-button-path {
   fill: @white;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

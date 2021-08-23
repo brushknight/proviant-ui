@@ -47,6 +47,17 @@
     justify-content: space-between;
     padding: 15px 5px;
   }
+
+  @media (min-width: 1200px) {
+    position: fixed;
+    top: 0;
+    left: 300px;
+
+    width: calc(100% - 300px);
+    padding: 15px 5px 0;
+
+    background-color: transparent;
+  }
 }
 
 .search__wrapper-search-input {
@@ -67,6 +78,10 @@
 
   @media (min-width: 768px) {
     width: 33%;
+  }
+
+  @media (min-width: 1200px) {
+    width: 70%;
   }
 }
 

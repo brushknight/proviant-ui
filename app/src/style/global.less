@@ -1,8 +1,12 @@
 .page-body {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  //min-width: 768px;
   box-sizing: border-box;
+
+  @media (min-width: 1200px) {
+    flex-direction: row;
+  }
 }
 
 @media (max-width: 1023px) {

@@ -20,6 +20,18 @@
 
     background-color: @default-gray-bg;
   }
+
+  @media (min-width: 1200px) {
+    position: fixed;
+    top: 45px;
+    left: 300px;
+
+    width: calc(100% - 300px);
+    height: 40px;
+    padding: 10px 5px 0;
+
+    background-color: transparent;
+  }
 }
 
 .product-addition__input--hidden {
@@ -79,6 +91,10 @@
     height: 30px;
     padding: 0 5px;
   }
+
+  @media (min-width: 1200px) {
+    font-size: 15px;
+  }
 }
 
 .product-addition__button-svg {
@@ -88,6 +104,11 @@
   @media (min-width: 768px) {
     width: 25px;
     height: 25px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 16px;
+    height: 16px;
   }
 }
 
@@ -109,6 +130,10 @@
 
   @media (min-width: 768px) {
     padding: 0 0 0 0;
+  }
+
+  @media (min-width: 1200px) {
+    line-height: 26px;
   }
 }
 
