@@ -37,16 +37,10 @@
 .product-addition__input--hidden {
   display: none;
 
-  border: 1px solid @button-default-hover;
+  border: none;
   border-radius: 3px;
 
   outline: none;
-
-  &:hover,
-  &:active,
-  &:focus {
-    border: 2px solid @button-default-hover;
-  }
 
   @media (min-width: 768px) {
     flex-grow: 1;
@@ -55,6 +49,10 @@
     margin: 0 5px 0 0;
 
     line-height: 30px;
+  }
+
+  @media (min-width: 1200px) {
+    background-color: @light;
   }
 }
 

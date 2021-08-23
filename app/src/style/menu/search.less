@@ -93,35 +93,39 @@
 
   line-height: 30px;
 
-  border: 1px solid @button-default-hover;
+  border: none;
   border-radius: 3px;
 
   outline: none;
 
-  &:hover,
-  &:active,
-  &:focus {
-    border: 2px solid @button-default-hover;
-  }
+  cursor: text;
 
   @media (min-width: 768px) {
     margin: 0;
+  }
+
+  @media (min-width: 1200px) {
+    background-color: @light;
   }
 }
 
 .search__categories {
   width: 100%;
   min-height: 30px;
+  line-height: 30px;
+  padding-left: 5px;
 
-  color: @white;
-
-  background-color: @button-default-hover;
+  background-color: @white;
   border-radius: 3px;
 
   @media (min-width: 768px) {
     flex-grow: 1;
 
     margin: 0 0 0 5px;
+  }
+
+  @media (min-width: 1200px) {
+    background-color: @light;
   }
 }
 
