@@ -7,8 +7,12 @@ import AppCore from './AppCore'
 import Sandbox from './Sandbox'
 import store from '../redux/store'
 import User from './user/User'
+import {init} from "../utils/ga";
 
 const App = () => {
+
+	init()
+
 	return (
 		<Router>
 			<Provider store={store}>

@@ -32,7 +32,7 @@ export default function (state = initialState(), action) {
 
 		return {
 			...state,
-			items: newItems
+			items: newItems || []
 		}
 	case ACTION_DELETE_PRODUCT_IN_LIST:
 
@@ -42,7 +42,7 @@ export default function (state = initialState(), action) {
 
 		return {
 			...state,
-			items: newItems
+			items: newItems || []
 		}
 	case ACTION_UPDATE_PRODUCT_STOCK_IN_LIST:
 
@@ -61,7 +61,7 @@ export default function (state = initialState(), action) {
 
 		return {
 			...state,
-			items: newItems
+			items: newItems || []
 		}
 	case ACTION_FETCH_PRODUCTS_FAIL:
 		return {
@@ -80,7 +80,7 @@ export default function (state = initialState(), action) {
 
 		return {
 			...state,
-			items: newItems
+			items: newItems || []
 		}
 	case ACTION_FETCH_PRODUCTS_LOADING:
 		return {
@@ -92,7 +92,7 @@ export default function (state = initialState(), action) {
 	case ACTION_FETCH_PRODUCTS_SUCCESS:
 		return {
 			...state,
-			items: action.payload,
+			items: action.payload || [],
 			status: STATUS_LOADED,
 			error: null
 		}

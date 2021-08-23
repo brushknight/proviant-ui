@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { getUser } from '../redux/selectors'
 import { isSaaS } from '../utils/env'
-import { Route, useHistory } from 'react-router-dom'
+import {Route, useHistory, useLocation} from 'react-router-dom'
 import { Spinner } from '@blueprintjs/core'
 import { STATUS_LOADED } from '../redux/reducers/consts'
 import { useEffect } from 'react'
@@ -15,13 +15,14 @@ import Register from './user/Register'
 
 const AppAuth = ({ user }) => {
 	const history = useHistory()
+	const location = useLocation()
 
 	useEffect(() => {
+		const uri = location.pathname
 		if (isSaaS() && user.status === STATUS_LOADED) {
-			history.push('/')
-			return (
-				<Spinner/>
-			)
+			if (uri === '/login' || uri === '/register' || uri === '/finish-auth') {
+				history.push('/')
+			}
 		}
 	}, [user.status])
 

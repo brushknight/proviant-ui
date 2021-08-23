@@ -22,6 +22,7 @@ import SectionError from '../SectionError'
 import SectionLoading from '../SectionLoading'
 import SectionNotFound from '../SectionNotFound'
 import Select from 'react-select'
+import {GA_PAGE_PRODUCT_EDIT, pageView} from "../../utils/ga";
 
 const ProductEdit = (
 	{
@@ -151,6 +152,8 @@ const ProductEdit = (
 			backgroundImage: 'url(' + image + ')'
 		}
 	}
+
+	pageView(GA_PAGE_PRODUCT_EDIT)
 
 	return (
 		<section className={className + ' product-edit'}>

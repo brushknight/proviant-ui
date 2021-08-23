@@ -4,9 +4,12 @@ import { withTranslation } from 'react-i18next'
 import ProductDetails from './ProductDetails'
 import ProductStock from '../stock/ProductStock'
 import PropTypes from 'prop-types'
+import {GA_PAGE_PRODUCT, pageView} from "../../utils/ga";
 
 const Product = (props) => {
 	const { id, productId } = useParams()
+
+	pageView(GA_PAGE_PRODUCT)
 
 	return (
 		<div className={props.className}>

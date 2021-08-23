@@ -13,6 +13,7 @@ import { withTranslation } from 'react-i18next'
 import Button from '../generic/Button'
 import ProductsListRow from './ProductsListRow'
 import PropTypes from 'prop-types'
+import {GA_PAGE_PRODUCTS, pageView} from "../../utils/ga";
 
 const ProductsList = ({ products, categories, lists, filterType, t, fetchProducts }) => {
 	const history = useHistory()
@@ -83,6 +84,8 @@ const ProductsList = ({ products, categories, lists, filterType, t, fetchProduct
 			</section>
 		)
 	}
+
+	pageView(GA_PAGE_PRODUCTS)
 
 	return (
 		<section className="product-list">

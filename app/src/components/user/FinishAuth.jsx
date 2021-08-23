@@ -7,8 +7,10 @@ import Button from '../generic/Button'
 import LanguagePicker from '../generic/LanguagePicker'
 import PropTypes from 'prop-types'
 import Version from '../generic/Version'
+import {GA_PAGE_FINISH_AUTH, pageView} from "../../utils/ga";
 
 const FinishAuth = ({ t }) => {
+	pageView(GA_PAGE_FINISH_AUTH)
 	return (
 		<Overlay
 			isOpen={true}

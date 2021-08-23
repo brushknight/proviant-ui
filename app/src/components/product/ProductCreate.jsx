@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
+import {GA_PAGE_PRODUCT_CREATE, pageView} from "../../utils/ga";
 
 const ProductCreate = (
 	{
@@ -93,6 +94,8 @@ const ProductCreate = (
 	const imageStyle = {
 		backgroundImage: 'url(' + imageBase64 + ')'
 	}
+
+	pageView(GA_PAGE_PRODUCT_CREATE)
 
 	return (
 		<section className={className + ' product-edit'}>

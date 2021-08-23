@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
+import {GA_PAGE_CATEGORY_EDIT, pageView} from "../../utils/ga";
 
 const CategoryEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 	const history = useHistory()
@@ -118,6 +119,8 @@ const CategoryEditForm = ({ form, fetch, reset, update, remove, t, className }) 
 	// if (form.status === STATUS_SENDING) {
 	// 	showProgress = true
 	// }
+
+	pageView(GA_PAGE_CATEGORY_EDIT)
 
 	return (
 		<form
