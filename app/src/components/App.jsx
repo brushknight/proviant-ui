@@ -23,7 +23,7 @@ const App = () => {
 							<Sandbox/>
 						</Route>
 						<AppAuth/>
-						{/* <AppCore/> */}
+						<AppCore/>
 					</Switch>
 				</React.StrictMode>
 			</Provider>
