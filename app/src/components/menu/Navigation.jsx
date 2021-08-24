@@ -33,6 +33,9 @@ const Navigation = () => {
             </div>
             <Menu
                 isOpen={isOpen}
+                setIsOpen={(isOpen) => {
+                    setIsOpen(isOpen)
+                }}
             />
         </div>
     )
