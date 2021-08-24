@@ -1,17 +1,23 @@
 import * as React from 'react'
-import AddProductForm from './AddProductForm'
 import Navigation from '../menu/Navigation'
-import Overlay from '../generic/Overlay'
+import Overlay from './Overlay'
 import Profile from './Profile'
 import Search from './Search'
+import {useState} from "react";
 
 const PageHeader = () => {
+
+	const [isOverlayOpen, setIsOverlayOpen] = useState(false)
 	return (
 		<header className={'page-header'}>
-			<Navigation/>
+			<Navigation
+				setIsOverlayOpen={setIsOverlayOpen}
+			/>
 			<Search/>
 			<Profile/>
-			<Overlay/>
+			<Overlay
+				isOpen={isOverlayOpen}
+			/>
 		</header>
 	)
 }

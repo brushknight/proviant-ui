@@ -1,18 +1,32 @@
 import * as React from "react";
+import {useEffect, useState} from "react";
 import Menu from "./Menu";
-import {useState} from "react";
+import {EVENT_NAVIGATION_OVERLAY_CLOCKED, subscribe} from "../../utils/pubsub";
 
-const Navigation = () => {
+const Navigation = ({setIsOverlayOpen}) => {
 
     const [isOpen, setIsOpen] = useState(false)
+
+    useEffect(() => {
+        let subscriber = subscribe(EVENT_NAVIGATION_OVERLAY_CLOCKED, () => {
+            setIsOpen(false)
+            setIsOverlayOpen(false)
+        })
+
+        return function cleanup () {
+            subscriber.unsubscribe()
+        }
+    })
 
     return (
         <div className={'page-header__list-navigation list-navigation list-navigation--open'}>
             <div className={'list-navigation__wrapper-for-button-toggle'}>
                 <button className={'list-navigation__button-toggle'} type={'button'} onClick={() => {
                     setIsOpen(!isOpen)
+                    setIsOverlayOpen(!isOpen)
                 }}>
-                    <span className={'list-navigation__button-toggle-icon'}>
+                    <span
+                        className={'list-navigation__button-toggle-icon ' + (isOpen ? 'list-navigation__button-toggle-icon--hidden' : '')}>
                         <svg className={'list-navigation__button-toggle-svg'} data-icon="menu" width="20"
                              height="20" viewBox="0 0 20 20">
                             <path className={'list-navigation__button-toggle-path'}
@@ -20,7 +34,8 @@ const Navigation = () => {
                                   fillRule="evenodd"></path>
                         </svg>
                     </span>
-                    <span className={'list-navigation__button-toggle-icon list-navigation__button-toggle-icon--hidden'}>
+                    <span
+                        className={'list-navigation__button-toggle-icon ' + (isOpen ? '' : 'list-navigation__button-toggle-icon--hidden')}>
                         <svg className={'list-navigation__button-toggle-svg'} data-icon="cross" width="20"
                              height="20" viewBox="0 0 20 20">
                             <path className={'list-navigation__button-toggle-path'}
@@ -35,6 +50,7 @@ const Navigation = () => {
                 isOpen={isOpen}
                 setIsOpen={(isOpen) => {
                     setIsOpen(isOpen)
+                    setIsOverlayOpen(isOpen)
                 }}
             />
         </div>
