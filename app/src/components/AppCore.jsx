@@ -9,6 +9,7 @@ import { Spinner } from '@blueprintjs/core'
 import { STATUS_LOADED, STATUS_UNAUTHORIZED } from '../redux/reducers/consts'
 import { useEffect } from 'react'
 import { withTranslation } from 'react-i18next'
+import AddProductForm from './header/AddProductForm'
 import CategoryCreateOverlay from './category/CategoryCreateOverlay'
 import CategoryEditOverlay from './category/CategoryEditOverlay'
 import ListCreateOverlay from './list/ListCreateOverlay'
@@ -49,7 +50,7 @@ const AppCore = ({ user }) => {
 
 			<PageHeader/>
 			<main className="page-main">
-
+				<AddProductForm className={'page-main__product-addition'}/>
 				<Route path='/sandbox'>
 					<Sandbox/>
 				</Route>

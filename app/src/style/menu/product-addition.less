@@ -5,12 +5,12 @@
   z-index: 10;
 
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   width: 100%;
+  padding: 0 10px 0 0;
 
   @media (min-width: 768px) {
-    position: absolute;
-    bottom: -105px;
+    top: 105px;
 
     justify-content: space-between;
     align-items: center;
@@ -34,21 +34,77 @@
   }
 }
 
-.product-addition__input--hidden {
-  display: none;
+.product-addition__button {
+  height: 70px;
+  width: 70px;
 
-  border: none;
-  border-radius: 3px;
+  background-color: @white;
+  border: 2px solid @button-default-hover;
+  border-radius: 50%;
 
   outline: none;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: @button-default-hover;
+  }
+
+  @media (min-width: 767px) {
+    display: none;
+  }
+}
+
+.product-addition__button-svg {
+  width: 35px;
+  height: 35px;
 
   @media (min-width: 768px) {
+    width: 25px;
+    height: 25px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.product-addition__button-path {
+  fill: @button-default-hover;
+}
+
+.product-addition__button:hover .product-addition__button-path,
+.product-addition__button:active .product-addition__button-path,
+.product-addition__button:focus .product-addition__button-path {
+  fill: @white;
+}
+
+.product-addition__form {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.product-addition__form-input {
+  @media (min-width: 768px) {
     flex-grow: 1;
-    display: block;
     height: 30px;
     margin: 0 5px 0 0;
 
     line-height: 30px;
+
+    border: none;
+    border-radius: 3px;
+
+    outline: none;
   }
 
   @media (min-width: 1200px) {
@@ -56,7 +112,7 @@
   }
 }
 
-.product-addition__button {
+.product-addition__form-button {
   display: flex;
   align-items: center;
   height: 46px;
@@ -95,31 +151,6 @@
   }
 }
 
-.product-addition__button-svg {
-  width: 35px;
-  height: 35px;
-
-  @media (min-width: 768px) {
-    width: 25px;
-    height: 25px;
-  }
-
-  @media (min-width: 1200px) {
-    width: 16px;
-    height: 16px;
-  }
-}
-
-.product-addition__button-path {
-  fill: @button-default-hover;
-}
-
-.product-addition__button:hover .product-addition__button-path,
-.product-addition__button:active .product-addition__button-path,
-.product-addition__button:focus .product-addition__button-path {
-  fill: @white;
-}
-
 .product-addition__button-text {
   display: block;
   height: 100%;
@@ -135,12 +166,8 @@
   }
 }
 
-.product-addition__button-text-tablet {
-  display: none;
-
-  @media (min-width: 768px) {
-    display: block;
-    height: 100%;
-
-  }
+.product-addition__form-button:hover .product-addition__button-path,
+.product-addition__form-button:active .product-addition__button-path,
+.product-addition__form-button:focus .product-addition__button-path {
+  fill: @white;
 }
