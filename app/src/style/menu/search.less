@@ -2,11 +2,11 @@
   margin: 0 11px 0 0;
   padding: 6px 0 0 0;
 
-  background-color: transparent;
-  border: none;
-
-  outline: none;
   cursor: pointer;
+
+  border: none;
+  outline: none;
+  background-color: transparent;
 
   @media (min-width: 768px) {
     display: none;
@@ -45,15 +45,16 @@
   @media (min-width: 768px) {
     display: flex;
     justify-content: space-between;
+
     padding: 15px 5px;
   }
 
   @media (min-width: 1200px) {
     position: fixed;
     top: 0;
-    left: 300px;
+    left: 250px;
 
-    width: calc(100% - 300px);
+    width: calc(100% - 250px);
     padding: 15px 5px 0;
 
     background-color: transparent;
@@ -63,14 +64,17 @@
 .search__wrapper-search-input {
   position: relative;
 
+  border-radius: 3px;
+
   &:before {
-    content: "";
     position: absolute;
     top: 5px;
     left: 5px;
 
     width: 20px;
     height: 20px;
+
+    content: "";
 
     background-image: url("../../images/search.svg");
     background-repeat: no-repeat;
@@ -82,7 +86,15 @@
 
   @media (min-width: 1200px) {
     width: 70%;
+
+    background-color: @light;
   }
+}
+
+.search__wrapper-search-input--disabled{
+  cursor: not-allowed;
+
+  background-color: @disabled;
 }
 
 .search__search-input {
@@ -91,32 +103,38 @@
   margin: 0 0 15px;
   padding: 0 5px 0 30px;
 
-  line-height: 30px;
+  cursor: text;
 
   border: none;
   border-radius: 3px;
-
   outline: none;
+  background-color: transparent;
 
-  cursor: text;
+  line-height: 30px;
 
   @media (min-width: 768px) {
     margin: 0;
   }
 
   @media (min-width: 1200px) {
-    background-color: @light;
+    //background-color: @light;
   }
 }
+
+.search__wrapper-search-input--disabled .search__search-input{
+  cursor: not-allowed;
+}
+
 
 .search__categories {
   width: 100%;
   min-height: 30px;
-  line-height: 30px;
   padding-left: 5px;
 
-  background-color: @white;
   border-radius: 3px;
+  background-color: @white;
+
+  line-height: 30px;
 
   @media (min-width: 768px) {
     flex-grow: 1;
@@ -129,7 +147,11 @@
   }
 }
 
+.search__categories--disabled{
+  cursor: not-allowed;
 
+  background-color: @disabled;
+}
 
 
 

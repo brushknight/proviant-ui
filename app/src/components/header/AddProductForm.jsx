@@ -5,7 +5,7 @@ import {withTranslation} from "react-i18next";
 import {connect} from "react-redux";
 import {useHistory, useLocation} from "react-router-dom";
 
-const AddProductForm = ({className ,t}) => {
+const AddProductForm = ({className, t}) => {
 
     const history = useHistory()
     const location = useLocation()
@@ -31,8 +31,10 @@ const AddProductForm = ({className ,t}) => {
                 </svg>
             </button>
             <div className={'product-addition__form'}>
-                <input className={'product-addition__form-input'}
-                       placeholder="Название нового продукта"/>
+                <input
+                    className={'product-addition__form-input'}
+                    placeholder={'Product title'}
+                />
                 <button className={'product-addition__form-button'} onClick={onClick}>
                     <svg className={'product-addition__button-svg'} data-icon="plus" width="16" height="16"
                          viewBox="0 0 16 16">

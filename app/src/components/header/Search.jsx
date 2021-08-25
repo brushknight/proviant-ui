@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const Search = () => {
+const Search = ({disabled}) => {
     return (
         <div className={'page-header__search search'}>
             <button className={'search__button'}>
@@ -11,10 +11,15 @@ const Search = () => {
                 </svg>
             </button>
             <div className={'search__wrapper search__wrapper--hidden'}>
-                <div className={'search__wrapper-search-input'}>
-                    <input className={'search__search-input'}/>
+                <div
+                    className={'search__wrapper-search-input ' + (disabled ? 'search__wrapper-search-input--disabled' : '')}>
+                    <input
+                        disabled={disabled}
+                        className={'search__search-input'}
+                        placeholder={'Search'}
+                    />
                 </div>
-                <div className={'search__categories'}>Тут будут категории</div>
+                <div className={'search__categories ' + (disabled ? 'search__categories--disabled' : '')}>Categories</div>
             </div>
         </div>
     )

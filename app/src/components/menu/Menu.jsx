@@ -15,7 +15,10 @@ const Item = ({title, onEdit, onClick}) => {
 
 	if (onEdit) {
 		editButton = (
-			<button className={'list-navigation__item-button'} onClick={onEdit}>
+			<button className={'list-navigation__item-button'} onClick={(e) => {
+				e.stopPropagation()
+				onEdit()
+			}}>
 				<div>
 					<svg className={'list-navigation__item-button-svg'} data-icon="edit" width="16" height="16"
 						 viewBox="0 0 16 16">
@@ -111,7 +114,6 @@ const Menu = ({ isOpen, setIsOpen, lists, categories, fetchLists, fetchCategorie
 				<Item
 					title={t('navigation.all_products')}
 					onClick={(e) => {
-						e.stopPropagation()
 						setIsOpen(false)
 						goToAllProducts()
 					}}
@@ -120,7 +122,6 @@ const Menu = ({ isOpen, setIsOpen, lists, categories, fetchLists, fetchCategorie
 					<Item
 						title={item.title}
 						onClick={(e) => {
-							e.stopPropagation()
 							setIsOpen(false)
 							goToList(item.id)
 						}}

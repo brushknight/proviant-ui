@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const apiUrl = !process.env.LOCAL ? 'http://10.0.0.50:13001/' : 'http://localhost:8090/'
+const apiUrl = !process.env.LOCAL ? 'http://10.0.0.50:13000/' : 'http://localhost:8090/'
 const staticUrl = 'http://localhost:8090/uc/'
 
 module.exports = {

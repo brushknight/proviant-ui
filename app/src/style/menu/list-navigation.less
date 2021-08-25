@@ -7,7 +7,13 @@
 }
 
 .list-navigation__wrapper-for-button-toggle {
+  position: fixed;
+  z-index: 30;
+  top: 0;
+
   display: flex;
+
+  width: 250px;
   height: 46px;
   padding: 0 0 0 5px;
 
@@ -16,10 +22,15 @@
   @media (min-width: 768px) {
     position: fixed;
     z-index: 30;
+
+    width: 250px;
+  }
+
+  @media (min-width: 768px) {
+    position: fixed;
+    z-index: 30;
     top: 0;
     left: 0;
-
-    width: 300px;
   }
 }
 
@@ -27,11 +38,11 @@
   width: 30px;
   padding: 0;
 
-  background-color: transparent;
-  border: none;
-
   cursor: pointer;
+
+  border: none;
   outline: none;
+  background-color: transparent;
 
   @media (min-width: 1200px) {
     display: none;
@@ -74,34 +85,35 @@
 
 .list-navigation__wrapper-for-list {
   position: fixed;
+  z-index: 30;
   top: 46px;
   left: 0;
-  z-index: 30;
 
-  height: calc(100vh - 46px);
+  overflow-y: scroll;
+
   width: 100%;
+  height: calc(100vh - 46px);
   padding: 5px;
 
   background-color: @default-gray-bg;
 
-  overflow-y: scroll;
-
   @media (min-width: 768px) {
     z-index: 30;
 
-    width: 300px;
+    width: 250px;
   }
 
   @media (min-width: 1200px) {
     position: absolute;
+
     height: calc(100% - 100px);
   }
 }
 
 .list-navigation__wrapper-for-title {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .list-navigation__wrapper-for-title--interactive{
@@ -114,28 +126,31 @@
 
 .list-navigation__title-list {
   margin: 0;
+  padding: 5px 0 5px 0;
+
+  font-size: 18px;
 }
 
 .list-navigation__title-button {
   display: flex;
   align-items: center;
+
   height: 28px;
 
-  color: @button-default-hover;
-  font-size: 15px;
+  cursor: pointer;
 
-  background-color: @white;
+  color: @button-default-hover;
   border: 2px solid @button-default-hover;
   border-radius: 3px;
-
   outline: none;
-  cursor: pointer;
+  background-color: @white;
+
+  font-size: 15px;
 
   &:hover,
   &:active,
   &:focus {
     color: @white;
-
     background-color: @button-default-hover;
   }
 }
@@ -152,10 +167,12 @@
 
 .list-navigation__item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 100%;
-  padding: 5px;
+  justify-content: space-between;
+
+  height: 32px;
+  padding: 5px 20px 5px 20px;
+
   cursor: pointer;
 
   &:hover{
@@ -166,26 +183,30 @@
 .list-navigation__item-title {
   width: 250px;
   margin: 0;
+
+  font-size: 14px;
+  font-weight: normal;
 }
 
 .list-navigation__item-button {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
   width: 30px;
   height: 30px;
 
-  background-color: transparent;
-  border: none;
   cursor: pointer;
+
+  border: none;
   outline: none;
+  background-color: transparent;
 
   &:hover,
   &:active,
   &:focus {
-    background-color: @button-default-hover;
     border-radius: 3px;
+    background-color: @button-default-hover;
   }
 }
 

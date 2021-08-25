@@ -8,50 +8,61 @@
 }
 
 .menu__title{
-  display: inline-block;
-  padding: 5px;
-  width: 100%;
   position: relative;
-  min-height: 40px;
+
+  display: inline-block;
+
   box-sizing: border-box;
-  font-weight: bold;
+  width: 100%;
+  min-height: 40px;
+  padding: 5px;
+
   font-size: 18px;
+  font-weight: bold;
   line-height: 40px;
 }
 
 .menu__title-button{
   position: absolute;
-  right: 5px;
   top: 8px;
+  right: 5px;
 }
 
 .menu__item{
-  display: inline-block;
-  padding: 5px 20px;
-  width: 100%;
   position: relative;
-  min-height: 32px;
+
+  display: inline-block;
+
   box-sizing: border-box;
+  width: 100%;
+  min-height: 32px;
+  padding: 5px 20px;
+
   cursor: pointer;
+
   color: black;
+
   font-weight: normal;
 
   &:hover{
-    font-weight: normal;
     color: black;
     background-color: @gray-hover;
+
+    font-weight: normal;
   }
 }
 
 .menu__item--active, .menu__item--active:hover{
-  background-color: @menu-active-bg;
   color: @white;
+  background-color: @menu-active-bg;
+
   font-weight: bold;
 }
 
 .menu__item-button{
   position: absolute;
-  right: 3px;
   top: 3px;
+  right: 3px;
+
   height: 26px;
 }

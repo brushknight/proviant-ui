@@ -22,6 +22,7 @@
   "scripts": {
     "start": "webpack serve --mode development --hot",
     "build": "webpack --mode production",
+    "csscomb": "node node_modules/csscomb/lib/cli.js -c .csscomb.json src/style",
     "lint": "eslint"
   },
   "eslintConfig": {
@@ -53,6 +54,7 @@
     "@reduxjs/toolkit": "^1.6.0",
     "babel-loader": "^8.2.2",
     "css-loader": "^4.3.0",
+    "csscomb": "^4.3.0",
     "eslint": "^7.29.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
