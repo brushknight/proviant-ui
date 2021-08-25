@@ -1,9 +1,10 @@
 .language-picker__list {
   display: flex;
+
   padding: 5px;
 
-  background-color: @default-gray-bg;
   border-radius: 25px;
+  background-color: @default-gray-bg;
 }
 
 .language-picker__item {
@@ -20,29 +21,30 @@
 
 .language-picker__label {
   display: block;
+
   width: 40px;
   height: 40px;
 
-  color: @white;
   text-align: center;
-  line-height: 35px;
 
-
-  border-radius: 50%;
   opacity: .3;
+  color: @white;
+  border-radius: 50%;
+
+  line-height: 35px;
 
   &--en {
     background-color: #0a58ca;
     background-image: url("../images/en.svg");
-    background-size: cover;
     background-position: -8px center;
+    background-size: cover;
   }
 
   &--ru {
     background-color: #dc3545;
     background-image: url("../images/ru.svg");
-    background-size: cover;
     background-position: left center;
+    background-size: cover;
   }
 }
 

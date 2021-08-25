@@ -9,24 +9,21 @@ import { Spinner } from '@blueprintjs/core'
 import { STATUS_LOADED, STATUS_UNAUTHORIZED } from '../redux/reducers/consts'
 import { useEffect } from 'react'
 import { withTranslation } from 'react-i18next'
+import AddProductForm from './header/AddProductForm'
 import CategoryCreateOverlay from './category/CategoryCreateOverlay'
 import CategoryEditOverlay from './category/CategoryEditOverlay'
 import ListCreateOverlay from './list/ListCreateOverlay'
 import ListEditOverlay from './list/ListEditOverlay'
-import MenuAddProduct from './menu/MenuAddProduct'
-import MenuCategories from './menu/MenuCategories'
-import MenuLists from './menu/MenuLists'
-import MenuSettings from './menu/MenuSettings'
+import PageHeader from './header/Header'
 import ProductCreateOverlay from './product/ProductCreateOverlay'
 import ProductEditOverlay from './product/ProductEditOverlay'
 import ProductOverlay from './product/ProductOverlay'
 import ProductsList from './product/ProductsList'
 import PropTypes from 'prop-types'
 import Sandbox from './Sandbox'
-import Version from './generic/Version'
-import ShoppingList from "./shopping/ShoppingList";
-import ShoppingListItemOverlay from "./shopping/ShoppingListItemOverlay";
-import ShoppingListRedirect from "./shopping/ShoppingListRedirect";
+import ShoppingList from './shopping/ShoppingList'
+import ShoppingListItemOverlay from './shopping/ShoppingListItemOverlay'
+import ShoppingListRedirect from './shopping/ShoppingListRedirect'
 
 const AppCore = ({ user }) => {
 	const history = useHistory()
@@ -51,19 +48,9 @@ const AppCore = ({ user }) => {
 	return (
 		<div className="page-body">
 
-			<header className="page-header">
-				<nav className="page-header__navigation">
-					<MenuAddProduct/>
-					<MenuLists/>
-					<MenuCategories/>
-					{isSaaS() &&
-					<MenuSettings/>
-					}
-					<Version/>
-				</nav>
-			</header>
+			<PageHeader/>
 			<main className="page-main">
-
+				<AddProductForm className={'page-main__product-addition'}/>
 				<Route path='/sandbox'>
 					<Sandbox/>
 				</Route>
@@ -78,7 +65,8 @@ const AppCore = ({ user }) => {
 						<ShoppingListItemOverlay/>
 					</Route>
 				</Route>
-				<Route exact={true} path={["/", "/category-new", "/list-new", "/product-new", "/product-edit/:productId", "/product/:productId"]}>
+				<Route exact={true}
+					path={['/', '/category-new', '/list-new', '/product-new', '/product-edit/:productId', '/product/:productId']}>
 					<ProductsList filterType={FILTER_TYPE_NONE}/>
 					<Route exact={true} path="/category-new">
 						<CategoryCreateOverlay/>
@@ -96,7 +84,8 @@ const AppCore = ({ user }) => {
 						<ProductOverlay filterType={FILTER_TYPE_NONE}/>
 					</Route>
 				</Route>
-				<Route exact={true} path={["/list/:id", "/list/:id/product-new", "/list/:id/edit", "/list/:id/product-edit/:productId", "/list/:id/product/:productId"]}>
+				<Route exact={true}
+					path={['/list/:id', '/list/:id/product-new', '/list/:id/edit', '/list/:id/product-edit/:productId', '/list/:id/product/:productId']}>
 					<ProductsList filterType={FILTER_TYPE_LIST}/>
 					<Route exact={true} path="/list/:id/product-new">
 						<ProductCreateOverlay filterType={FILTER_TYPE_LIST}/>
@@ -111,7 +100,8 @@ const AppCore = ({ user }) => {
 						<ProductOverlay filterType={FILTER_TYPE_LIST}/>
 					</Route>
 				</Route>
-				<Route exact={true} path={["/category/:id", "/category/:id/product-new", "/category/:id/edit", "/category/:id/product-edit/:productId", "/category/:id/product/:productId"]}>
+				<Route exact={true}
+					path={['/category/:id', '/category/:id/product-new', '/category/:id/edit', '/category/:id/product-edit/:productId', '/category/:id/product/:productId']}>
 					<ProductsList filterType={FILTER_TYPE_CATEGORY}/>
 					<Route exact={true} path="/category/:id/product-new">
 						<ProductCreateOverlay filterType={FILTER_TYPE_CATEGORY}/>

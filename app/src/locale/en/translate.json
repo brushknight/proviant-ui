@@ -11,14 +11,11 @@
         "image_not_valid": "Image is not passing our checks (>10MB)"
       }
     },
-    "menu_list": {
-      "title": "Lists",
-      "create_form_placeholder": "New List",
+    "navigation": {
+      "shopping_list": "Shopping List",
+      "lists": "Lists",
+      "categories": "Categories",
       "all_products": "All products"
-    },
-    "menu_category": {
-      "title": "Categories",
-      "create_form_placeholder": "New Category"
     },
     "edit_category_form": {
       "title": "Edit Category",

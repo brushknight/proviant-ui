@@ -1,11 +1,15 @@
 .shopping-list-item {
   position: relative;
-  padding: 10px;
-  font-size: 16px;
-  border-bottom: @default-gray-border 1px solid;
-  min-height: 40px;
+
   box-sizing: border-box;
+  min-height: 40px;
+  padding: 10px;
+
   cursor: pointer;
+
+  border-bottom: @default-gray-border 1px solid;
+
+  font-size: 16px;
   &:hover{
     background-color: @light;
   }
@@ -21,23 +25,28 @@
 
 .shopping-list-item__quantity {
   position: absolute;
-  right: 50px;
   top: 0;
+  right: 50px;
+
   height: 40px;
-  line-height: 40px;
+
   font-weight: bold;
+  line-height: 40px;
 }
 
 .shopping-list-item__tick {
   position: absolute;
-  right: 10px;
   top: 5px;
-  height: 30px;
+  right: 10px;
+
   width: 30px;
-  border: @neon-purple 3px solid;
-  background-color: @white;
-  border-radius: 15px;
+  height: 30px;
+
   cursor: pointer;
+
+  border: @neon-purple 3px solid;
+  border-radius: 15px;
+  background-color: @white;
 
   &:hover {
     background-color: @neon-purple;

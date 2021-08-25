@@ -1,22 +1,27 @@
 .button{
-  border: none;
-  height: 32px;
-  font-size: 16px;
   display: inline-block;
-  background-color: @button-default;
-  color: @button-color;
-  border-radius: 3px;
-  cursor: pointer;
-  padding: 5px 10px;
-  outline: none;
+
   box-sizing: border-box;
+  height: 32px;
+  padding: 5px 10px;
+
+  cursor: pointer;
   text-align: center;
 
+  color: @button-color;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  background-color: @button-default;
+
+  font-size: 16px;
+
   &:hover:not(:disabled){
-    background-color: @button-default-hover;
-    color: @button-color-hover;
-    text-shadow: 1px 1px @button-color-shadow-hover;
     text-decoration: none;
+
+    color: @button-color-hover;
+    background-color: @button-default-hover;
+    text-shadow: 1px 1px @button-color-shadow-hover;
   }
 }
 
@@ -29,15 +34,16 @@
 }
 
 .button--login{
-  background-color: transparent;
-  border: @button-default-hover 2px solid;
   width: 100%;
 
-  &:disabled{
-    opacity: .4;
+  border: @button-default-hover 2px solid;
+  background-color: transparent;
 
-    background-color: @button-disabled;
-    border: @button-disabled 2px solid;
+  &:disabled{
     cursor: default;
+
+    opacity: .4;
+    border: @button-disabled 2px solid;
+    background-color: @button-disabled;
   }
 }

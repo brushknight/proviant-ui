@@ -4,22 +4,31 @@
 
 .product-stock__form {
   position: relative;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.product-stock__consume::before {
+.product-stock__add{
+  padding: 0 5px 0 5px;
+}
+
+.product-stock__consume{
+  padding: 0 5px 0 5px;
+}
+
+/*.product-stock__consume::before {
   content: "";
   position: absolute;
   top: 20px;
-  left: 49%;
+  left: 0;
 
   width: 2px;
   height: 85%;
 
   background: @light-gray;
-}
+}*/
 
 .product-stock__list {
   padding: 20px 0;
@@ -27,11 +36,13 @@
 
 .product-stock__row-quantity {
   display: inline-block;
+
   width: 150px;
 }
 
 .product-stock__row-expires {
   display: inline-block;
+
   width: 160px;
 }
 

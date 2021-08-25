@@ -1,0 +1,227 @@
+.list-navigation {
+  margin-right: auto;
+
+  @media (min-width: 768px) {
+    width: 400px;
+  }
+}
+
+.list-navigation__wrapper-for-button-toggle {
+  position: fixed;
+  z-index: 30;
+  top: 0;
+
+  display: flex;
+
+  width: 250px;
+  height: 46px;
+  padding: 0 0 0 5px;
+
+  background-color: @default-gray-bg;
+
+  @media (min-width: 768px) {
+    position: fixed;
+    z-index: 30;
+
+    width: 250px;
+  }
+
+  @media (min-width: 768px) {
+    position: fixed;
+    z-index: 30;
+    top: 0;
+    left: 0;
+  }
+}
+
+.list-navigation__button-toggle {
+  width: 30px;
+  padding: 0;
+
+  cursor: pointer;
+
+  border: none;
+  outline: none;
+  background-color: transparent;
+
+  @media (min-width: 1200px) {
+    display: none;
+  }
+}
+
+.list-navigation__button-toggle-icon {
+  display: block;
+}
+
+.list-navigation__button-toggle-svg {
+  width: 25px;
+  height: 25px;
+}
+
+.list-navigation__button-toggle:hover .list-navigation__button-toggle-path,
+.list-navigation__button-toggle:active .list-navigation__button-toggle-path,
+.list-navigation__button-toggle:focus .list-navigation__button-toggle-path {
+  fill: @white;
+}
+
+.list-navigation__button-toggle-icon--hidden {
+  display: none;
+}
+
+.list-navigation__title {
+  margin: 0;
+  padding: 7px 0 0 10px;
+
+  font-size: 20px;
+}
+
+.list-navigation__wrapper-for-list--hidden {
+  display: none;
+
+  @media (min-width: 1200px) {
+    display: block;
+  }
+}
+
+.list-navigation__wrapper-for-list {
+  position: fixed;
+  z-index: 30;
+  top: 46px;
+  left: 0;
+
+  overflow-y: scroll;
+
+  width: 100%;
+  height: calc(100vh - 46px);
+  padding: 5px;
+
+  background-color: @default-gray-bg;
+
+  @media (min-width: 768px) {
+    z-index: 30;
+
+    width: 250px;
+  }
+
+  @media (min-width: 1200px) {
+    position: absolute;
+
+    height: calc(100% - 100px);
+  }
+}
+
+.list-navigation__wrapper-for-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-navigation__wrapper-for-title--interactive{
+  cursor: pointer;
+  &:hover{
+    background-color: @gray-hover;
+  }
+}
+
+
+.list-navigation__title-list {
+  margin: 0;
+  padding: 5px 0 5px 0;
+
+  font-size: 18px;
+}
+
+.list-navigation__title-button {
+  display: flex;
+  align-items: center;
+
+  height: 28px;
+
+  cursor: pointer;
+
+  color: @button-default-hover;
+  border: 2px solid @button-default-hover;
+  border-radius: 3px;
+  outline: none;
+  background-color: @white;
+
+  font-size: 15px;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: @white;
+    background-color: @button-default-hover;
+  }
+}
+
+.list-navigation__title-button-path {
+  fill: @button-default-hover;
+}
+
+.list-navigation__title-button:hover .list-navigation__title-button-path,
+.list-navigation__title-button:active .list-navigation__title-button-path,
+.list-navigation__title-button:focus .list-navigation__title-button-path {
+  fill: @white;
+}
+
+.list-navigation__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 32px;
+  padding: 5px 20px 5px 20px;
+
+  cursor: pointer;
+
+  &:hover{
+    background-color: @gray-hover;
+  }
+}
+
+.list-navigation__item-title {
+  width: 250px;
+  margin: 0;
+
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.list-navigation__item-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  cursor: pointer;
+
+  border: none;
+  outline: none;
+  background-color: transparent;
+
+  &:hover,
+  &:active,
+  &:focus {
+    border-radius: 3px;
+    background-color: @button-default-hover;
+  }
+}
+
+.list-navigation__item-button-svg {
+  width: 20px;
+  height: 20px;
+}
+
+.list-navigation__item-button-path {
+  fill: @button-default-hover;
+}
+
+.list-navigation__item-button:hover .list-navigation__item-button-path,
+.list-navigation__item-button:active .list-navigation__item-button-path,
+.list-navigation__item-button:focus .list-navigation__item-button-path {
+  fill: @white;
+}
+

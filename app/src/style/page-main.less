@@ -1,9 +1,21 @@
 .page-main {
-  width: 100%;
-  min-height: 360px;
-  box-sizing: border-box;
+  position: relative;
+
   display: flex;
   flex-direction: column;
 
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 360px;
+  padding: 46px 0 100px;
+
   background-color: @white;
+
+  @media (min-width: 768px) {
+    padding: 156px 0 10px;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 95px 0 10px;
+  }
 }

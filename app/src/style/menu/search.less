@@ -1,0 +1,183 @@
+.search__button {
+  margin: 0 11px 0 0;
+  padding: 6px 0 0 0;
+
+  cursor: pointer;
+
+  border: none;
+  outline: none;
+  background-color: transparent;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.search__button-svg {
+  width: 23px;
+  height: 23px;
+}
+
+.search__button:hover .search__button-path,
+.search__button:active .search__button-path,
+.search__button:focus .search__button-path {
+  fill: @white;
+}
+
+.search__wrapper--hidden {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
+.search__wrapper {
+  position: absolute;
+  top: 46px;
+  left: 0;
+
+  width: 100%;
+  padding: 15px;
+
+  background-color: @default-gray-bg;
+
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 15px 5px;
+  }
+
+  @media (min-width: 1200px) {
+    position: fixed;
+    top: 0;
+    left: 250px;
+
+    width: calc(100% - 250px);
+    padding: 15px 5px 0;
+
+    background-color: transparent;
+  }
+}
+
+.search__wrapper-search-input {
+  position: relative;
+
+  border-radius: 3px;
+
+  &:before {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+
+    width: 20px;
+    height: 20px;
+
+    content: "";
+
+    background-image: url("../../images/search.svg");
+    background-repeat: no-repeat;
+  }
+
+  @media (min-width: 768px) {
+    width: 33%;
+  }
+
+  @media (min-width: 1200px) {
+    width: 70%;
+
+    background-color: @light;
+  }
+}
+
+.search__wrapper-search-input--disabled{
+  cursor: not-allowed;
+
+  background-color: @disabled;
+}
+
+.search__search-input {
+  width: 100%;
+  height: 30px;
+  margin: 0 0 15px;
+  padding: 0 5px 0 30px;
+
+  cursor: text;
+
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  background-color: transparent;
+
+  line-height: 30px;
+
+  @media (min-width: 768px) {
+    margin: 0;
+  }
+
+  @media (min-width: 1200px) {
+    //background-color: @light;
+  }
+}
+
+.search__wrapper-search-input--disabled .search__search-input{
+  cursor: not-allowed;
+}
+
+
+.search__categories {
+  width: 100%;
+  min-height: 30px;
+  padding-left: 5px;
+
+  border-radius: 3px;
+  background-color: @white;
+
+  line-height: 30px;
+
+  @media (min-width: 768px) {
+    flex-grow: 1;
+
+    margin: 0 0 0 5px;
+  }
+
+  @media (min-width: 1200px) {
+    background-color: @light;
+  }
+}
+
+.search__categories--disabled{
+  cursor: not-allowed;
+
+  background-color: @disabled;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
