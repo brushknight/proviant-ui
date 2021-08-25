@@ -44,7 +44,7 @@ const Navigation = ({setIsOverlayOpen}) => {
                         </svg>
                     </span>
                 </button>
-                <h1 className={'list-navigation__title'}>Список 1</h1>
+                {/*<h1 className={'list-navigation__title'}>Список 1</h1>*/}
             </div>
             <Menu
                 isOpen={isOpen}

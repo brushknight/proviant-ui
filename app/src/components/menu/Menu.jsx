@@ -9,9 +9,9 @@ import {useEffect} from "react";
 import {fetchCategories} from "../../redux/actions/categories";
 import {useHistory} from "react-router-dom";
 
-const Item = ({title, onEdit}) => {
+const Item = ({title, onEdit, onClick}) => {
 	return (
-		<li className={'list-navigation__item'}>
+		<li className={'list-navigation__item'} onClick={onClick}>
 			<h3 className={'list-navigation__item-title'}>{title}</h3>
 			<button className={'list-navigation__item-button'} onClick={onEdit}>
 				<div>
@@ -62,10 +62,30 @@ const Menu = ({ isOpen, setIsOpen, lists, categories, fetchLists, fetchCategorie
 		history.push('/list-new')
 	}
 
+	const goToList = (id) => {
+		history.push(`/category/${id}`)
+	}
+
+	const goToCategory = (id) => {
+		history.push(`/category/${id}`)
+	}
+
+	const goToShoppingList = (id) => {
+		history.push(`/shopping`)
+	}
+
 	return (
 		<div className={'list-navigation__wrapper-for-list ' + toggleStyle}>
+			<div className={'list-navigation__wrapper-for-title list-navigation__wrapper-for-title--interactive'}
+				 onClick={() => {
+					 setIsOpen(false)
+					 goToShoppingList()
+				 }}
+			>
+				<h2 className={'list-navigation__title-list'}>{t('menu_list.shopping_list')}</h2>
+			</div>
 			<div className={'list-navigation__wrapper-for-title'}>
-				<h2 className={'list-navigation__title-list'}>Списки</h2>
+				<h2 className={'list-navigation__title-list'}>{t('menu_list.title')}</h2>
 				<AddButton
 					t={t}
 					onClick={() => {
@@ -78,6 +98,11 @@ const Menu = ({ isOpen, setIsOpen, lists, categories, fetchLists, fetchCategorie
 				{lists.items.map(item => (
 					<Item
 						title={item.title}
+						onClick={(e) => {
+							e.stopPropagation()
+							setIsOpen(false)
+							goToList(item.id)
+						}}
 						onEdit={() => {
 							setIsOpen(false)
 							history.push('/list/' + item.id + '/edit')
@@ -86,7 +111,7 @@ const Menu = ({ isOpen, setIsOpen, lists, categories, fetchLists, fetchCategorie
 				))}
 			</ul>
 			<div className={'list-navigation__wrapper-for-title'}>
-				<h2 className={'list-navigation__title-list'}>Категории</h2>
+				<h2 className={'list-navigation__title-list'}>{t('menu_category.title')}</h2>
 				<AddButton
 					t={t}
 					onClick={() => {
@@ -99,6 +124,11 @@ const Menu = ({ isOpen, setIsOpen, lists, categories, fetchLists, fetchCategorie
 				{categories.items.map(item => (
 					<Item
 						title={item.title}
+						onClick={(e) => {
+							e.stopPropagation()
+							setIsOpen(false)
+							goToCategory(item.id)
+						}}
 						onEdit={() => {
 							setIsOpen(false)
 							history.push('/category/' + item.id + '/edit')

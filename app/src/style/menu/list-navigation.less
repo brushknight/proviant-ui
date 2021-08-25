@@ -76,11 +76,11 @@
   position: fixed;
   top: 46px;
   left: 0;
-  z-index: 5;
+  z-index: 30;
 
   height: calc(100vh - 46px);
   width: 100%;
-  padding: 15px;
+  padding: 5px;
 
   background-color: @default-gray-bg;
 
@@ -103,6 +103,11 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.list-navigation__wrapper-for-title--interactive{
+  cursor: pointer;
+}
+
 
 .list-navigation__title-list {
   margin: 0;
@@ -147,7 +152,7 @@
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  padding: 15px 0 0;
+  padding: 5px;
   cursor: pointer;
 
   &:hover{
@@ -195,3 +200,4 @@
 .list-navigation__item-button:focus .list-navigation__item-button-path {
   fill: @white;
 }
+
