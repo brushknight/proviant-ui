@@ -10,9 +10,11 @@ import {fetchCategories} from "../../redux/actions/categories";
 import {useHistory} from "react-router-dom";
 
 const Item = ({title, onEdit, onClick}) => {
-	return (
-		<li className={'list-navigation__item'} onClick={onClick}>
-			<h3 className={'list-navigation__item-title'}>{title}</h3>
+
+	let editButton = ''
+
+	if (onEdit) {
+		editButton = (
 			<button className={'list-navigation__item-button'} onClick={onEdit}>
 				<div>
 					<svg className={'list-navigation__item-button-svg'} data-icon="edit" width="16" height="16"
@@ -23,6 +25,13 @@ const Item = ({title, onEdit, onClick}) => {
 					</svg>
 				</div>
 			</button>
+		)
+	}
+
+	return (
+		<li className={'list-navigation__item'} onClick={onClick}>
+			<h3 className={'list-navigation__item-title'}>{title}</h3>
+			{editButton}
 		</li>
 	)
 }
@@ -63,7 +72,11 @@ const Menu = ({ isOpen, setIsOpen, lists, categories, fetchLists, fetchCategorie
 	}
 
 	const goToList = (id) => {
-		history.push(`/category/${id}`)
+		history.push(`/list/${id}`)
+	}
+
+	const goToAllProducts = () => {
+		history.push(`/`)
 	}
 
 	const goToCategory = (id) => {
@@ -82,10 +95,10 @@ const Menu = ({ isOpen, setIsOpen, lists, categories, fetchLists, fetchCategorie
 					 goToShoppingList()
 				 }}
 			>
-				<h2 className={'list-navigation__title-list'}>{t('menu_list.shopping_list')}</h2>
+				<h2 className={'list-navigation__title-list'}>{t('navigation.shopping_list')}</h2>
 			</div>
 			<div className={'list-navigation__wrapper-for-title'}>
-				<h2 className={'list-navigation__title-list'}>{t('menu_list.title')}</h2>
+				<h2 className={'list-navigation__title-list'}>{t('navigation.lists')}</h2>
 				<AddButton
 					t={t}
 					onClick={() => {
@@ -95,6 +108,14 @@ const Menu = ({ isOpen, setIsOpen, lists, categories, fetchLists, fetchCategorie
 				/>
 			</div>
 			<ul className={'list-navigation__list'}>
+				<Item
+					title={t('navigation.all_products')}
+					onClick={(e) => {
+						e.stopPropagation()
+						setIsOpen(false)
+						goToAllProducts()
+					}}
+				/>
 				{lists.items.map(item => (
 					<Item
 						title={item.title}
@@ -111,7 +132,7 @@ const Menu = ({ isOpen, setIsOpen, lists, categories, fetchLists, fetchCategorie
 				))}
 			</ul>
 			<div className={'list-navigation__wrapper-for-title'}>
-				<h2 className={'list-navigation__title-list'}>{t('menu_category.title')}</h2>
+				<h2 className={'list-navigation__title-list'}>{t('navigation.categories')}</h2>
 				<AddButton
 					t={t}
 					onClick={() => {

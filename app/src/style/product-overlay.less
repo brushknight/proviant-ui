@@ -1,7 +1,7 @@
 .product-overlay {
   right: 0;
 
-  max-width: 1024px;
+  width: 100%;
   height: 100%;
   padding: 10px 30px;
 
@@ -11,6 +11,10 @@
 
   position: fixed;
   z-index: 50;
+
+  @media (min-width: 1200px) {
+    width: 768px;
+  }
 }
 
 .product-overlay__button-back {
@@ -35,9 +39,12 @@
 }
 
 .product-overlay__inner {
-  //min-width: 768px;
+  width: 100%;
+
+
+
 }
 
 .product-overlay__inner--fixed {
-  //width: 768px;
+  width: 768px;
 }
