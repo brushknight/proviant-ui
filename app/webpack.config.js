@@ -2,7 +2,20 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const apiUrl = !process.env.LOCAL ? 'http://10.0.0.50:13000/' : 'http://localhost:8090/'
+let apiUrl = ''
+
+switch (process.env.BACKEND) {
+    case 'local':
+        apiUrl = 'http://localhost:8090/'
+        break
+    case 'stage':
+        apiUrl = 'http://10.0.0.50:13000/'
+        break
+    case 'prod':
+        apiUrl = 'https://proviant.io/'
+        break
+}
+
 const staticUrl = 'http://localhost:8090/uc/'
 
 module.exports = {
