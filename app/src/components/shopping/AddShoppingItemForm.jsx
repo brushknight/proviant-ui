@@ -8,8 +8,9 @@ import {getShoppingForm} from "../../redux/selectors";
 import {shoppingFormSubmit} from "../../redux/actions/shopping/form";
 import {STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR} from "../../redux/reducers/consts";
 import {Callout, Intent} from "@blueprintjs/core";
+import AddItemForm from "../header/AddItemForm";
 
-const ShoppingForm = ({submitForm, error, listId, status, t}) => {
+const AddShoppingItemForm = ({submitForm, error, listId, status, t, className}) => {
 
     const [title, setTitle] = useState('')
     const [quantity, setQuantity] = useState(1)
@@ -38,10 +39,13 @@ const ShoppingForm = ({submitForm, error, listId, status, t}) => {
         emptyForm()
     }
 
+    const action = (dto) => {
+        submitForm(listId, dto)
+    }
+
     const onSubmit = (e) => {
         e.preventDefault()
-
-        submitForm(listId, {
+        action({
             title,
             quantity
         })
@@ -56,36 +60,17 @@ const ShoppingForm = ({submitForm, error, listId, status, t}) => {
     }
 
     return (
-        <div className={'shopping-list__form'}>
-            <form onSubmit={onSubmit}>
-                <input
-                    className={'shopping-list-form__title'}
-                    type={'text'}
-                    value={title}
-                    placeholder={t('shopping_list_form.title')}
-                    onChange={(e) => {
-                        setTitle(e.target.value)
-                        setErrorInternal(null)
-                    }}/>
-                <input
-                    className={'shopping-list-form__quantity'}
-                    type={'number'}
-                    value={quantity}
-                    placeholder={t('shopping_list_form.quantity')}
-                    onChange={(e) => {
-                        setQuantity(Number(e.target.value))
-                        setErrorInternal(null)
-                    }}/>
-                <button
-                    className={'shopping-list-form__button'}
-                    disabled={errorInternal !== null}
-                    type={'submit'}
-                >
-                    {t('shopping_list_form.button_add')}
-                </button>
-            </form>
-            {errorBlock}
-        </div>
+        <AddItemForm
+            fields={
+                {
+                    title: 'Product title',
+                    quantity: 'Quantity'
+                }
+            }
+            className={className}
+            quickAction={() => {}}
+            action={action}
+        />
     )
 }
 
@@ -108,7 +93,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
-ShoppingForm.propTypes = {
+AddShoppingItemForm.propTypes = {
     status: PropTypes.string,
     error: PropTypes.string,
     listId: PropTypes.number,
@@ -116,4 +101,4 @@ ShoppingForm.propTypes = {
     t: PropTypes.func
 }
 
-export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ShoppingForm)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(AddShoppingItemForm)

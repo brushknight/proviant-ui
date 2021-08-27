@@ -11,7 +11,7 @@ import {GA_PAGE_SHOPPING_LIST, pageView} from "../../utils/ga";
 import {getShoppingList} from "../../redux/selectors";
 import {shoppingListFetchItems} from "../../redux/actions/shopping/list";
 import ShoppingListRow from "./ShoppingListRow";
-import ShoppingForm from "./ShoppingForm";
+import AddShoppingItemForm from "./AddShoppingItemForm";
 import {shoppingListItemCheck, shoppingListItemUncheck} from "../../redux/actions/shopping/tick";
 
 const ShoppingList = ({status, error, model, items, t, fetchItems, checkItem, uncheckItem}) => {
@@ -43,7 +43,7 @@ const ShoppingList = ({status, error, model, items, t, fetchItems, checkItem, un
     if (items.length === 0) {
         return (
             <section className={'shopping-list'}>
-                <ShoppingForm
+                <AddShoppingItemForm
                     listId={Number(id)}
                 />
             </section>
@@ -54,7 +54,7 @@ const ShoppingList = ({status, error, model, items, t, fetchItems, checkItem, un
 
     return (
         <section className={'shopping-list'}>
-            <ShoppingForm
+            <AddShoppingItemForm
                 listId={Number(id)}
             />
             {items.map(item => (

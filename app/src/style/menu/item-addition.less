@@ -1,4 +1,4 @@
-.product-addition {
+.item-addition {
   position: fixed;
   z-index: 10;
   bottom: 20px;
@@ -35,7 +35,7 @@
   }
 }
 
-.product-addition__button {
+.item-addition__button {
   width: 70px;
   height: 70px;
 
@@ -57,7 +57,7 @@
   }
 }
 
-.product-addition__button-svg {
+.item-addition__button-svg {
   width: 35px;
   height: 35px;
 
@@ -72,17 +72,17 @@
   }
 }
 
-.product-addition__button-path {
+.item-addition__button-path {
   fill: @button-default-hover;
 }
 
-.product-addition__button:hover .product-addition__button-path,
-.product-addition__button:active .product-addition__button-path,
-.product-addition__button:focus .product-addition__button-path {
+.item-addition__button:hover .item-addition__button-path,
+.item-addition__button:active .item-addition__button-path,
+.item-addition__button:focus .item-addition__button-path {
   fill: @white;
 }
 
-.product-addition__form {
+.item-addition__form {
   display: none;
 
   @media (min-width: 768px) {
@@ -95,7 +95,7 @@
   }
 }
 
-.product-addition__form-input {
+.item-addition__form-input {
   @media (min-width: 768px) {
     flex-grow: 1;
 
@@ -115,7 +115,7 @@
   }
 }
 
-.product-addition__form-button {
+.item-addition__form-button {
   display: flex;
   align-items: center;
   //line-height: 46px;
@@ -152,7 +152,7 @@
   }
 }
 
-.product-addition__button-text {
+.item-addition__button-text {
   display: block;
 
   height: 100%;
@@ -161,8 +161,8 @@
   line-height: 26px;
 }
 
-.product-addition__form-button:hover .product-addition__button-path,
-.product-addition__form-button:active .product-addition__button-path,
-.product-addition__form-button:focus .product-addition__button-path {
+.item-addition__form-button:hover .item-addition__button-path,
+.item-addition__form-button:active .item-addition__button-path,
+.item-addition__form-button:focus .item-addition__button-path {
   fill: @white;
 }

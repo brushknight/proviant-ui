@@ -12,6 +12,7 @@ import {withTranslation} from 'react-i18next'
 import ProductsListRow from './ProductsListRow'
 import PropTypes from 'prop-types'
 import {GA_PAGE_PRODUCTS, pageView} from "../../utils/ga";
+import AddProductForm from "./AddProductForm";
 
 const ProductsList = ({products, categories, lists, filterType, t, fetchProducts}) => {
 
@@ -58,6 +59,7 @@ const ProductsList = ({products, categories, lists, filterType, t, fetchProducts
     if (products.items.length === 0) {
         return (
             <section className="product-list">
+                <AddProductForm/>
                 <NonIdealState
                     title={t('product_list.no_products_found')}
                     icon={'search'}
@@ -71,6 +73,7 @@ const ProductsList = ({products, categories, lists, filterType, t, fetchProducts
 
     return (
         <section className="product-list">
+            <AddProductForm/>
             {products.items.map(product => (
                 <ProductsListRow
                     filterType={filterType}
