@@ -4,14 +4,14 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createProduct, createProductFormReset } from '../../redux/actions/createProduct'
 import { fileToBase64, isImageValid } from '../../utils/image'
+import { GA_PAGE_PRODUCT_CREATE, pageView } from '../../utils/ga'
 import { getCategories, getCreateProduct, getLists } from '../../redux/selectors'
-import { STATUS_CREATED, STATUS_EDITING, STATUS_ERROR } from '../../redux/reducers/consts'
+import { STATUS_CREATED, STATUS_DEFAULT, STATUS_EDITING, STATUS_ERROR } from '../../redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
-import {GA_PAGE_PRODUCT_CREATE, pageView} from "../../utils/ga";
 
 const ProductCreate = (
 	{
@@ -36,6 +36,9 @@ const ProductCreate = (
 	const [categoryList, setCategoryList] = useState([])
 
 	useEffect(() => {
+		if (form.status === STATUS_DEFAULT) {
+			setTitle(form.model.title)
+		}
 		setStatus(form.status)
 		setError(form.error)
 	}, [form.status])

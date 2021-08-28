@@ -1,11 +1,11 @@
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga'
 
 export const init = () => {
-    ReactGA.initialize('UA-204945660-1');
+	ReactGA.initialize('UA-204945660-1')
 }
 
 export const pageView = (pageName) => {
-    ReactGA.pageview(pageName);
+	ReactGA.pageview(pageName)
 }
 
 export const GA_PAGE_LOGIN = '/login'

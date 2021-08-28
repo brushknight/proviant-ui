@@ -9,13 +9,13 @@ import login from './login'
 import product from './product'
 import products from './products'
 import register from './register'
+import shoppingEdit from './shopping/edit'
+import shoppingForm from './shopping/form'
+import shoppingList from './shopping/list'
+import shoppingLists from './shopping/lists'
 import stock from './stock'
 import user from './user'
 import version from './version'
-import shoppingList from './shopping/list'
-import shoppingForm from './shopping/form'
-import shoppingEdit from './shopping/edit'
-import shoppingLists from './shopping/lists'
 
 export default combineReducers({
 	lists,

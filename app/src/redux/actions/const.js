@@ -60,6 +60,7 @@ export const ACTION_CREATE_PRODUCT_SENDING = 'create/product/sending'
 export const ACTION_CREATE_PRODUCT_FAIL = 'create/product/fail'
 
 export const ACTION_CREATE_PRODUCT_RESET = 'reset/product/create'
+export const ACTION_CREATE_PRODUCT_WITH_TITLE = 'product/create_with_title'
 
 export const ACTION_DELETE_PRODUCT_LOADING = 'delete/product/loading'
 export const ACTION_DELETE_PRODUCT_SUCCESS = 'delete/product/success'
@@ -142,6 +143,7 @@ export const ACTION_SHOPPING_LIST_UPDATE_ITEM_FAIL = 'shopping_list/update_item/
 // shopping form
 export const ACTION_CREATE_SHOPPING_LIST_ITEM_FAIL = 'shopping_list_form/create/fail'
 export const ACTION_CREATE_SHOPPING_LIST_ITEM_SUCCESS = 'shopping_list_form/create/success'
+export const ACTION_CREATE_SHOPPING_LIST_ITEM_RESET = 'shopping_list_form/create/reset'
 export const ACTION_CREATE_SHOPPING_LIST_ITEM_SENDING = 'shopping_list_form/create/sending'
 
 // edit form
@@ -157,4 +159,3 @@ export const ACTION_SHOPPING_LIST_ITEM_DELETE_SENDING = 'shopping_list_item/dele
 
 // version
 export const ACTION_VERSION_CORE_LOADED = 'version/core/loaded'
-

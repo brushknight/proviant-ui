@@ -1,5 +1,5 @@
 import { ACTION_USER_FETCH_FAILED, ACTION_USER_LOADED, ACTION_USER_UNAUTHORIZED } from '../actions/const'
-import {STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_UNAUTHORIZED} from './consts'
+import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_UNAUTHORIZED } from './consts'
 
 const emptyUser = () => {
 	return {

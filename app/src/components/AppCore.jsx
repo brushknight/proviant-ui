@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import { withTranslation } from 'react-i18next'
 import CategoryCreateOverlay from './category/CategoryCreateOverlay'
 import CategoryEditOverlay from './category/CategoryEditOverlay'
+import CreateShoppingListItemOverlay from './shopping/CreateShoppingListItemOverlay'
 import ListCreateOverlay from './list/ListCreateOverlay'
 import ListEditOverlay from './list/ListEditOverlay'
 import PageHeader from './header/Header'
@@ -58,14 +59,17 @@ const AppCore = ({ user }) => {
 					<ShoppingListRedirect/>
 				</Route>
 
-				<Route exact={true} path={['/shopping/:id', '/shopping/:id/:itemId']}>
+				<Route exact={true} path={['/shopping/:id', '/shopping/:id/new', '/shopping/:id/item/:itemId']}>
 					<ShoppingList/>
-					<Route exact={true} path='/shopping/:id/:itemId'>
+					<Route exact={true} path='/shopping/:id/new'>
+						<CreateShoppingListItemOverlay/>
+					</Route>
+					<Route exact={true} path='/shopping/:id/item/:itemId'>
 						<ShoppingListItemOverlay/>
 					</Route>
 				</Route>
 				<Route exact={true}
-					path={['/', '/category-new', '/list-new', '/product-new', '/product-edit/:productId', '/product/:productId']}>
+				       path={['/', '/category-new', '/list-new', '/product-new', '/product-edit/:productId', '/product/:productId']}>
 					<ProductsList filterType={FILTER_TYPE_NONE}/>
 					<Route exact={true} path="/category-new">
 						<CategoryCreateOverlay/>
@@ -84,7 +88,7 @@ const AppCore = ({ user }) => {
 					</Route>
 				</Route>
 				<Route exact={true}
-					path={['/list/:id', '/list/:id/product-new', '/list/:id/edit', '/list/:id/product-edit/:productId', '/list/:id/product/:productId']}>
+				       path={['/list/:id', '/list/:id/product-new', '/list/:id/edit', '/list/:id/product-edit/:productId', '/list/:id/product/:productId']}>
 					<ProductsList filterType={FILTER_TYPE_LIST}/>
 					<Route exact={true} path="/list/:id/product-new">
 						<ProductCreateOverlay filterType={FILTER_TYPE_LIST}/>
@@ -100,7 +104,7 @@ const AppCore = ({ user }) => {
 					</Route>
 				</Route>
 				<Route exact={true}
-					path={['/category/:id', '/category/:id/product-new', '/category/:id/edit', '/category/:id/product-edit/:productId', '/category/:id/product/:productId']}>
+				       path={['/category/:id', '/category/:id/product-new', '/category/:id/edit', '/category/:id/product-edit/:productId', '/category/:id/product/:productId']}>
 					<ProductsList filterType={FILTER_TYPE_CATEGORY}/>
 					<Route exact={true} path="/category/:id/product-new">
 						<ProductCreateOverlay filterType={FILTER_TYPE_CATEGORY}/>

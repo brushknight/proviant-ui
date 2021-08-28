@@ -22,8 +22,8 @@
   "scripts": {
     "start": "webpack serve --mode development --hot",
     "build": "webpack --mode production",
-    "csscomb": "node node_modules/csscomb/lib/cli.js -c .csscomb.json src/style",
-    "lint": "eslint"
+    "fix-css": "node node_modules/csscomb/lib/cli.js -c .csscomb.json src/style",
+    "fix-js": "eslint --fix src"
   },
   "eslintConfig": {
     "extends": [

@@ -1,6 +1,6 @@
-import {getCookie} from '../utils/cookies'
-import {STATUS_DEFAULT, STATUS_LOADED} from "./reducers/consts";
-import shoppingEdit from "./reducers/shopping/edit";
+import { getCookie } from '../utils/cookies'
+import { STATUS_DEFAULT, STATUS_LOADED } from './reducers/consts'
+import shoppingEdit from './reducers/shopping/edit'
 
 export const getLists = store => store.lists
 export const getCategories = store => store.categories
@@ -16,14 +16,13 @@ export const getUser = store => store.user
 export const getShoppingList = store => store.shoppingList
 export const getShoppingLists = store => store.shoppingLists
 export const getShoppingListItem = (store, itemId) => {
+	if (store.shoppingList.status === STATUS_LOADED || store.shoppingList.status === STATUS_DEFAULT) {
+		return store.shoppingList.model.items.find((item) => {
+			return Number(item.id) === Number(itemId)
+		})
+	}
 
-    if (store.shoppingList.status === STATUS_LOADED || store.shoppingList.status === STATUS_DEFAULT) {
-        return store.shoppingList.model.items.find((item) => {
-            return Number(item.id) === Number(itemId)
-        })
-    }
-
-    return null
+	return null
 }
 export const getShoppingListEdit = store => store.shoppingEdit
 
@@ -31,8 +30,8 @@ export const getShoppingForm = store => store.shoppingForm
 export const getRegister = store => store.register
 export const getVersion = store => store.version
 export const getLocale = (store) => {
-    if (store.user.model && store.user.model.locale) {
-        return store.user.model.locale
-    }
-    return getCookie('user-locale')
+	if (store.user.model && store.user.model.locale) {
+		return store.user.model.locale
+	}
+	return getCookie('user-locale')
 }
