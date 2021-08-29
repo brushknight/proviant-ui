@@ -7,7 +7,7 @@ import { withTranslation } from 'react-i18next'
 import AddItemForm from '../header/AddItemForm'
 import PropTypes from 'prop-types'
 
-const AddProductForm = ({ className, t, createWithTitle }) => {
+const ProductQuickAddForm = ({ className, t, createWithTitle }) => {
 	const history = useHistory()
 	const location = useLocation()
 	let newProductUrl = location.pathname
@@ -30,9 +30,10 @@ const AddProductForm = ({ className, t, createWithTitle }) => {
 		<AddItemForm
 			fields={
 				{
-					title: 'Product title'
+					title: t('product_quick_add_form.title')
 				}
 			}
+			buttonText={t('product_quick_add_form.button')}
 			className={className}
 			action={(dto) => {
 				action(dto.title)
@@ -57,10 +58,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	}
 }
 
-AddProductForm.propTypes = {
+ProductQuickAddForm.propTypes = {
 	t: PropTypes.func,
 	className: PropTypes.string,
 	createWithTitle: PropTypes.func
 }
 
-export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(AddProductForm)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductQuickAddForm)

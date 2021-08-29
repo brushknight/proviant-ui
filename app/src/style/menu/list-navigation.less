@@ -17,20 +17,35 @@
   height: 46px;
   padding: 0 0 0 5px;
 
+  border-bottom: @default-gray-border 1px solid;
   background-color: @default-gray-bg;
-
-  @media (min-width: 768px) {
-    position: fixed;
-    z-index: 30;
-
-    width: 250px;
-  }
 
   @media (min-width: 768px) {
     position: fixed;
     z-index: 30;
     top: 0;
     left: 0;
+
+    width: 250px;
+
+    border-bottom: none;
+  }
+
+  @media (min-width: 768px) {
+    position: fixed;
+    z-index: 30;
+  }
+
+  @media (min-width: 1200px) {
+    border-right: @default-gray-border 1px solid;
+  }
+}
+
+.list-navigation__wrapper-for-button-toggle--open{
+  border-bottom: none;
+
+  @media (min-width: 768px) {
+    border-right: @default-gray-border 1px solid;
   }
 }
 
@@ -101,6 +116,8 @@
     z-index: 30;
 
     width: 250px;
+
+    border-right: @default-gray-border 1px solid;
   }
 
   @media (min-width: 1200px) {

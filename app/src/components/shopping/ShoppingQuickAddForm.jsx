@@ -11,7 +11,7 @@ import { withTranslation } from 'react-i18next'
 import AddItemForm from '../header/AddItemForm'
 import PropTypes from 'prop-types'
 
-const AddShoppingItemForm = ({ submitForm, error, listId, status, t, className }) => {
+const ShoppingQuickAddForm = ({ submitForm, error, listId, status, t, className }) => {
 	const history = useHistory()
 
 	const [title, setTitle] = useState('')
@@ -65,10 +65,11 @@ const AddShoppingItemForm = ({ submitForm, error, listId, status, t, className }
 		<AddItemForm
 			fields={
 				{
-					title: 'Product title',
-					quantity: 'Quantity'
+					title: t('shopping_quick_add_form.title'),
+					quantity: t('shopping_quick_add_form.quantity'),
 				}
 			}
+			buttonText={t('shopping_quick_add_form.button')}
 			className={className}
 			quickAction={() => {
 				history.push('/shopping/' + listId + '/new')
@@ -97,7 +98,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	}
 }
 
-AddShoppingItemForm.propTypes = {
+ShoppingQuickAddForm.propTypes = {
 	status: PropTypes.string,
 	error: PropTypes.string,
 	listId: PropTypes.number,
@@ -105,4 +106,4 @@ AddShoppingItemForm.propTypes = {
 	t: PropTypes.func
 }
 
-export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(AddShoppingItemForm)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ShoppingQuickAddForm)

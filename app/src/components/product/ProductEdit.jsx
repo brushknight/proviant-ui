@@ -34,7 +34,8 @@ const ProductEdit = (
 		updateProduct,
 		reset,
 		t,
-		className
+		className,
+		closePopover
 	}
 ) => {
 	useEffect(() => {
@@ -126,6 +127,7 @@ const ProductEdit = (
 
 	if (status === STATUS_UPDATED) {
 		updatedCallout = <Callout icon={'tick'} intent={Intent.SUCCESS}>{t('product_edit.callout_updated')}</Callout>
+		closePopover()
 	}
 
 	const submitHandler = () => {
@@ -292,7 +294,8 @@ ProductEdit.propTypes = {
 	lists: PropTypes.object,
 	categories: PropTypes.object,
 	t: PropTypes.func,
-	className: PropTypes.string
+	className: PropTypes.string,
+	closePopover: PropTypes.func
 }
 
 export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductEdit)

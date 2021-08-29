@@ -20,7 +20,7 @@ const Navigation = ({setIsOverlayOpen}) => {
 
     return (
         <div className={'page-header__list-navigation list-navigation list-navigation--open'}>
-            <div className={'list-navigation__wrapper-for-button-toggle'}>
+            <div className={'list-navigation__wrapper-for-button-toggle ' + (isOpen ? 'list-navigation__wrapper-for-button-toggle--open': '')}>
                 <button className={'list-navigation__button-toggle'} type={'button'} onClick={() => {
                     setIsOpen(!isOpen)
                     setIsOverlayOpen(!isOpen)

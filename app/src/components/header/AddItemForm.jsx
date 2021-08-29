@@ -48,6 +48,10 @@ const AddItemForm = ({className, t, quickAction, action, fields, buttonText}) =>
         ))
     }
 
+    if (!className) {
+        className = ''
+    }
+
     return (
         <div className={'item-addition ' + className}>
             <button className={'item-addition__button'} onClick={quickAction}>

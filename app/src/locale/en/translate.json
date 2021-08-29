@@ -136,6 +136,15 @@
       "quantity": "Quantity",
       "button_save": "Save",
       "button_delete": "Delete"
+    },
+    "product_quick_add_form": {
+      "title": "Product title",
+      "button": "Add Product"
+    },
+    "shopping_quick_add_form": {
+      "title": "Product title",
+      "quantity": "Quantity",
+      "button": "Add Item"
     }
   }
 }
