@@ -2,8 +2,9 @@ import * as React from 'react'
 import { Alert, Button, ButtonGroup, Callout, InputGroup, Intent, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { deleteList, editListReset, fetchEditList, updateList } from '../../redux/actions/editList'
-import { getEditList } from '../../redux/selectors'
+import { deleteList, editListReset, fetchEditList, updateList } from '../../../common/redux/actions/editList'
+import { GA_PAGE_LIST_EDIT, pageView } from '../../../common/utils/ga'
+import { getEditList } from '../../../common/redux/selectors'
 import {
 	STATUS_DEFAULT,
 	STATUS_DELETED,
@@ -13,12 +14,11 @@ import {
 	STATUS_FETCHED,
 	STATUS_FETCHING,
 	STATUS_UPDATED
-} from '../../redux/reducers/consts'
+} from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-import {GA_PAGE_LIST_EDIT, pageView} from "../../utils/ga";
 
 const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 	const history = useHistory()

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Button, Callout, FormGroup, Icon, Intent, NumericInput, Spinner, SpinnerSize, Tag } from '@blueprintjs/core'
-import { STATUS_ERROR, STATUS_LOADING, STATUS_SUCCESS } from '../../redux/reducers/consts'
+import { STATUS_ERROR, STATUS_LOADING, STATUS_SUCCESS } from '../../../common/redux/reducers/consts'
 import { useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'

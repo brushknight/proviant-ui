@@ -2,14 +2,14 @@ import * as React from 'react'
 import { Button, ButtonGroup, Callout, InputGroup, Intent } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { createCategory, resetCreateCategoryForm } from '../../redux/actions/categories'
-import { getCategories } from '../../redux/selectors'
-import { STATUS_CREATED, STATUS_DEFAULT, STATUS_EDITING, STATUS_ERROR } from '../../redux/reducers/consts'
+import { createCategory, resetCreateCategoryForm } from '../../../common/redux/actions/categories'
+import { GA_PAGE_CATEGORY_CREATE, pageView } from '../../../common/utils/ga'
+import { getCategories } from '../../../common/redux/selectors'
+import { STATUS_CREATED, STATUS_DEFAULT, STATUS_EDITING, STATUS_ERROR } from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-import {GA_PAGE_CATEGORY_CREATE, pageView} from "../../utils/ga";
 
 const CategoryCreateForm = ({ form, create, reset, t, className }) => {
 	const history = useHistory()

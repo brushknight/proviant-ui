@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { fetchCoreVersion } from '../../redux/actions/version'
-import { getVersion } from '../../redux/selectors'
+import { fetchCoreVersion } from '../../../common/redux/actions/version'
+import { getVersion } from '../../../common/redux/selectors'
 import { useEffect } from 'react'
-import { version } from '../../utils/env'
+import { version } from '../../../common/utils/env'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 

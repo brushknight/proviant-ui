@@ -1,12 +1,11 @@
 import * as React from 'react'
-import {EVENT_NAVIGATION_OVERLAY_CLOCKED, publish} from "../../utils/pubsub";
+import { EVENT_NAVIGATION_OVERLAY_CLOCKED, publish } from '../../../common/utils/pubsub'
 
-const Overlay = ({isOpen}) => {
-
+const Overlay = ({ isOpen }) => {
 	let isOpenStyle = {}
-	if (isOpen){
+	if (isOpen) {
 		isOpenStyle = {
-			'display': 'block'
+			display: 'block'
 		}
 	}
 

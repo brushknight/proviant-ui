@@ -2,10 +2,10 @@ import * as React from 'react'
 import { Button, InputGroup, Intent, NumericInput } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { getShoppingList, getShoppingListEdit, getShoppingListItem } from '../../redux/selectors'
-import { shoppingItemDelete } from '../../redux/actions/shopping/delete'
-import { shoppingItemUpdate, shoppingListItemReset } from '../../redux/actions/shopping/edit'
-import { shoppingListItemCheck, shoppingListItemUncheck } from '../../redux/actions/shopping/tick'
+import { getShoppingList, getShoppingListEdit, getShoppingListItem } from '../../../common/redux/selectors'
+import { shoppingItemDelete } from '../../../common/redux/actions/shopping/delete'
+import { shoppingItemUpdate, shoppingListItemReset } from '../../../common/redux/actions/shopping/edit'
+import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
 import {
 	STATUS_DEFAULT,
 	STATUS_DELETED,
@@ -13,7 +13,7 @@ import {
 	STATUS_ERROR,
 	STATUS_LOADED,
 	STATUS_UPDATED
-} from '../../redux/reducers/consts'
+} from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'

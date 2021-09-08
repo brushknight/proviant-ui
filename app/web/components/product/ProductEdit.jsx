@@ -2,9 +2,10 @@ import * as React from 'react'
 import { Button, Callout, EditableText, FileInput, InputGroup, Intent, Tag } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { editProductFormReset, fetchEditProduct, updateProduct } from '../../redux/actions/editProduct'
-import { fileToBase64, isImageValid } from '../../utils/image'
-import { getCategories, getEditProduct, getLists } from '../../redux/selectors'
+import { editProductFormReset, fetchEditProduct, updateProduct } from '../../../common/redux/actions/editProduct'
+import { fileToBase64, isImageValid } from '../../../common/utils/image'
+import { GA_PAGE_PRODUCT_EDIT, pageView } from '../../../common/utils/ga'
+import { getCategories, getEditProduct, getLists } from '../../../common/redux/selectors'
 import {
 	STATUS_DEFAULT,
 	STATUS_EDITING,
@@ -14,7 +15,7 @@ import {
 	STATUS_FETCHING,
 	STATUS_NOT_FOUND,
 	STATUS_UPDATED
-} from '../../redux/reducers/consts'
+} from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
@@ -22,7 +23,6 @@ import SectionError from '../SectionError'
 import SectionLoading from '../SectionLoading'
 import SectionNotFound from '../SectionNotFound'
 import Select from 'react-select'
-import {GA_PAGE_PRODUCT_EDIT, pageView} from "../../utils/ga";
 
 const ProductEdit = (
 	{

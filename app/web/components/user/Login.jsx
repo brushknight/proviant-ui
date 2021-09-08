@@ -1,10 +1,11 @@
 import * as React from 'react'
-import { actionLogin, actionLoginResetError } from '../../redux/actions/login'
+import { actionLogin, actionLoginResetError } from '../../../common/redux/actions/login'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { getLogin } from '../../redux/selectors'
+import { GA_PAGE_LOGIN, pageView } from '../../../common/utils/ga'
+import { getLogin } from '../../../common/redux/selectors'
 import { Overlay } from '@blueprintjs/core'
-import { STATUS_EDITING, STATUS_ERROR, STATUS_SENDING, STATUS_SUCCESS } from '../../redux/reducers/consts'
+import { STATUS_EDITING, STATUS_ERROR, STATUS_SENDING, STATUS_SUCCESS } from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
@@ -12,7 +13,6 @@ import Button from '../generic/Button'
 import LanguagePicker from '../generic/LanguagePicker'
 import PropTypes from 'prop-types'
 import Version from '../generic/Version'
-import {GA_PAGE_LOGIN, pageView} from "../../utils/ga";
 
 const Login = ({ t, user, login, resetError }) => {
 	const history = useHistory()

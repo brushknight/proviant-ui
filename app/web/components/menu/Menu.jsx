@@ -1,16 +1,15 @@
 import * as React from 'react'
-import {getCategories, getLists} from "../../redux/selectors";
-import {fetchLists} from "../../redux/actions/lists";
-import PropTypes from "prop-types";
-import {compose} from "redux";
-import {withTranslation} from "react-i18next";
-import {connect} from "react-redux";
-import {useEffect} from "react";
-import {fetchCategories} from "../../redux/actions/categories";
-import {useHistory} from "react-router-dom";
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { fetchCategories } from '../../../common/redux/actions/categories'
+import { fetchLists } from '../../../common/redux/actions/lists'
+import { getCategories, getLists } from '../../../common/redux/selectors'
+import { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 
-const Item = ({title, onEdit, onClick}) => {
-
+const Item = ({ title, onEdit, onClick }) => {
 	let editButton = ''
 
 	if (onEdit) {
@@ -39,7 +38,7 @@ const Item = ({title, onEdit, onClick}) => {
 	)
 }
 
-const AddButton = ({t, onClick}) => {
+const AddButton = ({ t, onClick }) => {
 	return (
 		<button className={'list-navigation__title-button'} onClick={onClick}>
 			<svg className={'list-navigation__title-button-svg'} data-icon="plus" width="16" height="16"
@@ -79,7 +78,7 @@ const Menu = ({ isOpen, setIsOpen, lists, categories, fetchLists, fetchCategorie
 	}
 
 	const goToAllProducts = () => {
-		history.push(`/`)
+		history.push('/')
 	}
 
 	const goToCategory = (id) => {
@@ -87,7 +86,7 @@ const Menu = ({ isOpen, setIsOpen, lists, categories, fetchLists, fetchCategorie
 	}
 
 	const goToShoppingList = (id) => {
-		history.push(`/shopping`)
+		history.push('/shopping')
 	}
 
 	return (
@@ -174,7 +173,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		fetchLists: () => dispatch(fetchLists(locale)),
-		fetchCategories: () => dispatch(fetchCategories(locale)),
+		fetchCategories: () => dispatch(fetchCategories(locale))
 	}
 }
 

@@ -2,9 +2,9 @@ import * as React from 'react'
 import { Callout, Intent } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { getShoppingForm } from '../../redux/selectors'
-import { shoppingFormSubmit } from '../../redux/actions/shopping/form'
-import { STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR } from '../../redux/reducers/consts'
+import { getShoppingForm } from '../../../common/redux/selectors'
+import { shoppingFormSubmit } from '../../../common/redux/actions/shopping/form'
+import { STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR } from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
@@ -66,7 +66,7 @@ const ShoppingQuickAddForm = ({ submitForm, error, listId, status, t, className 
 			fields={
 				{
 					title: t('shopping_quick_add_form.title'),
-					quantity: t('shopping_quick_add_form.quantity'),
+					quantity: t('shopping_quick_add_form.quantity')
 				}
 			}
 			buttonText={t('shopping_quick_add_form.button')}

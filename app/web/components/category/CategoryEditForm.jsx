@@ -2,8 +2,9 @@ import * as React from 'react'
 import { Alert, Button, ButtonGroup, Callout, InputGroup, Intent, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { deleteCategory, editCategoryReset, fetchEditCategory, updateCategory } from '../../redux/actions/editCategory'
-import { getEditCategory } from '../../redux/selectors'
+import { deleteCategory, editCategoryReset, fetchEditCategory, updateCategory } from '../../../common/redux/actions/editCategory'
+import { GA_PAGE_CATEGORY_EDIT, pageView } from '../../../common/utils/ga'
+import { getEditCategory } from '../../../common/redux/selectors'
 import {
 	STATUS_DEFAULT,
 	STATUS_DELETED,
@@ -13,12 +14,11 @@ import {
 	STATUS_FETCHED,
 	STATUS_FETCHING,
 	STATUS_UPDATED
-} from '../../redux/reducers/consts'
+} from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-import {GA_PAGE_CATEGORY_EDIT, pageView} from "../../utils/ga";
 
 const CategoryEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 	const history = useHistory()

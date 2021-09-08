@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { editListReset } from '../../redux/actions/editList'
+import { editListReset } from '../../../common/redux/actions/editList'
 import { Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'

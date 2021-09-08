@@ -1,14 +1,11 @@
 import {
 	ACTION_SHOPPING_LIST_ITEM_DELETE_FAIL,
-	ACTION_SHOPPING_LIST_ITEM_DELETE_SENDING, ACTION_SHOPPING_LIST_ITEM_DELETE_SUCCESS,
-	ACTION_SHOPPING_LIST_ITEM_EDIT_FAIL, ACTION_SHOPPING_LIST_ITEM_EDIT_RESET,
-	ACTION_SHOPPING_LIST_ITEM_EDIT_SENDING, ACTION_SHOPPING_LIST_ITEM_EDIT_SUCCESS,
-	ACTION_SHOPPING_LIST_UPDATE_ITEM_SENDING,
-	ACTION_SHOPPING_LIST_UPDATE_ITEM_SUCCESS
+	ACTION_SHOPPING_LIST_ITEM_DELETE_SENDING,
+	ACTION_SHOPPING_LIST_ITEM_DELETE_SUCCESS
 } from '../const'
 import { generateCoreApiUrl } from '../../../utils/link'
 import { generateLocaleHeader } from '../../../utils/i18n'
-import { shoppingListDeleteItem, shoppingListUpdateItem } from './list'
+import { shoppingListDeleteItem } from './list'
 import axios from 'axios'
 
 const sending = (id) => {

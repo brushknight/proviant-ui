@@ -1,6 +1,5 @@
 import { getCookie } from '../utils/cookies'
 import { STATUS_DEFAULT, STATUS_LOADED } from './reducers/consts'
-import shoppingEdit from './reducers/shopping/edit'
 
 export const getLists = store => store.lists
 export const getCategories = store => store.categories

@@ -1,10 +1,11 @@
 import * as React from 'react'
-import { actionRegister, registerResetError } from '../../redux/actions/register'
+import { actionRegister, registerResetError } from '../../../common/redux/actions/register'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { getRegister } from '../../redux/selectors'
+import { GA_PAGE_REGISTER, pageView } from '../../../common/utils/ga'
+import { getRegister } from '../../../common/redux/selectors'
 import { Overlay } from '@blueprintjs/core'
-import { STATUS_EDITING, STATUS_ERROR, STATUS_SENDING, STATUS_SUCCESS } from '../../redux/reducers/consts'
+import { STATUS_EDITING, STATUS_ERROR, STATUS_SENDING, STATUS_SUCCESS } from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
@@ -12,7 +13,6 @@ import Button from '../generic/Button'
 import LanguagePicker from '../generic/LanguagePicker'
 import PropTypes from 'prop-types'
 import Version from '../generic/Version'
-import {GA_PAGE_REGISTER, pageView} from "../../utils/ga";
 
 const Register = ({ t, form, register, resetError }) => {
 	const history = useHistory()

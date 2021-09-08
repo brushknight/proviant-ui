@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { createProductWithTitle } from '../../redux/actions/createProduct'
+import { createProductWithTitle } from '../../../common/redux/actions/createProduct'
 import { useHistory, useLocation } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import AddItemForm from '../header/AddItemForm'

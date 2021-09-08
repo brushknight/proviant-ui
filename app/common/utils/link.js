@@ -1,4 +1,4 @@
-import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../const'
+import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../web/const'
 import { isSaaS } from './env'
 
 const CATEGORY_REGEX = /\/category\/(\d*)/

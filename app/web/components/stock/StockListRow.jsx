@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Alert, Button, Intent } from '@blueprintjs/core'
-import { unixToDate } from '../../utils/date'
+import { unixToDate } from '../../../common/utils/date'
 import { useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'

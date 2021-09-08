@@ -1,10 +1,10 @@
 import * as React from 'react'
+import { GA_PAGE_PRODUCT, pageView } from '../../../common/utils/ga'
 import { useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import ProductDetails from './ProductDetails'
 import ProductStock from '../stock/ProductStock'
 import PropTypes from 'prop-types'
-import {GA_PAGE_PRODUCT, pageView} from "../../utils/ga";
 
 const Product = (props) => {
 	const { id, productId } = useParams()

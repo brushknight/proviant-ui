@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import ShoppingList from './native/containers/shopping/ShoppingList'
-import store from './web/redux/store'
+import store from './common/redux/store'
 
 export default function App () {
 	return (
