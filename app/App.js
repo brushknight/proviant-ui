@@ -1,11 +1,11 @@
-import {StatusBar} from 'expo-status-bar';
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import ShoppingList from "./native/containers/shopping/ShoppingList";
-import store from './native/redux/store'
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux'
+import { StatusBar } from 'expo-status-bar'
+import { StyleSheet, View } from 'react-native'
+import React from 'react'
+import ShoppingList from './native/containers/shopping/ShoppingList'
+import store from './web/redux/store'
 
-export default function App() {
+export default function App () {
 	return (
 		<Provider store={store}>
 			<View style={styles.container}>
@@ -13,7 +13,7 @@ export default function App() {
 				<StatusBar style="auto"/>
 			</View>
 		</Provider>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -21,6 +21,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: '#fff',
 		alignItems: 'center',
-		justifyContent: 'center',
-	},
-});
+		justifyContent: 'center'
+	}
+})

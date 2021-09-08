@@ -82,14 +82,18 @@ export const generateCategoryLink = (listId) => {
 	return '/category/' + listId
 }
 
+export const backendUrl = () => {
+	return 'http://10.0.0.117:8080'
+}
+
 export const generateAuthApiUrl = (uri) => {
-	return '/api/v1/auth' + uri
+	return backendUrl() + '/api/v1/auth' + uri
 }
 
 export const generateCoreApiUrl = (uri) => {
 	if (isSaaS()) {
-		return '/api/v1/core' + uri
+		return backendUrl() + '/api/v1/core' + uri
 	}
 
-	return '/api/v1' + uri
+	return backendUrl() + '/api/v1' + uri
 }

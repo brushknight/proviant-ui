@@ -1,15 +1,14 @@
-import React from "react";
-import {StyleSheet, Text, View} from "react-native";
-import {connect} from "react-redux";
-import {shoppingListFetchItems} from "../../redux/actions/shopping/list";
-import {shoppingListItemCheck, shoppingListItemUncheck} from "../../redux/actions/shopping/tick";
-import {getShoppingList} from "../../redux/selectors";
+import { connect } from 'react-redux'
+import { getShoppingList } from '../../../web/redux/selectors'
+import { shoppingListFetchItems } from '../../../web/redux/actions/shopping/list'
+import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../web/redux/actions/shopping/tick'
+import { STATUS_FETCH_FAILED, STATUS_LOADING } from '../../../web/redux/reducers/consts'
+import { StyleSheet, Text, View } from 'react-native'
 import PropTypes from 'prop-types'
-import {STATUS_FETCH_FAILED, STATUS_LOADING} from "../../redux/reducers/consts";
-import ShoppingListRow from "../../components/shopping/ShoppingListRow";
+import React from 'react'
+import ShoppingListRow from '../../components/shopping/ShoppingListRow'
 
-const ShoppingList = ({fetchItems, status, model, items}) => {
-
+const ShoppingList = ({ fetchItems, status, error, model, items }) => {
 	React.useEffect(() => {
 		fetchItems(1)
 	}, [])
@@ -45,17 +44,16 @@ const ShoppingList = ({fetchItems, status, model, items}) => {
 			))}
 		</View>
 	)
-};
+}
 
 const styles = StyleSheet.create({
 	input: {
 		height: 40,
 		margin: 12,
 		borderWidth: 1,
-		padding: 10,
-	},
-});
-
+		padding: 10
+	}
+})
 
 const mapStateToProps = (state, ownProps) => {
 	const shoppingList = getShoppingList(state)
