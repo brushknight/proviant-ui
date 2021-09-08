@@ -3,14 +3,16 @@ import { getShoppingList } from '../../../common/redux/selectors'
 import { shoppingListFetchItems } from '../../../common/redux/actions/shopping/list'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
 import { STATUS_FETCH_FAILED, STATUS_LOADING } from '../../../common/redux/reducers/consts'
-import { StyleSheet, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import PropTypes from 'prop-types'
 import React from 'react'
 import ShoppingListRow from '../../components/shopping/ShoppingListRow'
 
-const ShoppingList = ({ fetchItems, status, error, model, items }) => {
+const ShoppingList = ({ fetchItems, status, error, items, checkItem, uncheckItem }) => {
+	const shoppingListId = 1
+
 	React.useEffect(() => {
-		fetchItems(1)
+		fetchItems(shoppingListId)
 	}, [])
 
 	if (status === STATUS_LOADING) {
@@ -40,20 +42,20 @@ const ShoppingList = ({ fetchItems, status, error, model, items }) => {
 	return (
 		<View>
 			{items.map(item => (
-				<ShoppingListRow item={item}/>
+				<ShoppingListRow
+					key={item.id}
+					item={item}
+					onCheck={() => {
+						checkItem(shoppingListId, item.id)
+					}}
+					onUncheck={() => {
+						uncheckItem(shoppingListId, item.id)
+					}}
+				/>
 			))}
 		</View>
 	)
 }
-
-const styles = StyleSheet.create({
-	input: {
-		height: 40,
-		margin: 12,
-		borderWidth: 1,
-		padding: 10
-	}
-})
 
 const mapStateToProps = (state, ownProps) => {
 	const shoppingList = getShoppingList(state)
@@ -80,7 +82,10 @@ ShoppingList.propTypes = {
 	fetchItems: PropTypes.func,
 	checkItem: PropTypes.func,
 	uncheckItem: PropTypes.func,
-	t: PropTypes.func
+	t: PropTypes.func,
+	status: PropTypes.string,
+	error: PropTypes.string,
+	items: PropTypes.array
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingList)
