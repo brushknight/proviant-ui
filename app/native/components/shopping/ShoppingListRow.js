@@ -1,29 +1,27 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types'
 import React from 'react'
+import ShoppingListTick from './ShoppingListTick'
 
-const ShoppingListRow = ({ item, onCheck, onUncheck }) => {
-	const onTick = () => {
-		if (item.checked) {
-			onUncheck()
-		} else {
-			onCheck()
-		}
+const ShoppingListRow = ({ item, onCheck, onUncheck, navigation }) => {
+	const goToDetails = () => {
+		navigation.navigate('shopping_details', { itemId: item.id })
 	}
 
 	return (
-		<View style={[styles.container, item.checked ? styles.container_checked : null]}>
+		<TouchableOpacity style={[styles.container, item.checked ? styles.container_checked : null]} onPress={goToDetails}>
 			<Text style={styles.title}>{item.title}</Text>
 			<Text style={styles.quantity}>{item.quantity}</Text>
-			<TouchableOpacity style={[styles.tick, item.checked ? styles.tick_checked : null]} onPress={onTick}/>
-		</View>
+			<ShoppingListTick isChecked={item.checked} onUncheck={onUncheck} onCheck={onCheck}/>
+		</TouchableOpacity>
 	)
 }
 
 ShoppingListRow.propTypes = {
 	item: PropTypes.object,
 	onCheck: PropTypes.func,
-	onUncheck: PropTypes.func
+	onUncheck: PropTypes.func,
+	navigation: PropTypes.object
 }
 
 const styles = StyleSheet.create({

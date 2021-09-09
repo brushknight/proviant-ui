@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import ShoppingListRow from '../../components/shopping/ShoppingListRow'
 
-const ShoppingList = ({ fetchItems, status, error, items, checkItem, uncheckItem }) => {
+const ShoppingList = ({ fetchItems, status, error, items, checkItem, uncheckItem, navigation }) => {
 	const shoppingListId = 1
 
 	React.useEffect(() => {
@@ -17,25 +17,32 @@ const ShoppingList = ({ fetchItems, status, error, items, checkItem, uncheckItem
 
 	if (status === STATUS_LOADING) {
 		return (
-			<Text>
-				Loading
-			</Text>
+			<View>
+				<Text>
+					Loading
+				</Text>
+			</View>
+
 		)
 	}
 
 	if (status === STATUS_FETCH_FAILED) {
 		return (
-			<Text>
-				{error}
-			</Text>
+			<View>
+				<Text>
+					{error}
+				</Text>
+			</View>
 		)
 	}
 
 	if (items.length === 0) {
 		return (
-			<Text>
-				no items
-			</Text>
+			<View>
+				<Text>
+					no items
+				</Text>
+			</View>
 		)
 	}
 
@@ -43,6 +50,7 @@ const ShoppingList = ({ fetchItems, status, error, items, checkItem, uncheckItem
 		<View>
 			{items.map(item => (
 				<ShoppingListRow
+					navigation={navigation}
 					key={item.id}
 					item={item}
 					onCheck={() => {
@@ -85,7 +93,8 @@ ShoppingList.propTypes = {
 	t: PropTypes.func,
 	status: PropTypes.string,
 	error: PropTypes.string,
-	items: PropTypes.array
+	items: PropTypes.array,
+	navigation: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingList)
