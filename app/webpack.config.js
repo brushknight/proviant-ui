@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-let apiUrl = ''
+let apiUrl = 'http://localhost:8080/'
 
 switch (process.env.BACKEND) {
 case 'local':
@@ -90,6 +90,7 @@ module.exports = {
 	plugins: [
 		new webpack.DefinePlugin({
 			'process.env': {
+				api_url: JSON.stringify('http://localhost:9000'),
 				is_saas: process.env.IS_SAAS || 0,
 				version: JSON.stringify(process.env.VERSION) || JSON.stringify('dev')
 			}

@@ -46,8 +46,12 @@ export const shoppingItemUpdate = (listId, id, dto, locale) => {
 				dispatch(shoppingListUpdateItem(data.data))
 			})
 			.catch(error => {
-				const errorMsq = error.message
-				dispatch(fail(errorMsq))
+				if (error.response && error.response.status && error.response.data.error) {
+					dispatch(fail(error.response.data.error))
+				} else {
+					const errorMsq = error.message
+					dispatch(fail(errorMsq))
+				}
 			})
 	}
 }

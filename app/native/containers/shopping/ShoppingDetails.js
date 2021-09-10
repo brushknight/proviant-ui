@@ -1,10 +1,10 @@
-import { Button, StyleSheet, TextInput, View } from 'react-native'
 import { connect } from 'react-redux'
 import { getShoppingList, getShoppingListEdit, getShoppingListItem } from '../../../common/redux/selectors'
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import { shoppingItemDelete } from '../../../common/redux/actions/shopping/delete'
 import { shoppingItemUpdate, shoppingListItemReset } from '../../../common/redux/actions/shopping/edit'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
-import { STATUS_DEFAULT, STATUS_DELETED, STATUS_LOADED, STATUS_UPDATED } from '../../../common/redux/reducers/consts'
+import { STATUS_DEFAULT } from '../../../common/redux/reducers/consts'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import ShoppingListTick from '../../components/shopping/ShoppingListTick'
@@ -30,20 +30,9 @@ const ShoppingDetails = ({ item, fetchStatus, reset, status, checkItem, uncheckI
 	}
 
 	useEffect(() => {
-		if (fetchStatus === STATUS_LOADED || fetchStatus === STATUS_DEFAULT) {
-			setTitle(item.title)
-			setQuantity(item.quantity)
-		}
-
-		setStatusInternal(status)
-
-		if (status === STATUS_UPDATED || status === STATUS_DELETED) {
-			emptyForm()
-			reset()
-		}
-	}, [
-		fetchStatus, status
-	])
+		setTitle(item.title)
+		setQuantity(item.quantity)
+	}, [])
 
 	const onSubmit = () => {
 		updateItem(shoppingListId, item.id, {
@@ -63,12 +52,14 @@ const ShoppingDetails = ({ item, fetchStatus, reset, status, checkItem, uncheckI
 			<ShoppingListTick extraStyles={styles.tick} isChecked={item.checked} onCheck={onCheck} onUncheck={onUncheck}/>
 			<TextInput
 				style={styles.input}
-				onChangeText={setQuantity}
+				onChangeText={value => setQuantity(Number(value))}
 				value={String(quantity)}
 				keyboardType="numeric"
 				placeholder={'quantity'}
 			/>
-			<Button title={'save'} onPress={onSubmit}/>
+			<Pressable style={styles.button_save} onPress={onSubmit}>
+				<Text style={styles.button_save_text}>Save</Text>
+			</Pressable>
 		</View>
 	)
 }
@@ -91,7 +82,19 @@ const styles = StyleSheet.create({
 	tick: {
 		marginTop: 10,
 		marginRight: 10
+	},
+	button_save: {
+		height: 50,
+		backgroundColor: 'green',
+		width: 100,
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	button_save_text: {
+		color: 'white',
+		lineHeight: 50
 	}
+
 })
 
 const mapStateToProps = (state, ownProps) => {
