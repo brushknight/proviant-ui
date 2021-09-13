@@ -35,17 +35,20 @@ const ShoppingListItem = ({
 }) => {
 	const [title, setTitle] = useState('')
 	const [quantity, setQuantity] = useState(0)
+	const [price, setPrice] = useState(0.00)
 	const [statusInternal, setStatusInternal] = useState('')
 
 	const emptyForm = () => {
 		setTitle('')
 		setQuantity(1)
+		setPrice(0)
 		setStatusInternal(STATUS_DEFAULT)
 	}
 
 	useEffect(() => {
 		if (fetchStatus === STATUS_LOADED || fetchStatus === STATUS_DEFAULT) {
 			setTitle(item.title)
+			setPrice(item.price)
 			setQuantity(item.quantity)
 		}
 
@@ -65,7 +68,9 @@ const ShoppingListItem = ({
 
 		updateItem(listId, id, {
 			title,
-			quantity
+			quantity,
+			price,
+			checked: item.checked
 		})
 	}
 
@@ -83,7 +88,27 @@ const ShoppingListItem = ({
 						setStatusInternal(STATUS_EDITING)
 					}}
 				/>
+				<InputGroup
+					className={'shopping-list-edit__price'}
+					autoFocus={false}
+					placeholder={t('shopping_list_item.price')}
+					leftIcon={'dollar'}
+					value={price}
+					onChange={(e) => {
+						if (!e.target.value) {
+							setPrice(0)
+							setStatusInternal(STATUS_EDITING)
+						}
+						setPrice(e.target.value)
+						setStatusInternal(STATUS_EDITING)
+					}}
+					onBlur={(e) => {
+						setPrice(parseFloat(e.target.value))
+						setStatusInternal(STATUS_EDITING)
+					}}
+				/>
 				<NumericInput
+					leftIcon={'shopping-cart'}
 					className={'shopping-list-edit__quantity'}
 					min={1}
 					value={quantity}

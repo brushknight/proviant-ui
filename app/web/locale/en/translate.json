@@ -145,6 +145,9 @@
       "title": "Product title",
       "quantity": "Quantity",
       "button": "Add Item"
+    },
+    "shopping_list": {
+      "total_cost": "total cost:"
     }
   }
 }

@@ -14,7 +14,7 @@ import PropTypes from 'prop-types'
 import ShoppingListRow from './ShoppingListRow'
 import ShoppingQuickAddForm from './ShoppingQuickAddForm'
 
-const ShoppingList = ({ status, error, model, items, t, fetchItems, checkItem, uncheckItem }) => {
+const ShoppingList = ({ status, error, model, items, t, fetchItems, checkItem, uncheckItem, cartCost }) => {
 	const { id } = useParams()
 
 	useEffect(() => {
@@ -56,8 +56,13 @@ const ShoppingList = ({ status, error, model, items, t, fetchItems, checkItem, u
 			<ShoppingQuickAddForm
 				listId={Number(id)}
 			/>
+			<div className={'shopping-list__header shopping-list-header'}>
+				<div className={'shopping-list-header__text'}>{t('shopping_list.total_cost')}</div>
+				<div className={'shopping-list-header__cost'}>{cartCost}</div>
+			</div>
 			{items.map(item => (
 				<ShoppingListRow
+					key={'shopping-' + item.id}
 					listId={id}
 					item={item}
 					onCheck={() => {
@@ -76,11 +81,31 @@ const mapStateToProps = (state, ownProps) => {
 	const shoppingList = getShoppingList(state)
 
 	const t = ownProps.i18n.t.bind(ownProps.i18n)
+
+	const skipChecked = (obj) => {
+		if (typeof obj !== 'object') {
+			return obj
+		}
+
+		if (obj.checked === true) {
+			return 0
+		}
+
+		return obj.price
+	}
+
+	const reducerSum = (previousValue, currentValue) => parseFloat(skipChecked(previousValue)) + parseFloat(skipChecked(currentValue))
+
+	const items = shoppingList.model.items
+
+	const cartCost = items.length ? items.reduce(reducerSum) : 0
+
 	return {
 		model: shoppingList.model,
-		items: shoppingList.model.items,
+		items: items,
 		status: shoppingList.status,
 		error: shoppingList.error,
+		cartCost: cartCost,
 		t
 	}
 }
@@ -99,7 +124,9 @@ ShoppingList.propTypes = {
 	fetchItems: PropTypes.func,
 	checkItem: PropTypes.func,
 	uncheckItem: PropTypes.func,
-	t: PropTypes.func
+	t: PropTypes.func,
+	items: PropTypes.array,
+	cartCost: PropTypes.number
 }
 
 export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ShoppingList)

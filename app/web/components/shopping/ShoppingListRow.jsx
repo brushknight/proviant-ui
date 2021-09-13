@@ -27,6 +27,7 @@ const ShoppingListRow = ({ item, listId, onCheck, onUncheck, i18n }) => {
 			history.push('/shopping/' + listId + '/item/' + item.id)
 		}}>
 			<div className={'shopping-list-item__title'}>{item.title}</div>
+			<div className={'shopping-list-item__price'}>{item.price}</div>
 			<div className={'shopping-list-item__quantity'}>{item.quantity}</div>
 			<div
 				className={'shopping-list-item__tick ' + tickClassModification}
@@ -38,7 +39,10 @@ const ShoppingListRow = ({ item, listId, onCheck, onUncheck, i18n }) => {
 
 ShoppingListRow.propTypes = {
 	item: PropTypes.object,
-	i18n: PropTypes.object
+	i18n: PropTypes.object,
+	listId: PropTypes.number,
+	onCheck: PropTypes.func,
+	onUncheck: PropTypes.func
 }
 
 export default withTranslation('translations')(ShoppingListRow)

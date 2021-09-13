@@ -34,6 +34,7 @@ const AddForm = (props) => {
 		formatDate: date => unixToDate(date),
 		placeholder: 'DD/MM/YYYY',
 		value: date,
+		parseDate: str => new Date(str),
 		maxDate: new Date('2100/01/01'),
 		onChange: (date) => {
 			setDate(date)

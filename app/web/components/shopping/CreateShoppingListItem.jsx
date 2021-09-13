@@ -22,6 +22,7 @@ const CreateShoppingListItem = (
 ) => {
 	const [title, setTitle] = useState('')
 	const [quantity, setQuantity] = useState(1)
+	const [price, setPrice] = useState(0.00)
 	const [statusInternal, setStatusInternal] = useState('')
 
 	useEffect(() => {
@@ -40,7 +41,8 @@ const CreateShoppingListItem = (
 
 		submitForm({
 			title,
-			quantity
+			quantity,
+			price
 		})
 	}
 
@@ -66,7 +68,27 @@ const CreateShoppingListItem = (
 						setStatusInternal(STATUS_EDITING)
 					}}
 				/>
+				<InputGroup
+					className={'shopping-list-edit__price'}
+					autoFocus={false}
+					placeholder={t('shopping_list_item.price')}
+					leftIcon={'dollar'}
+					value={price}
+					onChange={(e) => {
+						if (!e.target.value) {
+							setPrice(0)
+							setStatusInternal(STATUS_EDITING)
+						}
+						setPrice(e.target.value)
+						setStatusInternal(STATUS_EDITING)
+					}}
+					onBlur={(e) => {
+						setPrice(parseFloat(e.target.value))
+						setStatusInternal(STATUS_EDITING)
+					}}
+				/>
 				<NumericInput
+					leftIcon={'shopping-cart'}
 					className={'shopping-list-edit__quantity'}
 					min={1}
 					value={quantity}
@@ -112,7 +134,11 @@ CreateShoppingListItem.propTypes = {
 	submitForm: PropTypes.func,
 	closePopover: PropTypes.func,
 	className: PropTypes.string,
-	i18n: PropTypes.object
+	i18n: PropTypes.object,
+	status: PropTypes.string,
+	error: PropTypes.string,
+	t: PropTypes.object,
+	reset: PropTypes.func
 }
 
 export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(CreateShoppingListItem)

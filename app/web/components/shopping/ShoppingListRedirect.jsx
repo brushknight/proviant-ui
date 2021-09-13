@@ -52,7 +52,8 @@ ShoppingListRedirect.propTypes = {
 	status: PropTypes.string,
 	error: PropTypes.string,
 	fetchItems: PropTypes.func,
-	t: PropTypes.func
+	t: PropTypes.func,
+	items: PropTypes.array
 }
 
 export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ShoppingListRedirect)
