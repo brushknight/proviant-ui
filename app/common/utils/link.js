@@ -1,5 +1,5 @@
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../web/const'
-import { getApiUrl, isSaaS } from './env'
+import { isSaaS, isWeb } from './env'
 
 const CATEGORY_REGEX = /\/category\/(\d*)/
 const LIST_REGEX = /\/list\/(\d*)/
@@ -83,7 +83,11 @@ export const generateCategoryLink = (listId) => {
 }
 
 export const backendUrl = () => {
-	return getApiUrl() || 'http://10.0.0.117:8080'
+	if (isWeb()) {
+		return ''
+	}
+
+	return 'http://10.0.0.117:8080'
 }
 
 export const generateAuthApiUrl = (uri) => {

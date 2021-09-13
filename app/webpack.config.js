@@ -2,17 +2,17 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-let apiUrl = 'http://localhost:8080/'
+let apiBackendUrl = 'http://localhost:8080/'
 
 switch (process.env.BACKEND) {
 case 'local':
-	apiUrl = 'http://localhost:8090/'
+	apiBackendUrl = 'http://localhost:8090/'
 	break
 case 'stage':
-	apiUrl = 'http://10.0.0.50:13000/'
+	apiBackendUrl = 'http://10.0.0.50:13000/'
 	break
 case 'prod':
-	apiUrl = 'https://proviant.io/'
+	apiBackendUrl = 'https://proviant.io/'
 	break
 }
 
@@ -82,7 +82,7 @@ module.exports = {
 		host: '0.0.0.0',
 		hot: true,
 		proxy: {
-			'/api': apiUrl,
+			'/api': apiBackendUrl,
 			'/uc': staticUrl
 		}
 	},
@@ -90,7 +90,7 @@ module.exports = {
 	plugins: [
 		new webpack.DefinePlugin({
 			'process.env': {
-				api_url: JSON.stringify('http://localhost:9000'),
+				target: JSON.stringify('web'),
 				is_saas: process.env.IS_SAAS || 0,
 				version: JSON.stringify(process.env.VERSION) || JSON.stringify('dev')
 			}
