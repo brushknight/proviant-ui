@@ -10,12 +10,21 @@
   border-bottom: @default-gray-border 1px solid;
 
   font-size: 16px;
-  &:hover{
-    background-color: @light;
+
+  &:hover {
+    @media (min-width: 1200px) {
+      background-color: @light;
+    }
+  }
+
+  &:active {
+    @media (max-width: 1200px) {
+      background-color: @light;
+    }
   }
 }
 
-.shopping-list-item--checked{
+.shopping-list-item--checked {
   opacity: .3;
 }
 
@@ -63,7 +72,15 @@
   background-color: @white;
 
   &:hover {
-    background-color: @neon-purple;
+    @media (min-width: 1200px) {
+      background-color: @neon-purple;
+    }
+  }
+
+  &:active {
+    @media (max-width: 1200px) {
+      background-color: @neon-purple;
+    }
   }
 }
 
@@ -71,6 +88,15 @@
   background-color: @neon-purple;
 
   &:hover {
-    background-color: @white;
+    @media (min-width: 1200px) {
+      background-color: @white;
+    }
+  }
+
+
+  &:active {
+    @media (max-width: 1200px) {
+      background-color: @neon-purple;
+    }
   }
 }
