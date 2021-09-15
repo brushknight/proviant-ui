@@ -34,6 +34,7 @@ const ProductCreate = (
 	const [barcode, setBarcode] = useState('')
 	const [list, setList] = useState(null)
 	const [categoryList, setCategoryList] = useState([])
+	const [price, setPrice] = useState(0)
 
 	useEffect(() => {
 		if (form.status === STATUS_DEFAULT) {
@@ -51,6 +52,7 @@ const ProductCreate = (
 
 	const textLinkToShop = <Tag minimal={true}>{t('product_create.link_to_shop')}</Tag>
 	const textBarcode = <Tag minimal={true}>{t('product_create.barcode')}</Tag>
+	const textPrice = <Tag minimal={true}>{t('product_create.price')}</Tag>
 
 	const convertListToValue = (model) => {
 		return { value: model.id, label: model.title }
@@ -87,6 +89,7 @@ const ProductCreate = (
 			title,
 			description,
 			link,
+			price,
 			image_base64: imageBase64,
 			barcode,
 			list_id: list ? list.id : 0,
@@ -147,6 +150,20 @@ const ProductCreate = (
 					}
 
 					fileToBase64(e.target.files[0]).then(base64 => setImageBase64(base64))
+					setStatus(STATUS_EDITING)
+				}}
+			/>
+			<InputGroup
+				className='product-edit__input'
+				fill={true}
+				leftElement={textPrice}
+				value={price}
+				onChange={(event) => {
+					setPrice(event.target.value)
+					setStatus(STATUS_EDITING)
+				}}
+				onBlur={(e) => {
+					setPrice(parseFloat(e.target.value))
 					setStatus(STATUS_EDITING)
 				}}
 			/>

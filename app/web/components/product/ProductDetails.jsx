@@ -151,7 +151,16 @@ const ProductDetails = ({
 					<Icon
 						className='product-stock-icon__icon'
 						icon={'cube'}
-						iconSize={22}/>{product.model.stock}</div>
+						iconSize={22}/>
+					{product.model.stock}
+				</div>
+				<div className="product-details__price product-price-icon">
+					<Icon
+						className='product-stock-icon__icon'
+						icon={'dollar'}
+						iconSize={22}/>
+					{product.model.price}
+				</div>
 				<ProductsTags
 					className='product-details__tags'
 					list={product.model.list}

@@ -55,6 +55,7 @@ const ProductEdit = (
 			setBarcode(form.model.barcode)
 			setList(form.model.list)
 			setCategoryList(form.model.categories)
+			setPrice(form.model.price)
 		}
 
 		if (form.status === STATUS_ERROR) {
@@ -77,6 +78,7 @@ const ProductEdit = (
 	const [barcode, setBarcode] = useState(form.model.barcode)
 	const [list, setList] = useState(form.model.list)
 	const [categoryList, setCategoryList] = useState(form.model.categories)
+	const [price, setPrice] = useState(form.model.price)
 
 	if (status === STATUS_FETCHING) {
 		return <SectionLoading/>
@@ -92,6 +94,7 @@ const ProductEdit = (
 
 	const textLinkToShop = <Tag minimal={true}>{t('product_edit.link_to_shop')}</Tag>
 	const textBarcode = <Tag minimal={true}>{t('product_edit.barcode')}</Tag>
+	const textPrice = <Tag minimal={true}>{t('product_edit.price')}</Tag>
 
 	const convertListToValue = (model) => {
 		return { value: model.id, label: model.title }
@@ -135,6 +138,7 @@ const ProductEdit = (
 			id: form.model.id,
 			title,
 			description,
+			price,
 			link,
 			image_base64: imageBase64,
 			barcode,
@@ -205,6 +209,20 @@ const ProductEdit = (
 					}
 
 					fileToBase64(file).then(base64 => setImageBase64(base64))
+					setStatus(STATUS_EDITING)
+				}}
+			/>
+			<InputGroup
+				className='product-edit__input'
+				fill={true}
+				leftElement={textPrice}
+				value={price}
+				onChange={(event) => {
+					setPrice(event.target.value)
+					setStatus(STATUS_EDITING)
+				}}
+				onBlur={(e) => {
+					setPrice(parseFloat(e.target.value))
 					setStatus(STATUS_EDITING)
 				}}
 			/>

@@ -92,7 +92,7 @@ const mapStateToProps = (state, ownProps) => {
 			return 0
 		}
 
-		return obj.price
+		return obj.price * obj.quantity
 	}
 
 	const reducerSum = (previousValue, currentValue) => parseFloat(skipChecked(previousValue)) + parseFloat(skipChecked(currentValue))
@@ -114,7 +114,7 @@ const mapStateToProps = (state, ownProps) => {
 		items: items,
 		status: shoppingList.status,
 		error: shoppingList.error,
-		cartCost: cartCost,
+		cartCost: Number(cartCost).toFixed(2),
 		t
 	}
 }
