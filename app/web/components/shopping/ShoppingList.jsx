@@ -83,7 +83,6 @@ const mapStateToProps = (state, ownProps) => {
 	const t = ownProps.i18n.t.bind(ownProps.i18n)
 
 	const skipChecked = (obj) => {
-		console.log(obj)
 		if (typeof obj !== 'object') {
 			return obj
 		}
@@ -106,8 +105,6 @@ const mapStateToProps = (state, ownProps) => {
 	} else if (items.length === 1) {
 		cartCost = items[0].price
 	}
-
-	console.log(cartCost)
 
 	return {
 		model: shoppingList.model,

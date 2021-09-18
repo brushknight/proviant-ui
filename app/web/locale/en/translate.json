@@ -147,7 +147,9 @@
       "button": "Add Item"
     },
     "shopping_list": {
-      "total_cost": "total cost:"
+      "total_cost": "total cost:",
+      "button_add": "Add to shopping list",
+      "quantity": "Quantity"
     }
   }
 }
