@@ -19,6 +19,7 @@ import ProductCreateOverlay from './product/ProductCreateOverlay'
 import ProductEditOverlay from './product/ProductEditOverlay'
 import ProductOverlay from './product/ProductOverlay'
 import ProductsList from './product/ProductsList'
+import Profile from './user/Profile'
 import PropTypes from 'prop-types'
 import Sandbox from './Sandbox'
 import ShoppingList from './shopping/ShoppingList'
@@ -53,6 +54,10 @@ const AppCore = ({ user }) => {
 
 				<Route path='/sandbox'>
 					<Sandbox/>
+				</Route>
+
+				<Route exact={true} path={['/profile']}>
+					<Profile/>
 				</Route>
 
 				<Route exact={true} path={['/shopping']}>

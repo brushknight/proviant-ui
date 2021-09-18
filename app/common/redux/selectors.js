@@ -28,6 +28,8 @@ export const getShoppingListEdit = store => store.shoppingEdit
 export const getShoppingForm = store => store.shoppingForm
 export const getRegister = store => store.register
 export const getVersion = store => store.version
+export const getApiTokens = store => store.apiTokens
+export const getApiTokenForm = store => store.apiTokenForm
 export const getLocale = (store) => {
 	if (store.user.model && store.user.model.locale) {
 		return store.user.model.locale

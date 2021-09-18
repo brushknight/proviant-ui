@@ -3,7 +3,7 @@ import { isSaaS } from '../../../common/utils/env'
 import { useState } from 'react'
 import Navigation from '../menu/Navigation'
 import Overlay from './Overlay'
-import Profile from './Profile'
+import ProfileButton from './ProfileButton'
 import Search from './Search'
 
 const PageHeader = () => {
@@ -18,7 +18,7 @@ const PageHeader = () => {
 			/>
 			{
 				isSaaS() &&
-                <Profile/>
+                <ProfileButton/>
 			}
 			<Overlay
 				isOpen={isOverlayOpen}

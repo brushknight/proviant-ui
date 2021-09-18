@@ -159,3 +159,12 @@ export const ACTION_SHOPPING_LIST_ITEM_DELETE_SENDING = 'shopping_list_item/dele
 
 // version
 export const ACTION_VERSION_CORE_LOADED = 'version/core/loaded'
+
+// tokens
+export const ACTION_FETCH_API_TOKENS_FAIL = 'tokens/fetch/fail'
+export const ACTION_FETCH_API_TOKENS_SUCCESS = 'tokens/fetch/success'
+export const ACTION_FETCH_API_TOKENS_LOADING = 'tokens/fetch/loading'
+// tokens
+export const ACTION_CREATE_API_TOKEN_FAIL = 'token_create/fetch/fail'
+export const ACTION_CREATE_API_TOKEN_SUCCESS = 'token_create/fetch/success'
+export const ACTION_CREATE_API_TOKEN_SENDING = 'token_create/fetch/sending'

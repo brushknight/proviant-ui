@@ -4,11 +4,14 @@ import { connect } from 'react-redux'
 import { getUser } from '../../../common/redux/selectors'
 import { Spinner } from '@blueprintjs/core'
 import { STATUS_LOADED } from '../../../common/redux/reducers/consts'
+import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import LanguagePicker from '../generic/LanguagePicker'
 import PropTypes from 'prop-types'
 
-const Profile = ({ user }) => {
+const ProfileButton = ({ user }) => {
+	const history = useHistory()
+
 	if (user.status !== STATUS_LOADED) {
 		return (
 			<ul className={'menu menu--bottom'}>
@@ -21,7 +24,9 @@ const Profile = ({ user }) => {
 	const userEmail = user.model ? user.model.email : ''
 
 	return (
-		<div className={'page-header__profile-link profile-link'}>
+		<div className={'page-header__profile-link profile-link'} onClick={() => {
+			history.push('/profile')
+		}}>
 			<span className={'profile-link__email'}>{userEmail}</span>
 			<a className={'profile-link__link'}>
 				<svg className={'profile-link__svg'} data-icon="user" width="16" height="16" viewBox="0 0 16 16">
@@ -49,11 +54,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {}
 }
 
-Profile.propTypes = {
+ProfileButton.propTypes = {
 	t: PropTypes.func,
 	i18n: PropTypes.object,
 	user: PropTypes.object,
 	fetchUser: PropTypes.func
 }
 
-export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(Profile)
+export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProfileButton)

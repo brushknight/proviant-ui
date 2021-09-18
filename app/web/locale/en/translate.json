@@ -150,6 +150,14 @@
       "total_cost": "total cost:",
       "button_add": "Add to shopping list",
       "quantity": "Quantity"
+    },
+    "profile": {
+      "title": "Profile",
+      "api_tokens": {
+        "title": "API tokens",
+        "button_generate_new": "Generate new API token",
+        "token_legend": "token"
+      }
     }
   }
 }

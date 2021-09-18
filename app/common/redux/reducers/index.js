@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux'
+import apiTokenForm from './auth/apiTokenForm'
+import apiTokens from './auth/apiTokens'
 import categories from './categories'
 import createProduct from './createProduct'
 import editCategory from './editCategory'
@@ -34,5 +36,7 @@ export default combineReducers({
 	shoppingList,
 	shoppingForm,
 	shoppingEdit,
-	shoppingLists
+	shoppingLists,
+	apiTokens,
+	apiTokenForm
 })
