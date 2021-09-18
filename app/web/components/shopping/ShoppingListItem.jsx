@@ -2,7 +2,8 @@ import * as React from 'react'
 import { Button, InputGroup, Intent, NumericInput } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { getShoppingList, getShoppingListEdit, getShoppingListItem } from '../../../common/redux/selectors'
+import { fetchProducts } from '../../../common/redux/actions/products'
+import { getProducts, getShoppingList, getShoppingListEdit, getShoppingListItem } from '../../../common/redux/selectors'
 import { shoppingItemDelete } from '../../../common/redux/actions/shopping/delete'
 import { shoppingItemUpdate, shoppingListItemReset } from '../../../common/redux/actions/shopping/edit'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
@@ -17,25 +18,30 @@ import {
 import { useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
+import Select from 'react-select'
 
-const ShoppingListItem = ({
-	listId,
-	id,
-	item,
-	fetchStatus,
-	status,
-	fetchError,
-	error,
-	t,
-	className,
-	updateItem,
-	deleteItem,
-	reset,
-	closePopover
-}) => {
+const ShoppingListItem = (
+	{
+		listId,
+		id,
+		item,
+		fetchStatus,
+		status,
+		fetchError,
+		error,
+		t,
+		className,
+		updateItem,
+		deleteItem,
+		reset,
+		closePopover,
+		products,
+		fetchProducts
+	}) => {
 	const [title, setTitle] = useState('')
 	const [quantity, setQuantity] = useState(0)
 	const [price, setPrice] = useState(0.00)
+	const [productId, setProductId] = useState(null)
 	const [statusInternal, setStatusInternal] = useState('')
 
 	const emptyForm = () => {
@@ -43,6 +49,7 @@ const ShoppingListItem = ({
 		setQuantity(1)
 		setPrice(0)
 		setStatusInternal(STATUS_DEFAULT)
+		setProductId(null)
 	}
 
 	useEffect(() => {
@@ -50,6 +57,11 @@ const ShoppingListItem = ({
 			setTitle(item.title)
 			setPrice(item.price)
 			setQuantity(item.quantity)
+			setProductId(item.product_id)
+		}
+
+		if (products.status !== STATUS_LOADED) {
+			fetchProducts()
 		}
 
 		setStatusInternal(status)
@@ -60,7 +72,7 @@ const ShoppingListItem = ({
 			closePopover()
 		}
 	}, [
-		fetchStatus, status
+		fetchStatus, status, products.status
 	])
 
 	const onSubmit = (e) => {
@@ -70,8 +82,29 @@ const ShoppingListItem = ({
 			title,
 			quantity,
 			price,
-			checked: item.checked
+			checked: item.checked,
+			product_id: productId
 		})
+	}
+
+	const convertModelToValue = (model) => {
+		return { value: model.id, label: model.title }
+	}
+	let productsForSelect = []
+	let productModel = null
+
+	if (products.items.length > 0) {
+		productsForSelect = products.items.map((item) => {
+			return convertModelToValue(item)
+		})
+
+		productModel = products.items.find((item) => {
+			return Number(item.id) === Number(productId)
+		})
+	}
+
+	if (productModel) {
+		productModel = convertModelToValue(productModel)
 	}
 
 	return (
@@ -114,6 +147,17 @@ const ShoppingListItem = ({
 					value={quantity}
 					onValueChange={value => setQuantity(value)}
 				/>
+				<Select
+					className='shopping-list-edit__product'
+					options={productsForSelect}
+					isMulti={false}
+					placeholder={t('shopping_list_item.select_product')}
+					onChange={(event) => {
+						setProductId(event.value)
+						setStatusInternal(STATUS_EDITING)
+					}}
+					value={productModel}
+				/>
 				<div className={'shopping-list-edit__buttons'}>
 					<Button
 						disabled={statusInternal === STATUS_ERROR}
@@ -144,6 +188,7 @@ const mapStateToProps = (state, ownProps) => {
 	const shoppingList = getShoppingList(state)
 	const shoppingListEdit = getShoppingListEdit(state)
 	const shoppingListItem = getShoppingListItem(state, ownProps.itemId)
+	const products = getProducts(state)
 
 	const t = ownProps.i18n.t.bind(ownProps.i18n)
 	return {
@@ -155,6 +200,7 @@ const mapStateToProps = (state, ownProps) => {
 		error: shoppingListEdit.error,
 		id: ownProps.itemId,
 		listId: ownProps.listId,
+		products: products,
 		t
 	}
 }
@@ -166,6 +212,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		uncheckItem: (listId, id) => dispatch(shoppingListItemUncheck(listId, id, locale)),
 		updateItem: (listId, id, dto) => dispatch(shoppingItemUpdate(listId, id, dto, locale)),
 		deleteItem: (listId, id) => dispatch(shoppingItemDelete(listId, id, locale)),
+		fetchProducts: () => dispatch(fetchProducts(null, locale)),
 		reset: () => dispatch(shoppingListItemReset())
 	}
 }
@@ -178,7 +225,8 @@ ShoppingListItem.propTypes = {
 	reset: PropTypes.func,
 	closePopover: PropTypes.func,
 	className: PropTypes.string,
-	i18n: PropTypes.object
+	i18n: PropTypes.object,
+	products: PropTypes.object
 }
 
 export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ShoppingListItem)

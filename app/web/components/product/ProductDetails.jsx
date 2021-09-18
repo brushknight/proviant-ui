@@ -2,28 +2,32 @@ import * as React from 'react'
 import { Alert, Button, ButtonGroup, Callout, Icon, Intent, NonIdealState, Spinner } from '@blueprintjs/core'
 import { connect } from 'react-redux'
 import { deleteProduct, fetchProduct, resetProduct } from '../../../common/redux/actions/product'
-import { getProduct } from '../../../common/redux/selectors'
+import { getProduct, getShoppingLists } from '../../../common/redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING, STATUS_NOT_FOUND, STATUS_SUCCESS } from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { compose } from 'redux'
 import { generateEditProductLink } from '../../../common/utils/link'
+import { shoppingFormSubmit } from '../../../common/redux/actions/shopping/form'
+import { shoppingListsFetch } from '../../../common/redux/actions/shopping/lists'
 import { textToBase64Barcode } from '../../../common/utils/barcode'
 import { withTranslation } from 'react-i18next'
 import ProductsTags from './ProductTags'
 import PropTypes from 'prop-types'
+import ShoppingAddForm from '../shopping/ShoppingAddForm'
 
-const ProductDetails = ({
-	productId,
-	product,
-	filterType,
-	listOrCategoryId,
-	fetchProduct,
-	deleteProduct,
-	reset,
-	t
-}) => {
+const ProductDetails = (
+	{
+		productId,
+		product,
+		filterType,
+		listOrCategoryId,
+		fetchProduct,
+		deleteProduct,
+		reset,
+		t
+	}) => {
 	const history = useHistory()
 
 	const [deleteAlert, setDeleteAlert] = useState(false)
@@ -115,7 +119,7 @@ const ProductDetails = ({
 				</div>
 				<div className='product-details__edit product-details__edit--tablet-width-min'>
 					<Button className='tablet-hide-width-max' icon={'edit'} minimal={true}
-						onClick={onEditHandler}>{t('product.button_edit')}</Button>
+					        onClick={onEditHandler}>{t('product.button_edit')}</Button>
 					<Button className='tablet-hide-width-max' onClick={() => {
 						setDeleteAlert(true)
 					}} icon={'delete'} minimal={true} intent={Intent.DANGER}>{t('product.button_delete')}</Button>
@@ -136,7 +140,7 @@ const ProductDetails = ({
 							window.open(product.model.link)
 						}
 					}}
-					minimal={true}
+					        minimal={true}
 					>{t('product.link_to_the_shop')}</Button>
 					<ButtonGroup>
 						<Button icon={'edit'} minimal={true} onClick={onEditHandler}>{t('product.button_edit')}</Button>
@@ -165,6 +169,11 @@ const ProductDetails = ({
 					className='product-details__tags'
 					list={product.model.list}
 					categories={product.model.categories}/>
+				<ShoppingAddForm
+					title={product.model.title}
+					price={product.model.price}
+					productId={product.model.id}
+				/>
 			</div>
 		</div>
 	)
@@ -176,7 +185,21 @@ const mapStateToProps = (state, ownProps) => {
 	const listOrCategoryId = ownProps.listOrCategoryId
 	const filterType = ownProps.filterType
 	const t = ownProps.i18n.t.bind(ownProps.i18n)
-	return { productId, product, filterType, listOrCategoryId, t }
+
+	const shoppingLists = getShoppingLists(state)
+	let shoppingList = {}
+	if (shoppingLists.items.length > 0) {
+		shoppingList = shoppingLists.items[0]
+	}
+
+	return {
+		productId,
+		product,
+		filterType,
+		listOrCategoryId,
+		t,
+		shoppingList
+	}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {

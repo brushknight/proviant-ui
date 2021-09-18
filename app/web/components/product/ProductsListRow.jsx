@@ -6,7 +6,15 @@ import { withTranslation } from 'react-i18next'
 import ProductsTags from './ProductTags'
 import PropTypes from 'prop-types'
 
-const ProductsListRow = ({ product, categories, lists, filterType, i18n }) => {
+const ProductsListRow = (
+	{
+		product,
+		categories,
+		lists,
+		filterType,
+		i18n,
+		listOrCategoryId
+	}) => {
 	const history = useHistory()
 	const list = lists.items.find(item => item.id === product.list_id)
 
@@ -24,10 +32,10 @@ const ProductsListRow = ({ product, categories, lists, filterType, i18n }) => {
 	const onClickHandler = () => {
 		switch (filterType) {
 		case FILTER_TYPE_LIST:
-			history.push('/list/' + list.id + '/product/' + product.id)
+			history.push('/list/' + listOrCategoryId + '/product/' + product.id)
 			break
 		case FILTER_TYPE_CATEGORY:
-			history.push('/category/' + list.id + '/product/' + product.id)
+			history.push('/category/' + listOrCategoryId + '/product/' + product.id)
 			break
 		case FILTER_TYPE_NONE:
 			history.push('/product/' + product.id)
@@ -45,10 +53,17 @@ const ProductsListRow = ({ product, categories, lists, filterType, i18n }) => {
 			<div className="product-row__product-designation">
 				<div className='product-row__image' style={imageStyle}>
 				</div>
-				<div className="product-row__product-stock product-stock-icon"><Icon className='product-stock-icon__icon' icon={'cube'}/>{product.stock}</div>
+				<div className="product-row__product-stock product-stock-icon">
+					<Icon className='product-stock-icon__icon' icon={'cube'}/>
+					{product.stock}
+				</div>
+				<div className="product-row__product-price product-stock-price">
+					<Icon className='product-price-icon__icon' icon={'dollar'}/>
+					{product.price}
+				</div>
 				<span className="product-row__product-title">{product.title}</span>
 			</div>
-			<ProductsTags list={list} categories={categoriesFound} className="product-row__product-sorting" />
+			<ProductsTags list={list} categories={categoriesFound} className="product-row__product-sorting"/>
 		</div>
 	)
 }
@@ -58,6 +73,7 @@ ProductsListRow.propTypes = {
 	categories: PropTypes.object,
 	lists: PropTypes.object,
 	filterType: PropTypes.string,
+	listOrCategoryId: PropTypes.number,
 	i18n: PropTypes.object
 }
 

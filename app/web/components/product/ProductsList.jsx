@@ -76,6 +76,7 @@ const ProductsList = ({ products, categories, lists, filterType, t, fetchProduct
 			{products.items.map(product => (
 				<ProductsListRow
 					filterType={filterType}
+					listOrCategoryId={id}
 					key={product.id}
 					product={product}
 					categories={categories}
