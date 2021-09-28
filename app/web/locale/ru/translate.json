@@ -1,97 +1,164 @@
 {
   "translations": {
     "global": {
-      "button_add_product": "Новый продукт",
+      "button_add_product": "Добавить товар",
       "button_save": "Сохранить",
       "button_close": "Закрыть",
       "button_delete": "Удалить",
-      "ooops": "упс... что то пошло не так...",
-      "button_add": "добавить"
+      "ooops": "упс... что-то пошло не так",
+      "button_add": "Добавить",
+      "error": {
+        "image_not_valid": "Изображение не соответствует требованиям (>10MB)"
+      }
     },
-    "menu_list": {
-      "title": "Списки",
-      "create_form_placeholder": "Новый список",
+    "navigation": {
+      "shopping_list": "Список покупок",
+      "lists": "Списки",
+      "categories": "Категории",
       "all_products": "Все продукты"
     },
-    "menu_category": {
-      "title": "Категории",
-      "create_form_placeholder": "Новая категория"
-    },
     "edit_category_form": {
-      "title": "Редактирование категории",
+      "title": "Редактировать категорию",
       "placeholder": "Название категории",
       "button_save": "Сохранить",
       "button_delete": "Удалить",
-      "button_cancel": "Отмена"
+      "button_cancel": "Отмена",
+      "delete_confirmation": "Вы уверены, что хотите удалить категорию"
     },
     "edit_list_form": {
-      "title": "Редактирование списка",
+      "title": "Редактировать список",
       "placeholder": "Название списка",
       "button_save": "Сохранить",
       "button_delete": "Удалить",
-      "button_cancel": "Отмена"
+      "button_cancel": "Отмена",
+      "delete_confirmation": "Вы уверены, что хотите удалить список"
     },
     "create_category_form": {
-      "title": "Новая Категория",
+      "title": "Создать Категорию",
       "placeholder": "Название категории",
       "button_create": "Создать",
       "button_cancel": "Отмена"
     },
     "create_list_form": {
-      "title": "Новый Список",
+      "title": "Создать список",
       "placeholder": "Название списка",
       "button_create": "Создать",
       "button_cancel": "Отмена"
     },
     "product_list": {
-      "no_products_found": "Продуктов не найдено"
+      "no_products_found": "Товары не найдены"
     },
     "product_list_row": {
-      "stock": "в остатке:"
+      "stock": "В наличии:"
     },
     "product_edit": {
-      "not_found": "Продукт не найден",
-      "button_back": "Назад",
+      "not_found": "Не найдено",
+      "button_back": "Вернуться",
       "button_save": "Сохранить",
-      "callout_updated": "Продукт обновлен",
-      "select_list": "Выбрать список",
-      "select_categories": "Выбрать категории",
-      "link_to_shop": "Ссылка на магазин",
+      "callout_updated": "Товар обновлен",
+      "select_list": "Выберите список",
+      "select_categories": "Выберите категорию",
+      "link_to_shop": "Ссылка на товар в магазине",
       "link_to_picture": "Ссылка на изображение",
-      "barcode": "Штрихкод",
-      "in_stock": "В остатке"
+      "barcode": "Штрих-код",
+      "choose_picture": "Выберите изображение товара",
+      "title": "Нажмите здесь и введите название товара",
+      "description": "Нажмите здесь и введите описание товара"
     },
     "product_create": {
-      "button_back": "Назад",
+      "button_back": "Вернуться",
       "button_save": "Сохранить",
-      "callout_updated": "Продукт обновлен",
-      "select_list": "Выбрать список",
-      "select_categories": "Выбрать категории",
-      "link_to_shop": "Ссылка на магазин",
+      "callout_updated": "Товар обновлен",
+      "select_list": "Выберите список",
+      "select_categories": "Выберите категорию",
+      "link_to_shop": "Ссылка на товар в магазине",
       "link_to_picture": "Ссылка на изображение",
-      "barcode": "Штрихкод"
+      "barcode": "Штрих-код",
+      "choose_picture": "Выберите изображение товара",
+      "title": "Нажмите здесь и введите название товара",
+      "description": "Нажмите здесь и введите описание товара"
     },
     "product": {
-      "button_back": "Назад",
+      "button_back": "Вернуться",
       "button_edit": "Редактировать",
       "button_delete": "Удалить",
-      "link_to_the_shop": "Ссылка на магазин",
-      "barcode": "Штрихкод"
+      "button_cancel": "Отмена",
+      "link_to_the_shop": "Ссылка на товар в магазине",
+      "barcode": "Штрих-код",
+      "in_stock": "В наличии",
+      "delete_confirmation": "Вы уверены, что хотите удалить товар"
     },
     "stock": {
-      "title_consume": "Потребление",
+      "title_consume": "Расходовать",
       "quantity": "Количество",
-      "button_consume": "Забрать",
-      "title_add": "Добавление",
-      "expires": "Истекает",
-      "button_add": "Добавить",
-      "title_in_stock": "В остатке",
+      "button_consume": "Расходовать",
+      "button_cancel": "Отмена",
+      "title_add": "Добавить",
+      "expires": "Срок годности истекает",
+      "button_add": "Добавить к наличию",
+      "title_in_stock": "В наличии",
       "button_delete": "Удалить",
-      "error_fetch": "Что то пошло не так во время загрузки остатков",
-      "not_found": "Ничего не найдено для данного продукта на складе"
+      "error_fetch": "Что-то пошло не так с получением остатков по товару",
+      "not_found": "Данного товара нет в наличии",
+      "delete_confirmation": "Вы точно уверены, что хотите удалить остатки",
+      "no_expiration_date": "Без срока годности"
     },
     "product_validator": {
-      "error_empty_list": "Список должен быть заполнен"
+      "error_empty_list": "Товар должен находиться в списке"
+    },
+    "register": {
+      "title": "Создать аккаунт",
+      "email_placeholder": "Введите адрес электронной почты",
+      "button": "Продолжить",
+      "have_account": "У меня уже есть аккаунт, перейти к авторизации"
+    },
+    "login": {
+      "title": "Логин",
+      "email_placeholder": "Введите адрес электронной почты",
+      "button": "Продолжить",
+      "dont_have_account": "У меня еще нет аккаунта, перейти к регистрации",
+      "error": {
+        "email_not_valid": "Пожалуйста, введите действующий адрес электронной почты"
+      }
+    },
+    "finish_auth": {
+      "title": "Завершить регистрацию",
+      "text": "Мы отправили на адрес вашей электронной почты ссылку для завершения регистрации. Откройте ящик вашей почты и перейдите по ссылке",
+      "button": "Открыть почту Gmail"
+    },
+    "shopping_list_form": {
+      "title": "Название",
+      "quantity": "Количество",
+      "button_add": "Добавить"
+    },
+    "shopping_list_item": {
+      "title": "Название",
+      "quantity": "Количество",
+      "button_save": "Сохранить",
+      "button_delete": "Удалить"
+    },
+    "product_quick_add_form": {
+      "title": "Название товара",
+      "button": "Добавить Товар"
+    },
+    "shopping_quick_add_form": {
+      "title": "Название товара",
+      "quantity": "Количество",
+      "button": "Добавить позицию"
+    },
+    "shopping_list": {
+      "total_cost": "Общая стоимость:",
+      "button_add": "Добавить к списку покупок",
+      "quantity": "Количество"
+    },
+    "profile": {
+      "title": "Профиль",
+      "api_tokens": {
+        "title": "API tokens",
+        "button_generate_new": "Сгенерировать новый API token",
+        "token_legend": "token"
+      }
     }
   }
 }
+

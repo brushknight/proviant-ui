@@ -100,8 +100,8 @@
       "button_delete": "Delete",
       "error_fetch": "Something went wrong with stock fetching",
       "not_found": "No stock found for this product",
-      "delete_confirmation": "Are you sure that you want to delete stock"
-
+      "delete_confirmation": "Are you sure that you want to delete stock",
+      "no_expiration_date": "No expiration date"
     },
     "product_validator": {
       "error_empty_list": "Product list should not be empty"

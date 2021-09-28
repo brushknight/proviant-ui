@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import Button from '../generic/Button'
+import LanguagePicker from '../generic/LanguagePicker'
 import OverlayCloseButton from '../generic/OverlayCloseButton'
 import PropTypes from 'prop-types'
 
@@ -65,6 +66,7 @@ const Profile = (
 						</div>
 					))}
 				</div>
+				<LanguagePicker className={'profile__language-picker'}/>
 			</div>
 
 		</Overlay>
