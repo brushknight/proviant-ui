@@ -2,6 +2,7 @@ import * as React from 'react'
 import { GA_PAGE_PRODUCT, pageView } from '../../../common/utils/ga'
 import { useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
+import ConsumptionLog from '../consumption_log/ConsumptionLog'
 import ProductDetails from './ProductDetails'
 import ProductStock from '../stock/ProductStock'
 import PropTypes from 'prop-types'
@@ -20,6 +21,9 @@ const Product = (props) => {
 				filterType={props.filterType}
 			/>
 			<ProductStock
+				productId={productId}
+			/>
+			<ConsumptionLog
 				productId={productId}
 			/>
 		</div>

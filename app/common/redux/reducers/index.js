@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import apiTokenForm from './auth/apiTokenForm'
 import apiTokens from './auth/apiTokens'
 import categories from './categories'
+import consumptionLog from './consumption/log'
 import createProduct from './createProduct'
 import editCategory from './editCategory'
 import editList from './editList'
@@ -29,6 +30,7 @@ export default combineReducers({
 	editCategory,
 	editList,
 	stock,
+	consumptionLog,
 	login,
 	register,
 	user,

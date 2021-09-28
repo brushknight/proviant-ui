@@ -135,7 +135,8 @@
       "title": "Title",
       "quantity": "Quantity",
       "button_save": "Save",
-      "button_delete": "Delete"
+      "button_delete": "Delete",
+      "select_product": "Link with product"
     },
     "product_quick_add_form": {
       "title": "Product title",
@@ -158,6 +159,12 @@
         "button_generate_new": "Generate new API token",
         "token_legend": "token"
       }
+    },
+    "consumption_log": {
+      "title": "Consumption",
+      "quantity": "Quantity",
+      "date": "Date",
+      "not_found": "No consumption logged yet"
     }
   }
 }

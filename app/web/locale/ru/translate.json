@@ -135,7 +135,8 @@
       "title": "Название",
       "quantity": "Количество",
       "button_save": "Сохранить",
-      "button_delete": "Удалить"
+      "button_delete": "Удалить",
+      "select_product": "Связать с продуктом"
     },
     "product_quick_add_form": {
       "title": "Название товара",
@@ -158,6 +159,12 @@
         "button_generate_new": "Сгенерировать новый API token",
         "token_legend": "token"
       }
+    },
+    "consumption_log": {
+      "title": "Учёт потребления",
+      "quantity": "Количество",
+      "date": "Дата",
+      "not_found": "Потребление еще не было учтено"
     }
   }
 }

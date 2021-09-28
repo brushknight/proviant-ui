@@ -13,6 +13,7 @@ import {
 	ACTION_FETCH_STOCK_NOT_FOUND,
 	ACTION_FETCH_STOCK_SUCCESS
 } from './const'
+import { addConsumptionLogItem } from './consumption/log'
 import { amendProductStock, updateProductStock } from './product'
 import { amendProductStockInList, updateProductStockInList } from './products'
 import { generateCoreApiUrl } from '../../utils/link'
@@ -154,9 +155,10 @@ export const consumeStock = (productId, quantity, locale) => {
 		axios.post(generateCoreApiUrl(`/product/${productId}/consume/`), json, generateLocaleHeader(locale))
 			.then(response => {
 				const data = response.data
-				dispatch(consumeStockSuccess(data.data))
-				dispatch(updateProductStock(productId, data.data))
-				dispatch(updateProductStockInList(productId, data.data))
+				dispatch(consumeStockSuccess(data.data.stock))
+				dispatch(updateProductStock(productId, data.data.stock))
+				dispatch(updateProductStockInList(productId, data.data.stock))
+				dispatch(addConsumptionLogItem(data.data.consumed_log_item))
 			})
 			.catch(error => {
 				if (error.response && error.response.status) {

@@ -9,8 +9,6 @@ import { useHistory } from 'react-router-dom'
 
 import { compose } from 'redux'
 import { generateEditProductLink } from '../../../common/utils/link'
-import { shoppingFormSubmit } from '../../../common/redux/actions/shopping/form'
-import { shoppingListsFetch } from '../../../common/redux/actions/shopping/lists'
 import { textToBase64Barcode } from '../../../common/utils/barcode'
 import { withTranslation } from 'react-i18next'
 import ProductsTags from './ProductTags'
