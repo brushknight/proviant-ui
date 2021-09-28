@@ -17,6 +17,12 @@ export const ACTION_DELETE_STOCK_SUCCESS = 'delete/stock/success'
 export const ACTION_DELETE_STOCK_LOADING = 'delete/stock/loading'
 export const ACTION_DELETE_STOCK_FAIL = 'delete/stock/fail'
 
+// stock consumption log
+export const ACTION_FETCH_CONSUMPTION_LOG_FAIL = 'consumption_log/fetch/fail'
+export const ACTION_FETCH_CONSUMPTION_LOG_SUCCESS = 'consumption_log/fetch/success'
+export const ACTION_FETCH_CONSUMPTION_LOG_LOADING = 'consumption_log/fetch/loading'
+export const ACTION_ADD_CONSUMPTION_LOG_ITEM = 'consumption_log/add/item'
+
 // categories
 
 export const ACTION_FETCH_CATEGORIES_SUCCESS = 'fetch/categories/success'

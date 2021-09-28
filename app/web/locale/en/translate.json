@@ -100,8 +100,8 @@
       "button_delete": "Delete",
       "error_fetch": "Something went wrong with stock fetching",
       "not_found": "No stock found for this product",
-      "delete_confirmation": "Are you sure that you want to delete stock"
-
+      "delete_confirmation": "Are you sure that you want to delete stock",
+      "no_expiration_date": "No expiration date"
     },
     "product_validator": {
       "error_empty_list": "Product list should not be empty"
@@ -135,7 +135,8 @@
       "title": "Title",
       "quantity": "Quantity",
       "button_save": "Save",
-      "button_delete": "Delete"
+      "button_delete": "Delete",
+      "select_product": "Link with product"
     },
     "product_quick_add_form": {
       "title": "Product title",
@@ -158,6 +159,12 @@
         "button_generate_new": "Generate new API token",
         "token_legend": "token"
       }
+    },
+    "consumption_log": {
+      "title": "Consumption",
+      "quantity": "Quantity",
+      "date": "Date",
+      "not_found": "No consumption logged yet"
     }
   }
 }

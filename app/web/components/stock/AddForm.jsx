@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 
 const AddForm = (props) => {
 	const [quantity, setQuantity] = useState(1)
-	const [date, setDate] = useState(new Date())
+	const [date, setDate] = useState(null)
 
 	let formError
 

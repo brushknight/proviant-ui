@@ -32,7 +32,7 @@ export default function (state = initialState(), action) {
 			...state,
 			status: STATUS_LOADED,
 			error: null,
-			items: action.payload
+			items: action.payload || []
 		}
 	default:
 		return state
