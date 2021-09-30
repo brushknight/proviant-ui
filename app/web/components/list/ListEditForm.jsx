@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Alert, Button, ButtonGroup, Callout, InputGroup, Intent, Spinner } from '@blueprintjs/core'
+import { Button, ButtonGroup, Callout, InputGroup, Intent, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { deleteList, editListReset, fetchEditList, updateList } from '../../../common/redux/actions/editList'
@@ -18,6 +18,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
+import DeleteButton from '../generic/DeleteButton'
 import PropTypes from 'prop-types'
 
 const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
@@ -25,7 +26,6 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 	const { id } = useParams()
 	const [title, setTitle] = useState('')
 	const [formStatus, setFormStatus] = useState(form.status)
-	const [deleteAlert, setDeleteAlert] = useState(false)
 
 	const formReset = () => {
 		setTitle('')
@@ -130,29 +130,6 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 			className={className}
 			onSubmit={onSubmit}
 		>
-			<Alert
-				cancelButtonText={t('edit_list_form.button_cancel')}
-				confirmButtonText={t('edit_list_form.button_delete')}
-				icon="delete"
-				intent={Intent.DANGER}
-				isOpen={deleteAlert}
-				onCancel={() => {
-					setDeleteAlert(false)
-				}}
-				onClose={() => {
-					setDeleteAlert(false)
-				}}
-				canOutsideClickCancel={true}
-				onConfirm={() => {
-					onDelete()
-				}}
-				canEscapeKeyCancel={true}
-			>
-				<p>
-					{t('edit_list_form.delete_confirmation')} <br/>
-					<b>{title}</b>
-				</p>
-			</Alert>
 			{error}
 			<h1>{t('edit_list_form.title')}</h1>
 			<InputGroup
@@ -167,15 +144,10 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 				}}
 			/>
 			<ButtonGroup>
-				<Button
-					large={true}
-					minimal={true}
-					intent={Intent.DANGER}
-					icon={'delete'}
+				<DeleteButton
 					text={t('edit_list_form.button_delete')}
-					onClick={() => {
-						setDeleteAlert(true)
-					}}
+					confirmationText={t('edit_list_form.button_delete_confirmation')}
+					onDelete={onDelete}
 				/>
 				<Button
 					large={true}

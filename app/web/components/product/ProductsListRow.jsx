@@ -48,8 +48,14 @@ const ProductsListRow = (
 		backgroundImage: 'url(' + product.image + ')'
 	}
 
+	let extraClasses = ''
+
+	if (Number(product.stock) === 0) {
+		extraClasses += ' product-row__no-stock'
+	}
+
 	return (
-		<div className="product-list__product-row product-row" onClick={onClickHandler}>
+		<div className={'product-list__product-row product-row ' + extraClasses} onClick={onClickHandler}>
 			<div className="product-row__product-designation">
 				<div className='product-row__image' style={imageStyle}>
 				</div>

@@ -38,20 +38,19 @@ const Register = ({ t, form, register, resetError }) => {
 
 	pageView(GA_PAGE_REGISTER)
 
+	const onSubmit = (e) => {
+		e.preventDefault()
+		register(email)
+	}
+
 	return (
 		<Overlay
 			isOpen={true}
-			onClose={() => {
-			}}
 		>
 			<section className={'auth-form'}>
 				<div className={'auth-form__wrapper'}>
 					<h1 className={'auth-form__title'}>{t('register.title')}</h1>
-					<form className={'auth-form__inner'} onSubmit={(e) => {
-						e.preventDefault()
-						register(email)
-					}}>
-
+					<form className={'auth-form__inner'} onSubmit={onSubmit}>
 						<input
 							className={'auth-form__email ' + (status === STATUS_ERROR ? 'auth-form__email--error' : '')}
 							type={'email'}
@@ -84,7 +83,7 @@ const Register = ({ t, form, register, resetError }) => {
 					</form>
 				</div>
 				<LanguagePicker className={'finish-auth__language-picker'}/>
-				 <Version className={'auth-form__version'} />
+				<Version className={'auth-form__version'}/>
 			</section>
 		</Overlay>
 	)

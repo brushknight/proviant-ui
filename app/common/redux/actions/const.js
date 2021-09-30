@@ -1,3 +1,5 @@
+// TODO rename to DOMAIN_ACTION_STATUS
+
 // stock
 
 export const ACTION_FETCH_STOCK_SUCCESS = 'fetch/stock/success'
@@ -85,6 +87,7 @@ export const ACTION_FETCH_PRODUCTS_FAIL = 'fetch/products/fail'
 export const ACTION_FETCH_PRODUCTS_LOADING = 'fetch/products/loading'
 export const ACTION_UPDATE_PRODUCT_IN_LIST = 'update/product_in_list'
 export const ACTION_DELETE_PRODUCT_IN_LIST = 'delete/product_in_list'
+export const ACTION_ADD_PRODUCT_IN_LIST = 'add/product_in_list'
 
 // edit category
 export const ACTION_EDIT_CATEGORY_FETCHED = 'update/category/fetched'

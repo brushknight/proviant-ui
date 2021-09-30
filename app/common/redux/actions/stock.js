@@ -14,8 +14,8 @@ import {
 	ACTION_FETCH_STOCK_SUCCESS
 } from './const'
 import { addConsumptionLogItem } from './consumption/log'
-import { amendProductStock, updateProductStock } from './product'
-import { amendProductStockInList, updateProductStockInList } from './products'
+import { amendProductStock, updateProductStock } from './product/product'
+import { amendProductStockInList, updateProductStockInList } from './product/products'
 import { generateCoreApiUrl } from '../../utils/link'
 import { generateLocaleHeader } from '../../utils/i18n'
 import axios from 'axios'

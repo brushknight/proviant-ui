@@ -5,9 +5,9 @@ import {
 	ACTION_EDIT_PRODUCT_RESET,
 	ACTION_EDIT_PRODUCT_SENDING,
 	ACTION_EDIT_PRODUCT_SUCCESS
-} from './const'
-import { generateCoreApiUrl } from '../../utils/link'
-import { generateLocaleHeader } from '../../utils/i18n'
+} from '../const'
+import { generateCoreApiUrl } from '../../../utils/link'
+import { generateLocaleHeader } from '../../../utils/i18n'
 import { updateProductInList } from './products'
 import axios from 'axios'
 

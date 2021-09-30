@@ -7,25 +7,25 @@ import { useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
-const AddForm = (props) => {
+const AddForm = ({ error, status, i18n, onSubmit }) => {
 	const [quantity, setQuantity] = useState(1)
 	const [date, setDate] = useState(null)
 
 	let formError
 
-	if (props.status === STATUS_ERROR) {
-		formError = <Callout icon={null} intent={Intent.DANGER}>{props.error}</Callout>
+	if (status === STATUS_ERROR) {
+		formError = <Callout icon={null} intent={Intent.DANGER}>{error}</Callout>
 	}
 
 	let formLoading
 
-	if (props.status === STATUS_LOADING) {
+	if (status === STATUS_LOADING) {
 		formLoading = <Spinner size={SpinnerSize.SMALL}/>
 	}
 
 	let formSuccess
 
-	if (props.status === STATUS_SUCCESS) {
+	if (status === STATUS_SUCCESS) {
 		formSuccess = <Tag intent={Intent.SUCCESS} large={true} minimal={true}><Icon icon={'tick'}/></Tag>
 	}
 
@@ -41,24 +41,31 @@ const AddForm = (props) => {
 		}
 	}
 
+	const actionOnSubmit = (e) => {
+		e.preventDefault()
+		onSubmit(quantity, date)
+	}
+
 	return (
-		<div className='product-stock__add'>
-			<h3>{props.i18n.t('stock.title_add')}</h3>
+		<form className='product-stock__add' onSubmit={actionOnSubmit}>
+			<h3>{i18n.t('stock.title_add')}</h3>
 			{formError}
-			<FormGroup label={props.i18n.t('stock.quantity')} inline={true}>
+			<FormGroup label={i18n.t('stock.quantity')} inline={true}>
 				<NumericInput
 					min={1}
 					value={quantity}
 					onValueChange={value => setQuantity(value)}
 				/>
 			</FormGroup>
-			<FormGroup label={props.i18n.t('stock.expires')} inline={true}>
+			<FormGroup label={i18n.t('stock.expires')} inline={true}>
 				<DateInput {...jsDateFormatter} />
 			</FormGroup>
-			<Button icon={'cube-add'} onClick={() => {
-				props.onSubmit(quantity, date)
-			}}>{props.i18n.t('stock.button_add')} <b>{quantity}</b></Button> {formLoading} {formSuccess}
-		</div>
+			<Button icon={'cube-add'} type={'submit'}>
+				{i18n.t('stock.button_add')} <b>{quantity}</b>
+			</Button>
+			{formLoading}
+			{formSuccess}
+		</form>
 	)
 }
 

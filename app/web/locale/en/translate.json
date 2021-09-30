@@ -23,7 +23,7 @@
       "button_save": "Save",
       "button_delete": "Delete",
       "button_cancel": "Cancel",
-      "delete_confirmation": "Are you sure that you want to delete category"
+      "button_delete_confirmation": "Confirm delete?"
     },
     "edit_list_form": {
       "title": "Edit List",
@@ -31,7 +31,7 @@
       "button_save": "Save",
       "button_delete": "Delete",
       "button_cancel": "Cancel",
-      "delete_confirmation": "Are you sure that you want to delete list"
+      "button_delete_confirmation": "Confirm delete?"
     },
     "create_category_form": {
       "title": "Create Category",
@@ -63,7 +63,8 @@
       "barcode": "Barcode",
       "choose_picture": "Choose product picture",
       "title": "Check here to set title",
-      "description": "Click here to set description"
+      "description": "Click here to set description",
+      "price": "Price in your currency"
     },
     "product_create": {
       "button_back": "Back",
@@ -76,7 +77,8 @@
       "barcode": "Barcode",
       "choose_picture": "Choose product picture",
       "title": "Check here to set title",
-      "description": "Click here to set description"
+      "description": "Click here to set description",
+      "price": "Price in your currency"
     },
     "product": {
       "button_back": "Back",
@@ -86,7 +88,7 @@
       "link_to_the_shop": "Link to the shop",
       "barcode": "barcode",
       "in_stock": "in stock",
-      "delete_confirmation": "Are you sure that you want to delete product"
+      "button_delete_confirmation": "Confirm delete?"
     },
     "stock": {
       "title_consume": "Consume",
@@ -100,7 +102,7 @@
       "button_delete": "Delete",
       "error_fetch": "Something went wrong with stock fetching",
       "not_found": "No stock found for this product",
-      "delete_confirmation": "Are you sure that you want to delete stock",
+      "button_delete_confirmation": "Confirm delete?",
       "no_expiration_date": "No expiration date"
     },
     "product_validator": {
@@ -136,7 +138,8 @@
       "quantity": "Quantity",
       "button_save": "Save",
       "button_delete": "Delete",
-      "select_product": "Link with product"
+      "select_product": "Link with product",
+      "price": "Price in your currency"
     },
     "product_quick_add_form": {
       "title": "Product title",

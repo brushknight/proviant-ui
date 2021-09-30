@@ -23,7 +23,7 @@
       "button_save": "Сохранить",
       "button_delete": "Удалить",
       "button_cancel": "Отмена",
-      "delete_confirmation": "Вы уверены, что хотите удалить категорию"
+      "button_delete_confirmation": "Удалить?"
     },
     "edit_list_form": {
       "title": "Редактировать список",
@@ -31,7 +31,7 @@
       "button_save": "Сохранить",
       "button_delete": "Удалить",
       "button_cancel": "Отмена",
-      "delete_confirmation": "Вы уверены, что хотите удалить список"
+      "button_delete_confirmation": "Удалить?"
     },
     "create_category_form": {
       "title": "Создать Категорию",
@@ -63,7 +63,8 @@
       "barcode": "Штрих-код",
       "choose_picture": "Выберите изображение товара",
       "title": "Нажмите здесь и введите название товара",
-      "description": "Нажмите здесь и введите описание товара"
+      "description": "Нажмите здесь и введите описание товара",
+      "price": "Цена в вашей валюте"
     },
     "product_create": {
       "button_back": "Вернуться",
@@ -76,7 +77,8 @@
       "barcode": "Штрих-код",
       "choose_picture": "Выберите изображение товара",
       "title": "Нажмите здесь и введите название товара",
-      "description": "Нажмите здесь и введите описание товара"
+      "description": "Нажмите здесь и введите описание товара",
+      "price": "Цена в вашей валюте"
     },
     "product": {
       "button_back": "Вернуться",
@@ -86,7 +88,7 @@
       "link_to_the_shop": "Ссылка на товар в магазине",
       "barcode": "Штрих-код",
       "in_stock": "В наличии",
-      "delete_confirmation": "Вы уверены, что хотите удалить товар"
+      "button_delete_confirmation": "Удалить?"
     },
     "stock": {
       "title_consume": "Расходовать",
@@ -100,7 +102,7 @@
       "button_delete": "Удалить",
       "error_fetch": "Что-то пошло не так с получением остатков по товару",
       "not_found": "Данного товара нет в наличии",
-      "delete_confirmation": "Вы точно уверены, что хотите удалить остатки",
+      "button_delete_confirmation": "Удалить?",
       "no_expiration_date": "Без срока годности"
     },
     "product_validator": {
@@ -136,7 +138,8 @@
       "quantity": "Количество",
       "button_save": "Сохранить",
       "button_delete": "Удалить",
-      "select_product": "Связать с продуктом"
+      "select_product": "Связать с продуктом",
+      "price": "Цена в вашей валюте"
     },
     "product_quick_add_form": {
       "title": "Название товара",

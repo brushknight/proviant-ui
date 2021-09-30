@@ -3,13 +3,13 @@ import {
 	ACTION_CREATE_PRODUCT_RESET,
 	ACTION_CREATE_PRODUCT_SENDING,
 	ACTION_CREATE_PRODUCT_SUCCESS, ACTION_CREATE_PRODUCT_WITH_TITLE
-} from '../actions/const'
+} from '../../actions/const'
 import {
 	STATUS_CREATED,
 	STATUS_DEFAULT,
 	STATUS_ERROR,
 	STATUS_SENDING
-} from './consts'
+} from '../consts'
 
 const setTitle = (model, title) => {
 	return {

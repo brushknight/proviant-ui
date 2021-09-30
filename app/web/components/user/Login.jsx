@@ -38,20 +38,19 @@ const Login = ({ t, user, login, resetError }) => {
 
 	pageView(GA_PAGE_LOGIN)
 
+	const onSubmit = (e) => {
+		e.preventDefault()
+		login(email)
+	}
+
 	return (
 		<Overlay
 			isOpen={true}
-			onClose={() => {
-			}}
 		>
 			<section className={'auth-form'}>
 				<div className={'auth-form__wrapper'}>
 					<h1 className={'auth-form__title'}>{t('login.title')}</h1>
-					<form className={'auth-form__inner'} onSubmit={(e) => {
-						e.preventDefault()
-						login(email)
-					}}>
-
+					<form className={'auth-form__inner'} onSubmit={onSubmit}>
 						<input
 							className={'auth-form__email ' + (status === STATUS_ERROR ? 'auth-form__email--error' : '')}
 							type={'email'}
@@ -68,7 +67,6 @@ const Login = ({ t, user, login, resetError }) => {
 								resetError()
 							}}/>
 						{error}
-
 						<Button
 							disabled={status === STATUS_SENDING || status === STATUS_ERROR}
 							type={'submit'}

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Button, InputGroup, Intent, NumericInput } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { fetchProducts } from '../../../common/redux/actions/products'
+import { fetchProducts } from '../../../common/redux/actions/product/products'
 import { getProducts, getShoppingList, getShoppingListEdit, getShoppingListItem } from '../../../common/redux/selectors'
 import { shoppingItemDelete } from '../../../common/redux/actions/shopping/delete'
 import { shoppingItemUpdate, shoppingListItemReset } from '../../../common/redux/actions/shopping/edit'
@@ -136,8 +136,13 @@ const ShoppingListItem = (
 						setStatusInternal(STATUS_EDITING)
 					}}
 					onBlur={(e) => {
-						setPrice(parseFloat(e.target.value))
-						setStatusInternal(STATUS_EDITING)
+						if (isNaN(parseFloat(e.target.value))) {
+							setPrice(0)
+							setStatusInternal(STATUS_EDITING)
+						} else {
+							setPrice(parseFloat(e.target.value))
+							setStatusInternal(STATUS_EDITING)
+						}
 					}}
 				/>
 				<NumericInput
@@ -169,7 +174,7 @@ const ShoppingListItem = (
 					>{t('shopping_list_item.button_save')}</Button>
 					<Button
 						disabled={statusInternal === STATUS_ERROR}
-						icon={'remove'}
+						icon={'delete'}
 						large={true}
 						minimal={true}
 						intent={Intent.DANGER}
