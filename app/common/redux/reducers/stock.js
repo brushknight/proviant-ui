@@ -142,7 +142,7 @@ export default function (state = initialState(), action) {
 
 		return {
 			...state,
-			items: action.items,
+			items: action.items || [],
 			status: STATUS_DEFAULT,
 			error: null
 		}
