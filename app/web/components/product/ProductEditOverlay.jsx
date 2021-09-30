@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { editProductFormReset } from '../../../common/redux/actions/editProduct'
+import { editProductFormReset } from '../../../common/redux/actions/product/editProduct'
 import { generateProductLink } from '../../../common/utils/link'
 import { Overlay } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'

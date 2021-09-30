@@ -2,8 +2,9 @@ import * as React from 'react'
 import { Button, Callout, EditableText, FileInput, InputGroup, Intent, Tag } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { createProduct, createProductFormReset } from '../../../common/redux/actions/createProduct'
+import { createProduct, createProductFormReset } from '../../../common/redux/actions/product/createProduct'
 import { fileToBase64, isImageValid } from '../../../common/utils/image'
+import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
 import { GA_PAGE_PRODUCT_CREATE, pageView } from '../../../common/utils/ga'
 import { getCategories, getCreateProduct, getLists } from '../../../common/redux/selectors'
 import { STATUS_CREATED, STATUS_DEFAULT, STATUS_EDITING, STATUS_ERROR } from '../../../common/redux/reducers/consts'
@@ -21,7 +22,9 @@ const ProductCreate = (
 		createProduct,
 		t,
 		reset,
-		className
+		className,
+		filterType,
+		listOrCategoryId
 	}
 ) => {
 	const history = useHistory()
@@ -39,6 +42,14 @@ const ProductCreate = (
 	useEffect(() => {
 		if (form.status === STATUS_DEFAULT) {
 			setTitle(form.model.title)
+
+			if (filterType === FILTER_TYPE_CATEGORY) {
+				setCategoryList(categories.items.filter(c => Number(c.id) === Number(listOrCategoryId)))
+			}
+
+			if (filterType === FILTER_TYPE_LIST) {
+				setList(lists.items.find(item => Number(item.id) === Number(listOrCategoryId)))
+			}
 		}
 		setStatus(form.status)
 		setError(form.error)
@@ -249,7 +260,9 @@ ProductCreate.propTypes = {
 	lists: PropTypes.object,
 	categories: PropTypes.object,
 	t: PropTypes.func,
-	className: PropTypes.string
+	className: PropTypes.string,
+	listOrCategoryId: PropTypes.number,
+	filterType: PropTypes.string
 }
 
 export default compose(withTranslation('translations'), connect(mapStateToProps, mapDispatchToProps))(ProductCreate)

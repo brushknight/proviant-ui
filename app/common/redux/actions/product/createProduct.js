@@ -3,10 +3,11 @@ import {
 	ACTION_CREATE_PRODUCT_RESET,
 	ACTION_CREATE_PRODUCT_SENDING,
 	ACTION_CREATE_PRODUCT_SUCCESS, ACTION_CREATE_PRODUCT_WITH_TITLE
-} from './const'
-import { generateCoreApiUrl } from '../../utils/link'
-import { generateLocaleHeader } from '../../utils/i18n'
-import { validateProduct } from '../../validators/product'
+} from '../const'
+import { addProductInList } from './products'
+import { generateCoreApiUrl } from '../../../utils/link'
+import { generateLocaleHeader } from '../../../utils/i18n'
+import { validateProduct } from '../../../validators/product'
 import axios from 'axios'
 
 export const createProductWithTitle = (title) => {
@@ -56,6 +57,7 @@ export const createProduct = (model, locale) => {
 			.then(response => {
 				const data = response.data
 				dispatch(createProductSuccess(data.data))
+				dispatch(addProductInList(data.data))
 			})
 			.catch(error => {
 				if (error.response && error.response.status && error.response.data.error) {

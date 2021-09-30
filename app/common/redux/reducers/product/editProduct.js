@@ -5,7 +5,7 @@ import {
 	ACTION_EDIT_PRODUCT_RESET,
 	ACTION_EDIT_PRODUCT_SENDING,
 	ACTION_EDIT_PRODUCT_SUCCESS
-} from '../actions/const'
+} from '../../actions/const'
 import {
 	STATUS_DEFAULT,
 	STATUS_ERROR,
@@ -14,7 +14,7 @@ import {
 	STATUS_FETCHING,
 	STATUS_SENDING,
 	STATUS_UPDATED
-} from './consts'
+} from '../consts'
 
 const emptyModel = () => {
 	return {

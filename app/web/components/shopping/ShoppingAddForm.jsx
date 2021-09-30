@@ -42,7 +42,8 @@ const ShoppingAddForm = (
 		formReset()
 	}
 
-	const onAddToShopping = () => {
+	const onSubmit = (e) => {
+		e.preventDefault()
 		addToShopping(shoppingList.id, {
 			title: title,
 			quantity: quantity,
@@ -64,7 +65,7 @@ const ShoppingAddForm = (
 	}
 
 	return (
-		<div className={'shopping-add-form'}>
+		<form className={'shopping-add-form'} onSubmit={onSubmit}>
 			<FormGroup label={t('shopping_list.quantity')} inline={true}>
 				<NumericInput
 					className={'shopping-add-form__quantity-input'}
@@ -79,12 +80,12 @@ const ShoppingAddForm = (
 			<Button
 				icon={'shopping-cart'}
 				minimal={false}
-				onClick={onAddToShopping}>
+				type={'submit'}>
 				{t('shopping_list.button_add')}
 			</Button>
 			{formLoading}
 			{formSuccess}
-		</div>
+		</form>
 
 	)
 }

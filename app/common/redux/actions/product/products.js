@@ -1,4 +1,5 @@
 import {
+	ACTION_ADD_PRODUCT_IN_LIST,
 	ACTION_AMEND_PRODUCT_STOCK_IN_LIST,
 	ACTION_DELETE_PRODUCT_IN_LIST,
 	ACTION_FETCH_PRODUCTS_FAIL,
@@ -6,9 +7,9 @@ import {
 	ACTION_FETCH_PRODUCTS_SUCCESS,
 	ACTION_UPDATE_PRODUCT_IN_LIST,
 	ACTION_UPDATE_PRODUCT_STOCK_IN_LIST
-} from './const'
-import { generateCoreApiUrl } from '../../utils/link'
-import { generateLocaleHeader } from '../../utils/i18n'
+} from '../const'
+import { generateCoreApiUrl } from '../../../utils/link'
+import { generateLocaleHeader } from '../../../utils/i18n'
 import axios from 'axios'
 
 const fetchProductLoading = () => {
@@ -41,6 +42,13 @@ export const deleteProductInList = (id) => {
 export const updateProductInList = (item) => {
 	return {
 		type: ACTION_UPDATE_PRODUCT_IN_LIST,
+		item
+	}
+}
+
+export const addProductInList = (item) => {
+	return {
+		type: ACTION_ADD_PRODUCT_IN_LIST,
 		item
 	}
 }

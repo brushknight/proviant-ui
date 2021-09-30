@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { createProductFormReset } from '../../../common/redux/actions/createProduct'
+import { createProductFormReset } from '../../../common/redux/actions/product/createProduct'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
 import { generateCategoryLink, generateListLink } from '../../../common/utils/link'
 import { Overlay } from '@blueprintjs/core'
@@ -54,6 +54,8 @@ const ProductCreateOverlay = ({ filterType, reset }) => {
 					className={'product-overlay__inner product-overlay__inner--fixed'}
 					productId={productId}
 					closePopover={closePopover}
+					filterType={filterType}
+					listOrCategoryId={id}
 				/>
 			</div>
 
