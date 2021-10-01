@@ -5,7 +5,7 @@ import ShoppingListTick from './ShoppingListTick'
 
 const ShoppingListRow = ({ item, onCheck, onUncheck, navigation }) => {
 	const goToDetails = () => {
-		navigation.navigate('shopping_details', { itemId: item.id })
+		navigation.navigate('shopping_item_update', { itemId: item.id })
 	}
 
 	return (

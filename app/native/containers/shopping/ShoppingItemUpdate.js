@@ -1,15 +1,17 @@
+import { Button, Input } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { getShoppingList, getShoppingListEdit, getShoppingListItem } from '../../../common/redux/selectors'
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import { shoppingItemDelete } from '../../../common/redux/actions/shopping/delete'
 import { shoppingItemUpdate, shoppingListItemReset } from '../../../common/redux/actions/shopping/edit'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
-import { STATUS_DEFAULT } from '../../../common/redux/reducers/consts'
+import { STATUS_DEFAULT, STATUS_SENDING, STATUS_UPDATED } from '../../../common/redux/reducers/consts'
+import { StyleSheet, View } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import ShoppingListTick from '../../components/shopping/ShoppingListTick'
 
-const ShoppingDetails = ({ item, fetchStatus, reset, status, checkItem, uncheckItem, updateItem }) => {
+const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updateItem }) => {
 	const shoppingListId = 1
 
 	const onCheck = () => {
@@ -20,7 +22,7 @@ const ShoppingDetails = ({ item, fetchStatus, reset, status, checkItem, uncheckI
 	}
 
 	const [title, setTitle] = useState('')
-	const [quantity, setQuantity] = useState(0)
+	const [quantity, setQuantity] = useState('')
 	const [statusInternal, setStatusInternal] = useState('')
 
 	const emptyForm = () => {
@@ -30,6 +32,8 @@ const ShoppingDetails = ({ item, fetchStatus, reset, status, checkItem, uncheckI
 	}
 
 	useEffect(() => {
+		reset()
+		emptyForm()
 		setTitle(item.title)
 		setQuantity(item.quantity)
 	}, [])
@@ -41,25 +45,78 @@ const ShoppingDetails = ({ item, fetchStatus, reset, status, checkItem, uncheckI
 		})
 	}
 
+	let buttonSave = []
+
+	console.log(status)
+
+	if (status === STATUS_DEFAULT) {
+		buttonSave = (
+			<Button
+				title="Save"
+				icon={
+					<Icon name="save" size={15} color="white"/>
+				}
+				iconPosition={'left'}
+				onPress={onSubmit}
+			/>
+		)
+	}
+
+	if (status === STATUS_SENDING) {
+		buttonSave = (
+			<Button
+				loading={true}
+				disabled={true}
+			/>
+		)
+	}
+
+	if (status === STATUS_UPDATED) {
+		buttonSave = (
+			<Button
+				title="Updated"
+				buttonStyle={styles.button_success}
+				icon={
+					<Icon name="check" size={15} color="white"/>
+				}
+				iconPosition={'left'}
+				onPress={onSubmit}
+			/>
+		)
+	}
+
 	return (
 		<View>
-			<TextInput
+			<Input
+				placeholder={'Product title'}
 				style={styles.title}
 				onChangeText={setTitle}
 				value={title}
-				placeholder={'Product title'}
 			/>
-			<ShoppingListTick extraStyles={styles.tick} isChecked={item.checked} onCheck={onCheck} onUncheck={onUncheck}/>
-			<TextInput
-				style={styles.input}
-				onChangeText={value => setQuantity(Number(value))}
+
+			<ShoppingListTick
+				extraStyles={styles.tick}
+				isChecked={item.checked}
+				onCheck={onCheck}
+				onUncheck={onUncheck}
+			/>
+
+			<Input
+				placeholder="Quantity"
+				leftIcon={{ type: 'font-awesome', name: 'shopping-basket' }}
 				value={String(quantity)}
-				keyboardType="numeric"
-				placeholder={'quantity'}
+				keyboardType={'numeric'}
+				onChangeText={value => {
+					if (value === '' || isNaN(Number(value))) {
+						setQuantity('')
+					} else {
+						setQuantity(Number(value))
+					}
+				}}
+
 			/>
-			<Pressable style={styles.button_save} onPress={onSubmit}>
-				<Text style={styles.button_save_text}>Save</Text>
-			</Pressable>
+			{buttonSave}
+
 		</View>
 	)
 }
@@ -67,32 +124,17 @@ const ShoppingDetails = ({ item, fetchStatus, reset, status, checkItem, uncheckI
 const styles = StyleSheet.create({
 	title: {
 		height: 50,
-		margin: 12,
 		fontSize: 20,
-		padding: 10,
-		marginRight: 60
-	},
-	input: {
-		height: 50,
-		margin: 12,
-		fontSize: 20,
-		borderWidth: 1,
-		padding: 10
+		marginRight: 60,
+		marginTop: 15
 	},
 	tick: {
 		marginTop: 10,
 		marginRight: 10
 	},
-	button_save: {
-		height: 50,
-		backgroundColor: 'green',
-		width: 100,
-		alignItems: 'center',
-		justifyContent: 'center'
-	},
-	button_save_text: {
-		color: 'white',
-		lineHeight: 50
+	button_success: {
+		backgroundColor: 'green'
+
 	}
 
 })
@@ -125,7 +167,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	}
 }
 
-ShoppingDetails.propTypes = {
+ShoppingItemUpdate.propTypes = {
 	item: PropTypes.object,
 	itemId: PropTypes.number,
 	updateItem: PropTypes.func,
@@ -136,4 +178,4 @@ ShoppingDetails.propTypes = {
 	i18n: PropTypes.object
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShoppingDetails)
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingItemUpdate)

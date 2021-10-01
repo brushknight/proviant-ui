@@ -3,7 +3,8 @@ import { getShoppingList } from '../../../common/redux/selectors'
 import { shoppingListFetchItems } from '../../../common/redux/actions/shopping/list'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
 import { STATUS_FETCH_FAILED, STATUS_LOADING } from '../../../common/redux/reducers/consts'
-import { Text, View } from 'react-native'
+import { Text, View, ScrollView } from 'react-native'
+import AddButton from '../../components/generic/AddButton'
 import PropTypes from 'prop-types'
 import React from 'react'
 import ShoppingListRow from '../../components/shopping/ShoppingListRow'
@@ -47,22 +48,37 @@ const ShoppingList = ({ fetchItems, status, error, items, checkItem, uncheckItem
 	}
 
 	return (
-		<View>
-			{items.map(item => (
-				<ShoppingListRow
-					navigation={navigation}
-					key={item.id}
-					item={item}
-					onCheck={() => {
-						checkItem(shoppingListId, item.id)
-					}}
-					onUncheck={() => {
-						uncheckItem(shoppingListId, item.id)
-					}}
-				/>
-			))}
+		<View style={style.container}>
+			<ScrollView style={style.list}>
+				{items.map(item => (
+					<ShoppingListRow
+						navigation={navigation}
+						key={item.id}
+						item={item}
+						onCheck={() => {
+							checkItem(shoppingListId, item.id)
+						}}
+						onUncheck={() => {
+							uncheckItem(shoppingListId, item.id)
+						}}
+					/>
+				))}
+
+			</ScrollView>
+			<AddButton navigation={navigation}/>
 		</View>
+
 	)
+}
+
+const style = {
+	container: {
+		minHeight: '100%',
+		flex: 1
+	},
+	list: {
+		paddingBottom: 100
+	}
 }
 
 const mapStateToProps = (state, ownProps) => {

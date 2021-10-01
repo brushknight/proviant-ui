@@ -6,7 +6,8 @@ import ShoppingList from './native/containers/shopping/ShoppingList'
 import store from './common/redux/store'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import ShoppingDetails from './native/containers/shopping/ShoppingDetails'
+import ShoppingItemCreate from './native/containers/shopping/ShoppingItemCreate'
+import ShoppingItemUpdate from './native/containers/shopping/ShoppingItemUpdate'
 
 const Stack = createNativeStackNavigator()
 
@@ -23,9 +24,14 @@ export default function App () {
 						options={{ title: 'Shopping List' }}
 					/>
 					<Stack.Screen
-						name="shopping_details"
-						component={ShoppingDetails}
+						name="shopping_item_update"
+						component={ShoppingItemUpdate}
 						options={{ title: 'Shopping Details' }}
+					/>
+					<Stack.Screen
+						name="shopping_item_create"
+						component={ShoppingItemCreate}
+						options={{ title: 'Shopping Create' }}
 					/>
 
 				</Stack.Navigator>
