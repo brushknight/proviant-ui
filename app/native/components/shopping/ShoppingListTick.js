@@ -19,7 +19,8 @@ const ShoppingListRow = ({ isChecked, onCheck, onUncheck, extraStyles }) => {
 ShoppingListRow.propTypes = {
 	isChecked: PropTypes.bool,
 	onCheck: PropTypes.func,
-	onUncheck: PropTypes.func
+	onUncheck: PropTypes.func,
+	extraStyles: PropTypes.object
 }
 
 const styles = StyleSheet.create({

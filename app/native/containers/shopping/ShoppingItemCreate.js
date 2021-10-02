@@ -1,21 +1,13 @@
 import { Button, Input } from 'react-native-elements'
 import { connect } from 'react-redux'
-import {
-	getShoppingForm,
-	getShoppingList,
-	getShoppingListEdit,
-	getShoppingListItem
-} from '../../../common/redux/selectors'
+import { getShoppingForm, getShoppingList } from '../../../common/redux/selectors'
 import { shoppingFormReset, shoppingFormSubmit } from '../../../common/redux/actions/shopping/form'
-import { shoppingItemDelete } from '../../../common/redux/actions/shopping/delete'
-import { shoppingItemUpdate, shoppingListItemReset } from '../../../common/redux/actions/shopping/edit'
-import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
-import { STATUS_CREATED, STATUS_DEFAULT, STATUS_SENDING, STATUS_UPDATED } from '../../../common/redux/reducers/consts'
+import { STATUS_CREATED, STATUS_DEFAULT, STATUS_SENDING } from '../../../common/redux/reducers/consts'
 import { StyleSheet, View } from 'react-native'
+import Deeplink from '../utils/Deeplink'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import ShoppingListTick from '../../components/shopping/ShoppingListTick'
 
 const ShoppingItemCreate = ({ error, reset, status, submit }) => {
 	const shoppingListId = 3
@@ -47,9 +39,10 @@ const ShoppingItemCreate = ({ error, reset, status, submit }) => {
 	if (status === STATUS_DEFAULT) {
 		buttonSave = (
 			<Button
+				buttonStyle={styles.button}
 				title="Save"
 				icon={
-					<Icon name="save" size={15} color="white"/>
+					<Icon style={{ marginRight: 10 }} name="save" size={15} color="white"/>
 				}
 				iconPosition={'left'}
 				onPress={onSubmit}
@@ -60,6 +53,7 @@ const ShoppingItemCreate = ({ error, reset, status, submit }) => {
 	if (status === STATUS_SENDING) {
 		buttonSave = (
 			<Button
+				buttonStyle={styles.button}
 				loading={true}
 				disabled={true}
 			/>
@@ -70,9 +64,9 @@ const ShoppingItemCreate = ({ error, reset, status, submit }) => {
 		buttonSave = (
 			<Button
 				title="Created"
-				buttonStyle={styles.button_success}
+				buttonStyle={[styles.button, styles.button_success]}
 				icon={
-					<Icon name="check" size={15} color="white"/>
+					<Icon style={{ marginRight: 10 }} name="check" size={15} color="white"/>
 				}
 				iconPosition={'left'}
 				onPress={onSubmit}
@@ -82,6 +76,7 @@ const ShoppingItemCreate = ({ error, reset, status, submit }) => {
 
 	return (
 		<View>
+			<Deeplink/>
 			<Input
 				placeholder={'Product title'}
 				style={styles.title}
@@ -116,6 +111,10 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		marginRight: 60,
 		marginTop: 15
+	},
+	button: {
+		marginRight: 10,
+		marginLeft: 10
 	},
 	button_success: {
 		backgroundColor: 'green'

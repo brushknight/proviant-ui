@@ -1,0 +1,40 @@
+import { connect } from 'react-redux'
+import { getAllUrlParams } from '../../../common/utils/link'
+import { Linking, View } from 'react-native'
+import { obtainJWT } from '../../../common/redux/actions/auth/obtainJWT'
+import PropTypes from 'prop-types'
+import React from 'react'
+
+const Deeplink = ({ obtainJWT }) => {
+	Linking.addEventListener('url', (data) => {
+		console.log(data.url)
+
+		const params = getAllUrlParams(data.url)
+		const linkId = params.link_id
+
+		obtainJWT(linkId)
+	})
+
+	return (
+		<View>
+		</View>
+	)
+}
+
+const mapStateToProps = (state, ownProps) => {
+	return {}
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const locale = 'en'
+	return {
+		obtainJWT: (linkId) => dispatch(obtainJWT(linkId, locale))
+
+	}
+}
+
+Deeplink.propTypes = {
+	obtainJWT: PropTypes.func
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Deeplink)

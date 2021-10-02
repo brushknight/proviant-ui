@@ -1,25 +1,36 @@
 import { connect } from 'react-redux'
-import { getShoppingList } from '../../../common/redux/selectors'
-import { saveJWT } from '../../../common/utils/security'
+import { getShoppingList, getUser } from '../../../common/redux/selectors'
+import { isSaaS } from '../../../common/utils/env'
+import { ScrollView, Text, View } from 'react-native'
 import { shoppingListFetchItems } from '../../../common/redux/actions/shopping/list'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
-import { STATUS_FETCH_FAILED, STATUS_LOADING } from '../../../common/redux/reducers/consts'
-import { Text, View, ScrollView } from 'react-native'
+import { STATUS_FETCH_FAILED, STATUS_LOADING, STATUS_UNAUTHORIZED } from '../../../common/redux/reducers/consts'
 import AddButton from '../../components/generic/AddButton'
+import Deeplink from '../utils/Deeplink'
+import Login from '../user/Login'
 import PropTypes from 'prop-types'
 import React from 'react'
 import ShoppingListRow from '../../components/shopping/ShoppingListRow'
 
-const ShoppingList = ({ fetchItems, status, error, items, checkItem, uncheckItem, navigation }) => {
+const ShoppingList = ({ fetchItems, status, error, items, checkItem, uncheckItem, navigation, userStatus }) => {
 	const shoppingListId = 3
 
 	React.useEffect(() => {
 		fetchItems(shoppingListId)
-	}, [])
+	}, [userStatus])
+
+	if (isSaaS() && userStatus === STATUS_UNAUTHORIZED) {
+		return (
+
+			<Login/>
+
+		)
+	}
 
 	if (status === STATUS_LOADING) {
 		return (
 			<View>
+				<Deeplink/>
 				<Text>
 					Loading
 				</Text>
@@ -31,6 +42,7 @@ const ShoppingList = ({ fetchItems, status, error, items, checkItem, uncheckItem
 	if (status === STATUS_FETCH_FAILED) {
 		return (
 			<View>
+				<Deeplink/>
 				<Text>
 					{error}
 				</Text>
@@ -41,6 +53,7 @@ const ShoppingList = ({ fetchItems, status, error, items, checkItem, uncheckItem
 	if (items.length === 0) {
 		return (
 			<View>
+				<Deeplink/>
 				<Text>
 					no items
 				</Text>
@@ -50,6 +63,7 @@ const ShoppingList = ({ fetchItems, status, error, items, checkItem, uncheckItem
 
 	return (
 		<View style={style.container}>
+			<Deeplink/>
 			<ScrollView style={style.list}>
 				{items.map(item => (
 					<ShoppingListRow
@@ -85,11 +99,14 @@ const style = {
 const mapStateToProps = (state, ownProps) => {
 	const shoppingList = getShoppingList(state)
 
+	const user = getUser(state)
+
 	return {
 		model: shoppingList.model,
 		items: shoppingList.model.items,
 		status: shoppingList.status,
-		error: shoppingList.error
+		error: shoppingList.error,
+		userStatus: user.status
 	}
 }
 
@@ -111,7 +128,8 @@ ShoppingList.propTypes = {
 	status: PropTypes.string,
 	error: PropTypes.string,
 	items: PropTypes.array,
-	navigation: PropTypes.object
+	navigation: PropTypes.object,
+	userStatus: PropTypes.string
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingList)

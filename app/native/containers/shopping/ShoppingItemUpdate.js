@@ -6,6 +6,7 @@ import { shoppingItemUpdate, shoppingListItemReset } from '../../../common/redux
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
 import { STATUS_DEFAULT, STATUS_SENDING, STATUS_UPDATED } from '../../../common/redux/reducers/consts'
 import { StyleSheet, View } from 'react-native'
+import Deeplink from '../utils/Deeplink'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -23,12 +24,10 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 
 	const [title, setTitle] = useState('')
 	const [quantity, setQuantity] = useState('')
-	const [statusInternal, setStatusInternal] = useState('')
 
 	const emptyForm = () => {
 		setTitle('')
 		setQuantity(1)
-		setStatusInternal(STATUS_DEFAULT)
 	}
 
 	useEffect(() => {
@@ -47,14 +46,13 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 
 	let buttonSave = []
 
-	console.log(status)
-
 	if (status === STATUS_DEFAULT) {
 		buttonSave = (
 			<Button
+				style={styles.button}
 				title="Save"
 				icon={
-					<Icon name="save" size={15} color="white"/>
+					<Icon style={{ marginRight: 10 }} name="save" size={15} color="white"/>
 				}
 				iconPosition={'left'}
 				onPress={onSubmit}
@@ -65,6 +63,7 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 	if (status === STATUS_SENDING) {
 		buttonSave = (
 			<Button
+				style={styles.button}
 				loading={true}
 				disabled={true}
 			/>
@@ -75,9 +74,9 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 		buttonSave = (
 			<Button
 				title="Updated"
-				buttonStyle={styles.button_success}
+				buttonStyle={[styles.button, styles.button_success]}
 				icon={
-					<Icon name="check" size={15} color="white"/>
+					<Icon style={{ marginRight: 10 }} name="check" size={15} color="white"/>
 				}
 				iconPosition={'left'}
 				onPress={onSubmit}
@@ -87,6 +86,7 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 
 	return (
 		<View>
+			<Deeplink/>
 			<Input
 				placeholder={'Product title'}
 				style={styles.title}
@@ -132,9 +132,12 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		marginRight: 10
 	},
+	button: {
+		marginRight: 10,
+		marginLeft: 10
+	},
 	button_success: {
 		backgroundColor: 'green'
-
 	}
 
 })
@@ -175,7 +178,10 @@ ShoppingItemUpdate.propTypes = {
 	reset: PropTypes.func,
 	closePopover: PropTypes.func,
 	className: PropTypes.string,
-	i18n: PropTypes.object
+	i18n: PropTypes.object,
+	status: PropTypes.string,
+	checkItem: PropTypes.func,
+	uncheckItem: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingItemUpdate)

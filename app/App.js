@@ -1,6 +1,6 @@
+import { Linking } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { Provider } from 'react-redux'
-import { StyleSheet } from 'react-native'
 import React from 'react'
 import ShoppingList from './native/containers/shopping/ShoppingList'
 import store from './common/redux/store'
@@ -40,10 +40,3 @@ export default function App () {
 		</Provider>
 	)
 }
-
-const styles = StyleSheet.create({
-	container: {
-		paddingTop: 50,
-		backgroundColor: '#fff'
-	}
-})

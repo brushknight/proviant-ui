@@ -25,7 +25,7 @@ export const shoppingListItemCheck = (listId, id, locale) => {
 	return (dispatch) => {
 		dispatch(sending())
 		generateHeaders(locale).then(headers => {
-			axios.put(generateCoreApiUrl(`/shopping_list/${listId}/${id}/check/`), headers)
+			axios.put(generateCoreApiUrl(`/shopping_list/${listId}/${id}/check/`), {}, headers)
 				.then(response => {
 					const data = response.data
 					dispatch(success(data.data))
@@ -43,7 +43,7 @@ export const shoppingListItemUncheck = (listId, id, locale) => {
 	return (dispatch) => {
 		dispatch(sending())
 		generateHeaders(locale).then(headers => {
-			axios.put(generateCoreApiUrl(`/shopping_list/${listId}/${id}/uncheck/`), headers)
+			axios.put(generateCoreApiUrl(`/shopping_list/${listId}/${id}/uncheck/`), {}, headers)
 				.then(response => {
 					const data = response.data
 					dispatch(success(data.data))
@@ -51,6 +51,7 @@ export const shoppingListItemUncheck = (listId, id, locale) => {
 				})
 				.catch(error => {
 					const errorMsq = error.message
+					console.log(errorMsq)
 					dispatch(fail(errorMsq))
 				})
 		})

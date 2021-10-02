@@ -8,8 +8,10 @@ const ShoppingListRow = ({ item, onCheck, onUncheck, navigation }) => {
 		navigation.navigate('shopping_item_update', { itemId: item.id })
 	}
 
+	const containerStyles = [styles.container, item.checked ? styles.container_checked : null]
+
 	return (
-		<TouchableOpacity style={[styles.container, item.checked ? styles.container_checked : null]} onPress={goToDetails}>
+		<TouchableOpacity style={containerStyles} onPress={goToDetails}>
 			<Text style={styles.title}>{item.title}</Text>
 			<Text style={styles.quantity}>{item.quantity}</Text>
 			<ShoppingListTick isChecked={item.checked} onUncheck={onUncheck} onCheck={onCheck}/>
