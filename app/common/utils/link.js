@@ -1,4 +1,5 @@
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../web/const'
+import { getJWT } from './security'
 import { isSaaS, isWeb } from './env'
 
 const CATEGORY_REGEX = /\/category\/(\d*)/
@@ -87,7 +88,7 @@ export const backendUrl = () => {
 		return ''
 	}
 
-	return 'http://10.0.0.117:8080'
+	return 'http://10.0.0.117:8090'
 }
 
 export const generateAuthApiUrl = (uri) => {
@@ -100,4 +101,13 @@ export const generateCoreApiUrl = (uri) => {
 	}
 
 	return backendUrl() + '/api/v1' + uri
+}
+
+export const generateHeaders = async (locale) => {
+	return {
+		headers: {
+			'User-Locale': locale,
+			Token: await getJWT()
+		}
+	}
 }

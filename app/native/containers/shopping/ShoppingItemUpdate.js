@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react'
 import ShoppingListTick from '../../components/shopping/ShoppingListTick'
 
 const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updateItem }) => {
-	const shoppingListId = 1
+	const shoppingListId = 3
 
 	const onCheck = () => {
 		checkItem(shoppingListId, item.id)

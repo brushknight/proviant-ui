@@ -6,11 +6,12 @@ import {
 	ACTION_FETCH_PRODUCT_FAIL,
 	ACTION_FETCH_PRODUCT_LOADING,
 	ACTION_FETCH_PRODUCT_NOT_FOUND,
-	ACTION_FETCH_PRODUCT_SUCCESS, ACTION_RESET_PRODUCT, ACTION_UPDATE_PRODUCT_STOCK
+	ACTION_FETCH_PRODUCT_SUCCESS,
+	ACTION_RESET_PRODUCT,
+	ACTION_UPDATE_PRODUCT_STOCK
 } from '../const'
 import { deleteProductInList } from './products'
-import { generateCoreApiUrl } from '../../../utils/link'
-import { generateLocaleHeader } from '../../../utils/i18n'
+import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
 import axios from 'axios'
 
 const fetchProductLoading = () => {
@@ -83,33 +84,37 @@ export const amendProductStock = (productId, delta) => {
 export const fetchProduct = (id, locale) => {
 	return (dispatch) => {
 		dispatch(fetchProductLoading())
-		axios.get(generateCoreApiUrl(`/product/${id}/`), generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(fetchProductSuccess(data.data))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-				if (error.response && error.response.status === 404) {
-					dispatch(fetchProductNotFound(error.response.data.error))
-				} else {
-					dispatch(fetchProductFail(errorMsq))
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.get(generateCoreApiUrl(`/product/${id}/`), headers)
+				.then(response => {
+					const data = response.data
+					dispatch(fetchProductSuccess(data.data))
+				})
+				.catch(error => {
+					const errorMsq = error.message
+					if (error.response && error.response.status === 404) {
+						dispatch(fetchProductNotFound(error.response.data.error))
+					} else {
+						dispatch(fetchProductFail(errorMsq))
+					}
+				})
+		})
 	}
 }
 
 export const deleteProduct = (id, locale) => {
 	return (dispatch) => {
 		dispatch(deleteProductLoading())
-		axios.delete(generateCoreApiUrl(`/product/${id}/`), generateLocaleHeader(locale))
-			.then(response => {
-				dispatch(deleteProductSuccess())
-				dispatch(deleteProductInList(id))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-				dispatch(deleteProductFail(errorMsq))
-			})
+		generateHeaders(locale).then(headers => {
+			axios.delete(generateCoreApiUrl(`/product/${id}/`), headers)
+				.then(response => {
+					dispatch(deleteProductSuccess())
+					dispatch(deleteProductInList(id))
+				})
+				.catch(error => {
+					const errorMsq = error.message
+					dispatch(deleteProductFail(errorMsq))
+				})
+		})
 	}
 }

@@ -7,7 +7,7 @@ import {
 	editCategoryReset,
 	fetchEditCategory,
 	updateCategory
-} from '../../../common/redux/actions/editCategory'
+} from '../../../common/redux/actions/category/editCategory'
 import { GA_PAGE_CATEGORY_EDIT, pageView } from '../../../common/utils/ga'
 import { getEditCategory } from '../../../common/redux/selectors'
 import {

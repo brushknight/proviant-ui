@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Button, ButtonGroup, Callout, InputGroup, Intent, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { deleteList, editListReset, fetchEditList, updateList } from '../../../common/redux/actions/editList'
+import { deleteList, editListReset, fetchEditList, updateList } from '../../../common/redux/actions/list/editList'
 import { GA_PAGE_LIST_EDIT, pageView } from '../../../common/utils/ga'
 import { getEditList } from '../../../common/redux/selectors'
 import {

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { addStock, consumeStock, deleteStock, fetchStock } from '../../../common/redux/actions/stock'
+import { addStock, consumeStock, deleteStock, fetchStock } from '../../../common/redux/actions/stock/stock'
 import { Callout, Intent, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'

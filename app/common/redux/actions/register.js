@@ -1,11 +1,11 @@
 import {
 	ACTION_USER_REGISTER_EMAIL_SENT,
-	ACTION_USER_REGISTER_FAIL, ACTION_USER_REGISTER_RESET_ERROR,
+	ACTION_USER_REGISTER_FAIL,
+	ACTION_USER_REGISTER_RESET_ERROR,
 	ACTION_USER_REGISTER_SENDING,
 	ACTION_USER_UNAUTHORIZED
 } from './const'
-import { generateAuthApiUrl } from '../../utils/link'
-import { generateLocaleHeader } from '../../utils/i18n'
+import { generateAuthApiUrl, generateHeaders } from '../../utils/link'
 import { validateEmail } from '../../validators/user'
 import axios from 'axios'
 
@@ -53,17 +53,19 @@ export const actionRegister = (email, locale) => {
 		const json = JSON.stringify({
 			email
 		})
-		axios.post(generateAuthApiUrl('/register/'), json, generateLocaleHeader(locale))
-			.then(response => {
-				dispatch(registerEmailSent())
-			})
-			.catch(error => {
-				if (error.response && error.response.status && error.response.data.error) {
-					dispatch(registerFail(error.response.data.error))
-				} else {
-					const errorMsq = error.message
-					dispatch(registerFail(errorMsq))
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.post(generateAuthApiUrl('/register/'), json, headers)
+				.then(response => {
+					dispatch(registerEmailSent())
+				})
+				.catch(error => {
+					if (error.response && error.response.status && error.response.data.error) {
+						dispatch(registerFail(error.response.data.error))
+					} else {
+						const errorMsq = error.message
+						dispatch(registerFail(errorMsq))
+					}
+				})
+		})
 	}
 }

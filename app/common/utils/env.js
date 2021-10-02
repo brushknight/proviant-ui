@@ -1,7 +1,7 @@
 const TARGET_WEB = 'web'
 
 export const isSaaS = () => {
-	return Number(process.env.is_saas) === 1
+	return Number(process.env.is_saas) === 1 || !isWeb() // TODO make is SaaS tick in app settings
 }
 
 export const version = () => {

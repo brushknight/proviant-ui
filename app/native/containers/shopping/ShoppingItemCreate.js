@@ -18,7 +18,7 @@ import React, { useEffect, useState } from 'react'
 import ShoppingListTick from '../../components/shopping/ShoppingListTick'
 
 const ShoppingItemCreate = ({ error, reset, status, submit }) => {
-	const shoppingListId = 1
+	const shoppingListId = 3
 
 	const [title, setTitle] = useState('')
 	const [quantity, setQuantity] = useState('')

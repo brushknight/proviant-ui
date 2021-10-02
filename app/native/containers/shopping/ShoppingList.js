@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { getShoppingList } from '../../../common/redux/selectors'
+import { saveJWT } from '../../../common/utils/security'
 import { shoppingListFetchItems } from '../../../common/redux/actions/shopping/list'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
 import { STATUS_FETCH_FAILED, STATUS_LOADING } from '../../../common/redux/reducers/consts'
@@ -10,7 +11,7 @@ import React from 'react'
 import ShoppingListRow from '../../components/shopping/ShoppingListRow'
 
 const ShoppingList = ({ fetchItems, status, error, items, checkItem, uncheckItem, navigation }) => {
-	const shoppingListId = 1
+	const shoppingListId = 3
 
 	React.useEffect(() => {
 		fetchItems(shoppingListId)
@@ -95,7 +96,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const locale = 'en'
 	return {
-		fetchItems: (query) => dispatch(shoppingListFetchItems(query, locale)),
+		fetchItems: (id) => dispatch(shoppingListFetchItems(id, locale)),
 		checkItem: (listId, id) => dispatch(shoppingListItemCheck(listId, id, locale)),
 		uncheckItem: (listId, id) => dispatch(shoppingListItemUncheck(listId, id, locale))
 	}
