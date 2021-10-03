@@ -117,6 +117,7 @@ export const ACTION_DELETE_LIST_IN_LIST = 'delete/list/in_list'
 
 // user
 export const ACTION_USER_UNAUTHORIZED = 'user/unauthorized'
+export const ACTION_USER_LOGOUT = 'user/logout'
 export const ACTION_USER_LOADED = 'user/loaded'
 export const ACTION_USER_FETCH_FAILED = 'user/fetch/failed'
 

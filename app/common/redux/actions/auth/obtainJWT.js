@@ -15,7 +15,7 @@ export const obtainJWT = (linkId, locale) => {
 				})
 				.catch(error => {
 					const errorMsq = error.message
-					console.error(errorMsq)
+					console.error('obtainJWT', errorMsq)
 				})
 		})
 	}

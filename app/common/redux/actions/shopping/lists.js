@@ -26,7 +26,7 @@ const fetchSuccess = payload => {
 	}
 }
 
-export const shoppingListsFetch = (locale) => {
+export const shoppingListFetchLists = (locale) => {
 	return (dispatch) => {
 		dispatch(fetchLoading())
 		generateHeaders(locale).then(headers => {
@@ -37,6 +37,7 @@ export const shoppingListsFetch = (locale) => {
 				})
 				.catch(error => {
 					const errorMsq = error.message
+					console.log(error.message)
 					dispatch(fetchFail(errorMsq))
 				})
 		})

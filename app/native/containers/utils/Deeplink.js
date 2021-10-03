@@ -7,17 +7,18 @@ import React from 'react'
 
 const Deeplink = ({ obtainJWT }) => {
 	Linking.addEventListener('url', (data) => {
-		console.log(data.url)
-
 		const params = getAllUrlParams(data.url)
 		const linkId = params.link_id
 
-		obtainJWT(linkId)
+		console.log(linkId)
+
+		if (linkId) {
+			obtainJWT(linkId)
+		}
 	})
 
 	return (
-		<View>
-		</View>
+		<View/>
 	)
 }
 

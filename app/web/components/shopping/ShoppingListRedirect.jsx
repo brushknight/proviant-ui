@@ -2,7 +2,7 @@ import * as React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { getShoppingLists } from '../../../common/redux/selectors'
-import { shoppingListsFetch } from '../../../common/redux/actions/shopping/lists'
+import { shoppingListFetchLists } from '../../../common/redux/actions/shopping/lists'
 import { STATUS_DEFAULT, STATUS_LOADED } from '../../../common/redux/reducers/consts'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -44,7 +44,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const locale = ownProps.i18n.language
 	return {
-		fetchItems: () => dispatch(shoppingListsFetch(locale))
+		fetchItems: () => dispatch(shoppingListFetchLists(locale))
 	}
 }
 

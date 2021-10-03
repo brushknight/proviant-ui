@@ -1,4 +1,9 @@
-import { ACTION_USER_FETCH_FAILED, ACTION_USER_LOADED, ACTION_USER_UNAUTHORIZED } from '../actions/const'
+import {
+	ACTION_USER_FETCH_FAILED,
+	ACTION_USER_LOADED,
+	ACTION_USER_LOGOUT,
+	ACTION_USER_UNAUTHORIZED
+} from '../actions/const'
 import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_UNAUTHORIZED } from './consts'
 
 const emptyUser = () => {
@@ -19,6 +24,11 @@ const initialState = () => {
 
 export default function (state = initialState(), action) {
 	switch (action.type) {
+	case ACTION_USER_LOGOUT:
+		return {
+			...state,
+			status: STATUS_UNAUTHORIZED
+		}
 	case ACTION_USER_UNAUTHORIZED:
 		return {
 			...state,

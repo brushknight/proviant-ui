@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
-const ShoppingItemCreate = ({ error, reset, status, submit }) => {
+const ShoppingItemCreate = ({ error, reset, status, submit, navigation }) => {
 	const shoppingListId = 3
 
 	const [title, setTitle] = useState('')
@@ -72,6 +72,8 @@ const ShoppingItemCreate = ({ error, reset, status, submit }) => {
 				onPress={onSubmit}
 			/>
 		)
+		navigation.goBack()
+		reset()
 	}
 
 	return (
@@ -142,6 +144,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 ShoppingItemCreate.propTypes = {
+	navigation: PropTypes.object,
 	submit: PropTypes.func,
 	reset: PropTypes.func,
 	className: PropTypes.string,

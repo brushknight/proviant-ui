@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import ShoppingListTick from '../../components/shopping/ShoppingListTick'
 
-const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updateItem }) => {
+const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updateItem, navigation }) => {
 	const shoppingListId = 3
 
 	const onCheck = () => {
@@ -40,7 +40,8 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 	const onSubmit = () => {
 		updateItem(shoppingListId, item.id, {
 			title,
-			quantity
+			quantity,
+			checked: item.checked
 		})
 	}
 
@@ -82,6 +83,9 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 				onPress={onSubmit}
 			/>
 		)
+		navigation.goBack()
+		reset()
+		// emptyForm()
 	}
 
 	return (
@@ -146,7 +150,6 @@ const mapStateToProps = (state, ownProps) => {
 	const shoppingList = getShoppingList(state)
 	const shoppingListEdit = getShoppingListEdit(state)
 	const shoppingListItem = getShoppingListItem(state, ownProps.route.params.itemId)
-
 	return {
 		model: shoppingList.model,
 		item: shoppingListItem,
@@ -171,6 +174,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 ShoppingItemUpdate.propTypes = {
+	navigation: PropTypes.object,
 	item: PropTypes.object,
 	itemId: PropTypes.number,
 	updateItem: PropTypes.func,

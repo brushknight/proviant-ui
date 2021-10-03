@@ -20,6 +20,16 @@ export const getJWT = async () => {
 	}
 }
 
+export const clearJWT = async () => {
+	try {
+		await AsyncStorage.removeItem(TokenStorageKey)
+		return true
+	} catch (e) {
+		console.log('failed to clear token')
+		return false
+	}
+}
+
 export const saveJWT = async (token) => {
 	try {
 		await AsyncStorage.setItem(TokenStorageKey, token)

@@ -2,7 +2,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const ShoppingListRow = ({ isChecked, onCheck, onUncheck, extraStyles }) => {
+const ShoppingListTick = ({ isChecked, onCheck, onUncheck, extraStyles }) => {
 	const onTick = () => {
 		if (isChecked) {
 			onUncheck()
@@ -11,12 +11,22 @@ const ShoppingListRow = ({ isChecked, onCheck, onUncheck, extraStyles }) => {
 		}
 	}
 
+	let style = styles.tick
+
+	if (isChecked) {
+		style = {
+			...style,
+			backgroundColor: 'rgba(128,0,128,0.1)',
+			borderColor: 'rgba(128,0,128,0.1)'
+		}
+	}
+
 	return (
-		<TouchableOpacity style={[styles.tick, isChecked ? styles.tick_checked : null, extraStyles]} onPress={onTick}/>
+		<TouchableOpacity style={style} onPress={onTick}/>
 	)
 }
 
-ShoppingListRow.propTypes = {
+ShoppingListTick.propTypes = {
 	isChecked: PropTypes.bool,
 	onCheck: PropTypes.func,
 	onUncheck: PropTypes.func,
@@ -32,11 +42,9 @@ const styles = StyleSheet.create({
 		height: 30,
 		position: 'absolute',
 		right: 5,
-		top: 10
-	},
-	tick_checked: {
-		backgroundColor: 'purple'
+		top: 10,
+		opacity: 1
 	}
 })
 
-export default ShoppingListRow
+export default ShoppingListTick

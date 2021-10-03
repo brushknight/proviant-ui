@@ -1,4 +1,5 @@
-import { ACTION_USER_FETCH_FAILED, ACTION_USER_LOADED, ACTION_USER_UNAUTHORIZED } from './const'
+import { ACTION_USER_FETCH_FAILED, ACTION_USER_LOADED, ACTION_USER_LOGOUT, ACTION_USER_UNAUTHORIZED } from './const'
+import { clearJWT } from '../../utils/security'
 import { generateAuthApiUrl, generateHeaders } from '../../utils/link'
 import { isSaaS } from '../../utils/env'
 import { setCookie } from '../../utils/cookies'
@@ -21,6 +22,21 @@ const fetchUserFailed = (error) => {
 export const userUnauthorized = () => {
 	return {
 		type: ACTION_USER_UNAUTHORIZED
+	}
+}
+
+const logout = () => {
+	return {
+		type: ACTION_USER_LOGOUT
+	}
+}
+
+export const logoutUser = () => {
+	return (dispatch) => {
+		console.log('action logout')
+		clearJWT().then(() => {
+			dispatch(logout())
+		})
 	}
 }
 

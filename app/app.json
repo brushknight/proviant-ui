@@ -2,6 +2,7 @@
   "expo": {
     "name": "Proviant",
     "slug": "proviant",
+    "owner": "proviant",
     "version": "0.0.45",
     "orientation": "portrait",
     "icon": "./native/assets/icon.png",
@@ -17,13 +18,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "io.proviant.mobile"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./native/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "io.proviant.mobile"
     },
     "web": {
       "favicon": "./native/assets/favicon.png"

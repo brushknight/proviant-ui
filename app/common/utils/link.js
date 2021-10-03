@@ -1,6 +1,6 @@
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../web/const'
 import { getJWT } from './security'
-import { isSaaS, isWeb } from './env'
+import { isProd, isSaaS, isWeb } from './env'
 
 const CATEGORY_REGEX = /\/category\/(\d*)/
 const LIST_REGEX = /\/list\/(\d*)/
@@ -88,7 +88,9 @@ export const backendUrl = () => {
 		return ''
 	}
 
-	return 'http://10.0.0.117:8090'
+	console.log(isProd())
+
+	return isProd() ? 'https://proviant.io' : 'http://10.0.0.117:9000'
 }
 
 export const generateAuthApiUrl = (uri) => {
