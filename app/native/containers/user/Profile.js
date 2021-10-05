@@ -4,7 +4,7 @@ import { fetchCoreVersion } from '../../../common/redux/actions/version'
 import { getUser, getVersion } from '../../../common/redux/selectors'
 import { isSaaS } from '../../../common/utils/env'
 import { logoutUser } from '../../../common/redux/actions/user'
-import { SafeAreaView, Text, View } from 'react-native'
+import { SafeAreaView, StatusBar, Text, View } from 'react-native'
 import { STATUS_UNAUTHORIZED } from '../../../common/redux/reducers/consts'
 import Login from './Login'
 import PropTypes from 'prop-types'
@@ -28,6 +28,8 @@ const Profile = ({ logout, userStatus, user, fetchCoreVersion, version }) => {
 
 	return (
 		<SafeAreaView style={styles.container}>
+			<StatusBar
+				barStyle={'dark-content'} />
 			{profile}
 			<View style={styles.bottom}>
 				<Button

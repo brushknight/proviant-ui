@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { getShoppingList, getShoppingLists, getUser } from '../../../common/redux/selectors'
 import { isSaaS } from '../../../common/utils/env'
-import { RefreshControl, ScrollView, Text, View } from 'react-native'
+import { RefreshControl, SafeAreaView, ScrollView, StatusBar, Text, View } from 'react-native'
 import { shoppingListFetchItems } from '../../../common/redux/actions/shopping/list'
 import { shoppingListFetchLists } from '../../../common/redux/actions/shopping/lists'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
@@ -107,13 +107,15 @@ const ShoppingList = (
 						No items, pull to refresh
 					</Text>
 				</ScrollView>
-
+				<AddButton navigation={navigation} shoppingListId={shoppingListId} />
 			</View>
 		)
 	}
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
+			<StatusBar
+				barStyle={'dark-content'} />
 			<Deeplink/>
 			<ScrollView
 				contentContainerStyle={styles.list}
@@ -140,7 +142,7 @@ const ShoppingList = (
 
 			</ScrollView>
 			<AddButton navigation={navigation} shoppingListId={shoppingListId} />
-		</View>
+		</SafeAreaView>
 
 	)
 }

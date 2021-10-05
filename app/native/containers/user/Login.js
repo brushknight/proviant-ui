@@ -1,7 +1,7 @@
 import { backendUrl } from '../../../common/utils/link'
 import { Button } from 'react-native-elements'
 import { connect } from 'react-redux'
-import { Linking, Text, View } from 'react-native'
+import { Linking, SafeAreaView, StatusBar, Text, View } from 'react-native'
 import Deeplink from '../utils/Deeplink'
 import React from 'react'
 
@@ -9,7 +9,9 @@ const appUrl = backendUrl() + '/api/v1/auth/expo/'
 
 const Login = () => {
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
+			<StatusBar
+				barStyle={'dark-content'} />
 			<Deeplink/>
 			<Text style={styles.hint_text}>
 				You will be redirected to <Text style={{ fontWeight: 'bold' }}>proviant.io</Text> where you will need to enter
@@ -22,7 +24,7 @@ const Login = () => {
 					Linking.openURL(appUrl)
 				}}
 			/>
-		</View>
+		</SafeAreaView>
 	)
 }
 

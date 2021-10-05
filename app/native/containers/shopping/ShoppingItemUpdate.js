@@ -1,35 +1,36 @@
+import { BackHandler, StyleSheet, Text, View } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { getShoppingList, getShoppingListEdit, getShoppingListItem } from '../../../common/redux/selectors'
 import { shoppingItemDelete } from '../../../common/redux/actions/shopping/delete'
 import { shoppingItemUpdate, shoppingListItemReset } from '../../../common/redux/actions/shopping/edit'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
-import { STATUS_DEFAULT, STATUS_ERROR, STATUS_SENDING, STATUS_UPDATED } from '../../../common/redux/reducers/consts'
-import { StyleSheet, Text, View } from 'react-native'
+import {
+	STATUS_DEFAULT,
+	STATUS_DELETED,
+	STATUS_ERROR,
+	STATUS_SENDING,
+	STATUS_UPDATED
+} from '../../../common/redux/reducers/consts'
 import Deeplink from '../utils/Deeplink'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import ShoppingListTick from '../../components/shopping/ShoppingListTick'
 
-const ShoppingItemUpdate = ({
-	                            item,
-	                            reset,
-	                            error,
-	                            status,
-	                            checkItem,
-	                            uncheckItem,
-	                            updateItem,
-	                            navigation,
-	                            shoppingListId
-}) => {
-	const onCheck = () => {
-		checkItem(shoppingListId, item.id)
-	}
-	const onUncheck = () => {
-		uncheckItem(shoppingListId, item.id)
-	}
-
+const ShoppingItemUpdate = (
+	{
+		item,
+		reset,
+		error,
+		status,
+		checkItem,
+		uncheckItem,
+		updateItem,
+		navigation,
+		deleteItem,
+		shoppingListId
+	}) => {
 	const [title, setTitle] = useState('')
 	const [quantity, setQuantity] = useState('')
 
@@ -45,12 +46,33 @@ const ShoppingItemUpdate = ({
 		setQuantity(item.quantity)
 	}, [])
 
+	if (status === STATUS_DELETED || !item) {
+		reset()
+		if (navigation.canGoBack()) {
+			navigation.goBack()
+		} else {
+			BackHandler.exitApp()
+		}
+		return (<View/>)
+	}
+
+	const onCheck = () => {
+		checkItem(shoppingListId, item.id)
+	}
+	const onUncheck = () => {
+		uncheckItem(shoppingListId, item.id)
+	}
+
 	const onSubmit = () => {
 		updateItem(shoppingListId, item.id, {
 			title,
 			quantity,
 			checked: item.checked
 		})
+	}
+
+	const onDelete = () => {
+		deleteItem(shoppingListId, item.id)
 	}
 
 	let buttonSave = []
@@ -145,14 +167,13 @@ const ShoppingItemUpdate = ({
 						icon={
 							<Icon style={{ marginRight: 10 }} name="remove" size={15} color="white"/>
 						}
-						disabled={true}
+						onPress={onDelete}
 					/>
 				</View>
 				<View style={styles.button_right}>
 					{buttonSave}
 				</View>
 			</View>
-
 		</View>
 	)
 }
@@ -183,14 +204,12 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		width: '100%'
 	},
-	button_left: {
-	},
+	button_left: {},
 	button_right: {
 		flexGrow: 1,
 		marginLeft: 10
 	},
-	button_save: {
-	},
+	button_save: {},
 	button_delete: {
 		backgroundColor: '#d00000',
 		paddingRight: 15
@@ -243,7 +262,8 @@ ShoppingItemUpdate.propTypes = {
 	status: PropTypes.string,
 	checkItem: PropTypes.func,
 	uncheckItem: PropTypes.func,
-	error: PropTypes.string
+	error: PropTypes.string,
+	shoppingListId: PropTypes.number
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingItemUpdate)
