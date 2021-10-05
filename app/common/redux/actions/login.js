@@ -5,6 +5,7 @@ import {
 	ACTION_USER_LOGIN_SENDING
 } from './const'
 import { generateAuthApiUrl, generateHeaders } from '../../utils/link'
+import { handleError } from '../../utils/action'
 import { validateEmail } from '../../validators/user'
 import axios from 'axios'
 
@@ -52,12 +53,7 @@ export const actionLogin = (email, locale) => {
 					dispatch(loginEmailSent())
 				})
 				.catch(error => {
-					if (error.response && error.response.status && error.response.data.error) {
-						dispatch(loginFail(error.response.data.error))
-					} else {
-						const errorMsq = error.message
-						dispatch(loginFail(errorMsq))
-					}
+					handleError(dispatch, error, loginFail, loginFail, loginFail)
 				})
 		})
 	}

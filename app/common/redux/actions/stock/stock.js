@@ -17,6 +17,7 @@ import { addConsumptionLogItem } from '../consumption/log'
 import { amendProductStock, updateProductStock } from '../product/product'
 import { amendProductStockInList, updateProductStockInList } from '../product/products'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchStockLoading = () => {
@@ -109,11 +110,7 @@ export const fetchStock = (productId, locale) => {
 					dispatch(fetchStockSuccess(data.data))
 				})
 				.catch(error => {
-					if (error.response && error.response.status === 404) {
-						dispatch(fetchStockNotFound(error.response.data.error))
-					} else {
-						dispatch(fetchStockFail(error.message))
-					}
+					handleError(dispatch, error, fetchStockFail, fetchStockNotFound, fetchStockFail)
 				})
 		})
 	}
@@ -137,11 +134,7 @@ export const addStock = (productId, quantity, date, locale) => {
 					dispatch(amendProductStockInList(productId, data.data))
 				})
 				.catch(error => {
-					if (error.response && error.response.status) {
-						dispatch(addStockFail(error.response.data.error))
-					} else {
-						dispatch(addStockFail(error.message))
-					}
+					handleError(dispatch, error, addStockFail, addStockFail, addStockFail)
 				})
 		})
 	}
@@ -165,11 +158,7 @@ export const consumeStock = (productId, quantity, locale) => {
 					dispatch(addConsumptionLogItem(data.data.consumed_log_item))
 				})
 				.catch(error => {
-					if (error.response && error.response.status) {
-						dispatch(consumeStockFail(error.response.data.error))
-					} else {
-						dispatch(consumeStockFail(error.message))
-					}
+					handleError(dispatch, error, consumeStockFail, consumeStockFail, consumeStockFail)
 				})
 		})
 	}
@@ -185,11 +174,7 @@ export const deleteStock = (productId, id, locale) => {
 					dispatch(deleteStockSuccess(data.data))
 				})
 				.catch(error => {
-					if (error.response && error.response.status) {
-						dispatch(deleteStockFail(error.response.data.error))
-					} else {
-						dispatch(deleteStockFail(error.message))
-					}
+					handleError(dispatch, error, deleteStockFail, deleteStockFail, deleteStockFail)
 				})
 		})
 	}

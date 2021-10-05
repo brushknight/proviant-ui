@@ -11,6 +11,7 @@ import {
 	ACTION_EDIT_LIST_SUCCESS
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { updateListInList } from './lists'
 import axios from 'axios'
 
@@ -85,12 +86,7 @@ export const fetchEditList = (id, locale) => {
 					dispatch(editListFetched(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					if (error.response && error.response.status === 404) {
-						dispatch(editListFetchFail(error.response.data.error))
-					} else {
-						dispatch(editListFetchFail(errorMsq))
-					}
+					handleError(dispatch, error, editListFetchFail, editListFetchFail, editListFetchFail)
 				})
 		})
 	}
@@ -110,12 +106,7 @@ export const updateList = (id, title, locale) => {
 					dispatch(updateListInList(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					if (error.response && error.response.status) {
-						dispatch(editListFail(error.response.data.error))
-					} else {
-						dispatch(editListFail(errorMsq))
-					}
+					handleError(dispatch, error, editListFail, editListFail, editListFail)
 				})
 		})
 	}
@@ -124,19 +115,14 @@ export const updateList = (id, title, locale) => {
 export const deleteList = (id, locale) => {
 	return (dispatch) => {
 		generateHeaders(locale).then(headers => {
-			axios.delete(generateCoreApiUrl(`/list/${id}/`), gheaders)
+			axios.delete(generateCoreApiUrl(`/list/${id}/`), headers)
 				.then(response => {
 					const data = response.data
 					dispatch(deleteListSuccess(data.data))
 					dispatch(deleteListInList(id))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					if (error.response && error.response.status) {
-						dispatch(deleteListFail(error.response.data.error))
-					} else {
-						dispatch(deleteListFail(errorMsq))
-					}
+					handleError(dispatch, error, deleteListFail, deleteListFail, deleteListFail)
 				})
 		})
 	}

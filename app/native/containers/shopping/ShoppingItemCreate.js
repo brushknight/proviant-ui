@@ -2,16 +2,14 @@ import { Button, Input } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { getShoppingForm, getShoppingList } from '../../../common/redux/selectors'
 import { shoppingFormReset, shoppingFormSubmit } from '../../../common/redux/actions/shopping/form'
-import { STATUS_CREATED, STATUS_DEFAULT, STATUS_SENDING } from '../../../common/redux/reducers/consts'
-import { StyleSheet, View } from 'react-native'
+import { STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR, STATUS_SENDING } from '../../../common/redux/reducers/consts'
+import { StyleSheet, Text, View } from 'react-native'
 import Deeplink from '../utils/Deeplink'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
-const ShoppingItemCreate = ({ error, reset, status, submit, navigation }) => {
-	const shoppingListId = 3
-
+const ShoppingItemCreate = ({ error, reset, status, submit, navigation, shoppingListId }) => {
 	const [title, setTitle] = useState('')
 	const [quantity, setQuantity] = useState('')
 
@@ -34,9 +32,7 @@ const ShoppingItemCreate = ({ error, reset, status, submit, navigation }) => {
 
 	let buttonSave = []
 
-	console.log(status, error)
-
-	if (status === STATUS_DEFAULT) {
+	if (status === STATUS_DEFAULT || status === STATUS_ERROR) {
 		buttonSave = (
 			<Button
 				buttonStyle={styles.button}
@@ -76,6 +72,18 @@ const ShoppingItemCreate = ({ error, reset, status, submit, navigation }) => {
 		reset()
 	}
 
+	let errorJsx = []
+
+	if (status === STATUS_ERROR) {
+		errorJsx = (
+			<View style={styles.hint_error}>
+				<Text>
+					{error}
+				</Text>
+			</View>
+		)
+	}
+
 	return (
 		<View>
 			<Deeplink/>
@@ -101,6 +109,7 @@ const ShoppingItemCreate = ({ error, reset, status, submit, navigation }) => {
 				}}
 
 			/>
+			{errorJsx}
 			{buttonSave}
 
 		</View>
@@ -114,6 +123,13 @@ const styles = StyleSheet.create({
 		marginRight: 60,
 		marginTop: 15
 	},
+	hint_error: {
+		marginTop: 10,
+		marginRight: 10,
+		marginLeft: 10,
+		marginBottom: 10,
+		color: '#ff0000'
+	},
 	button: {
 		marginRight: 10,
 		marginLeft: 10
@@ -126,12 +142,14 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
 	const shoppingList = getShoppingList(state)
 	const form = getShoppingForm(state)
+	const shoppingListId = ownProps.route.params.shoppingListId
 
 	return {
 		fetchStatus: shoppingList.status,
 		fetchError: shoppingList.error,
 		status: form.status,
-		error: form.error
+		error: form.error,
+		shoppingListId
 	}
 }
 
@@ -150,7 +168,8 @@ ShoppingItemCreate.propTypes = {
 	className: PropTypes.string,
 	status: PropTypes.string,
 	error: PropTypes.string,
-	i18n: PropTypes.object
+	i18n: PropTypes.object,
+	shoppingListId: PropTypes.number
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingItemCreate)

@@ -15,7 +15,7 @@ export const getJWT = async () => {
 				return value
 			}
 		} catch (e) {
-			console.log(e)
+			console.error(e)
 		}
 	}
 }
@@ -25,7 +25,7 @@ export const clearJWT = async () => {
 		await AsyncStorage.removeItem(TokenStorageKey)
 		return true
 	} catch (e) {
-		console.log('failed to clear token')
+		console.error('failed to clear token')
 		return false
 	}
 }
@@ -34,6 +34,6 @@ export const saveJWT = async (token) => {
 	try {
 		await AsyncStorage.setItem(TokenStorageKey, token)
 	} catch (e) {
-		console.log('failed to save token')
+		console.error('failed to save token')
 	}
 }

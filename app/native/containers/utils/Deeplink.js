@@ -10,8 +10,6 @@ const Deeplink = ({ obtainJWT }) => {
 		const params = getAllUrlParams(data.url)
 		const linkId = params.link_id
 
-		console.log(linkId)
-
 		if (linkId) {
 			obtainJWT(linkId)
 		}

@@ -20,7 +20,7 @@ const Drawer = createDrawerNavigator()
 
 const RootStack = createStackNavigator()
 
-const Root = () => {
+const DrawerRouter = () => {
 	return (
 		<Drawer.Navigator>
 			<Drawer.Screen
@@ -38,14 +38,14 @@ const Root = () => {
 	)
 }
 
-const App = () => {
+const MainRouter = () => {
 	return (
 		<Provider store={store}>
 			<NavigationContainer>
 				<RootStack.Navigator>
 					<RootStack.Screen
 						name="Back"
-						component={Root}
+						component={DrawerRouter}
 						options={{ headerShown: false }}
 					/>
 					<RootStack.Group screenOptions={{ presentation: 'modal' }}>
@@ -60,12 +60,8 @@ const App = () => {
 }
 
 const AppCore = ({ logout, userStatus }) => {
-	if (isSaaS() && userStatus === STATUS_LOADED) {
-		console.log('go to AppCore')
-	}
-
 	return (
-		<App/>
+		<MainRouter/>
 	)
 }
 

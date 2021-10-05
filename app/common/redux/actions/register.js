@@ -6,6 +6,7 @@ import {
 	ACTION_USER_UNAUTHORIZED
 } from './const'
 import { generateAuthApiUrl, generateHeaders } from '../../utils/link'
+import { handleError } from '../../utils/action'
 import { validateEmail } from '../../validators/user'
 import axios from 'axios'
 
@@ -59,12 +60,7 @@ export const actionRegister = (email, locale) => {
 					dispatch(registerEmailSent())
 				})
 				.catch(error => {
-					if (error.response && error.response.status && error.response.data.error) {
-						dispatch(registerFail(error.response.data.error))
-					} else {
-						const errorMsq = error.message
-						dispatch(registerFail(errorMsq))
-					}
+					handleError(dispatch, error, registerFail, registerFail, registerFail)
 				})
 		})
 	}

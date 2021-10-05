@@ -5,11 +5,11 @@ import ShoppingListTick from './ShoppingListTick'
 
 const ShoppingListRow = ({ item, onCheck, onUncheck, navigation }) => {
 	const goToDetails = () => {
-		navigation.navigate('shopping_item_update', { itemId: item.id })
+		navigation.navigate('shopping_item_update', { itemId: item.id, shoppingListId: item.list_id })
 	}
 
 	return (
-		<TouchableOpacity style={styles.container} onPress={goToDetails}>
+		<TouchableOpacity style={[styles.container, item.checked ? styles.container_checked : null]} onPress={goToDetails}>
 			<Text style={[styles.title, item.checked ? styles.opacity_checked : null]}>{item.title}</Text>
 			<Text style={[styles.quantity, item.checked ? styles.opacity_checked : null]}>{item.quantity}</Text>
 			<ShoppingListTick isChecked={item.checked} onUncheck={onUncheck} onCheck={onCheck}/>
@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
 		borderBottomColor: 'gray',
 		borderBottomWidth: 1
 	},
+	container_checked: {
+		borderBottomColor: '#e0e0e0'
+	},
 	opacity_checked: {
 		opacity: 0.2
 	},
@@ -38,7 +41,10 @@ const styles = StyleSheet.create({
 		paddingLeft: 10
 	},
 	quantity: {
-		width: 35,
+		minWidth: 35,
+		paddingRight: 10,
+		textAlign: 'right',
+		fontWeight: 'bold',
 		position: 'absolute',
 		right: 35,
 		lineHeight: 50

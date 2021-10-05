@@ -2,7 +2,7 @@ import { FloatingAction } from 'react-native-floating-action'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const AddButton = ({ navigation }) => {
+const AddButton = ({ navigation, shoppingListId }) => {
 	const actions = [
 		{
 			text: 'Shopping Item',
@@ -24,8 +24,7 @@ const AddButton = ({ navigation }) => {
 		<FloatingAction
 			actions={actions}
 			onPressItem={name => {
-				console.log(`selected button: ${name}`)
-				navigation.navigate(name)
+				navigation.navigate(name, { shoppingListId: shoppingListId })
 			}}
 			color={'purple'}
 		/>
@@ -33,7 +32,8 @@ const AddButton = ({ navigation }) => {
 }
 
 AddButton.propTypes = {
-	navigation: PropTypes.object
+	navigation: PropTypes.object,
+	shoppingListId: PropTypes.number
 }
 
 export default AddButton

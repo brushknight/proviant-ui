@@ -4,6 +4,7 @@ import {
 	ACTION_SHOPPING_LIST_ITEM_DELETE_SUCCESS
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { shoppingListDeleteItem } from './list'
 import axios from 'axios'
 
@@ -38,8 +39,7 @@ export const shoppingItemDelete = (listId, id, locale) => {
 					dispatch(shoppingListDeleteItem(id))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					dispatch(fail(errorMsq))
+					handleError(dispatch, error, fail, fail, fail)
 				})
 		})
 	}

@@ -8,6 +8,7 @@ import {
 	ACTION_EDIT_PRODUCT_SUCCESS
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { updateProductInList } from './products'
 import axios from 'axios'
 
@@ -60,12 +61,7 @@ export const fetchEditProduct = (id, locale) => {
 					dispatch(editProductFetched(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					if (error.response && error.response.status === 404) {
-						dispatch(editProductFetchFail(error.response.data.error))
-					} else {
-						dispatch(editProductFetchFail(errorMsq))
-					}
+					handleError(dispatch, error, editProductFetchFail, editProductFetchFail, editProductFetchFail)
 				})
 		})
 	}
@@ -83,8 +79,7 @@ export const updateProduct = (model, locale) => {
 					dispatch(updateProductInList(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					dispatch(editProductFail(errorMsq))
+					handleError(dispatch, error, editProductFail, editProductFail, editProductFail)
 				})
 		})
 	}

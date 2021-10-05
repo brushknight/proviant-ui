@@ -1,5 +1,6 @@
 import { ACTION_VERSION_CORE_LOADED } from './const'
 import { generateCoreApiUrl, generateHeaders } from '../../utils/link'
+import { handleError } from '../../utils/action'
 import axios from 'axios'
 
 const fetchCoreVersionSuccess = (version) => {
@@ -7,6 +8,10 @@ const fetchCoreVersionSuccess = (version) => {
 		type: ACTION_VERSION_CORE_LOADED,
 		version
 	}
+}
+
+const fetchFail = (error) => {
+	console.error(error)
 }
 
 export const fetchCoreVersion = (locale) => {
@@ -18,8 +23,7 @@ export const fetchCoreVersion = (locale) => {
 					dispatch(fetchCoreVersionSuccess(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					console.error(errorMsq)
+					handleError(dispatch, error, fetchFail, fetchFail, fetchFail)
 				})
 		})
 	}

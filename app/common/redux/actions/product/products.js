@@ -9,6 +9,7 @@ import {
 	ACTION_UPDATE_PRODUCT_STOCK_IN_LIST
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchProductLoading = () => {
@@ -87,8 +88,7 @@ export const fetchProducts = (query, locale) => {
 					dispatch(fetchProductSuccess(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					dispatch(fetchProductFail(errorMsq))
+					handleError(dispatch, error, fetchProductFail, fetchProductFail, fetchProductFail)
 				})
 		})
 	}

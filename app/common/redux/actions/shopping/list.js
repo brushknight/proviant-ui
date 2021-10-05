@@ -7,7 +7,7 @@ import {
 	ACTION_SHOPPING_LIST_UPDATE_ITEM
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
-import { userUnauthorized } from '../user'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchLoading = () => {
@@ -61,14 +61,7 @@ export const shoppingListFetchItems = (id, locale) => {
 					dispatch(fetchSuccess(data.data))
 				})
 				.catch(error => {
-					if (error.response) {
-						if (error.response.status === 401) {
-							dispatch(userUnauthorized())
-						}
-						dispatch(fetchFail(error.response.data.error))
-					} else {
-						dispatch(fetchFail(error.message))
-					}
+					handleError(dispatch, error, fetchFail, fetchFail, fetchFail)
 				})
 		})
 	}

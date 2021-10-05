@@ -1,5 +1,6 @@
 import { ACTION_SHOPPING_LIST_UPDATE_ITEM_SENDING, ACTION_SHOPPING_LIST_UPDATE_ITEM_SUCCESS } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { shoppingListUpdateItem } from './list'
 import axios from 'axios'
 
@@ -32,8 +33,7 @@ export const shoppingListItemCheck = (listId, id, locale) => {
 					dispatch(shoppingListUpdateItem(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					dispatch(fail(errorMsq))
+					handleError(dispatch, error, fail, fail, fail)
 				})
 		})
 	}
@@ -50,9 +50,7 @@ export const shoppingListItemUncheck = (listId, id, locale) => {
 					dispatch(shoppingListUpdateItem(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					console.log(errorMsq)
-					dispatch(fail(errorMsq))
+					handleError(dispatch, error, fail, fail, fail)
 				})
 		})
 	}

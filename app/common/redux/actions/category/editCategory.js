@@ -11,6 +11,7 @@ import {
 	ACTION_EDIT_CATEGORY_SUCCESS
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { updateCategoryInList } from './categories'
 import axios from 'axios'
 
@@ -84,12 +85,7 @@ export const fetchEditCategory = (id, locale) => {
 					dispatch(editCategoryFetched(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					if (error.response && error.response.status === 404) {
-						dispatch(editCategoryFetchFail(error.response.data.error))
-					} else {
-						dispatch(editCategoryFetchFail(errorMsq))
-					}
+					handleError(dispatch, error, editCategoryFetchFail, editCategoryFetchFail, editCategoryFetchFail)
 				})
 		})
 	}
@@ -109,12 +105,7 @@ export const updateCategory = (id, title, locale) => {
 					dispatch(updateCategoryInList(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					if (error.response && error.response.status) {
-						dispatch(editCategoryFail(error.response.data.error))
-					} else {
-						dispatch(editCategoryFail(errorMsq))
-					}
+					handleError(dispatch, error, editCategoryFail, editCategoryFail, editCategoryFail)
 				})
 		})
 	}
@@ -130,12 +121,7 @@ export const deleteCategory = (id, locale) => {
 					dispatch(deleteCategoryInList(id))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					if (error.response && error.response.status) {
-						dispatch(deleteCategoryFail(error.response.data.error))
-					} else {
-						dispatch(deleteCategoryFail(errorMsq))
-					}
+					handleError(dispatch, error, deleteCategoryFail, deleteCategoryFail, deleteCategoryFail)
 				})
 		})
 	}

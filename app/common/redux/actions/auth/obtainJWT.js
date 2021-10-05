@@ -1,5 +1,6 @@
 import { fetchUser } from '../user'
 import { generateAuthApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { saveJWT } from '../../../utils/security'
 import axios from 'axios'
 
@@ -14,8 +15,9 @@ export const obtainJWT = (linkId, locale) => {
 					})
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					console.error('obtainJWT', errorMsq)
+					handleError(dispatch, error, (err) => {
+						console.error('obtainJWT', err)
+					})
 				})
 		})
 	}

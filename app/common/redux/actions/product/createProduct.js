@@ -7,6 +7,7 @@ import {
 } from '../const'
 import { addProductInList } from './products'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { validateProduct } from '../../../validators/product'
 import axios from 'axios'
 
@@ -61,12 +62,7 @@ export const createProduct = (model, locale) => {
 					dispatch(addProductInList(data.data))
 				})
 				.catch(error => {
-					if (error.response && error.response.status && error.response.data.error) {
-						dispatch(createProductFail(error.response.data.error))
-					} else {
-						const errorMsq = error.message
-						dispatch(createProductFail(errorMsq))
-					}
+					handleError(dispatch, error, createProductFail, createProductFail, createProductFail)
 				})
 		})
 	}

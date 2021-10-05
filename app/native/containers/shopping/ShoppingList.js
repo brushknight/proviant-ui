@@ -139,7 +139,7 @@ const ShoppingList = (
 				))}
 
 			</ScrollView>
-			<AddButton navigation={navigation}/>
+			<AddButton navigation={navigation} shoppingListId={shoppingListId} />
 		</View>
 
 	)

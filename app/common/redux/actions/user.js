@@ -1,6 +1,7 @@
 import { ACTION_USER_FETCH_FAILED, ACTION_USER_LOADED, ACTION_USER_LOGOUT, ACTION_USER_UNAUTHORIZED } from './const'
 import { clearJWT } from '../../utils/security'
 import { generateAuthApiUrl, generateHeaders } from '../../utils/link'
+import { handleError } from '../../utils/action'
 import { isSaaS } from '../../utils/env'
 import { setCookie } from '../../utils/cookies'
 import axios from 'axios'
@@ -33,7 +34,6 @@ const logout = () => {
 
 export const logoutUser = () => {
 	return (dispatch) => {
-		console.log('action logout')
 		clearJWT().then(() => {
 			dispatch(logout())
 		})
@@ -63,21 +63,7 @@ export const fetchUser = (locale) => {
 					dispatch(fetchUserSuccess(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					if (error.response) {
-						switch (error.response.status) {
-						case 400:
-							dispatch(fetchUserFailed(error.response.data.error))
-							break
-						case 401:
-							dispatch(userUnauthorized())
-							break
-						default:
-							dispatch(fetchUserFailed(error.response.data.error))
-						}
-					} else {
-						fetchUserFailed(errorMsq)
-					}
+					handleError(dispatch, error, fetchUserFailed, fetchUserFailed, fetchUserFailed)
 				})
 		})
 	}

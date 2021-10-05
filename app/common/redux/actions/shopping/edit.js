@@ -5,6 +5,7 @@ import {
 	ACTION_SHOPPING_LIST_ITEM_EDIT_SUCCESS
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { shoppingListUpdateItem } from './list'
 import axios from 'axios'
 
@@ -46,12 +47,7 @@ export const shoppingItemUpdate = (listId, id, dto, locale) => {
 					dispatch(shoppingListUpdateItem(data.data))
 				})
 				.catch(error => {
-					if (error.response && error.response.status && error.response.data.error) {
-						dispatch(fail(error.response.data.error))
-					} else {
-						const errorMsq = error.message
-						dispatch(fail(errorMsq))
-					}
+					handleError(dispatch, error, fail, fail, fail)
 				})
 		})
 	}

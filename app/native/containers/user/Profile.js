@@ -1,15 +1,20 @@
 import { Button } from 'react-native-elements'
 import { connect } from 'react-redux'
-import { getUser } from '../../../common/redux/selectors'
+import { fetchCoreVersion } from '../../../common/redux/actions/version'
+import { getUser, getVersion } from '../../../common/redux/selectors'
 import { isSaaS } from '../../../common/utils/env'
 import { logoutUser } from '../../../common/redux/actions/user'
+import { SafeAreaView, Text, View } from 'react-native'
 import { STATUS_UNAUTHORIZED } from '../../../common/redux/reducers/consts'
-import { Text, View } from 'react-native'
 import Login from './Login'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const Profile = ({ logout, userStatus, user }) => {
+const Profile = ({ logout, userStatus, user, fetchCoreVersion, version }) => {
+	useEffect(() => {
+		fetchCoreVersion()
+	}, [])
+
 	if (isSaaS() && userStatus === STATUS_UNAUTHORIZED) {
 		return (
 			<Login/>
@@ -22,7 +27,7 @@ const Profile = ({ logout, userStatus, user }) => {
 	}
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			{profile}
 			<View style={styles.bottom}>
 				<Button
@@ -33,8 +38,9 @@ const Profile = ({ logout, userStatus, user }) => {
 					buttonStyle={styles.button_logout}
 				/>
 			</View>
+			<Text style={styles.version}>versions: core-{version.core.version}</Text>
 
-		</View>
+		</SafeAreaView>
 	)
 }
 
@@ -58,25 +64,33 @@ const styles = {
 		marginTop: 20
 	},
 	button_logout: {
-		marginBottom: 40,
 		marginRight: 20,
 		marginLeft: 20
+	},
+	version: {
+		width: '100%',
+		textAlign: 'center',
+		marginTop: 10,
+		opacity: 0.5
 	}
 }
 
 const mapStateToProps = (state, ownProps) => {
 	const user = getUser(state)
+	const version = getVersion(state)
 
 	return {
 		userStatus: user.status,
-		user: user.model
+		user: user.model,
+		version: version
 	}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const locale = 'en'
 	return {
-		logout: () => dispatch(logoutUser())
+		logout: () => dispatch(logoutUser()),
+		fetchCoreVersion: () => dispatch(fetchCoreVersion())
 	}
 }
 
@@ -84,7 +98,9 @@ Profile.propTypes = {
 	logout: PropTypes.func,
 	navigation: PropTypes.object,
 	userStatus: PropTypes.string,
-	user: PropTypes.object
+	user: PropTypes.object,
+	fetchCoreVersion: PropTypes.func,
+	version: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

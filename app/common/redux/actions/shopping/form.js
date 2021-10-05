@@ -5,6 +5,7 @@ import {
 	ACTION_CREATE_SHOPPING_LIST_ITEM_SUCCESS
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { shoppingListAddItem } from './list'
 import axios from 'axios'
 
@@ -46,11 +47,7 @@ export const shoppingFormSubmit = (listId, dto, locale) => {
 					dispatch(shoppingListAddItem(data.data))
 				})
 				.catch(error => {
-					if (error.response && error.response.status) {
-						dispatch(fail(error.response.data.error))
-					} else {
-						dispatch(fail(error.message))
-					}
+					handleError(dispatch, error, fail, fail, fail)
 				})
 		})
 	}

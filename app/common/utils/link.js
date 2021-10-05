@@ -88,8 +88,6 @@ export const backendUrl = () => {
 		return ''
 	}
 
-	console.log(isProd())
-
 	return isProd() ? 'https://proviant.io' : 'http://10.0.0.117:9000'
 }
 

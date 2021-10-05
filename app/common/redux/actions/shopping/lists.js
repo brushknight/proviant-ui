@@ -4,6 +4,7 @@ import {
 	ACTION_FETCH_SHOPPING_LISTS_SUCCESS
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchLoading = () => {
@@ -36,9 +37,7 @@ export const shoppingListFetchLists = (locale) => {
 					dispatch(fetchSuccess(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					console.log(error.message)
-					dispatch(fetchFail(errorMsq))
+					handleError(dispatch, error, fetchFail, fetchFail, fetchFail)
 				})
 		})
 	}

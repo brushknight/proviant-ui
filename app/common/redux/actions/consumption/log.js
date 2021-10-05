@@ -5,6 +5,7 @@ import {
 	ACTION_FETCH_CONSUMPTION_LOG_SUCCESS
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchStockLoading = () => {
@@ -43,7 +44,7 @@ export const fetchConsumptionLog = (productId, locale) => {
 					dispatch(fetchStockSuccess(data.data))
 				})
 				.catch(error => {
-					dispatch(fetchStockFail(error.message))
+					handleError(dispatch, error, fetchStockFail, fetchStockFail, fetchStockFail)
 				})
 		})
 	}

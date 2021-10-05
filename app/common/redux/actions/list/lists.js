@@ -9,6 +9,7 @@ import {
 	ACTION_UPDATE_LIST_IN_LIST
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchListLoading = () => {
@@ -73,8 +74,7 @@ export const fetchLists = (locale) => {
 					dispatch(fetchListSuccess(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					dispatch(fetchListFail(errorMsq))
+					handleError(dispatch, error, fetchListFail, fetchListFail, fetchListFail)
 				})
 		})
 	}
@@ -91,11 +91,7 @@ export const createList = (title, locale) => {
 					dispatch(createListSuccess(data.data))
 				})
 				.catch(error => {
-					if (error.response && error.response.status === 400) {
-						dispatch(createListFail(error.response.data.error))
-					} else {
-						dispatch(createListFail(error.message))
-					}
+					handleError(dispatch, error, createListFail, createListFail, createListFail)
 				})
 		})
 	}

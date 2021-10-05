@@ -12,6 +12,7 @@ import {
 } from '../const'
 import { deleteProductInList } from './products'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchProductLoading = () => {
@@ -91,12 +92,7 @@ export const fetchProduct = (id, locale) => {
 					dispatch(fetchProductSuccess(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					if (error.response && error.response.status === 404) {
-						dispatch(fetchProductNotFound(error.response.data.error))
-					} else {
-						dispatch(fetchProductFail(errorMsq))
-					}
+					handleError(dispatch, error, fetchProductFail, fetchProductNotFound, fetchProductFail)
 				})
 		})
 	}
@@ -112,8 +108,7 @@ export const deleteProduct = (id, locale) => {
 					dispatch(deleteProductInList(id))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					dispatch(deleteProductFail(errorMsq))
+					handleError(dispatch, error, deleteProductFail, deleteProductFail, deleteProductFail)
 				})
 		})
 	}

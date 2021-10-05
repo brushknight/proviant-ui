@@ -1,5 +1,6 @@
 import { ACTION_FETCH_API_TOKENS_FAIL, ACTION_FETCH_API_TOKENS_LOADING, ACTION_FETCH_API_TOKENS_SUCCESS } from '../const'
 import { generateAuthApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchLoading = () => {
@@ -32,8 +33,7 @@ export const apiTokensFetch = (locale) => {
 					dispatch(fetchSuccess(data.data))
 				})
 				.catch(error => {
-					const errorMsq = error.message
-					dispatch(fetchFail(errorMsq))
+					handleError(dispatch, error, fetchFail)
 				})
 		})
 	}

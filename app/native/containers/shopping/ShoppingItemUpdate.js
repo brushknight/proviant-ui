@@ -4,17 +4,25 @@ import { getShoppingList, getShoppingListEdit, getShoppingListItem } from '../..
 import { shoppingItemDelete } from '../../../common/redux/actions/shopping/delete'
 import { shoppingItemUpdate, shoppingListItemReset } from '../../../common/redux/actions/shopping/edit'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
-import { STATUS_DEFAULT, STATUS_SENDING, STATUS_UPDATED } from '../../../common/redux/reducers/consts'
-import { StyleSheet, View } from 'react-native'
+import { STATUS_DEFAULT, STATUS_ERROR, STATUS_SENDING, STATUS_UPDATED } from '../../../common/redux/reducers/consts'
+import { StyleSheet, Text, View } from 'react-native'
 import Deeplink from '../utils/Deeplink'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import ShoppingListTick from '../../components/shopping/ShoppingListTick'
 
-const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updateItem, navigation }) => {
-	const shoppingListId = 3
-
+const ShoppingItemUpdate = ({
+	                            item,
+	                            reset,
+	                            error,
+	                            status,
+	                            checkItem,
+	                            uncheckItem,
+	                            updateItem,
+	                            navigation,
+	                            shoppingListId
+}) => {
 	const onCheck = () => {
 		checkItem(shoppingListId, item.id)
 	}
@@ -47,10 +55,10 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 
 	let buttonSave = []
 
-	if (status === STATUS_DEFAULT) {
+	if (status === STATUS_DEFAULT || status === STATUS_ERROR) {
 		buttonSave = (
 			<Button
-				style={styles.button}
+				buttonStyle={styles.button_save}
 				title="Save"
 				icon={
 					<Icon style={{ marginRight: 10 }} name="save" size={15} color="white"/>
@@ -64,7 +72,7 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 	if (status === STATUS_SENDING) {
 		buttonSave = (
 			<Button
-				style={styles.button}
+				buttonStyle={styles.button_save}
 				loading={true}
 				disabled={true}
 			/>
@@ -75,7 +83,7 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 		buttonSave = (
 			<Button
 				title="Updated"
-				buttonStyle={[styles.button, styles.button_success]}
+				buttonStyle={[styles.button_save, styles.button_save_success]}
 				icon={
 					<Icon style={{ marginRight: 10 }} name="check" size={15} color="white"/>
 				}
@@ -85,7 +93,18 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 		)
 		navigation.goBack()
 		reset()
-		// emptyForm()
+	}
+
+	let errorJsx = []
+
+	if (status === STATUS_ERROR) {
+		errorJsx = (
+			<View style={styles.hint_error}>
+				<Text>
+					{error}
+				</Text>
+			</View>
+		)
 	}
 
 	return (
@@ -97,14 +116,12 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 				onChangeText={setTitle}
 				value={title}
 			/>
-
 			<ShoppingListTick
 				extraStyles={styles.tick}
 				isChecked={item.checked}
 				onCheck={onCheck}
 				onUncheck={onUncheck}
 			/>
-
 			<Input
 				placeholder="Quantity"
 				leftIcon={{ type: 'font-awesome', name: 'shopping-basket' }}
@@ -119,7 +136,22 @@ const ShoppingItemUpdate = ({ item, reset, status, checkItem, uncheckItem, updat
 				}}
 
 			/>
-			{buttonSave}
+			{errorJsx}
+			<View style={styles.button_group}>
+				<View style={styles.button_left}>
+					<Button
+						title={'Delete'}
+						buttonStyle={styles.button_delete}
+						icon={
+							<Icon style={{ marginRight: 10 }} name="remove" size={15} color="white"/>
+						}
+						disabled={true}
+					/>
+				</View>
+				<View style={styles.button_right}>
+					{buttonSave}
+				</View>
+			</View>
 
 		</View>
 	)
@@ -136,11 +168,34 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		marginRight: 10
 	},
-	button: {
+	hint_error: {
+		marginTop: 10,
 		marginRight: 10,
+		marginLeft: 10,
+		marginBottom: 10,
+		color: '#ff0000'
+	},
+	button_group: {
+		paddingRight: 10,
+		paddingLeft: 10,
+		flex: 1,
+		minHeight: 40,
+		flexDirection: 'row',
+		width: '100%'
+	},
+	button_left: {
+	},
+	button_right: {
+		flexGrow: 1,
 		marginLeft: 10
 	},
-	button_success: {
+	button_save: {
+	},
+	button_delete: {
+		backgroundColor: '#d00000',
+		paddingRight: 15
+	},
+	button_save_success: {
 		backgroundColor: 'green'
 	}
 
@@ -150,6 +205,7 @@ const mapStateToProps = (state, ownProps) => {
 	const shoppingList = getShoppingList(state)
 	const shoppingListEdit = getShoppingListEdit(state)
 	const shoppingListItem = getShoppingListItem(state, ownProps.route.params.itemId)
+	const shoppingListId = ownProps.route.params.shoppingListId
 	return {
 		model: shoppingList.model,
 		item: shoppingListItem,
@@ -158,7 +214,8 @@ const mapStateToProps = (state, ownProps) => {
 		status: shoppingListEdit.status,
 		error: shoppingListEdit.error,
 		id: ownProps.itemId,
-		listId: ownProps.listId
+		listId: ownProps.listId,
+		shoppingListId
 	}
 }
 
@@ -185,7 +242,8 @@ ShoppingItemUpdate.propTypes = {
 	i18n: PropTypes.object,
 	status: PropTypes.string,
 	checkItem: PropTypes.func,
-	uncheckItem: PropTypes.func
+	uncheckItem: PropTypes.func,
+	error: PropTypes.string
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingItemUpdate)

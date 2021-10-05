@@ -5,6 +5,7 @@ import {
 	ACTION_CREATE_SHOPPING_LIST_ITEM_RESET
 } from '../const'
 import { generateAuthApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const sending = () => {
@@ -45,11 +46,7 @@ export const apiTokenSubmitForm = (locale) => {
 					dispatch(success(data.data))
 				})
 				.catch(error => {
-					if (error.response && error.response.status) {
-						dispatch(fail(error.response.data.error))
-					} else {
-						dispatch(fail(error.message))
-					}
+					handleError(dispatch, error, fail)
 				})
 		})
 	}
