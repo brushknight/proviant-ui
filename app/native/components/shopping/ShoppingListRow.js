@@ -3,16 +3,16 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import ShoppingListTick from './ShoppingListTick'
 
-const ShoppingListRow = ({ item, onCheck, onUncheck, navigation }) => {
+const ShoppingListRow = ({ item, onCheck, onUncheck, onClick }) => {
 	const goToDetails = () => {
-		navigation.navigate('shopping_item_update', { itemId: item.id, shoppingListId: item.list_id })
+		onClick()
 	}
 
 	return (
 		<TouchableOpacity style={[styles.container, item.checked ? styles.container_checked : null]} onPress={goToDetails}>
 			<Text style={[styles.title, item.checked ? styles.opacity_checked : null]}>{item.title}</Text>
 			<Text style={[styles.quantity, item.checked ? styles.opacity_checked : null]}>{item.quantity}</Text>
-			<ShoppingListTick isChecked={item.checked} onUncheck={onUncheck} onCheck={onCheck}/>
+			<ShoppingListTick isChecked={item.checked} onUncheck={onUncheck} onCheck={onCheck} extraStyles={styles.tick}/>
 		</TouchableOpacity>
 	)
 }
@@ -21,7 +21,7 @@ ShoppingListRow.propTypes = {
 	item: PropTypes.object,
 	onCheck: PropTypes.func,
 	onUncheck: PropTypes.func,
-	navigation: PropTypes.object
+	onClick: PropTypes.func
 }
 
 const styles = StyleSheet.create({
@@ -50,11 +50,6 @@ const styles = StyleSheet.create({
 		lineHeight: 50
 	},
 	tick: {
-		borderRadius: 15,
-		borderColor: 'purple',
-		borderWidth: 5,
-		width: 30,
-		height: 30,
 		position: 'absolute',
 		right: 5,
 		top: 10

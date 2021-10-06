@@ -10,6 +10,7 @@
     "@react-navigation/stack": "^6.0.9",
     "axios": "^0.21.1",
     "expo": "~42.0.1",
+    "expo-linear-gradient": "^9.2.0",
     "expo-status-bar": "~1.0.4",
     "i18next": "^20.3.2",
     "i18next-browser-languagedetector": "^6.1.2",

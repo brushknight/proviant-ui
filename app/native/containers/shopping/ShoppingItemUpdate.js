@@ -1,5 +1,3 @@
-import { BackHandler, StyleSheet, Text, View } from 'react-native'
-import { Button, Input } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { getShoppingList, getShoppingListEdit, getShoppingListItem } from '../../../common/redux/selectors'
 import { shoppingItemDelete } from '../../../common/redux/actions/shopping/delete'
@@ -12,6 +10,8 @@ import {
 	STATUS_SENDING,
 	STATUS_UPDATED
 } from '../../../common/redux/reducers/consts'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import Counter from '../../components/shopping/Counter'
 import Deeplink from '../utils/Deeplink'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
@@ -29,30 +29,35 @@ const ShoppingItemUpdate = (
 		updateItem,
 		navigation,
 		deleteItem,
-		shoppingListId
+		shoppingListId,
+		style,
+		onClose
 	}) => {
 	const [title, setTitle] = useState('')
 	const [quantity, setQuantity] = useState('')
+	const [submitTime, setSubmitTime] = useState(null)
 
 	const emptyForm = () => {
 		setTitle('')
 		setQuantity(1)
+		setSubmitTime(+(new Date()))
 	}
 
 	useEffect(() => {
-		reset()
-		emptyForm()
-		setTitle(item.title)
-		setQuantity(item.quantity)
-	}, [])
+		if (status === STATUS_DEFAULT) {
+			reset()
+			emptyForm()
+			setTitle(item.title)
+			setQuantity(item.quantity)
+		}
+
+		if (status === STATUS_DELETED || !item) {
+			reset()
+			onClose()
+		}
+	}, [status])
 
 	if (status === STATUS_DELETED || !item) {
-		reset()
-		if (navigation.canGoBack()) {
-			navigation.goBack()
-		} else {
-			BackHandler.exitApp()
-		}
 		return (<View/>)
 	}
 
@@ -75,46 +80,17 @@ const ShoppingItemUpdate = (
 		deleteItem(shoppingListId, item.id)
 	}
 
-	let buttonSave = []
-
 	if (status === STATUS_DEFAULT || status === STATUS_ERROR) {
-		buttonSave = (
-			<Button
-				buttonStyle={styles.button_save}
-				title="Save"
-				icon={
-					<Icon style={{ marginRight: 10 }} name="save" size={15} color="white"/>
-				}
-				iconPosition={'left'}
-				onPress={onSubmit}
-			/>
-		)
+
 	}
 
 	if (status === STATUS_SENDING) {
-		buttonSave = (
-			<Button
-				buttonStyle={styles.button_save}
-				loading={true}
-				disabled={true}
-			/>
-		)
+
 	}
 
 	if (status === STATUS_UPDATED) {
-		buttonSave = (
-			<Button
-				title="Updated"
-				buttonStyle={[styles.button_save, styles.button_save_success]}
-				icon={
-					<Icon style={{ marginRight: 10 }} name="check" size={15} color="white"/>
-				}
-				iconPosition={'left'}
-				onPress={onSubmit}
-			/>
-		)
-		navigation.goBack()
 		reset()
+		onClose()
 	}
 
 	let errorJsx = []
@@ -130,64 +106,77 @@ const ShoppingItemUpdate = (
 	}
 
 	return (
-		<View>
+		<View style={[style, styles.container]}>
+
 			<Deeplink/>
-			<Input
+
+			<TextInput
 				placeholder={'Product title'}
 				style={styles.title}
 				onChangeText={setTitle}
 				value={title}
+				autoFocus={true}
 			/>
 			<ShoppingListTick
-				extraStyles={styles.tick}
-				isChecked={item.checked}
 				onCheck={onCheck}
 				onUncheck={onUncheck}
+				isChecked={item.checked}
+				extraStyles={styles.tick}
 			/>
-			<Input
-				placeholder="Quantity"
-				leftIcon={{ type: 'font-awesome', name: 'shopping-basket' }}
-				value={String(quantity)}
-				keyboardType={'numeric'}
-				onChangeText={value => {
-					if (value === '' || isNaN(Number(value))) {
-						setQuantity('')
-					} else {
-						setQuantity(Number(value))
-					}
-				}}
 
+			<Counter
+				defaultValue={item.quantity}
+				onChange={setQuantity}
+				resetTime={submitTime}
 			/>
+
 			{errorJsx}
-			<View style={styles.button_group}>
-				<View style={styles.button_left}>
-					<Button
-						title={'Delete'}
-						buttonStyle={styles.button_delete}
-						icon={
-							<Icon style={{ marginRight: 10 }} name="remove" size={15} color="white"/>
-						}
-						onPress={onDelete}
-					/>
-				</View>
-				<View style={styles.button_right}>
-					{buttonSave}
-				</View>
+			<View style={styles.button_container}>
+
+				<TouchableOpacity
+					style={[styles.button, styles.button_delete]}
+					onPress={onDelete}
+				>
+					<Icon name={'trash'} size={20} style={styles.button_icon}/>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={[styles.button, styles.button_cancel]}
+					onPress={onClose}
+				>
+					<Icon name={'times'} size={20} style={styles.button_icon}/>
+					<Text style={styles.button_text}>Cancel</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={[styles.button, styles.button_save]}
+					onPress={onSubmit}
+				>
+					<Icon name={'check'} size={20} style={styles.button_icon}/>
+					<Text style={styles.button_text}>Save</Text>
+				</TouchableOpacity>
+
 			</View>
 		</View>
 	)
 }
 
 const styles = StyleSheet.create({
+	container: {
+		// minHeight: 150
+	},
+	tick: {
+		width: 40,
+		height: 40,
+		borderRadius: 20,
+		position: 'absolute',
+		right: 10,
+		top: 20
+	},
 	title: {
 		height: 50,
 		fontSize: 20,
 		marginRight: 60,
-		marginTop: 15
-	},
-	tick: {
-		marginTop: 10,
-		marginRight: 10
+		marginTop: 15,
+		paddingLeft: 15
 	},
 	hint_error: {
 		marginTop: 10,
@@ -196,25 +185,54 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		color: '#ff0000'
 	},
-	button_group: {
-		paddingRight: 10,
-		paddingLeft: 10,
+	button_container: {
 		flex: 1,
-		minHeight: 40,
 		flexDirection: 'row',
-		width: '100%'
+		justifyContent: 'space-between',
+		paddingLeft: 10,
+		paddingRight: 10
 	},
-	button_left: {},
-	button_right: {
-		flexGrow: 1,
-		marginLeft: 10
-	},
-	button_save: {},
 	button_delete: {
-		backgroundColor: '#d00000',
-		paddingRight: 15
+		backgroundColor: 'red',
+		width: 60,
+		justifyContent: 'center'
 	},
-	button_save_success: {
+	button_save: {
+		paddingLeft: 7,
+		backgroundColor: 'green'
+	},
+	button_cancel: {
+		backgroundColor: 'grey',
+		marginLeft: 'auto',
+		marginRight: 5,
+		width: 120,
+		paddingLeft: 10
+	},
+	button: {
+		height: 30,
+		width: 100,
+		borderRadius: 15,
+		flex: 0,
+		flexDirection: 'row',
+		justifyContent: 'flex-start'
+	},
+	button_text: {
+		color: '#ffffff',
+		textAlign: 'center',
+		height: 30,
+		lineHeight: 30,
+		fontSize: 16,
+		fontWeight: '500',
+		paddingLeft: 10
+	},
+	button_icon: {
+		color: '#ffffff',
+		textAlign: 'center',
+		height: 30,
+		lineHeight: 30,
+		width: 30
+	},
+	button_success: {
 		backgroundColor: 'green'
 	}
 
@@ -223,8 +241,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
 	const shoppingList = getShoppingList(state)
 	const shoppingListEdit = getShoppingListEdit(state)
-	const shoppingListItem = getShoppingListItem(state, ownProps.route.params.itemId)
-	const shoppingListId = ownProps.route.params.shoppingListId
+	const shoppingListItem = getShoppingListItem(state, ownProps.itemId)
+	const shoppingListId = ownProps.shoppingListId
 	return {
 		model: shoppingList.model,
 		item: shoppingListItem,
@@ -234,6 +252,8 @@ const mapStateToProps = (state, ownProps) => {
 		error: shoppingListEdit.error,
 		id: ownProps.itemId,
 		listId: ownProps.listId,
+		style: ownProps.style,
+		onClose: ownProps.onClose,
 		shoppingListId
 	}
 }
@@ -263,7 +283,9 @@ ShoppingItemUpdate.propTypes = {
 	checkItem: PropTypes.func,
 	uncheckItem: PropTypes.func,
 	error: PropTypes.string,
-	shoppingListId: PropTypes.number
+	shoppingListId: PropTypes.number,
+	onClose: PropTypes.func,
+	style: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingItemUpdate)

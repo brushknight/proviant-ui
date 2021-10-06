@@ -22,7 +22,7 @@ const ShoppingListTick = ({ isChecked, onCheck, onUncheck, extraStyles }) => {
 	}
 
 	return (
-		<TouchableOpacity style={style} onPress={onTick}/>
+		<TouchableOpacity style={[style, extraStyles]} onPress={onTick}/>
 	)
 }
 
@@ -40,9 +40,6 @@ const styles = StyleSheet.create({
 		borderWidth: 3,
 		width: 30,
 		height: 30,
-		position: 'absolute',
-		right: 5,
-		top: 10,
 		opacity: 1
 	}
 })
