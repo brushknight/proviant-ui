@@ -12,7 +12,7 @@ const ShoppingListRow = ({ item, onCheck, onUncheck, onClick }) => {
 		<TouchableOpacity style={[styles.container, item.checked ? styles.container_checked : null]} onPress={goToDetails}>
 			<Text style={[styles.title, item.checked ? styles.opacity_checked : null]}>{item.title}</Text>
 			<Text style={[styles.quantity, item.checked ? styles.opacity_checked : null]}>{item.quantity}</Text>
-			<ShoppingListTick isChecked={item.checked} onUncheck={onUncheck} onCheck={onCheck} extraStyles={styles.tick}/>
+			<ShoppingListTick isChecked={item.checked} onUncheck={onUncheck} onCheck={onCheck} extraStyles={styles.tick} size={30}/>
 		</TouchableOpacity>
 	)
 }

@@ -2,9 +2,9 @@ import { Button } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { fetchCoreVersion } from '../../../common/redux/actions/version'
 import { getUser, getVersion } from '../../../common/redux/selectors'
+import { Image, SafeAreaView, StatusBar, Text, View } from 'react-native'
 import { isSaaS } from '../../../common/utils/env'
-import { logoutUser } from '../../../common/redux/actions/user'
-import { SafeAreaView, StatusBar, Text, View } from 'react-native'
+import { logoutUser } from '../../../common/redux/actions/user/user'
 import { STATUS_UNAUTHORIZED } from '../../../common/redux/reducers/consts'
 import Login from './Login'
 import PropTypes from 'prop-types'
@@ -29,8 +29,16 @@ const Profile = ({ logout, userStatus, user, fetchCoreVersion, version }) => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<StatusBar
-				barStyle={'dark-content'} />
+				barStyle={'dark-content'}/>
 			{profile}
+			<View style={styles.local_picker}>
+				<Image style={styles.flag} source={require('../../assets/flags/en.png')}/>
+				<Text style={styles.local_picker_text}>English</Text>
+			</View>
+			<View style={styles.local_picker}>
+				<Image style={styles.flag} source={require('../../assets/flags/ru.png')}/>
+				<Text style={styles.local_picker_text}>Русски</Text>
+			</View>
 			<View style={styles.bottom}>
 				<Button
 					title={'Logout'}
@@ -47,6 +55,20 @@ const Profile = ({ logout, userStatus, user, fetchCoreVersion, version }) => {
 }
 
 const styles = {
+	local_picker: {
+		flex: 1,
+		flexDirection: 'row'
+	},
+	local_picker_text: {
+		height: 30,
+		lineHeight: 30
+	},
+	flag: {
+		width: 50,
+		height: 30,
+		backgroundColor: 'red',
+		resizeMode: 'cover'
+	},
 	container: {
 		flex: 1
 	},
@@ -55,7 +77,6 @@ const styles = {
 		justifyContent: 'flex-end'
 	},
 	email: {
-		display: 'inline-block',
 		textAlign: 'center',
 		height: 40,
 		lineHeight: 40,

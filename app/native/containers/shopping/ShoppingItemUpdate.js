@@ -116,12 +116,14 @@ const ShoppingItemUpdate = (
 				onChangeText={setTitle}
 				value={title}
 				autoFocus={true}
+				placeholderTextColor="grey"
 			/>
 			<ShoppingListTick
 				onCheck={onCheck}
 				onUncheck={onUncheck}
 				isChecked={item.checked}
 				extraStyles={styles.tick}
+				size={40}
 			/>
 
 			<Counter
@@ -164,9 +166,6 @@ const styles = StyleSheet.create({
 		// minHeight: 150
 	},
 	tick: {
-		width: 40,
-		height: 40,
-		borderRadius: 20,
 		position: 'absolute',
 		right: 10,
 		top: 20

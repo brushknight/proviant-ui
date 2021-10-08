@@ -1,9 +1,9 @@
-import { ACTION_USER_FETCH_FAILED, ACTION_USER_LOADED, ACTION_USER_LOGOUT, ACTION_USER_UNAUTHORIZED } from './const'
-import { clearJWT } from '../../utils/security'
-import { generateAuthApiUrl, generateHeaders } from '../../utils/link'
-import { handleError } from '../../utils/action'
-import { isSaaS } from '../../utils/env'
-import { setCookie } from '../../utils/cookies'
+import { ACTION_USER_FETCH_FAILED, ACTION_USER_LOADED, ACTION_USER_LOGOUT, ACTION_USER_UNAUTHORIZED } from '../const'
+import { clearJWT } from '../../../utils/security'
+import { generateAuthApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
+import { isSaaS } from '../../../utils/env'
+import { setCookie } from '../../../utils/cookies'
 import axios from 'axios'
 
 const fetchUserSuccess = (user) => {
@@ -17,12 +17,6 @@ const fetchUserFailed = (error) => {
 	return {
 		type: ACTION_USER_FETCH_FAILED,
 		error
-	}
-}
-
-export const userUnauthorized = () => {
-	return {
-		type: ACTION_USER_UNAUTHORIZED
 	}
 }
 

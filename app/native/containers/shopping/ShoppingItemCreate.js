@@ -5,6 +5,7 @@ import { STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR, STATUS_SENDING } from '..
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Counter from '../../components/shopping/Counter'
 import Deeplink from '../utils/Deeplink'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
@@ -66,6 +67,7 @@ const ShoppingItemCreate = ({ error, reset, status, submit, onClose, shoppingLis
 				onChangeText={setTitle}
 				value={title}
 				autoFocus={true}
+				placeholderTextColor="grey"
 			/>
 
 			<Counter
@@ -81,13 +83,16 @@ const ShoppingItemCreate = ({ error, reset, status, submit, onClose, shoppingLis
 					style={[styles.button, styles.button_cancel]}
 					onPress={onClose}
 				>
+					<Icon name={'times'} size={20} style={styles.button_icon}/>
 					<Text style={styles.button_text}>Cancel</Text>
 				</TouchableOpacity>
+
 				<TouchableOpacity
 					style={[styles.button, styles.button_create]}
 					onPress={onSubmit}
 				>
-					<Text style={styles.button_text}>Create</Text>
+					<Icon name={'arrow-up'} size={20} style={styles.button_icon}/>
+					<Text style={styles.button_text}>Save</Text>
 				</TouchableOpacity>
 
 			</View>
@@ -121,15 +126,22 @@ const styles = StyleSheet.create({
 		paddingRight: 10
 	},
 	button_cancel: {
-		backgroundColor: 'grey'
+		backgroundColor: 'grey',
+		marginRight: 5,
+		width: 120,
+		paddingLeft: 10
 	},
 	button_create: {
+		paddingLeft: 7,
 		backgroundColor: 'green'
 	},
 	button: {
 		height: 30,
 		width: 100,
-		borderRadius: 15
+		borderRadius: 15,
+		flex: 0,
+		flexDirection: 'row',
+		justifyContent: 'flex-start'
 	},
 	button_text: {
 		color: '#ffffff',
@@ -137,7 +149,15 @@ const styles = StyleSheet.create({
 		height: 30,
 		lineHeight: 30,
 		fontSize: 16,
-		fontWeight: '500'
+		fontWeight: '500',
+		paddingLeft: 10
+	},
+	button_icon: {
+		color: '#ffffff',
+		textAlign: 'center',
+		height: 30,
+		lineHeight: 30,
+		width: 30
 	},
 	button_success: {
 		backgroundColor: 'green'

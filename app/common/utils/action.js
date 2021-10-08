@@ -1,4 +1,4 @@
-import { userUnauthorized } from '../redux/actions/user'
+import { userUnauthorized } from '../redux/actions/user/unauthorized'
 
 export const handleError = (dispatch, error, onError, onNotFound, onBadRequest) => {
 	if (error.response) {

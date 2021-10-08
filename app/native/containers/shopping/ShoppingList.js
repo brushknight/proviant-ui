@@ -93,6 +93,83 @@ const ShoppingList = (
 		}
 	}
 
+	const createItemModal = (
+		<Modal
+			animationType="slide"
+			transparent={true}
+			visible={createModal}
+			onRequestClose={() => {
+				console.log('close')
+			}}
+			onShow={() => {
+				console.log('shown')
+			}}
+		>
+			<KeyboardAvoidingView
+				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+				style={{ height: '100%' }}
+			>
+				<LinearGradient colors={['transparent', 'rgba(0,0,0,0.8)']} style={styles.modal}>
+					<TouchableOpacity
+						style={styles.modal}
+						// onPress={Keyboard.dismiss}
+						onPress={() => {
+							setCreateModal(false)
+						}}
+						activeOpacity={1}
+					>
+						<ShoppingItemCreate
+							style={styles.modal_inner}
+							shoppingListId={shoppingListId}
+							onClose={() => {
+								setCreateModal(false)
+							}}
+						/>
+					</TouchableOpacity>
+				</LinearGradient>
+			</KeyboardAvoidingView>
+		</Modal>
+	)
+
+	const updateItemModal = (
+		<Modal
+			animationType="slide"
+			transparent={true}
+			visible={updateModal}
+			onRequestClose={() => {
+				console.log('close')
+			}}
+			onShow={() => {
+				console.log('shown')
+			}}
+		>
+			<KeyboardAvoidingView
+				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+				style={{ height: '100%' }}
+			>
+				<LinearGradient colors={['transparent', 'rgba(0,0,0,0.8)']} style={styles.modal}>
+					<TouchableOpacity
+						style={styles.modal}
+						// onPress={Keyboard.dismiss}
+						onPress={() => {
+							setUpdateModal(false)
+						}}
+						activeOpacity={1}
+					>
+						<ShoppingItemUpdate
+							itemId={openItemId}
+							style={styles.modal_inner}
+							shoppingListId={shoppingListId}
+							onClose={() => {
+								setUpdateModal(false)
+							}}
+						/>
+					</TouchableOpacity>
+				</LinearGradient>
+			</KeyboardAvoidingView>
+		</Modal>
+	)
+
 	if (status === STATUS_FETCH_FAILED || fetchListsStatus === STATUS_FETCH_FAILED) {
 		return (
 			<View>
@@ -116,7 +193,7 @@ const ShoppingList = (
 
 	if (items.length === 0) {
 		return (
-			<View>
+			<SafeAreaView>
 				<Deeplink/>
 				<ScrollView
 					contentContainerStyle={styles.empty_scroll_view}
@@ -132,7 +209,9 @@ const ShoppingList = (
 					</Text>
 				</ScrollView>
 				<AddButton navigation={navigation} shoppingListId={shoppingListId} actionHandlers={actionHandlers}/>
-			</View>
+				{createItemModal}
+				{updateItemModal}
+			</SafeAreaView>
 		)
 	}
 
@@ -170,78 +249,9 @@ const ShoppingList = (
 
 			</ScrollView>
 			<AddButton navigation={navigation} shoppingListId={shoppingListId} actionHandlers={actionHandlers}/>
-			<Modal
-				animationType="slide"
-				transparent={true}
-				visible={createModal}
-				onRequestClose={() => {
-					console.log('close')
-				}}
-				onShow={() => {
-					console.log('shown')
-				}}
-			>
-				<KeyboardAvoidingView
-					behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-					style={{ height: '100%' }}
-				>
-					<LinearGradient colors={['transparent', 'rgba(0,0,0,0.8)']} style={styles.modal}>
-						<TouchableOpacity
-							style={styles.modal}
-							// onPress={Keyboard.dismiss}
-							onPress={() => {
-								setCreateModal(false)
-							}}
-							activeOpacity={1}
-						>
-							<ShoppingItemCreate
-								style={styles.modal_inner}
-								shoppingListId={shoppingListId}
-								onClose={() => {
-									setCreateModal(false)
-								}}
-							/>
-						</TouchableOpacity>
-					</LinearGradient>
-				</KeyboardAvoidingView>
-			</Modal>
 
-			<Modal
-				animationType="slide"
-				transparent={true}
-				visible={updateModal}
-				onRequestClose={() => {
-					console.log('close')
-				}}
-				onShow={() => {
-					console.log('shown')
-				}}
-			>
-				<KeyboardAvoidingView
-					behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-					style={{ height: '100%' }}
-				>
-					<LinearGradient colors={['transparent', 'rgba(0,0,0,0.8)']} style={styles.modal}>
-						<TouchableOpacity
-							style={styles.modal}
-							// onPress={Keyboard.dismiss}
-							onPress={() => {
-								setUpdateModal(false)
-							}}
-							activeOpacity={1}
-						>
-							<ShoppingItemUpdate
-								itemId={openItemId}
-								style={styles.modal_inner}
-								shoppingListId={shoppingListId}
-								onClose={() => {
-									setUpdateModal(false)
-								}}
-							/>
-						</TouchableOpacity>
-					</LinearGradient>
-				</KeyboardAvoidingView>
-			</Modal>
+			{createItemModal}
+			{updateItemModal}
 		</SafeAreaView>
 
 	)

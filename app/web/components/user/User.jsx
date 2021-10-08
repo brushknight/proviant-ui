@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { fetchUser } from '../../../common/redux/actions/user'
+import { fetchUser } from '../../../common/redux/actions/user/user'
 import { getLocale, getUser } from '../../../common/redux/selectors'
 import { useEffect } from 'react'
 import { withTranslation } from 'react-i18next'

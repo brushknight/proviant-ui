@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchUser } from '../../common/redux/actions/user'
+import { fetchUser } from '../../common/redux/actions/user/user'
 import { getUser } from '../../common/redux/selectors'
 import { isSaaS } from '../../common/utils/env'
 import { STATUS_LOADED } from '../../common/redux/reducers/consts'

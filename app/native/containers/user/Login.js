@@ -21,6 +21,7 @@ const Login = () => {
 				style={styles.button}
 				title={'Open proviant.io for login'}
 				onPress={() => {
+					console.log(appUrl)
 					Linking.openURL(appUrl)
 				}}
 			/>

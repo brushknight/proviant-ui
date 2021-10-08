@@ -1,4 +1,4 @@
-import { fetchUser } from '../user'
+import { fetchUser } from '../user/user'
 import { generateAuthApiUrl, generateHeaders } from '../../../utils/link'
 import { handleError } from '../../../utils/action'
 import { saveJWT } from '../../../utils/security'

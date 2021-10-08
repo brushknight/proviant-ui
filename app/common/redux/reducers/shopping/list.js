@@ -2,7 +2,8 @@ import {
 	ACTION_FETCH_SHOPPING_LIST_FAIL,
 	ACTION_FETCH_SHOPPING_LIST_LOADING,
 	ACTION_FETCH_SHOPPING_LIST_SUCCESS,
-	ACTION_SHOPPING_LIST_ADD_ITEM, ACTION_SHOPPING_LIST_DELETE_ITEM,
+	ACTION_SHOPPING_LIST_ADD_ITEM,
+	ACTION_SHOPPING_LIST_DELETE_ITEM,
 	ACTION_SHOPPING_LIST_UPDATE_ITEM
 } from '../../actions/const'
 import { STATUS_DEFAULT, STATUS_FETCH_FAILED, STATUS_LOADED, STATUS_LOADING } from '../consts'
@@ -16,13 +17,16 @@ const defaultModel = () => {
 }
 
 function compareItems (a, b) {
-	if (a.checked && !b.checked) {
-		return 1
-	}
+	// if a less then b
 	if (!a.checked && b.checked) {
 		return -1
 	}
-	return 0
+	// if a more then b
+	if (a.checked && !b.checked) {
+		return 1
+	}
+	// if a equal then b
+	return b.updated_at - a.updated_at
 }
 
 const transform = (model) => {
