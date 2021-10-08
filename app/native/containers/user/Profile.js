@@ -2,10 +2,11 @@ import { Button } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { fetchCoreVersion } from '../../../common/redux/actions/version'
 import { getUser, getVersion } from '../../../common/redux/selectors'
-import { Image, SafeAreaView, StatusBar, Text, View } from 'react-native'
+import { Image, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import { isSaaS } from '../../../common/utils/env'
 import { logoutUser } from '../../../common/redux/actions/user/user'
 import { STATUS_UNAUTHORIZED } from '../../../common/redux/reducers/consts'
+import LanguageOption from '../../components/profile/LanguageOption'
 import Login from './Login'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
@@ -31,14 +32,11 @@ const Profile = ({ logout, userStatus, user, fetchCoreVersion, version }) => {
 			<StatusBar
 				barStyle={'dark-content'}/>
 			{profile}
-			<View style={styles.local_picker}>
-				<Image style={styles.flag} source={require('../../assets/flags/en.png')}/>
-				<Text style={styles.local_picker_text}>English</Text>
-			</View>
-			<View style={styles.local_picker}>
-				<Image style={styles.flag} source={require('../../assets/flags/ru.png')}/>
-				<Text style={styles.local_picker_text}>Русски</Text>
-			</View>
+			{/* <View style={styles.localisation_container}> */}
+			{/*	<Text style={styles.localisation_title}>Language (disabled)</Text> */}
+			{/*	<LanguageOption language={'en'}/> */}
+			{/*	<LanguageOption language={'ru'}/> */}
+			{/* </View> */}
 			<View style={styles.bottom}>
 				<Button
 					title={'Logout'}
@@ -55,20 +53,17 @@ const Profile = ({ logout, userStatus, user, fetchCoreVersion, version }) => {
 }
 
 const styles = {
-	local_picker: {
-		flex: 1,
-		flexDirection: 'row'
+	localisation_container: {
+		flex: 0,
+		flexDirection: 'column',
+		height: 160,
+		padding: 20
 	},
-	local_picker_text: {
-		height: 30,
-		lineHeight: 30
+	localisation_title: {
+		fontSize: 22,
+		paddingBottom: 10
 	},
-	flag: {
-		width: 50,
-		height: 30,
-		backgroundColor: 'red',
-		resizeMode: 'cover'
-	},
+
 	container: {
 		flex: 1
 	},
