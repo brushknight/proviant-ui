@@ -7,10 +7,9 @@ import {
 	ACTION_FETCH_CATEGORIES_LOADING,
 	ACTION_FETCH_CATEGORIES_SUCCESS,
 	ACTION_UPDATE_CATEGORY_IN_LIST
-} from './const'
-import { generateCoreApiUrl } from '../../utils/link'
-import { generateLocaleHeader } from '../../utils/i18n'
-import { userUnauthorized } from './user'
+} from '../const'
+import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchCategoriesLoading = () => {
@@ -69,29 +68,16 @@ export const updateCategoryInList = (model) => {
 export const fetchCategories = (locale) => {
 	return (dispatch) => {
 		dispatch(fetchCategoriesLoading())
-		axios.get(generateCoreApiUrl('/category/'), generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(fetchCategoriesSuccess(data.data))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-
-				if (error.response) {
-					switch (error.response.status) {
-					case 400:
-						dispatch(fetchCategoriesFail(error.response.data.error))
-						break
-					case 401:
-						dispatch(userUnauthorized())
-						break
-					default:
-						dispatch(fetchCategoriesFail(error.response.data.error))
-					}
-				} else {
-					fetchCategoriesFail(errorMsq)
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.get(generateCoreApiUrl('/category/'), headers)
+				.then(response => {
+					const data = response.data
+					dispatch(fetchCategoriesSuccess(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, fetchCategoriesFail, fetchCategoriesFail, fetchCategoriesFail)
+				})
+		})
 	}
 }
 
@@ -99,28 +85,15 @@ export const createCategory = (title, locale) => {
 	return (dispatch) => {
 		dispatch(createCategoryLoading())
 		const json = JSON.stringify({ title })
-		axios.post(generateCoreApiUrl('/category/'), json, generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(createCategorySuccess(data.data))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-
-				if (error.response) {
-					switch (error.response.status) {
-					case 400:
-						dispatch(createCategoryFail(error.response.data.error))
-						break
-					case 401:
-						dispatch(userUnauthorized())
-						break
-					default:
-						dispatch(createCategoryFail(error.response.data.error))
-					}
-				} else {
-					createCategoryFail(errorMsq)
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.post(generateCoreApiUrl('/category/'), json, headers)
+				.then(response => {
+					const data = response.data
+					dispatch(createCategorySuccess(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, createCategoryFail, createCategoryFail, createCategoryFail)
+				})
+		})
 	}
 }

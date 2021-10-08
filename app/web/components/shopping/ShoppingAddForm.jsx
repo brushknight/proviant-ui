@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 
 import { compose } from 'redux'
 import { shoppingFormReset, shoppingFormSubmit } from '../../../common/redux/actions/shopping/form'
-import { shoppingListsFetch } from '../../../common/redux/actions/shopping/lists'
+import { shoppingListFetchLists } from '../../../common/redux/actions/shopping/lists'
 import { STATUS_CREATED, STATUS_DEFAULT, STATUS_EDITING, STATUS_SENDING } from '../../../common/redux/reducers/consts'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
@@ -115,7 +115,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		addToShopping: (listId, dto) => dispatch(shoppingFormSubmit(listId, dto, locale)),
 		formReset: () => dispatch(shoppingFormReset()),
-		fetchShoppingLists: () => dispatch(shoppingListsFetch(locale))
+		fetchShoppingLists: () => dispatch(shoppingListFetchLists(locale))
 	}
 }
 

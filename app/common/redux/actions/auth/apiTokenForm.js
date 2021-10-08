@@ -4,8 +4,8 @@ import {
 	ACTION_CREATE_API_TOKEN_SUCCESS,
 	ACTION_CREATE_SHOPPING_LIST_ITEM_RESET
 } from '../const'
-import { generateAuthApiUrl } from '../../../utils/link'
-import { generateLocaleHeader } from '../../../utils/i18n'
+import { generateAuthApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const sending = () => {
@@ -38,17 +38,16 @@ export const apiTokenSubmitForm = (locale) => {
 	const json = JSON.stringify({})
 	return (dispatch) => {
 		dispatch(sending())
-		axios.post(generateAuthApiUrl('/api-token/'), json, generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(success(data.data))
-			})
-			.catch(error => {
-				if (error.response && error.response.status) {
-					dispatch(fail(error.response.data.error))
-				} else {
-					dispatch(fail(error.message))
-				}
-			})
+
+		generateHeaders(locale).then(headers => {
+			axios.post(generateAuthApiUrl('/api-token/'), json, headers)
+				.then(response => {
+					const data = response.data
+					dispatch(success(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, fail)
+				})
+		})
 	}
 }

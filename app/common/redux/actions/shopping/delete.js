@@ -3,8 +3,8 @@ import {
 	ACTION_SHOPPING_LIST_ITEM_DELETE_SENDING,
 	ACTION_SHOPPING_LIST_ITEM_DELETE_SUCCESS
 } from '../const'
-import { generateCoreApiUrl } from '../../../utils/link'
-import { generateLocaleHeader } from '../../../utils/i18n'
+import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { shoppingListDeleteItem } from './list'
 import axios from 'axios'
 
@@ -32,14 +32,15 @@ const fail = (error) => {
 export const shoppingItemDelete = (listId, id, locale) => {
 	return (dispatch) => {
 		dispatch(sending())
-		axios.delete(generateCoreApiUrl(`/shopping_list/${listId}/${id}/`), generateLocaleHeader(locale))
-			.then(() => {
-				dispatch(success(id))
-				dispatch(shoppingListDeleteItem(id))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-				dispatch(fail(errorMsq))
-			})
+		generateHeaders(locale).then(headers => {
+			axios.delete(generateCoreApiUrl(`/shopping_list/${listId}/${id}/`), headers)
+				.then(() => {
+					dispatch(success(id))
+					dispatch(shoppingListDeleteItem(id))
+				})
+				.catch(error => {
+					handleError(dispatch, error, fail, fail, fail)
+				})
+		})
 	}
 }

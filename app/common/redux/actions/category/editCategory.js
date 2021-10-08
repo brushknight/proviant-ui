@@ -9,9 +9,9 @@ import {
 	ACTION_EDIT_CATEGORY_RESET,
 	ACTION_EDIT_CATEGORY_SENDING,
 	ACTION_EDIT_CATEGORY_SUCCESS
-} from './const'
-import { generateCoreApiUrl } from '../../utils/link'
-import { generateLocaleHeader } from '../../utils/i18n'
+} from '../const'
+import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { updateCategoryInList } from './categories'
 import axios from 'axios'
 
@@ -78,19 +78,16 @@ export const editCategoryReset = (error) => {
 export const fetchEditCategory = (id, locale) => {
 	return (dispatch) => {
 		dispatch(editCategoryFetching())
-		axios.get(generateCoreApiUrl(`/category/${id}/`), generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(editCategoryFetched(data.data))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-				if (error.response && error.response.status === 404) {
-					dispatch(editCategoryFetchFail(error.response.data.error))
-				} else {
-					dispatch(editCategoryFetchFail(errorMsq))
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.get(generateCoreApiUrl(`/category/${id}/`), headers)
+				.then(response => {
+					const data = response.data
+					dispatch(editCategoryFetched(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, editCategoryFetchFail, editCategoryFetchFail, editCategoryFetchFail)
+				})
+		})
 	}
 }
 
@@ -100,38 +97,32 @@ export const updateCategory = (id, title, locale) => {
 		const json = JSON.stringify({
 			id, title
 		})
-		axios.put(generateCoreApiUrl(`/category/${id}/`), json, generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(editCategorySuccess(data.data))
-				dispatch(updateCategoryInList(data.data))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-				if (error.response && error.response.status) {
-					dispatch(editCategoryFail(error.response.data.error))
-				} else {
-					dispatch(editCategoryFail(errorMsq))
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.put(generateCoreApiUrl(`/category/${id}/`), json, headers)
+				.then(response => {
+					const data = response.data
+					dispatch(editCategorySuccess(data.data))
+					dispatch(updateCategoryInList(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, editCategoryFail, editCategoryFail, editCategoryFail)
+				})
+		})
 	}
 }
 
 export const deleteCategory = (id, locale) => {
 	return (dispatch) => {
-		axios.delete(generateCoreApiUrl(`/category/${id}/`), generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(deleteCategorySuccess(data.data))
-				dispatch(deleteCategoryInList(id))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-				if (error.response && error.response.status) {
-					dispatch(deleteCategoryFail(error.response.data.error))
-				} else {
-					dispatch(deleteCategoryFail(errorMsq))
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.delete(generateCoreApiUrl(`/category/${id}/`), headers)
+				.then(response => {
+					const data = response.data
+					dispatch(deleteCategorySuccess(data.data))
+					dispatch(deleteCategoryInList(id))
+				})
+				.catch(error => {
+					handleError(dispatch, error, deleteCategoryFail, deleteCategoryFail, deleteCategoryFail)
+				})
+		})
 	}
 }

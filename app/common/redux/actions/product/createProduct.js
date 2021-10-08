@@ -2,11 +2,12 @@ import {
 	ACTION_CREATE_PRODUCT_FAIL,
 	ACTION_CREATE_PRODUCT_RESET,
 	ACTION_CREATE_PRODUCT_SENDING,
-	ACTION_CREATE_PRODUCT_SUCCESS, ACTION_CREATE_PRODUCT_WITH_TITLE
+	ACTION_CREATE_PRODUCT_SUCCESS,
+	ACTION_CREATE_PRODUCT_WITH_TITLE
 } from '../const'
 import { addProductInList } from './products'
-import { generateCoreApiUrl } from '../../../utils/link'
-import { generateLocaleHeader } from '../../../utils/i18n'
+import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { validateProduct } from '../../../validators/product'
 import axios from 'axios'
 
@@ -53,19 +54,16 @@ export const createProduct = (model, locale) => {
 
 		dispatch(createProductSending())
 		const json = JSON.stringify(model)
-		axios.post(generateCoreApiUrl('/product/'), json, generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(createProductSuccess(data.data))
-				dispatch(addProductInList(data.data))
-			})
-			.catch(error => {
-				if (error.response && error.response.status && error.response.data.error) {
-					dispatch(createProductFail(error.response.data.error))
-				} else {
-					const errorMsq = error.message
-					dispatch(createProductFail(errorMsq))
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.post(generateCoreApiUrl('/product/'), json, headers)
+				.then(response => {
+					const data = response.data
+					dispatch(createProductSuccess(data.data))
+					dispatch(addProductInList(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, createProductFail, createProductFail, createProductFail)
+				})
+		})
 	}
 }

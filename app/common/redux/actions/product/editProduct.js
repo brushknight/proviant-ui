@@ -1,13 +1,14 @@
 import {
-	ACTION_EDIT_PRODUCT_FAIL, ACTION_EDIT_PRODUCT_FETCH_FAIL,
+	ACTION_EDIT_PRODUCT_FAIL,
+	ACTION_EDIT_PRODUCT_FETCH_FAIL,
 	ACTION_EDIT_PRODUCT_FETCHED,
 	ACTION_EDIT_PRODUCT_FETCHING,
 	ACTION_EDIT_PRODUCT_RESET,
 	ACTION_EDIT_PRODUCT_SENDING,
 	ACTION_EDIT_PRODUCT_SUCCESS
 } from '../const'
-import { generateCoreApiUrl } from '../../../utils/link'
-import { generateLocaleHeader } from '../../../utils/i18n'
+import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { updateProductInList } from './products'
 import axios from 'axios'
 
@@ -53,35 +54,33 @@ export const editProductFormReset = () => {
 export const fetchEditProduct = (id, locale) => {
 	return (dispatch) => {
 		dispatch(editProductFetching())
-		axios.get(generateCoreApiUrl(`/product/${id}/`), generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(editProductFetched(data.data))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-				if (error.response && error.response.status === 404) {
-					dispatch(editProductFetchFail(error.response.data.error))
-				} else {
-					dispatch(editProductFetchFail(errorMsq))
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.get(generateCoreApiUrl(`/product/${id}/`), headers)
+				.then(response => {
+					const data = response.data
+					dispatch(editProductFetched(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, editProductFetchFail, editProductFetchFail, editProductFetchFail)
+				})
+		})
 	}
 }
 
-export const updateProduct = (model) => {
+export const updateProduct = (model, locale) => {
 	return (dispatch) => {
 		dispatch(editProductSending())
 		const json = JSON.stringify(model)
-		axios.put(generateCoreApiUrl(`/product/${model.id}/`), json)
-			.then(response => {
-				const data = response.data
-				dispatch(editProductSuccess(data.data))
-				dispatch(updateProductInList(data.data))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-				dispatch(editProductFail(errorMsq))
-			})
+		generateHeaders(locale).then(headers => {
+			axios.put(generateCoreApiUrl(`/product/${model.id}/`), json, headers)
+				.then(response => {
+					const data = response.data
+					dispatch(editProductSuccess(data.data))
+					dispatch(updateProductInList(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, editProductFail, editProductFail, editProductFail)
+				})
+		})
 	}
 }

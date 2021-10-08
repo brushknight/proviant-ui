@@ -6,8 +6,8 @@ import {
 	ACTION_SHOPPING_LIST_DELETE_ITEM,
 	ACTION_SHOPPING_LIST_UPDATE_ITEM
 } from '../const'
-import { generateCoreApiUrl } from '../../../utils/link'
-import { generateLocaleHeader } from '../../../utils/i18n'
+import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchLoading = () => {
@@ -54,14 +54,15 @@ export const shoppingListDeleteItem = (id) => {
 export const shoppingListFetchItems = (id, locale) => {
 	return (dispatch) => {
 		dispatch(fetchLoading())
-		axios.get(generateCoreApiUrl(`/shopping_list/${id}/`), generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(fetchSuccess(data.data))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-				dispatch(fetchFail(errorMsq))
-			})
+		generateHeaders(locale).then(headers => {
+			axios.get(generateCoreApiUrl(`/shopping_list/${id}/`), headers)
+				.then(response => {
+					const data = response.data
+					dispatch(fetchSuccess(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, fetchFail, fetchFail, fetchFail)
+				})
+		})
 	}
 }

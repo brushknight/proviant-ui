@@ -1,14 +1,15 @@
 import {
-	ACTION_CREATE_CATEGORY_FAIL,
-	ACTION_CREATE_CATEGORY_LOADING,
-	ACTION_CREATE_CATEGORY_RESET,
-	ACTION_CREATE_CATEGORY_SUCCESS, ACTION_DELETE_CATEGORY_IN_LIST,
-	ACTION_FETCH_CATEGORIES_FAIL,
-	ACTION_FETCH_CATEGORIES_LOADING,
-	ACTION_FETCH_CATEGORIES_SUCCESS,
-	ACTION_UPDATE_CATEGORY_IN_LIST
-} from '../actions/const'
-import { STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING } from './consts'
+	ACTION_CREATE_LIST_FAIL,
+	ACTION_CREATE_LIST_LOADING,
+	ACTION_CREATE_LIST_RESET,
+	ACTION_CREATE_LIST_SUCCESS,
+	ACTION_DELETE_LIST_IN_LIST,
+	ACTION_FETCH_LIST_FAIL,
+	ACTION_FETCH_LIST_LOADING,
+	ACTION_FETCH_LIST_SUCCESS,
+	ACTION_UPDATE_LIST_IN_LIST
+} from '../../actions/const'
+import { STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING } from '../consts'
 
 const emptyCreateForm = () => {
 	return {
@@ -33,7 +34,13 @@ const initialState = () => {
 export default function (state = initialState(), action) {
 	let items = []
 	switch (action.type) {
-	case ACTION_DELETE_CATEGORY_IN_LIST:
+	case ACTION_CREATE_LIST_RESET:
+		return {
+			...state,
+			error: null,
+			createForm: emptyCreateForm()
+		}
+	case ACTION_DELETE_LIST_IN_LIST:
 		items = state.items
 		items = items.filter(item => item.id !== action.id)
 
@@ -41,7 +48,7 @@ export default function (state = initialState(), action) {
 			...state,
 			items: items || []
 		}
-	case ACTION_UPDATE_CATEGORY_IN_LIST:
+	case ACTION_UPDATE_LIST_IN_LIST:
 		items = state.items
 
 		items = items.map(item => {
@@ -55,47 +62,40 @@ export default function (state = initialState(), action) {
 			...state,
 			items: items || []
 		}
-	case ACTION_FETCH_CATEGORIES_FAIL:
+	case ACTION_FETCH_LIST_FAIL:
 		return {
 			...state,
 			error: action.error,
 			status: STATUS_ERROR
 		}
-	case ACTION_FETCH_CATEGORIES_LOADING:
+	case ACTION_FETCH_LIST_LOADING:
 		return {
 			...state,
 			status: STATUS_LOADING,
 			error: null
 		}
 
-	case ACTION_FETCH_CATEGORIES_SUCCESS:
+	case ACTION_FETCH_LIST_SUCCESS:
 		return {
 			...state,
 			items: action.payload || [],
 			status: STATUS_LOADED,
 			error: null
 		}
-	case ACTION_CREATE_CATEGORY_RESET:
-		return {
-			...state,
-			error: null,
-			createForm: emptyCreateForm()
-		}
-	case ACTION_CREATE_CATEGORY_SUCCESS:
+	case ACTION_CREATE_LIST_SUCCESS:
 		items = state.items
-		items.push(action.category)
+		items.push(action.list)
 
-		const createCategorySuccessForm = emptyCreateForm()
-		createCategorySuccessForm.model = action.category
-		createCategorySuccessForm.status = STATUS_CREATED
+		const createSuccessForm = emptyCreateForm()
+		createSuccessForm.model = action.list
+		createSuccessForm.status = STATUS_CREATED
 
 		return {
 			...state,
 			items: items || [],
-			error: null,
-			createForm: createCategorySuccessForm
+			createForm: createSuccessForm
 		}
-	case ACTION_CREATE_CATEGORY_LOADING:
+	case ACTION_CREATE_LIST_LOADING:
 		const createFormLoading = state.createForm
 		createFormLoading.status = STATUS_LOADING
 
@@ -105,7 +105,7 @@ export default function (state = initialState(), action) {
 			error: null,
 			createForm: createFormLoading
 		}
-	case ACTION_CREATE_CATEGORY_FAIL:
+	case ACTION_CREATE_LIST_FAIL:
 
 		const createForm = state.createForm
 		createForm.status = STATUS_ERROR

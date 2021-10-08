@@ -4,8 +4,8 @@ import {
 	ACTION_SHOPPING_LIST_ITEM_EDIT_SENDING,
 	ACTION_SHOPPING_LIST_ITEM_EDIT_SUCCESS
 } from '../const'
-import { generateCoreApiUrl } from '../../../utils/link'
-import { generateLocaleHeader } from '../../../utils/i18n'
+import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import { shoppingListUpdateItem } from './list'
 import axios from 'axios'
 
@@ -39,19 +39,16 @@ export const shoppingItemUpdate = (listId, id, dto, locale) => {
 	const json = JSON.stringify(dto)
 	return (dispatch) => {
 		dispatch(sending())
-		axios.put(generateCoreApiUrl(`/shopping_list/${listId}/${id}/`), json, generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(success(data.data))
-				dispatch(shoppingListUpdateItem(data.data))
-			})
-			.catch(error => {
-				if (error.response && error.response.status && error.response.data.error) {
-					dispatch(fail(error.response.data.error))
-				} else {
-					const errorMsq = error.message
-					dispatch(fail(errorMsq))
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.put(generateCoreApiUrl(`/shopping_list/${listId}/${id}/`), json, headers)
+				.then(response => {
+					const data = response.data
+					dispatch(success(data.data))
+					dispatch(shoppingListUpdateItem(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, fail, fail, fail)
+				})
+		})
 	}
 }

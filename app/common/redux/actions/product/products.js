@@ -8,8 +8,8 @@ import {
 	ACTION_UPDATE_PRODUCT_IN_LIST,
 	ACTION_UPDATE_PRODUCT_STOCK_IN_LIST
 } from '../const'
-import { generateCoreApiUrl } from '../../../utils/link'
-import { generateLocaleHeader } from '../../../utils/i18n'
+import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchProductLoading = () => {
@@ -81,14 +81,15 @@ export const fetchProducts = (query, locale) => {
 
 	return (dispatch) => {
 		dispatch(fetchProductLoading())
-		axios.get(generateCoreApiUrl(`/product/${queryString}`), generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(fetchProductSuccess(data.data))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-				dispatch(fetchProductFail(errorMsq))
-			})
+		generateHeaders(locale).then(headers => {
+			axios.get(generateCoreApiUrl(`/product/${queryString}`), headers)
+				.then(response => {
+					const data = response.data
+					dispatch(fetchProductSuccess(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, fetchProductFail, fetchProductFail, fetchProductFail)
+				})
+		})
 	}
 }

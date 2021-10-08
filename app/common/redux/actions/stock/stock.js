@@ -12,12 +12,12 @@ import {
 	ACTION_FETCH_STOCK_LOADING,
 	ACTION_FETCH_STOCK_NOT_FOUND,
 	ACTION_FETCH_STOCK_SUCCESS
-} from './const'
-import { addConsumptionLogItem } from './consumption/log'
-import { amendProductStock, updateProductStock } from './product/product'
-import { amendProductStockInList, updateProductStockInList } from './product/products'
-import { generateCoreApiUrl } from '../../utils/link'
-import { generateLocaleHeader } from '../../utils/i18n'
+} from '../const'
+import { addConsumptionLogItem } from '../consumption/log'
+import { amendProductStock, updateProductStock } from '../product/product'
+import { amendProductStockInList, updateProductStockInList } from '../product/products'
+import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchStockLoading = () => {
@@ -103,18 +103,16 @@ const consumeStockFail = (error) => {
 export const fetchStock = (productId, locale) => {
 	return (dispatch) => {
 		dispatch(fetchStockLoading())
-		axios.get(generateCoreApiUrl(`/product/${productId}/stock/`), generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(fetchStockSuccess(data.data))
-			})
-			.catch(error => {
-				if (error.response && error.response.status === 404) {
-					dispatch(fetchStockNotFound(error.response.data.error))
-				} else {
-					dispatch(fetchStockFail(error.message))
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.get(generateCoreApiUrl(`/product/${productId}/stock/`), headers)
+				.then(response => {
+					const data = response.data
+					dispatch(fetchStockSuccess(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, fetchStockFail, fetchStockNotFound, fetchStockFail)
+				})
+		})
 	}
 }
 
@@ -127,20 +125,18 @@ export const addStock = (productId, quantity, date, locale) => {
 	return (dispatch) => {
 		dispatch(addStockLoading())
 		const json = JSON.stringify(dto)
-		axios.post(generateCoreApiUrl(`/product/${productId}/add/`), json, generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(addStockSuccess(data.data))
-				dispatch(amendProductStock(productId, data.data))
-				dispatch(amendProductStockInList(productId, data.data))
-			})
-			.catch(error => {
-				if (error.response && error.response.status) {
-					dispatch(addStockFail(error.response.data.error))
-				} else {
-					dispatch(addStockFail(error.message))
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.post(generateCoreApiUrl(`/product/${productId}/add/`), json, headers)
+				.then(response => {
+					const data = response.data
+					dispatch(addStockSuccess(data.data))
+					dispatch(amendProductStock(productId, data.data))
+					dispatch(amendProductStockInList(productId, data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, addStockFail, addStockFail, addStockFail)
+				})
+		})
 	}
 }
 
@@ -152,38 +148,34 @@ export const consumeStock = (productId, quantity, locale) => {
 	return (dispatch) => {
 		dispatch(consumeStockLoading())
 		const json = JSON.stringify(dto)
-		axios.post(generateCoreApiUrl(`/product/${productId}/consume/`), json, generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(consumeStockSuccess(data.data.stock))
-				dispatch(updateProductStock(productId, data.data.stock))
-				dispatch(updateProductStockInList(productId, data.data.stock))
-				dispatch(addConsumptionLogItem(data.data.consumed_log_item))
-			})
-			.catch(error => {
-				if (error.response && error.response.status) {
-					dispatch(consumeStockFail(error.response.data.error))
-				} else {
-					dispatch(consumeStockFail(error.message))
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.post(generateCoreApiUrl(`/product/${productId}/consume/`), json, headers)
+				.then(response => {
+					const data = response.data
+					dispatch(consumeStockSuccess(data.data.stock))
+					dispatch(updateProductStock(productId, data.data.stock))
+					dispatch(updateProductStockInList(productId, data.data.stock))
+					dispatch(addConsumptionLogItem(data.data.consumed_log_item))
+				})
+				.catch(error => {
+					handleError(dispatch, error, consumeStockFail, consumeStockFail, consumeStockFail)
+				})
+		})
 	}
 }
 
 export const deleteStock = (productId, id, locale) => {
 	return (dispatch) => {
 		dispatch(deleteStockLoading())
-		axios.delete(generateCoreApiUrl(`/product/${productId}/stock/${id}/`), generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(deleteStockSuccess(data.data))
-			})
-			.catch(error => {
-				if (error.response && error.response.status) {
-					dispatch(deleteStockFail(error.response.data.error))
-				} else {
-					dispatch(deleteStockFail(error.message))
-				}
-			})
+		generateHeaders(locale).then(headers => {
+			axios.delete(generateCoreApiUrl(`/product/${productId}/stock/${id}/`), headers)
+				.then(response => {
+					const data = response.data
+					dispatch(deleteStockSuccess(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, deleteStockFail, deleteStockFail, deleteStockFail)
+				})
+		})
 	}
 }

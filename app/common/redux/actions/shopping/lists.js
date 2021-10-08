@@ -3,8 +3,8 @@ import {
 	ACTION_FETCH_SHOPPING_LISTS_LOADING,
 	ACTION_FETCH_SHOPPING_LISTS_SUCCESS
 } from '../const'
-import { generateCoreApiUrl } from '../../../utils/link'
-import { generateLocaleHeader } from '../../../utils/i18n'
+import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
+import { handleError } from '../../../utils/action'
 import axios from 'axios'
 
 const fetchLoading = () => {
@@ -27,17 +27,18 @@ const fetchSuccess = payload => {
 	}
 }
 
-export const shoppingListsFetch = (locale) => {
+export const shoppingListFetchLists = (locale) => {
 	return (dispatch) => {
 		dispatch(fetchLoading())
-		axios.get(generateCoreApiUrl('/shopping_list/'), generateLocaleHeader(locale))
-			.then(response => {
-				const data = response.data
-				dispatch(fetchSuccess(data.data))
-			})
-			.catch(error => {
-				const errorMsq = error.message
-				dispatch(fetchFail(errorMsq))
-			})
+		generateHeaders(locale).then(headers => {
+			axios.get(generateCoreApiUrl('/shopping_list/'), headers)
+				.then(response => {
+					const data = response.data
+					dispatch(fetchSuccess(data.data))
+				})
+				.catch(error => {
+					handleError(dispatch, error, fetchFail, fetchFail, fetchFail)
+				})
+		})
 	}
 }

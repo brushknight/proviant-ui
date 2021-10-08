@@ -9,8 +9,8 @@ import {
 	ACTION_FETCH_STOCK_FAIL,
 	ACTION_FETCH_STOCK_LOADING,
 	ACTION_FETCH_STOCK_SUCCESS
-} from '../actions/const'
-import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING, STATUS_SUCCESS } from './consts'
+} from '../../actions/const'
+import { STATUS_DEFAULT, STATUS_ERROR, STATUS_LOADED, STATUS_LOADING, STATUS_SUCCESS } from '../consts'
 
 const emptyAddForm = () => {
 	return {
