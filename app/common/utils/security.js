@@ -23,7 +23,9 @@ export const getJWT = async () => {
 
 export const clearJWT = async () => {
 	try {
-		setCookie(TokenCookieKey, '')
+		if (isWeb()) {
+			setCookie(TokenCookieKey, '')
+		}
 		await AsyncStorage.removeItem(TokenStorageKey)
 		return true
 	} catch (e) {

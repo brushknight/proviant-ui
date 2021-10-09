@@ -17,7 +17,6 @@ const LanguageOption = ({ language }) => {
 		break
 	}
 
-	console.log(filePath)
 	return (
 		<TouchableOpacity style={styles.local_picker}>
 			<Image style={styles.flag} source={require('../../assets/flags/en.png')}/>

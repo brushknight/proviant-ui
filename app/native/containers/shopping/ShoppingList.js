@@ -191,28 +191,32 @@ const ShoppingList = (
 		)
 	}
 
+	let itemsJsx = []
+
 	if (items.length === 0) {
-		return (
-			<SafeAreaView>
-				<Deeplink/>
-				<ScrollView
-					contentContainerStyle={styles.empty_scroll_view}
-					refreshControl={
-						<RefreshControl
-							refreshing={fetchListsStatus === STATUS_LOADING}
-							onRefresh={onRefresh}
-						/>
-					}
-				>
-					<Text style={styles.hint_no_items}>
-						No items, pull to refresh
-					</Text>
-				</ScrollView>
-				<AddButton navigation={navigation} shoppingListId={shoppingListId} actionHandlers={actionHandlers}/>
-				{createItemModal}
-				{updateItemModal}
-			</SafeAreaView>
+		itemsJsx = (
+			<Text style={styles.hint_no_items}>
+				No items, pull to refresh
+			</Text>
 		)
+	} else {
+		itemsJsx = items.map(item => (
+			<ShoppingListRow
+				navigation={navigation}
+				key={item.id}
+				item={item}
+				onCheck={() => {
+					checkItem(shoppingListId, item.id)
+				}}
+				onUncheck={() => {
+					uncheckItem(shoppingListId, item.id)
+				}}
+				onClick={() => {
+					setOpenItemId(item.id)
+					setUpdateModal(true)
+				}}
+			/>
+		))
 	}
 
 	return (
@@ -229,24 +233,7 @@ const ShoppingList = (
 					/>
 				}
 			>
-				{items.map(item => (
-					<ShoppingListRow
-						navigation={navigation}
-						key={item.id}
-						item={item}
-						onCheck={() => {
-							checkItem(shoppingListId, item.id)
-						}}
-						onUncheck={() => {
-							uncheckItem(shoppingListId, item.id)
-						}}
-						onClick={() => {
-							setOpenItemId(item.id)
-							setUpdateModal(true)
-						}}
-					/>
-				))}
-
+				{itemsJsx}
 			</ScrollView>
 			<AddButton navigation={navigation} shoppingListId={shoppingListId} actionHandlers={actionHandlers}/>
 

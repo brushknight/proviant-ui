@@ -9,6 +9,7 @@ export const STATUS_DEFAULT = 'default'
 export const STATUS_NOT_FOUND = 'not_found'
 export const STATUS_SUCCESS = 'success'
 export const STATUS_UNAUTHORIZED = 'unauthorized'
+export const STATUS_AUTHORIZED = 'authorized'
 
 export const STATUS_UPDATED = 'updated'
 export const STATUS_EDITING = 'editing'

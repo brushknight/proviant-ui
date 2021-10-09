@@ -41,7 +41,7 @@ export const registerResetError = () => {
 	}
 }
 
-export const actionRegister = (email, locale) => {
+export const actionRegister = (email, password, locale) => {
 	return (dispatch) => {
 		const error = validateEmail(email)
 
@@ -52,7 +52,8 @@ export const actionRegister = (email, locale) => {
 
 		dispatch(registerSending())
 		const json = JSON.stringify({
-			email
+			email,
+			password
 		})
 		generateHeaders(locale).then(headers => {
 			axios.post(generateAuthApiUrl('/register/'), json, headers)

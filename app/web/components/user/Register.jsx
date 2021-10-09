@@ -18,7 +18,9 @@ const Register = ({ t, form, register, resetError }) => {
 	const history = useHistory()
 
 	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
 	const [status, setStatus] = useState(form.status)
+	const [withPassword, setWithPassword] = useState(false)
 
 	useEffect(() => {
 		setStatus(form.status)
@@ -40,7 +42,42 @@ const Register = ({ t, form, register, resetError }) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault()
-		register(email)
+		register(email, password)
+	}
+
+	let passwordInput = []
+
+	if (withPassword) {
+		passwordInput = (
+			<input
+				className={'auth-form__password ' + (status === STATUS_ERROR ? 'auth-form__password--error' : '')}
+				type={'password'}
+				required
+				placeholder={t('register.password_placeholder')}
+				onFocus={() => {
+					setStatus(STATUS_EDITING)
+					resetError()
+				}}
+				onChange={(e) => {
+					setPassword(e.target.value)
+					setStatus(STATUS_EDITING)
+					resetError()
+				}}/>
+		)
+	}
+
+	let btnWithPassword = []
+
+	if (!withPassword) {
+		btnWithPassword = (
+			<Button
+				onClick={() => {
+					setWithPassword(true)
+				}}
+				className={'auth-form__button button--login'}
+				text={t('register.with_password')}
+			/>
+		)
 	}
 
 	return (
@@ -66,14 +103,17 @@ const Register = ({ t, form, register, resetError }) => {
 								setStatus(STATUS_EDITING)
 								resetError()
 							}}/>
+						{passwordInput}
 						{error}
 
+						{btnWithPassword}
 						<Button
 							disabled={status === STATUS_SENDING || status === STATUS_ERROR}
 							type={'submit'}
 							className={'auth-form__button button--login'}
 							text={t('register.button')}
 						/>
+
 						<a
 							className={'auth-form__link'}
 							onClick={() => {
@@ -98,7 +138,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const locale = ownProps.i18n.language
 	return {
-		register: (email) => dispatch(actionRegister(email, locale)),
+		register: (email, password) => dispatch(actionRegister(email, password, locale)),
 		resetError: () => dispatch(registerResetError())
 	}
 }

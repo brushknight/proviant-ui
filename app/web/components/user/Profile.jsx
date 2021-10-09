@@ -5,6 +5,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { getApiTokenForm, getApiTokens } from '../../../common/redux/selectors'
 import { Intent, Overlay } from '@blueprintjs/core'
+import { logoutUser } from '../../../common/redux/actions/user/user'
 import { STATUS_DEFAULT } from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -20,7 +21,8 @@ const Profile = (
 		apiTokens,
 		apiTokensFetch,
 		apiTokenSubmitForm,
-		t
+		t,
+		logout
 	}
 ) => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -56,7 +58,10 @@ const Profile = (
 					<h1>{t('profile.title')}</h1>
 					<h2>
 						{t('profile.api_tokens.title')}
-						<Button onClick={apiTokenSubmitForm} intent={Intent.PRIMARY} text={t('profile.api_tokens.button_generate_new')}/>
+						<Button
+							onClick={apiTokenSubmitForm}
+							intent={Intent.PRIMARY}
+							text={t('profile.api_tokens.button_generate_new')}/>
 					</h2>
 					{apiTokens.items.map(token => (
 						<div className={'profile-api-token'} key={token.id}>{t('profile.api_tokens.token_legend')}
@@ -66,6 +71,7 @@ const Profile = (
 						</div>
 					))}
 				</div>
+				<Button className={'profile-logout'} onClick={logout} text={t('profile.logout')}/>
 				<LanguagePicker className={'profile__language-picker'}/>
 			</div>
 
@@ -78,7 +84,8 @@ Profile.propTypes = {
 	apiTokenForm: PropTypes.object,
 	apiTokensFetch: PropTypes.func,
 	apiTokenSubmitForm: PropTypes.func,
-	t: PropTypes.func
+	t: PropTypes.func,
+	logout: PropTypes.func
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -97,7 +104,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	const locale = ownProps.i18n.language
 	return {
 		apiTokensFetch: () => dispatch(apiTokensFetch(locale)),
-		apiTokenSubmitForm: () => dispatch(apiTokenSubmitForm(locale))
+		apiTokenSubmitForm: () => dispatch(apiTokenSubmitForm(locale)),
+		logout: () => dispatch(logoutUser(locale))
 	}
 }
 
