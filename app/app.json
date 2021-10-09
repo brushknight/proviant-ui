@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Proviant",
-    "slug": "proviant",
+    "name": "Proviant.io",
+    "slug": "proviant-io",
     "owner": "proviant",
     "version": "0.0.45",
     "orientation": "portrait",
@@ -18,7 +18,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "io.proviant.mobile"
     },
     "android": {
