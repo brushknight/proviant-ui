@@ -3,7 +3,7 @@
     "name": "Proviant.io",
     "slug": "proviant-io",
     "owner": "proviant",
-    "version": "0.0.45",
+    "version": "0.0.46",
     "orientation": "portrait",
     "icon": "./native/assets/icon.png",
     "splash": {
