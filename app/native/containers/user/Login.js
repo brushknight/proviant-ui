@@ -3,7 +3,17 @@ import { backendUrl } from '../../../common/utils/link'
 import { Button } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { getUser } from '../../../common/redux/selectors'
-import { KeyboardAvoidingView, Linking, Platform, ScrollView, StatusBar, Text, TextInput, View } from 'react-native'
+import {
+	Image,
+	KeyboardAvoidingView,
+	Linking,
+	Platform,
+	ScrollView,
+	StatusBar,
+	Text,
+	TextInput,
+	View
+} from 'react-native'
 import Deeplink from '../utils/Deeplink'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
@@ -26,6 +36,10 @@ const Login = ({ actionLoginWithPassword }) => {
 				<StatusBar
 					barStyle={'dark-content'}/>
 				<Deeplink/>
+				<View style={styles.icon_container}>
+					<Image style={styles.icon} source={require('../../assets/icon.png')} />
+
+				</View>
 				<View style={styles.login_via_web}>
 					<Text style={styles.hint_text}>
 						You will be redirected to <Text style={{ fontWeight: 'bold' }}>proviant.io</Text> where you will need to enter
@@ -71,7 +85,6 @@ const Login = ({ actionLoginWithPassword }) => {
 						placeholderTextColor={'#000000'}
 						style={styles.input}
 						placeholder={'Password'}
-						keyboardType={'password'}
 						secureTextEntry={true}
 						onChangeText={setPassword}
 						value={password}
@@ -93,6 +106,17 @@ const Login = ({ actionLoginWithPassword }) => {
 const styles = {
 	scroll_view: {
 		minHeight: '100%'
+	},
+	icon: {
+		height: 200,
+		width: 200,
+		resizeMode: 'cover'
+	},
+	icon_container: {
+		flex: 0,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		paddingTop: 50
 	},
 	login_via_web: {
 		flex: 1,
@@ -117,14 +141,14 @@ const styles = {
 	},
 	input: {
 		height: 40,
-		borderColor: 'purple',
+		borderColor: '#252525',
 		borderWidth: 2,
 		borderRadius: 5,
 		paddingLeft: 10,
 		paddingRight: 10,
 		paddingTop: 5,
 		paddingBottom: 5,
-		backgroundColor: 'rgba(132,0,255,0.2)',
+		backgroundColor: '#ececec',
 		marginBottom: 10
 	},
 	button: {},
