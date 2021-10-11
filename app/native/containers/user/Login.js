@@ -1,13 +1,14 @@
 import { actionLoginWithPassword } from '../../../common/redux/actions/login'
-import { backendUrl } from '../../../common/utils/link'
 import { Button } from 'react-native-elements'
 import { connect } from 'react-redux'
+import { generateLoginUrl } from '../../../common/utils/link'
 import { getUser } from '../../../common/redux/selectors'
 import {
 	Image,
 	KeyboardAvoidingView,
 	Linking,
 	Platform,
+	SafeAreaView,
 	ScrollView,
 	StatusBar,
 	Text,
@@ -18,86 +19,110 @@ import Deeplink from '../utils/Deeplink'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 
-const appUrl = backendUrl() + '/api/v1/auth/expo/'
+const appUrl = generateLoginUrl()
 
 const Login = ({ actionLoginWithPassword }) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [smallLogo, setSmallLogo] = useState(false)
 
 	const loginWithPassword = () => {
 		actionLoginWithPassword(email, password)
 	}
 
+	const styleLogo = styles.logo
+
+	if (smallLogo) {
+		styleLogo.height = 50
+		styleLogo.width = 50
+	} else {
+		styleLogo.height = 200
+		styleLogo.width = 200
+	}
+
 	return (
 		<ScrollView contentContainerStyle={styles.scroll_view}>
-			<KeyboardAvoidingView
-				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-				style={{ height: '100%' }}>
-				<StatusBar
-					barStyle={'dark-content'}/>
-				<Deeplink/>
-				<View style={styles.icon_container}>
-					<Image style={styles.icon} source={require('../../assets/icon.png')} />
+			<SafeAreaView>
+				<KeyboardAvoidingView
+					behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+					style={{ height: '100%' }}>
+					<StatusBar
+						barStyle={'dark-content'}/>
+					<Deeplink/>
+					<View style={styles.logo_container}>
+						<Image style={styleLogo} source={require('../../assets/icon.png')}/>
+					</View>
+					<View style={styles.login_via_web}>
+						<Text style={styles.hint_text}>
+							You will be redirected to <Text style={{ fontWeight: 'bold' }}>proviant.io</Text> where you will need to
+							enter
+							your email address, receive email and follow written there instructions
+						</Text>
+						<Button
+							style={styles.button}
+							title={'Open proviant.io for WEB login'}
+							onPress={() => {
+								Linking.openURL(appUrl)
+							}}
+						/>
+					</View>
+					{/* <View style={styles.login_via_email}> */}
+					{/*	<TextInput */}
+					{/*		placeholderTextColor={'#000000'} */}
+					{/*		style={styles.input} */}
+					{/*		placeholder={'Email'} */}
+					{/*		keyboardType={'email-address'} */}
+					{/*		onChangeText={setEmail} */}
+					{/*		value={email} */}
+					{/*	/> */}
+					{/*	<Button */}
+					{/*		style={styles.button} */}
+					{/*		title={'Send email with MAGIC link'} */}
+					{/*		onPress={() => { */}
+					{/*			console.log(appUrl) */}
+					{/*			Linking.openURL(appUrl) */}
+					{/*		}} */}
+					{/*	/> */}
+					{/* </View> */}
+					<View style={styles.login_via_password}>
+						<TextInput
+							placeholderTextColor={'#000000'}
+							style={styles.input}
+							placeholder={'Email'}
+							keyboardType={'email-address'}
+							onChangeText={setEmail}
+							value={email}
+							onFocus={() => {
+								setSmallLogo(true)
+							}}
+							onBlur={() => {
+								setSmallLogo(false)
+							}}
+						/>
 
-				</View>
-				<View style={styles.login_via_web}>
-					<Text style={styles.hint_text}>
-						You will be redirected to <Text style={{ fontWeight: 'bold' }}>proviant.io</Text> where you will need to enter
-						your email address, receive email and follow written there instructions
-					</Text>
-					<Button
-						style={styles.button}
-						title={'Open proviant.io for WEB login'}
-						onPress={() => {
-							Linking.openURL(appUrl)
-						}}
-					/>
-				</View>
-				{/* <View style={styles.login_via_email}> */}
-				{/*	<TextInput */}
-				{/*		placeholderTextColor={'#000000'} */}
-				{/*		style={styles.input} */}
-				{/*		placeholder={'Email'} */}
-				{/*		keyboardType={'email-address'} */}
-				{/*		onChangeText={setEmail} */}
-				{/*		value={email} */}
-				{/*	/> */}
-				{/*	<Button */}
-				{/*		style={styles.button} */}
-				{/*		title={'Send email with MAGIC link'} */}
-				{/*		onPress={() => { */}
-				{/*			console.log(appUrl) */}
-				{/*			Linking.openURL(appUrl) */}
-				{/*		}} */}
-				{/*	/> */}
-				{/* </View> */}
-				<View style={styles.login_via_password}>
-					<TextInput
-						placeholderTextColor={'#000000'}
-						style={styles.input}
-						placeholder={'Email'}
-						keyboardType={'email-address'}
-						onChangeText={setEmail}
-						value={email}
-					/>
+						<TextInput
+							placeholderTextColor={'#000000'}
+							style={styles.input}
+							placeholder={'Password'}
+							secureTextEntry={true}
+							onChangeText={setPassword}
+							value={password}
+							onFocus={() => {
+								setSmallLogo(true)
+							}}
+							onBlur={() => {
+								setSmallLogo(false)
+							}}
+						/>
 
-					<TextInput
-						placeholderTextColor={'#000000'}
-						style={styles.input}
-						placeholder={'Password'}
-						secureTextEntry={true}
-						onChangeText={setPassword}
-						value={password}
-					/>
-
-					<Button
-						style={styles.button}
-						title={'Login with PASSWORD'}
-						onPress={loginWithPassword}
-					/>
-				</View>
-			</KeyboardAvoidingView>
-
+						<Button
+							style={styles.button}
+							title={'Login with PASSWORD'}
+							onPress={loginWithPassword}
+						/>
+					</View>
+				</KeyboardAvoidingView>
+			</SafeAreaView>
 		</ScrollView>
 
 	)
@@ -107,16 +132,15 @@ const styles = {
 	scroll_view: {
 		minHeight: '100%'
 	},
-	icon: {
+	logo: {
 		height: 200,
 		width: 200,
 		resizeMode: 'cover'
 	},
-	icon_container: {
+	logo_container: {
 		flex: 0,
 		flexDirection: 'row',
-		justifyContent: 'center',
-		paddingTop: 50
+		justifyContent: 'center'
 	},
 	login_via_web: {
 		flex: 1,

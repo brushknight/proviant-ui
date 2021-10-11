@@ -91,6 +91,10 @@ export const backendUrl = () => {
 	return isProd() ? 'https://proviant.io' : 'http://10.0.0.117:9000'
 }
 
+export const generateLoginUrl = () => {
+	return backendUrl() + '/api/v1/auth/' + (isProd() ? 'mobile/' : 'expo/')
+}
+
 export const generateAuthApiUrl = (uri) => {
 	return backendUrl() + '/api/v1/auth' + uri
 }
