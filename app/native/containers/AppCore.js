@@ -3,6 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { getUser } from '../../common/redux/selectors'
 import { logoutUser } from '../../common/redux/actions/user/user'
 import { NavigationContainer } from '@react-navigation/native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import Profile from './user/Profile'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -19,12 +20,24 @@ const MainRouter = () => {
 					<Drawer.Screen
 						name="shopping_list"
 						component={ShoppingList}
-						options={{ title: 'Shopping List' }}
+						options={{
+							title: 'Shopping List',
+							// eslint-disable-next-line react/prop-types
+							drawerIcon: ({ focused, size }) => (
+								<Icon name={'shopping-cart'} size={size} color={focused ? 'purple' : 'grey'}/>
+							)
+						}}
 					/>
 					<Drawer.Screen
 						name="profile"
 						component={Profile}
-						options={{ title: 'Profile' }}
+						options={{
+							title: 'Profile',
+							// eslint-disable-next-line react/prop-types
+							drawerIcon: ({ focused, size }) => (
+								<Icon name={'cog'} size={size} color={focused ? 'purple' : 'grey'}/>
+							)
+						}}
 					/>
 				</Drawer.Navigator>
 			</NavigationContainer>

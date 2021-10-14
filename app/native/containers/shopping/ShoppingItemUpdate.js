@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { getShoppingList, getShoppingListEdit, getShoppingListItem } from '../../../common/redux/selectors'
+import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { shoppingItemDelete } from '../../../common/redux/actions/shopping/delete'
 import { shoppingItemUpdate, shoppingListItemReset } from '../../../common/redux/actions/shopping/edit'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
@@ -10,7 +11,6 @@ import {
 	STATUS_SENDING,
 	STATUS_UPDATED
 } from '../../../common/redux/reducers/consts'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Counter from '../../components/shopping/Counter'
 import Deeplink from '../utils/Deeplink'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -106,7 +106,7 @@ const ShoppingItemUpdate = (
 	}
 
 	return (
-		<View style={[style, styles.container]}>
+		<TouchableOpacity activeOpacity={1} onPress={Keyboard.dismiss} style={[style, styles.container]}>
 
 			<Deeplink/>
 
@@ -157,7 +157,7 @@ const ShoppingItemUpdate = (
 				</TouchableOpacity>
 
 			</View>
-		</View>
+		</TouchableOpacity>
 	)
 }
 

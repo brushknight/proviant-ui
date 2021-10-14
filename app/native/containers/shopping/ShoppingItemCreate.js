@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import { getShoppingForm, getShoppingList } from '../../../common/redux/selectors'
+import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { shoppingFormReset, shoppingFormSubmit } from '../../../common/redux/actions/shopping/form'
 import { STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR, STATUS_SENDING } from '../../../common/redux/reducers/consts'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Counter from '../../components/shopping/Counter'
 import Deeplink from '../utils/Deeplink'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -13,6 +13,7 @@ const ShoppingItemCreate = ({ error, reset, status, submit, onClose, shoppingLis
 	const [title, setTitle] = useState('')
 	const [quantity, setQuantity] = useState('')
 	const [submitTime, setSubmitTime] = useState(null)
+	const [isValid, setIsValid] = useState(false)
 
 	const emptyForm = () => {
 		setTitle('')
@@ -21,19 +22,25 @@ const ShoppingItemCreate = ({ error, reset, status, submit, onClose, shoppingLis
 	}
 
 	useEffect(() => {
-		reset()
-		emptyForm()
 		if (status === STATUS_CREATED) {
 			reset()
 			emptyForm()
 		}
-	}, [status])
+
+		if (title !== '' && quantity > 0) {
+			setIsValid(true)
+		} else {
+			setIsValid(false)
+		}
+	}, [status, title, quantity])
 
 	const onSubmit = () => {
-		submit(shoppingListId, {
-			title,
-			quantity
-		})
+		if (isValid) {
+			submit(shoppingListId, {
+				title,
+				quantity
+			})
+		}
 	}
 
 	if (status === STATUS_DEFAULT || status === STATUS_ERROR) {
@@ -56,8 +63,13 @@ const ShoppingItemCreate = ({ error, reset, status, submit, onClose, shoppingLis
 		)
 	}
 
+	console.log('title', title)
+	console.log('quantity', quantity)
+
+	console.log('isValid', isValid)
+
 	return (
-		<View style={[style, styles.container]}>
+		<TouchableOpacity activeOpacity={1} onPress={Keyboard.dismiss} style={[style, styles.container]}>
 
 			<Deeplink/>
 
@@ -88,7 +100,7 @@ const ShoppingItemCreate = ({ error, reset, status, submit, onClose, shoppingLis
 				</TouchableOpacity>
 
 				<TouchableOpacity
-					style={[styles.button, styles.button_create]}
+					style={[styles.button, styles.button_create, isValid ? null : styles.disabled]}
 					onPress={onSubmit}
 				>
 					<Icon name={'arrow-up'} size={20} style={styles.button_icon}/>
@@ -96,7 +108,7 @@ const ShoppingItemCreate = ({ error, reset, status, submit, onClose, shoppingLis
 				</TouchableOpacity>
 
 			</View>
-		</View>
+		</TouchableOpacity>
 	)
 }
 
@@ -161,6 +173,9 @@ const styles = StyleSheet.create({
 	},
 	button_success: {
 		backgroundColor: 'green'
+	},
+	disabled: {
+		backgroundColor: 'grey'
 	}
 })
 
