@@ -178,3 +178,9 @@ export const ACTION_FETCH_API_TOKENS_LOADING = 'tokens/fetch/loading'
 export const ACTION_CREATE_API_TOKEN_FAIL = 'token_create/fetch/fail'
 export const ACTION_CREATE_API_TOKEN_SUCCESS = 'token_create/fetch/success'
 export const ACTION_CREATE_API_TOKEN_SENDING = 'token_create/fetch/sending'
+
+// feedback form
+export const ACTION_FEEDBACK_SUBMISSION_FAIL = 'feedback/submission/fail'
+export const ACTION_FEEDBACK_SUBMISSION_SUCCESS = 'feedback/submission/success'
+export const ACTION_FEEDBACK_SUBMISSION_RESET = 'feedback/submission/reset'
+export const ACTION_FEEDBACK_SUBMISSION_SENDING = 'feedback/submission/sending'

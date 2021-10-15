@@ -117,6 +117,7 @@ const ShoppingItemUpdate = (
 				value={title}
 				autoFocus={true}
 				placeholderTextColor="grey"
+				multiline={true}
 			/>
 			<ShoppingListTick
 				onCheck={onCheck}
@@ -171,11 +172,12 @@ const styles = StyleSheet.create({
 		top: 20
 	},
 	title: {
-		height: 50,
+		minHeight: 50,
 		fontSize: 20,
 		marginRight: 60,
 		marginTop: 15,
-		paddingLeft: 15
+		paddingLeft: 15,
+		paddingBottom: 10
 	},
 	hint_error: {
 		marginTop: 10,
@@ -185,35 +187,29 @@ const styles = StyleSheet.create({
 		color: '#ff0000'
 	},
 	button_container: {
-		flex: 1,
+		flex: -1,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		paddingLeft: 10,
 		paddingRight: 10
 	},
-	button_delete: {
-		backgroundColor: 'red',
-		width: 60,
-		justifyContent: 'center'
-	},
-	button_save: {
-		paddingLeft: 7,
-		backgroundColor: 'green'
+
+	button: {
+		height: 30,
+		borderRadius: 15,
+		flex: -1,
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		paddingRight: 15,
+		paddingLeft: 10
 	},
 	button_cancel: {
 		backgroundColor: 'grey',
 		marginLeft: 'auto',
-		marginRight: 5,
-		width: 120,
-		paddingLeft: 10
+		marginRight: 10
 	},
-	button: {
-		height: 30,
-		width: 100,
-		borderRadius: 15,
-		flex: 0,
-		flexDirection: 'row',
-		justifyContent: 'flex-start'
+	button_save: {
+		backgroundColor: 'green'
 	},
 	button_text: {
 		color: '#ffffff',
@@ -221,8 +217,13 @@ const styles = StyleSheet.create({
 		height: 30,
 		lineHeight: 30,
 		fontSize: 16,
-		fontWeight: '500',
-		paddingLeft: 10
+		fontWeight: '500'
+	},
+	button_delete: {
+		backgroundColor: 'red',
+		justifyContent: 'center',
+		paddingRight: 5,
+		paddingLeft: 5
 	},
 	button_icon: {
 		color: '#ffffff',

@@ -3,13 +3,21 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const AddButton = ({ actionHandlers }) => {
+const MoreButton = ({ actionHandlers }) => {
 	const actions = [
+		// {
+		// 	text: 'Shopping Item',
+		// 	icon: require('../../assets/icons/shopping-cart.png'),
+		// 	name: 'shopping_item_create',
+		// 	position: 2,
+		// 	color: 'purple'
+		// },
 		{
-			text: 'Shopping Item',
-			icon: require('../../assets/icons/plus.png'),
-			name: 'shopping_item_create',
-			position: 2
+			text: 'Feedback',
+			icon: <Icon name={'question'} size={30}/>,
+			name: 'feedback',
+			position: 1,
+			color: 'orange'
 		}
 		// {
 		// 	text: 'Product',
@@ -28,16 +36,17 @@ const AddButton = ({ actionHandlers }) => {
 					actionHandlers[name]()
 				}
 			}}
+			color={'white'}
+			position={'left'}
+			floatingIcon={<Icon name={'ellipsis-h'} size={30}/>}
 			overrideWithAction={true}
-			color={'purple'}
-			iconWidth={30}
-			iconHeight={30}
+
 		/>
 	)
 }
 
-AddButton.propTypes = {
+MoreButton.propTypes = {
 	actionHandlers: PropTypes.object
 }
 
-export default AddButton
+export default MoreButton

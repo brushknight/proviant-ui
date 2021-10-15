@@ -1,44 +1,39 @@
 import { connect } from 'react-redux'
-import { getShoppingForm, getShoppingList } from '../../../common/redux/selectors'
+import { feedbackFormReset, feedbackFormSubmit } from '../../../common/redux/actions/feedback/form'
+import { getFeedbackForm } from '../../../common/redux/selectors'
 import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { shoppingFormReset, shoppingFormSubmit } from '../../../common/redux/actions/shopping/form'
-import { STATUS_CREATED, STATUS_DEFAULT, STATUS_ERROR, STATUS_SENDING } from '../../../common/redux/reducers/consts'
-import Counter from '../../components/shopping/Counter'
+import { STATUS_DEFAULT, STATUS_ERROR, STATUS_SENDING, STATUS_SUBMITTED } from '../../../common/redux/reducers/consts'
 import Deeplink from '../utils/Deeplink'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
-const ShoppingItemCreate = ({ error, reset, status, submit, onClose, shoppingListId, style }) => {
-	const [title, setTitle] = useState('')
-	const [quantity, setQuantity] = useState('')
-	const [submitTime, setSubmitTime] = useState(null)
+const Feedback = ({ error, reset, status, submit, onClose, style }) => {
+	const [text, setText] = useState('')
 	const [isValid, setIsValid] = useState(false)
 
 	const emptyForm = () => {
-		setTitle('')
-		setQuantity(1)
-		setSubmitTime(+(new Date()))
+		setText('')
 	}
 
 	useEffect(() => {
-		if (status === STATUS_CREATED) {
+		if (status === STATUS_SUBMITTED) {
 			reset()
 			emptyForm()
+			onClose()
 		}
 
-		if (title !== '' && quantity > 0) {
+		if (text !== '') {
 			setIsValid(true)
 		} else {
 			setIsValid(false)
 		}
-	}, [status, title, quantity])
+	}, [status, text])
 
 	const onSubmit = () => {
 		if (isValid) {
-			submit(shoppingListId, {
-				title,
-				quantity
+			submit({
+				text
 			})
 		}
 	}
@@ -56,17 +51,14 @@ const ShoppingItemCreate = ({ error, reset, status, submit, onClose, shoppingLis
 	if (status === STATUS_ERROR) {
 		errorJsx = (
 			<View style={styles.hint_error}>
-				<Text>
+				<Text style={styles.hint_error_text}>
 					{error}
 				</Text>
 			</View>
 		)
 	}
 
-	console.log('title', title)
-	console.log('quantity', quantity)
-
-	console.log('isValid', isValid)
+	console.log(status, error)
 
 	return (
 		<TouchableOpacity activeOpacity={1} onPress={Keyboard.dismiss} style={[style, styles.container]}>
@@ -74,19 +66,13 @@ const ShoppingItemCreate = ({ error, reset, status, submit, onClose, shoppingLis
 			<Deeplink/>
 
 			<TextInput
-				placeholder={'Product title'}
-				style={styles.title}
-				onChangeText={setTitle}
-				value={title}
+				placeholder={'Type your feedback here...'}
+				style={styles.text}
+				onChangeText={setText}
+				value={text}
 				autoFocus={true}
 				placeholderTextColor="grey"
 				multiline={true}
-			/>
-
-			<Counter
-				defaultValue={1}
-				onChange={setQuantity}
-				resetTime={submitTime}
 			/>
 
 			{errorJsx}
@@ -101,11 +87,11 @@ const ShoppingItemCreate = ({ error, reset, status, submit, onClose, shoppingLis
 				</TouchableOpacity>
 
 				<TouchableOpacity
-					style={[styles.button, styles.button_create, isValid ? null : styles.disabled]}
+					style={[styles.button, styles.button_send, isValid ? null : styles.disabled]}
 					onPress={onSubmit}
 				>
-					<Icon name={'arrow-up'} size={20} style={styles.button_icon}/>
-					<Text style={styles.button_text}>Create</Text>
+					<Icon name={'paper-plane'} size={18} style={styles.button_icon}/>
+					<Text style={styles.button_text}>Send</Text>
 				</TouchableOpacity>
 
 			</View>
@@ -117,19 +103,19 @@ const styles = StyleSheet.create({
 	container: {
 		// minHeight: 150
 	},
-	title: {
+	text: {
 		minHeight: 50,
 		fontSize: 20,
-		marginTop: 15,
-		paddingLeft: 15,
-		paddingRight: 15,
-		paddingBottom: 10
+		marginRight: 60,
+		margin: 15
 	},
 	hint_error: {
 		marginTop: 10,
 		marginRight: 10,
 		marginLeft: 10,
-		marginBottom: 10,
+		marginBottom: 10
+	},
+	hint_error_text: {
 		color: '#ff0000'
 	},
 	button_container: {
@@ -150,11 +136,12 @@ const styles = StyleSheet.create({
 	},
 	button_cancel: {
 		backgroundColor: 'grey',
-		marginRight: 5
+		marginRight: 10
 	},
-	button_create: {
-		backgroundColor: 'green'
+	button_send: {
+		backgroundColor: '#5e00ff'
 	},
+
 	button_text: {
 		color: '#ffffff',
 		textAlign: 'center',
@@ -171,7 +158,7 @@ const styles = StyleSheet.create({
 		width: 30
 	},
 	button_success: {
-		backgroundColor: 'green'
+		backgroundColor: 'blue'
 	},
 	disabled: {
 		backgroundColor: 'grey'
@@ -179,13 +166,10 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state, ownProps) => {
-	const shoppingList = getShoppingList(state)
-	const form = getShoppingForm(state)
+	const form = getFeedbackForm(state)
 	const shoppingListId = ownProps.shoppingListId
 
 	return {
-		fetchStatus: shoppingList.status,
-		fetchError: shoppingList.error,
 		status: form.status,
 		error: form.error,
 		shoppingListId,
@@ -196,12 +180,12 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const locale = 'en'
 	return {
-		submit: (listId, dto) => dispatch(shoppingFormSubmit(listId, dto, locale)),
-		reset: () => dispatch(shoppingFormReset())
+		submit: (dto) => dispatch(feedbackFormSubmit(dto, locale)),
+		reset: () => dispatch(feedbackFormReset())
 	}
 }
 
-ShoppingItemCreate.propTypes = {
+Feedback.propTypes = {
 	onClose: PropTypes.func,
 	submit: PropTypes.func,
 	reset: PropTypes.func,
@@ -209,8 +193,7 @@ ShoppingItemCreate.propTypes = {
 	status: PropTypes.string,
 	error: PropTypes.string,
 	i18n: PropTypes.object,
-	shoppingListId: PropTypes.number,
 	style: PropTypes.object
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShoppingItemCreate)
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback)

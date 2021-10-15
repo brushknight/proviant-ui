@@ -27,6 +27,7 @@ export const getShoppingListItem = (store, itemId) => {
 export const getShoppingListEdit = store => store.shoppingEdit
 
 export const getShoppingForm = store => store.shoppingForm
+export const getFeedbackForm = store => store.feedbackForm
 export const getRegister = store => store.register
 export const getVersion = store => store.version
 export const getApiTokens = store => store.apiTokens

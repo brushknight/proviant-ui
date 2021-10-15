@@ -3,9 +3,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { getUser } from '../../common/redux/selectors'
 import { logoutUser } from '../../common/redux/actions/user/user'
 import { NavigationContainer } from '@react-navigation/native'
+import { TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Profile from './user/Profile'
-import PropTypes from 'prop-types'
 import React from 'react'
 import ShoppingList from './shopping/ShoppingList'
 import store from '../../common/redux/store'
@@ -18,7 +18,9 @@ const MainRouter = () => {
 			<NavigationContainer>
 				<Drawer.Navigator>
 					<Drawer.Screen
+
 						name="shopping_list"
+						leftButtonIconStyle={{ tintColor: 'white' }}
 						component={ShoppingList}
 						options={{
 							title: 'Shopping List',
@@ -45,7 +47,7 @@ const MainRouter = () => {
 	)
 }
 
-const AppCore = ({ logout, userStatus }) => {
+const AppCore = () => {
 	return (
 		<MainRouter/>
 	)
@@ -66,10 +68,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	}
 }
 
-AppCore.propTypes = {
-	logout: PropTypes.func,
-	navigation: PropTypes.object,
-	userStatus: PropTypes.string
-}
+AppCore.propTypes = {}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppCore)

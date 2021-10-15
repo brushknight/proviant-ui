@@ -7,6 +7,7 @@ import createProduct from './product/createProduct'
 import editCategory from './category/editCategory'
 import editList from './list/editList'
 import editProduct from './product/editProduct'
+import feedbackForm from './feedback/form'
 import lists from './list/lists'
 import login from './login'
 import product from './product/product'
@@ -40,5 +41,6 @@ export default combineReducers({
 	shoppingEdit,
 	shoppingLists,
 	apiTokens,
-	apiTokenForm
+	apiTokenForm,
+	feedbackForm
 })

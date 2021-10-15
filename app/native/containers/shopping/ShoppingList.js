@@ -25,7 +25,9 @@ import {
 } from '../../../common/redux/reducers/consts'
 import AddButton from '../../components/generic/AddButton'
 import Deeplink from '../utils/Deeplink'
+import Feedback from '../user/Feedback'
 import Login from '../user/Login'
+import MoreButton from '../../components/generic/MoreButton'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import ShoppingItemCreate from './ShoppingItemCreate'
@@ -49,6 +51,7 @@ const ShoppingList = (
 ) => {
 	const [createModal, setCreateModal] = useState(false)
 	const [updateModal, setUpdateModal] = useState(false)
+	const [feedbackModalStatus, setFeedbackModalStatus] = useState(false)
 	const [openItemId, setOpenItemId] = useState(null)
 
 	useEffect(() => {
@@ -90,8 +93,48 @@ const ShoppingList = (
 	const actionHandlers = {
 		shopping_item_create: () => {
 			setCreateModal(true)
+		},
+		feedback: () => {
+			setFeedbackModalStatus(true)
 		}
 	}
+
+	const feedbackModal = (
+		<Modal
+			animationType="slide"
+			transparent={true}
+			visible={feedbackModalStatus}
+			onRequestClose={() => {
+				console.log('close')
+			}}
+			onShow={() => {
+				console.log('shown')
+			}}
+		>
+			<KeyboardAvoidingView
+				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+				style={{ height: '100%' }}
+			>
+				<LinearGradient colors={['transparent', 'rgba(0,0,0,0.8)']} style={styles.modal}>
+					<TouchableOpacity
+						style={styles.modal}
+						// onPress={Keyboard.dismiss}
+						onPress={() => {
+							setFeedbackModalStatus(false)
+						}}
+						activeOpacity={1}
+					>
+						<Feedback
+							style={styles.modal_inner}
+							onClose={() => {
+								setFeedbackModalStatus(false)
+							}}
+						/>
+					</TouchableOpacity>
+				</LinearGradient>
+			</KeyboardAvoidingView>
+		</Modal>
+	)
 
 	const createItemModal = (
 		<Modal
@@ -236,9 +279,11 @@ const ShoppingList = (
 				{itemsJsx}
 			</ScrollView>
 			<AddButton navigation={navigation} shoppingListId={shoppingListId} actionHandlers={actionHandlers}/>
+			<MoreButton navigation={navigation} shoppingListId={shoppingListId} actionHandlers={actionHandlers}/>
 
 			{createItemModal}
 			{updateItemModal}
+			{feedbackModal}
 		</SafeAreaView>
 
 	)
@@ -254,7 +299,7 @@ const styles = {
 		backgroundColor: '#ffffff',
 		borderTopLeftRadius: 20,
 		borderTopRightRadius: 20,
-		paddingBottom: 40
+		paddingBottom: 10
 	},
 	container: {
 		// minHeight: '100%',

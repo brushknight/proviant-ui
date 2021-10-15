@@ -1,6 +1,6 @@
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST, FILTER_TYPE_NONE } from '../../web/const'
 import { getJWT } from './security'
-import { isProd, isSaaS, isWeb } from './env'
+import { isExpo, isProd, isSaaS, isWeb } from './env'
 
 const CATEGORY_REGEX = /\/category\/(\d*)/
 const LIST_REGEX = /\/list\/(\d*)/
@@ -92,7 +92,7 @@ export const backendUrl = () => {
 }
 
 export const generateLoginUrl = () => {
-	return backendUrl() + '/api/v1/auth/' + (isProd() ? 'mobile/' : 'expo/')
+	return backendUrl() + '/api/v1/auth/' + (isExpo() ? 'expo/' : 'mobile/')
 }
 
 export const generateAuthApiUrl = (uri) => {

@@ -10,7 +10,11 @@ export const handleError = (dispatch, error, onError, onNotFound, onBadRequest) 
 			dispatch(userUnauthorized())
 			break
 		case 404:
-			dispatch(onNotFound(error.response.data.error))
+			if (error.response.data.error) {
+				dispatch(onNotFound(error.response.data.error))
+			} else {
+				dispatch(onNotFound(error.response.data))
+			}
 			break
 		default:
 			dispatch(onError(error.response.data.error))
