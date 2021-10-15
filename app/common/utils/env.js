@@ -29,6 +29,6 @@ export const isProd = () => {
 }
 
 export const isExpo = () => {
-	return false
-	// return true
+	// return false
+	return true
 }

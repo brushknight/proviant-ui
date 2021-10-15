@@ -138,10 +138,14 @@ export const ACTION_FETCH_SHOPPING_LISTS_FAIL = 'shopping_lists/fetch/fail'
 export const ACTION_FETCH_SHOPPING_LISTS_SUCCESS = 'shopping_lists/fetch/success'
 export const ACTION_FETCH_SHOPPING_LISTS_LOADING = 'shopping_lists/fetch/loading'
 
+export const ACTION_FETCH_SHOPPING_RESET = 'shopping_lists/reset'
+
 // shopping list
 export const ACTION_FETCH_SHOPPING_LIST_FAIL = 'shopping_list/fetch/fail'
 export const ACTION_FETCH_SHOPPING_LIST_SUCCESS = 'shopping_list/fetch/success'
 export const ACTION_FETCH_SHOPPING_LIST_LOADING = 'shopping_list/fetch/loading'
+
+export const ACTION_SHOPPING_LIST_RESET = 'shopping_list/reset'
 
 export const ACTION_SHOPPING_LIST_ADD_ITEM = 'shopping_list/add_item'
 export const ACTION_SHOPPING_LIST_UPDATE_ITEM = 'shopping_list/update_item'

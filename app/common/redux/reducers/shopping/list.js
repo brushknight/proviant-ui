@@ -4,7 +4,7 @@ import {
 	ACTION_FETCH_SHOPPING_LIST_SUCCESS,
 	ACTION_SHOPPING_LIST_ADD_ITEM,
 	ACTION_SHOPPING_LIST_DELETE_ITEM,
-	ACTION_SHOPPING_LIST_UPDATE_ITEM
+	ACTION_SHOPPING_LIST_UPDATE_ITEM, ACTION_SHOPPING_LIST_RESET
 } from '../../actions/const'
 import { STATUS_DEFAULT, STATUS_FETCH_FAILED, STATUS_LOADED, STATUS_LOADING } from '../consts'
 
@@ -85,8 +85,14 @@ const initialState = () => {
 
 export default function (state = initialState(), action) {
 	switch (action.type) {
+	case ACTION_SHOPPING_LIST_RESET:
+		return {
+			...state,
+			status: STATUS_DEFAULT,
+			error: null,
+			model: defaultModel()
+		}
 	case ACTION_SHOPPING_LIST_DELETE_ITEM:
-
 		return {
 			...state,
 			status: STATUS_DEFAULT,

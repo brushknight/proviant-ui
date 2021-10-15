@@ -1,7 +1,7 @@
 import {
 	ACTION_FETCH_SHOPPING_LISTS_FAIL,
 	ACTION_FETCH_SHOPPING_LISTS_LOADING,
-	ACTION_FETCH_SHOPPING_LISTS_SUCCESS
+	ACTION_FETCH_SHOPPING_LISTS_SUCCESS, ACTION_FETCH_SHOPPING_RESET
 } from '../../actions/const'
 import { STATUS_DEFAULT, STATUS_FETCH_FAILED, STATUS_LOADED, STATUS_LOADING } from '../consts'
 
@@ -15,6 +15,10 @@ const initialState = () => {
 
 export default function (state = initialState(), action) {
 	switch (action.type) {
+	case ACTION_FETCH_SHOPPING_RESET:
+		return {
+			...initialState()
+		}
 	case ACTION_FETCH_SHOPPING_LISTS_LOADING:
 		return {
 			...state,

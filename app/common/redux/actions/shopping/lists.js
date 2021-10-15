@@ -1,7 +1,8 @@
 import {
 	ACTION_FETCH_SHOPPING_LISTS_FAIL,
 	ACTION_FETCH_SHOPPING_LISTS_LOADING,
-	ACTION_FETCH_SHOPPING_LISTS_SUCCESS
+	ACTION_FETCH_SHOPPING_LISTS_SUCCESS,
+	ACTION_FETCH_SHOPPING_RESET
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
 import { handleError } from '../../../utils/action'
@@ -24,6 +25,11 @@ const fetchSuccess = payload => {
 	return {
 		type: ACTION_FETCH_SHOPPING_LISTS_SUCCESS,
 		payload: payload
+	}
+}
+export const shoppingListsReset = () => {
+	return {
+		type: ACTION_FETCH_SHOPPING_RESET
 	}
 }
 

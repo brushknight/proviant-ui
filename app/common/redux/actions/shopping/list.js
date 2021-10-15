@@ -4,7 +4,7 @@ import {
 	ACTION_FETCH_SHOPPING_LIST_SUCCESS,
 	ACTION_SHOPPING_LIST_ADD_ITEM,
 	ACTION_SHOPPING_LIST_DELETE_ITEM,
-	ACTION_SHOPPING_LIST_UPDATE_ITEM
+	ACTION_SHOPPING_LIST_UPDATE_ITEM, ACTION_SHOPPING_LIST_RESET
 } from '../const'
 import { generateCoreApiUrl, generateHeaders } from '../../../utils/link'
 import { handleError } from '../../../utils/action'
@@ -48,6 +48,12 @@ export const shoppingListDeleteItem = (id) => {
 	return {
 		type: ACTION_SHOPPING_LIST_DELETE_ITEM,
 		id
+	}
+}
+
+export const shoppingListReset = () => {
+	return {
+		type: ACTION_SHOPPING_LIST_RESET
 	}
 }
 

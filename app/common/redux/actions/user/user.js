@@ -4,6 +4,8 @@ import { generateAuthApiUrl, generateHeaders } from '../../../utils/link'
 import { handleError } from '../../../utils/action'
 import { isSaaS } from '../../../utils/env'
 import { setCookie } from '../../../utils/cookies'
+import { shoppingListReset } from '../shopping/list'
+import { shoppingListsReset } from '../shopping/lists'
 import axios from 'axios'
 
 const fetchUserSuccess = (user) => {
@@ -30,6 +32,8 @@ export const logoutUser = () => {
 	return (dispatch) => {
 		clearJWT().then(() => {
 			dispatch(logout())
+			dispatch(shoppingListsReset())
+			dispatch(shoppingListReset())
 		})
 	}
 }
