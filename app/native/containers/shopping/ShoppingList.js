@@ -105,10 +105,8 @@ const ShoppingList = (
 			transparent={true}
 			visible={feedbackModalStatus}
 			onRequestClose={() => {
-				console.log('close')
 			}}
 			onShow={() => {
-				console.log('shown')
 			}}
 		>
 			<KeyboardAvoidingView
@@ -142,10 +140,8 @@ const ShoppingList = (
 			transparent={true}
 			visible={createModal}
 			onRequestClose={() => {
-				console.log('close')
 			}}
 			onShow={() => {
-				console.log('shown')
 			}}
 		>
 			<KeyboardAvoidingView
@@ -180,10 +176,8 @@ const ShoppingList = (
 			transparent={true}
 			visible={updateModal}
 			onRequestClose={() => {
-				console.log('close')
 			}}
 			onShow={() => {
-				console.log('shown')
 			}}
 		>
 			<KeyboardAvoidingView
