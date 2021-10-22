@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import { getShoppingList, getShoppingLists, getUser } from '../../../common/redux/selectors'
-import { isSaaS } from '../../../common/utils/env'
 import {
 	KeyboardAvoidingView,
 	Modal,
@@ -17,16 +16,10 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { shoppingListFetchItems } from '../../../common/redux/actions/shopping/list'
 import { shoppingListFetchLists } from '../../../common/redux/actions/shopping/lists'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
-import {
-	STATUS_DEFAULT,
-	STATUS_FETCH_FAILED,
-	STATUS_LOADING,
-	STATUS_UNAUTHORIZED
-} from '../../../common/redux/reducers/consts'
+import { STATUS_DEFAULT, STATUS_FETCH_FAILED, STATUS_LOADING } from '../../../common/redux/reducers/consts'
 import AddButton from '../../components/generic/AddButton'
 import Deeplink from '../utils/Deeplink'
 import Feedback from '../user/Feedback'
-import Login from '../user/Login'
 import MoreButton from '../../components/generic/MoreButton'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -70,12 +63,6 @@ const ShoppingList = (
 		} else {
 			fetchItems(shoppingListId)
 		}
-	}
-
-	if (isSaaS() && userStatus === STATUS_UNAUTHORIZED) {
-		return (
-			<Login/>
-		)
 	}
 
 	// if (status === STATUS_LOADING || fetchListsStatus === STATUS_LOADING) {

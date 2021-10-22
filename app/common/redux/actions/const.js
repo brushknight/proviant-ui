@@ -125,7 +125,7 @@ export const ACTION_USER_FETCH_FAILED = 'user/fetch/failed'
 export const ACTION_USER_LOGIN_FAIL = 'user/login/fail'
 export const ACTION_USER_LOGIN_SENDING = 'user/login/sending'
 export const ACTION_USER_LOGIN_EMAIL_SENT = 'user/login/email_sent'
-export const ACTION_USER_LOGIN_RESET_ERROR = 'user/login/reset/error'
+export const ACTION_USER_LOGIN_RESET = 'user/login/reset'
 
 // register
 export const ACTION_USER_REGISTER_FAIL = 'user/register/fail'
