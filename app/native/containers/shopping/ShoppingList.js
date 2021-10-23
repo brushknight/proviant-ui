@@ -13,6 +13,7 @@ import {
 	View
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
+import { shoppingFormReset } from '../../../common/redux/actions/shopping/form'
 import { shoppingListFetchItems } from '../../../common/redux/actions/shopping/list'
 import { shoppingListFetchLists } from '../../../common/redux/actions/shopping/lists'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
@@ -39,7 +40,8 @@ const ShoppingList = (
 		userStatus,
 		shoppingListId,
 		fetchListsStatus,
-		fetchLists
+		fetchLists,
+		actionShoppingFormReset
 	}
 ) => {
 	const [createModal, setCreateModal] = useState(false)
@@ -65,21 +67,10 @@ const ShoppingList = (
 		}
 	}
 
-	// if (status === STATUS_LOADING || fetchListsStatus === STATUS_LOADING) {
-	// 	return (
-	// 		<View>
-	// 			<Deeplink/>
-	// 			<Text style={styles.hint_no_items}>
-	// 				Loading
-	// 			</Text>
-	// 		</View>
-	//
-	// 	)
-	// }
-
 	const actionHandlers = {
 		shopping_item_create: () => {
 			setCreateModal(true)
+			actionShoppingFormReset()
 		},
 		feedback: () => {
 			setFeedbackModalStatus(true)
@@ -328,13 +319,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		fetchLists: () => dispatch(shoppingListFetchLists(locale)),
 		fetchItems: (id) => dispatch(shoppingListFetchItems(id, locale)),
 		checkItem: (listId, id) => dispatch(shoppingListItemCheck(listId, id, locale)),
-		uncheckItem: (listId, id) => dispatch(shoppingListItemUncheck(listId, id, locale))
+		uncheckItem: (listId, id) => dispatch(shoppingListItemUncheck(listId, id, locale)),
+		actionShoppingFormReset: () => dispatch(shoppingFormReset())
 	}
 }
 
 ShoppingList.propTypes = {
 	model: PropTypes.object,
 	fetchItems: PropTypes.func,
+	actionShoppingFormReset: PropTypes.func,
 	checkItem: PropTypes.func,
 	uncheckItem: PropTypes.func,
 	t: PropTypes.func,

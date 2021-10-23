@@ -1,9 +1,8 @@
-import { actionLoginWithPassword } from '../../../common/redux/actions/login'
-import { actionRegister } from '../../../common/redux/actions/register'
-import { Button } from 'react-native-elements'
+import { actionLoginReset, actionLoginWithPassword } from '../../../common/redux/actions/login'
+import { actionRegister, registerReset } from '../../../common/redux/actions/register'
 import { connect } from 'react-redux'
 import { generateLoginUrl } from '../../../common/utils/link'
-import { getUser } from '../../../common/redux/selectors'
+import { getLogin, getRegister, getUser } from '../../../common/redux/selectors'
 import {
 	Image,
 	KeyboardAvoidingView,
@@ -16,17 +15,35 @@ import {
 	TouchableOpacity,
 	View
 } from 'react-native'
+import { STATUS_ERROR, STATUS_SENDING } from '../../../common/redux/reducers/consts'
 import Deeplink from '../utils/Deeplink'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const appUrl = generateLoginUrl()
 
-const AuthForm = ({ register, registerWithoutPassword, actionLoginWithPassword, actionLoginWithoutPassword }) => {
+const AuthForm = (
+	{
+		register,
+		registerWithoutPassword,
+		actionLoginWithPassword,
+		actionLoginWithoutPassword,
+		registerStatus,
+		registerError,
+		loginError,
+		loginStatus,
+		reset
+	}) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [smallLogo, setSmallLogo] = useState(false)
 	const [withPassword, setWithPassword] = useState(false)
+
+	useEffect(() => {
+		reset()
+	}, [
+		email, password, withPassword
+	])
 
 	const registerHandler = () => {
 		if (withPassword) {
@@ -100,6 +117,24 @@ const AuthForm = ({ register, registerWithoutPassword, actionLoginWithPassword, 
 		)
 	}
 
+	let errorJsx = []
+
+	if (loginStatus === STATUS_ERROR) {
+		errorJsx = (
+			<View>
+				<Text style={styles.error_text}>{loginError}</Text>
+			</View>
+		)
+	}
+
+	if (registerStatus === STATUS_ERROR) {
+		errorJsx = (
+			<View>
+				<Text style={styles.error_text}>{registerError}</Text>
+			</View>
+		)
+	}
+
 	return (
 
 		<KeyboardAvoidingView
@@ -113,8 +148,8 @@ const AuthForm = ({ register, registerWithoutPassword, actionLoginWithPassword, 
 				<View style={styles.logo_container}>
 					<Image style={styleLogo} source={require('../../assets/icon.png')}/>
 				</View>
-				<View style={styles.text_container}>
-					<Text style={styles.text}>Proviant</Text>
+				<View style={styles.title_container}>
+					<Text style={styles.title}>Proviant</Text>
 				</View>
 				<View style={styles.login_via_web}>
 					<Text style={styles.hint_text}>
@@ -122,13 +157,15 @@ const AuthForm = ({ register, registerWithoutPassword, actionLoginWithPassword, 
 						enter
 						your email address, receive email and follow written there instructions
 					</Text>
-					<Button
-						style={styles.button}
-						title={'Open proviant.io for WEB login'}
+					<TouchableOpacity
+						style={[styles.button, styles.button_web_login]}
 						onPress={() => {
 							Linking.openURL(appUrl)
 						}}
-					/>
+					>
+						<Text style={styles.button_text}>Open proviant.io for WEB login</Text>
+					</TouchableOpacity>
+
 				</View>
 				<View style={styles.separator}>
 					<Text style={styles.separator_text}>OR</Text>
@@ -151,18 +188,20 @@ const AuthForm = ({ register, registerWithoutPassword, actionLoginWithPassword, 
 
 					{passwordInput}
 
+					{errorJsx}
+
 					{passwordButton}
 					<TouchableOpacity
 						style={[styles.button, styles.button_register]}
 						onPress={registerHandler}
 					>
-						<Text style={styles.button_text}>Registration</Text>
+						<Text style={styles.button_text}>{registerStatus === STATUS_SENDING ? 'Sending...' : 'Registration'}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
 						style={[styles.button, styles.button_register]}
 						onPress={loginHandler}
 					>
-						<Text style={styles.button_text}>Login</Text>
+						<Text style={styles.button_text}>{loginStatus === STATUS_SENDING ? 'Sending...' : 'Login'}</Text>
 					</TouchableOpacity>
 					{passwordRemoveButton}
 
@@ -176,6 +215,7 @@ const AuthForm = ({ register, registerWithoutPassword, actionLoginWithPassword, 
 
 const styles = {
 	scroll_view: {
+		paddingBottom: 20
 	},
 	logo: {
 		height: 200,
@@ -192,7 +232,8 @@ const styles = {
 		flexDirection: 'column',
 		justifyContent: 'center',
 		paddingLeft: 20,
-		paddingRight: 20
+		paddingRight: 20,
+		marginTop: 20
 	},
 	login_via_email: {
 		flex: 1,
@@ -236,12 +277,15 @@ const styles = {
 	hint_text: {
 		marginBottom: 10
 	},
-	text_container: {
+	error_text: {
+		color: 'red'
+	},
+	title_container: {
 		flex: 0,
 		flexDirection: 'row',
 		justifyContent: 'center'
 	},
-	text: {
+	title: {
 		fontSize: 30,
 		fontWeight: 'bold'
 	},
@@ -255,6 +299,11 @@ const styles = {
 		fontSize: 16
 	},
 	button_register: {
+		marginTop: 10,
+		backgroundColor: '#6ba4ce',
+		borderRadius: 5
+	},
+	button_web_login: {
 		marginTop: 10,
 		backgroundColor: '#6ba4ce',
 		borderRadius: 5
@@ -273,9 +322,15 @@ const styles = {
 
 const mapStateToProps = (state, ownProps) => {
 	const user = getUser(state)
+	const login = getLogin(state)
+	const register = getRegister(state)
 
 	return {
-		userStatus: user.status
+		userStatus: user.status,
+		loginStatus: login.status,
+		loginError: login.error,
+		registerStatus: register.status,
+		registerError: register.error
 	}
 }
 
@@ -285,14 +340,23 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		register: (email, password) => dispatch(actionRegister(email, password, locale)),
 		registerWithoutPassword: (email) => dispatch(actionRegister(email, null, locale)),
 		actionLoginWithPassword: (email, password) => dispatch(actionLoginWithPassword(email, password, locale)),
-		actionLoginWithoutPassword: (email) => dispatch(actionLoginWithPassword(email, null, locale))
+		actionLoginWithoutPassword: (email) => dispatch(actionLoginWithPassword(email, null, locale)),
+		reset: () => {
+			dispatch(actionLoginReset())
+			dispatch(registerReset())
+		}
 	}
 }
 
 AuthForm.propTypes = {
+	loginStatus: PropTypes.string,
+	loginError: PropTypes.string,
+	registerStatus: PropTypes.string,
+	registerError: PropTypes.string,
 	register: PropTypes.func,
 	registerWithoutPassword: PropTypes.func,
 	actionLoginWithPassword: PropTypes.func,
+	reset: PropTypes.func,
 	actionLoginWithoutPassword: PropTypes.func
 }
 

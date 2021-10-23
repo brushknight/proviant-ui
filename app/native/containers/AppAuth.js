@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { getLogin, getUser } from '../../common/redux/selectors'
+import { getLogin, getRegister, getUser } from '../../common/redux/selectors'
 import { SafeAreaView } from 'react-native'
 import { STATUS_SUCCESS } from '../../common/redux/reducers/consts'
 import AuthForm from './user/AuthForm'
@@ -8,12 +8,12 @@ import Deeplink from './utils/Deeplink'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const AppAuth = ({ loginStatus }) => {
+const AppAuth = ({ loginStatus, registerStatus }) => {
 	let mainComponent = (
 		<AuthForm/>
 	)
 
-	if (loginStatus === STATUS_SUCCESS) {
+	if (loginStatus === STATUS_SUCCESS || registerStatus === STATUS_SUCCESS) {
 		mainComponent = (
 			<ConfirmationEmailView/>
 		)
@@ -32,10 +32,12 @@ const AppAuth = ({ loginStatus }) => {
 const mapStateToProps = (state, ownProps) => {
 	const user = getUser(state)
 	const login = getLogin(state)
+	const register = getRegister(state)
 
 	return {
 		userStatus: user.status,
-		loginStatus: login.status
+		loginStatus: login.status,
+		registerStatus: register.status
 	}
 }
 
@@ -48,7 +50,8 @@ AppAuth.propTypes = {
 	loginStatus: PropTypes.string,
 	logout: PropTypes.func,
 	navigation: PropTypes.object,
-	userStatus: PropTypes.string
+	userStatus: PropTypes.string,
+	registerStatus: PropTypes.string
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppAuth)

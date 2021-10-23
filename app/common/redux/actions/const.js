@@ -131,7 +131,7 @@ export const ACTION_USER_LOGIN_RESET = 'user/login/reset'
 export const ACTION_USER_REGISTER_FAIL = 'user/register/fail'
 export const ACTION_USER_REGISTER_SENDING = 'user/register/sending'
 export const ACTION_USER_REGISTER_EMAIL_SENT = 'user/register/email_sent'
-export const ACTION_USER_REGISTER_RESET_ERROR = 'user/register/reset/error'
+export const ACTION_USER_REGISTER_RESET = 'user/register/reset'
 
 // shopping list
 export const ACTION_FETCH_SHOPPING_LISTS_FAIL = 'shopping_lists/fetch/fail'

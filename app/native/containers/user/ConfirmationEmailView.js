@@ -1,6 +1,6 @@
 import { actionLoginReset } from '../../../common/redux/actions/login'
+import { actionRegister, registerReset } from '../../../common/redux/actions/register'
 import { connect } from 'react-redux'
-import { generateLoginUrl } from '../../../common/utils/link'
 import { getUser } from '../../../common/redux/selectors'
 import { Image, KeyboardAvoidingView, Platform, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import Deeplink from '../utils/Deeplink'
@@ -26,7 +26,7 @@ const ConfirmationEmailView = ({ reset }) => {
 				</View>
 				<View style={styles.text_container}>
 					<Text style={styles.hint_text}>
-						We have sent you an email with magic link. Check you email to finish authentication
+						We have sent you an email with magic link. Check you email to finish authentication.
 					</Text>
 					<TouchableOpacity
 						style={[styles.button, styles.button_back]}
@@ -102,7 +102,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const locale = 'en'
 	return {
-		reset: () => dispatch(actionLoginReset())
+		reset: () => {
+			dispatch(actionLoginReset())
+			dispatch(registerReset())
+		}
 	}
 }
 

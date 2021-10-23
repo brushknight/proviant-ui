@@ -1,7 +1,7 @@
 import {
 	ACTION_USER_REGISTER_EMAIL_SENT,
 	ACTION_USER_REGISTER_FAIL,
-	ACTION_USER_REGISTER_RESET_ERROR,
+	ACTION_USER_REGISTER_RESET,
 	ACTION_USER_REGISTER_SENDING,
 	ACTION_USER_UNAUTHORIZED
 } from './const'
@@ -35,9 +35,9 @@ const registerEmailSent = () => {
 	}
 }
 
-export const registerResetError = () => {
+export const registerReset = () => {
 	return {
-		type: ACTION_USER_REGISTER_RESET_ERROR
+		type: ACTION_USER_REGISTER_RESET
 	}
 }
 
