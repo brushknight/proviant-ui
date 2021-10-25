@@ -125,13 +125,13 @@ export const ACTION_USER_FETCH_FAILED = 'user/fetch/failed'
 export const ACTION_USER_LOGIN_FAIL = 'user/login/fail'
 export const ACTION_USER_LOGIN_SENDING = 'user/login/sending'
 export const ACTION_USER_LOGIN_EMAIL_SENT = 'user/login/email_sent'
-export const ACTION_USER_LOGIN_RESET_ERROR = 'user/login/reset/error'
+export const ACTION_USER_LOGIN_RESET = 'user/login/reset'
 
 // register
 export const ACTION_USER_REGISTER_FAIL = 'user/register/fail'
 export const ACTION_USER_REGISTER_SENDING = 'user/register/sending'
 export const ACTION_USER_REGISTER_EMAIL_SENT = 'user/register/email_sent'
-export const ACTION_USER_REGISTER_RESET_ERROR = 'user/register/reset/error'
+export const ACTION_USER_REGISTER_RESET = 'user/register/reset'
 
 // shopping list
 export const ACTION_FETCH_SHOPPING_LISTS_FAIL = 'shopping_lists/fetch/fail'

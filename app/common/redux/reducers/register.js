@@ -1,7 +1,7 @@
 import {
 	ACTION_USER_REGISTER_EMAIL_SENT,
 	ACTION_USER_REGISTER_FAIL,
-	ACTION_USER_REGISTER_RESET_ERROR,
+	ACTION_USER_REGISTER_RESET,
 	ACTION_USER_REGISTER_SENDING
 } from '../actions/const'
 import { STATUS_DEFAULT, STATUS_ERROR, STATUS_SENDING, STATUS_SUCCESS, STATUS_UNAUTHORIZED } from './consts'
@@ -15,7 +15,7 @@ const initialState = () => {
 
 export default function (state = initialState(), action) {
 	switch (action.type) {
-	case ACTION_USER_REGISTER_RESET_ERROR:
+	case ACTION_USER_REGISTER_RESET:
 		return {
 			...state,
 			status: STATUS_UNAUTHORIZED,

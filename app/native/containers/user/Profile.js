@@ -2,12 +2,8 @@ import { Button } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { fetchCoreVersion } from '../../../common/redux/actions/version'
 import { getUser, getVersion } from '../../../common/redux/selectors'
-import { Image, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
-import { isSaaS } from '../../../common/utils/env'
 import { logoutUser } from '../../../common/redux/actions/user/user'
-import { STATUS_UNAUTHORIZED } from '../../../common/redux/reducers/consts'
-import LanguageOption from '../../components/profile/LanguageOption'
-import Login from './Login'
+import { SafeAreaView, StatusBar, Text, View } from 'react-native'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 
@@ -15,12 +11,6 @@ const Profile = ({ logout, userStatus, user, fetchCoreVersion, version }) => {
 	useEffect(() => {
 		fetchCoreVersion()
 	}, [])
-
-	if (isSaaS() && userStatus === STATUS_UNAUTHORIZED) {
-		return (
-			<Login/>
-		)
-	}
 
 	let profile = []
 	if (user) {

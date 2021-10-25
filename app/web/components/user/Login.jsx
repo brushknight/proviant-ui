@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { actionLogin, actionLoginResetError } from '../../../common/redux/actions/login'
+import { actionLogin, actionLoginReset } from '../../../common/redux/actions/login'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { GA_PAGE_LOGIN, pageView } from '../../../common/utils/ga'
@@ -98,7 +98,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	const locale = ownProps.i18n.language
 	return {
 		login: (email) => dispatch(actionLogin(email, locale)),
-		resetError: () => dispatch(actionLoginResetError())
+		resetError: () => dispatch(actionLoginReset())
 	}
 }
 

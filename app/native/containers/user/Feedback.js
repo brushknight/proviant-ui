@@ -2,11 +2,18 @@ import { connect } from 'react-redux'
 import { feedbackFormReset, feedbackFormSubmit } from '../../../common/redux/actions/feedback/form'
 import { getFeedbackForm } from '../../../common/redux/selectors'
 import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { STATUS_DEFAULT, STATUS_ERROR, STATUS_SENDING, STATUS_SUBMITTED } from '../../../common/redux/reducers/consts'
+import {
+	STATUS_CREATED,
+	STATUS_DEFAULT,
+	STATUS_ERROR,
+	STATUS_SENDING,
+	STATUS_SUBMITTED
+} from '../../../common/redux/reducers/consts'
 import Deeplink from '../utils/Deeplink'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import StatusIndicator from '../../components/generic/StatusIndicator'
 
 const Feedback = ({ error, reset, status, submit, onClose, style }) => {
 	const [text, setText] = useState('')
@@ -38,14 +45,6 @@ const Feedback = ({ error, reset, status, submit, onClose, style }) => {
 		}
 	}
 
-	if (status === STATUS_DEFAULT || status === STATUS_ERROR) {
-
-	}
-
-	if (status === STATUS_SENDING) {
-
-	}
-
 	let errorJsx = []
 
 	if (status === STATUS_ERROR) {
@@ -57,8 +56,6 @@ const Feedback = ({ error, reset, status, submit, onClose, style }) => {
 			</View>
 		)
 	}
-
-	console.log(status, error)
 
 	return (
 		<TouchableOpacity activeOpacity={1} onPress={Keyboard.dismiss} style={[style, styles.container]}>
@@ -85,6 +82,12 @@ const Feedback = ({ error, reset, status, submit, onClose, style }) => {
 					<Icon name={'times'} size={20} style={styles.button_icon}/>
 					<Text style={styles.button_text}>Cancel</Text>
 				</TouchableOpacity>
+
+				<StatusIndicator
+					style={styles.action_indicator}
+					isActive={status === STATUS_SENDING}
+					isSuccess={ status === STATUS_SUBMITTED}
+				/>
 
 				<TouchableOpacity
 					style={[styles.button, styles.button_send, isValid ? null : styles.disabled]}
@@ -162,6 +165,10 @@ const styles = StyleSheet.create({
 	},
 	disabled: {
 		backgroundColor: 'grey'
+	},
+	action_indicator: {
+		marginLeft: 'auto',
+		marginRight: 10
 	}
 })
 

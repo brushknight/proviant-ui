@@ -1,3 +1,4 @@
+import { Bounce } from 'react-native-animated-spinkit'
 import { connect } from 'react-redux'
 import { getShoppingList, getShoppingListEdit, getShoppingListItem } from '../../../common/redux/selectors'
 import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
@@ -8,7 +9,7 @@ import {
 	STATUS_DEFAULT,
 	STATUS_DELETED,
 	STATUS_ERROR,
-	STATUS_SENDING,
+	STATUS_SENDING, STATUS_SUBMITTED,
 	STATUS_UPDATED
 } from '../../../common/redux/reducers/consts'
 import Counter from '../../components/shopping/Counter'
@@ -17,6 +18,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import ShoppingListTick from '../../components/shopping/ShoppingListTick'
+import StatusIndicator from '../../components/generic/StatusIndicator'
 
 const ShoppingItemUpdate = (
 	{
@@ -55,6 +57,11 @@ const ShoppingItemUpdate = (
 			reset()
 			onClose()
 		}
+
+		if (status === STATUS_UPDATED) {
+			reset()
+			onClose()
+		}
 	}, [status])
 
 	if (status === STATUS_DELETED || !item) {
@@ -78,19 +85,6 @@ const ShoppingItemUpdate = (
 
 	const onDelete = () => {
 		deleteItem(shoppingListId, item.id)
-	}
-
-	if (status === STATUS_DEFAULT || status === STATUS_ERROR) {
-
-	}
-
-	if (status === STATUS_SENDING) {
-
-	}
-
-	if (status === STATUS_UPDATED) {
-		reset()
-		onClose()
 	}
 
 	let errorJsx = []
@@ -142,6 +136,11 @@ const ShoppingItemUpdate = (
 				>
 					<Icon name={'trash'} size={20} style={styles.button_icon}/>
 				</TouchableOpacity>
+				<StatusIndicator
+					style={styles.action_indicator}
+					isActive={status === STATUS_SENDING}
+					isSuccess={ status === STATUS_UPDATED}
+				/>
 				<TouchableOpacity
 					style={[styles.button, styles.button_cancel]}
 					onPress={onClose}
@@ -152,6 +151,7 @@ const ShoppingItemUpdate = (
 				<TouchableOpacity
 					style={[styles.button, styles.button_save]}
 					onPress={onSubmit}
+					activeOpacity={status === STATUS_SENDING}
 				>
 					<Icon name={'check'} size={20} style={styles.button_icon}/>
 					<Text style={styles.button_text}>Save</Text>
@@ -205,7 +205,6 @@ const styles = StyleSheet.create({
 	},
 	button_cancel: {
 		backgroundColor: 'grey',
-		marginLeft: 'auto',
 		marginRight: 10
 	},
 	button_save: {
@@ -234,8 +233,11 @@ const styles = StyleSheet.create({
 	},
 	button_success: {
 		backgroundColor: 'green'
+	},
+	action_indicator: {
+		marginLeft: 'auto',
+		marginRight: 10
 	}
-
 })
 
 const mapStateToProps = (state, ownProps) => {

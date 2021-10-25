@@ -1,4 +1,5 @@
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { TextInput, TouchableOpacity, View } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
@@ -20,13 +21,18 @@ const Counter = ({ onChange, defaultValue, resetTime }) => {
 	}
 
 	const minusOne = () => {
-		updateValue(Number(quantity) - 1)
+		if (Number(quantity) - 1 < 1) {
+			updateValue(defaultValue)
+		} else {
+			updateValue(Number(quantity) - 1)
+		}
 	}
 
 	return (
 		<View style={styles.quantity_container}>
-			<TouchableOpacity style={[styles.quantity_minus]} onPress={minusOne}><Text
-				style={styles.quantity_minus_text}>-</Text></TouchableOpacity>
+			<TouchableOpacity style={[styles.quantity_minus]} onPress={minusOne}>
+				<Icon name={'minus'} size={20} style={styles.quantity_minus_text}/>
+			</TouchableOpacity>
 			<TextInput
 				placeholder={'Quantity'}
 				style={styles.quantity}
@@ -40,8 +46,9 @@ const Counter = ({ onChange, defaultValue, resetTime }) => {
 				}}
 				value={String(quantity)}
 			/>
-			<TouchableOpacity style={[styles.quantity_plus]} onPress={addOne}><Text
-				style={styles.quantity_plus_text}>+</Text></TouchableOpacity>
+			<TouchableOpacity style={[styles.quantity_plus]} onPress={addOne}>
+				<Icon name={'plus'} size={20} style={styles.quantity_plus_text}/>
+			</TouchableOpacity>
 		</View>
 	)
 }
@@ -84,17 +91,15 @@ const styles = {
 	},
 	quantity_minus_text: {
 		lineHeight: 40,
+		height: 40,
 		textAlign: 'center',
-		color: '#ffffff',
-		fontSize: 28,
-		fontWeight: 'bold'
+		color: '#ffffff'
 	},
 	quantity_plus_text: {
 		lineHeight: 40,
+		height: 40,
 		textAlign: 'center',
-		color: '#ffffff',
-		fontSize: 28,
-		fontWeight: 'bold'
+		color: '#ffffff'
 	}
 }
 
