@@ -8,7 +8,7 @@ import {
 	fetchEditCategory,
 	updateCategory
 } from '../../../common/redux/actions/category/editCategory'
-import { GA_PAGE_CATEGORY_EDIT, pageView } from '../../../common/utils/ga'
+import { GA_WEB_PAGE_CATEGORY_EDIT, pageView } from '../../../common/utils/ga'
 import { getEditCategory } from '../../../common/redux/selectors'
 import {
 	STATUS_DEFAULT,
@@ -125,7 +125,7 @@ const CategoryEditForm = ({ form, fetch, reset, update, remove, t, className }) 
 	// 	showProgress = true
 	// }
 
-	pageView(GA_PAGE_CATEGORY_EDIT)
+	pageView(GA_WEB_PAGE_CATEGORY_EDIT)
 
 	return (
 		<form

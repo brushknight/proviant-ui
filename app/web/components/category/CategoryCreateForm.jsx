@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Callout, InputGroup, Intent } from '@blueprintjs/c
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createCategory, resetCreateCategoryForm } from '../../../common/redux/actions/category/categories'
-import { GA_PAGE_CATEGORY_CREATE, pageView } from '../../../common/utils/ga'
+import { GA_WEB_PAGE_CATEGORY_CREATE, pageView } from '../../../common/utils/ga'
 import { getCategories } from '../../../common/redux/selectors'
 import { STATUS_CREATED, STATUS_DEFAULT, STATUS_EDITING, STATUS_ERROR } from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
@@ -58,7 +58,7 @@ const CategoryCreateForm = ({ form, create, reset, t, className }) => {
 		)
 	}
 
-	pageView(GA_PAGE_CATEGORY_CREATE)
+	pageView(GA_WEB_PAGE_CATEGORY_CREATE)
 
 	return (
 		<form

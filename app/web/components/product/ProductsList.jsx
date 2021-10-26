@@ -4,7 +4,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../../../common/redux/actions/product/products'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
-import { GA_PAGE_PRODUCTS, pageView } from '../../../common/utils/ga'
+import { GA_WEB_PAGE_PRODUCTS, pageView } from '../../../common/utils/ga'
 import { getCategories, getLists, getProducts } from '../../../common/redux/selectors'
 import { STATUS_ERROR, STATUS_LOADING } from '../../../common/redux/reducers/consts'
 import { useEffect } from 'react'
@@ -68,7 +68,7 @@ const ProductsList = ({ products, categories, lists, filterType, t, fetchProduct
 		)
 	}
 
-	pageView(GA_PAGE_PRODUCTS)
+	pageView(GA_WEB_PAGE_PRODUCTS)
 
 	return (
 		<section className="product-list">

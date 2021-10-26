@@ -2,7 +2,7 @@ import * as React from 'react'
 import { actionRegister, registerReset } from '../../../common/redux/actions/register'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { GA_PAGE_REGISTER, pageView } from '../../../common/utils/ga'
+import { GA_WEB_PAGE_REGISTER, pageView } from '../../../common/utils/ga'
 import { getRegister } from '../../../common/redux/selectors'
 import { Overlay } from '@blueprintjs/core'
 import { STATUS_EDITING, STATUS_ERROR, STATUS_SENDING, STATUS_SUCCESS } from '../../../common/redux/reducers/consts'
@@ -38,7 +38,7 @@ const Register = ({ t, form, register, resetError }) => {
 		)
 	}
 
-	pageView(GA_PAGE_REGISTER)
+	pageView(GA_WEB_PAGE_REGISTER)
 
 	const onSubmit = (e) => {
 		e.preventDefault()

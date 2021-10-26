@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Callout, InputGroup, Intent, Spinner } from '@blue
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { deleteList, editListReset, fetchEditList, updateList } from '../../../common/redux/actions/list/editList'
-import { GA_PAGE_LIST_EDIT, pageView } from '../../../common/utils/ga'
+import { GA_WEB_PAGE_LIST_EDIT, pageView } from '../../../common/utils/ga'
 import { getEditList } from '../../../common/redux/selectors'
 import {
 	STATUS_DEFAULT,
@@ -123,7 +123,7 @@ const ListEditForm = ({ form, fetch, reset, update, remove, t, className }) => {
 	// 	showProgress = true
 	// }
 
-	pageView(GA_PAGE_LIST_EDIT)
+	pageView(GA_WEB_PAGE_LIST_EDIT)
 
 	return (
 		<form

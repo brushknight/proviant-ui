@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Callout, InputGroup, Intent } from '@blueprintjs/c
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createList, resetCreateListForm } from '../../../common/redux/actions/list/lists'
-import { GA_PAGE_LIST_CREATE, pageView } from '../../../common/utils/ga'
+import { GA_WEB_PAGE_LIST_CREATE, pageView } from '../../../common/utils/ga'
 import { getLists } from '../../../common/redux/selectors'
 import { STATUS_CREATED, STATUS_DEFAULT, STATUS_EDITING, STATUS_ERROR } from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
@@ -58,7 +58,7 @@ const ListCreateForm = ({ form, create, reset, t, className }) => {
 		)
 	}
 
-	pageView(GA_PAGE_LIST_CREATE)
+	pageView(GA_WEB_PAGE_LIST_CREATE)
 
 	return (
 		<form

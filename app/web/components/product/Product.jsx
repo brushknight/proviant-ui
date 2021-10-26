@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { GA_PAGE_PRODUCT, pageView } from '../../../common/utils/ga'
+import { GA_WEB_PAGE_PRODUCT, pageView } from '../../../common/utils/ga'
 import { useParams } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import ConsumptionLog from '../consumption_log/ConsumptionLog'
@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 const Product = (props) => {
 	const { id, productId } = useParams()
 
-	pageView(GA_PAGE_PRODUCT)
+	pageView(GA_WEB_PAGE_PRODUCT)
 
 	return (
 		<div className={props.className}>

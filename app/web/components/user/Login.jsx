@@ -2,7 +2,7 @@ import * as React from 'react'
 import { actionLogin, actionLoginReset } from '../../../common/redux/actions/login'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { GA_PAGE_LOGIN, pageView } from '../../../common/utils/ga'
+import { GA_WEB_PAGE_LOGIN, pageView } from '../../../common/utils/ga'
 import { getLogin } from '../../../common/redux/selectors'
 import { Overlay } from '@blueprintjs/core'
 import { STATUS_EDITING, STATUS_ERROR, STATUS_SENDING, STATUS_SUCCESS } from '../../../common/redux/reducers/consts'
@@ -36,7 +36,7 @@ const Login = ({ t, user, login, resetError }) => {
 		)
 	}
 
-	pageView(GA_PAGE_LOGIN)
+	pageView(GA_WEB_PAGE_LOGIN)
 
 	const onSubmit = (e) => {
 		e.preventDefault()

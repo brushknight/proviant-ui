@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { GA_PAGE_FINISH_AUTH, pageView } from '../../../common/utils/ga'
+import { GA_WEB_PAGE_FINISH_AUTH, pageView } from '../../../common/utils/ga'
 import { Overlay } from '@blueprintjs/core'
 import { withTranslation } from 'react-i18next'
 import Button from '../generic/Button'
@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import Version from '../generic/Version'
 
 const FinishAuth = ({ t }) => {
-	pageView(GA_PAGE_FINISH_AUTH)
+	pageView(GA_WEB_PAGE_FINISH_AUTH)
 	return (
 		<Overlay
 			isOpen={true}

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { createProduct, createProductFormReset } from '../../../common/redux/actions/product/createProduct'
 import { fileToBase64, isImageValid } from '../../../common/utils/image'
 import { FILTER_TYPE_CATEGORY, FILTER_TYPE_LIST } from '../../const'
-import { GA_PAGE_PRODUCT_CREATE, pageView } from '../../../common/utils/ga'
+import { GA_WEB_PAGE_PRODUCT_CREATE, pageView } from '../../../common/utils/ga'
 import { getCategories, getCreateProduct, getLists } from '../../../common/redux/selectors'
 import { STATUS_CREATED, STATUS_DEFAULT, STATUS_EDITING, STATUS_ERROR } from '../../../common/redux/reducers/consts'
 import { useEffect, useState } from 'react'
@@ -112,7 +112,7 @@ const ProductCreate = (
 		backgroundImage: 'url(' + imageBase64 + ')'
 	}
 
-	pageView(GA_PAGE_PRODUCT_CREATE)
+	pageView(GA_WEB_PAGE_PRODUCT_CREATE)
 
 	return (
 		<section className={className + ' product-edit'}>

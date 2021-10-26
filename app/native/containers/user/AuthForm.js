@@ -1,6 +1,7 @@
 import { actionLoginReset, actionLoginWithPassword } from '../../../common/redux/actions/login'
 import { actionRegister, registerReset } from '../../../common/redux/actions/register'
 import { connect } from 'react-redux'
+import { GA_IOS_PAGE_AUTH, pageView } from '../../../common/utils/ga'
 import { generateLoginUrl } from '../../../common/utils/link'
 import { getLogin, getRegister, getUser } from '../../../common/redux/selectors'
 import {
@@ -41,6 +42,8 @@ const AuthForm = (
 
 	useEffect(() => {
 		reset()
+
+		pageView(GA_IOS_PAGE_AUTH)
 	}, [
 		email, password, withPassword
 	])

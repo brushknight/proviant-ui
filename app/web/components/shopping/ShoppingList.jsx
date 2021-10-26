@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Callout, Intent, Spinner } from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { GA_PAGE_SHOPPING_LIST, pageView } from '../../../common/utils/ga'
+import { GA_WEB_PAGE_SHOPPING_LIST, pageView } from '../../../common/utils/ga'
 import { getShoppingList } from '../../../common/redux/selectors'
 import { shoppingListFetchItems } from '../../../common/redux/actions/shopping/list'
 import { shoppingListItemCheck, shoppingListItemUncheck } from '../../../common/redux/actions/shopping/tick'
@@ -49,7 +49,7 @@ const ShoppingList = ({ status, error, model, items, t, fetchItems, checkItem, u
 		)
 	}
 
-	pageView(GA_PAGE_SHOPPING_LIST)
+	pageView(GA_WEB_PAGE_SHOPPING_LIST)
 
 	return (
 		<section className={'shopping-list'}>

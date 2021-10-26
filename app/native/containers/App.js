@@ -2,6 +2,7 @@ import { ActivityIndicator, Image, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchUser } from '../../common/redux/actions/user/user'
 import { getUser } from '../../common/redux/selectors'
+import { init } from '../../common/utils/ga'
 import { isSaaS } from '../../common/utils/env'
 import { STATUS_DEFAULT, STATUS_LOADED, STATUS_UNAUTHORIZED } from '../../common/redux/reducers/consts'
 import AppAuth from './AppAuth'
@@ -13,6 +14,7 @@ const App = ({ userStatus, fetchUser }) => {
 	useEffect(() => {
 		if (userStatus === STATUS_DEFAULT) {
 			fetchUser()
+			init()
 		}
 	}, [userStatus])
 

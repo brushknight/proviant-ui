@@ -4,7 +4,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { editProductFormReset, fetchEditProduct, updateProduct } from '../../../common/redux/actions/product/editProduct'
 import { fileToBase64, isImageValid } from '../../../common/utils/image'
-import { GA_PAGE_PRODUCT_EDIT, pageView } from '../../../common/utils/ga'
+import { GA_WEB_PAGE_PRODUCT_EDIT, pageView } from '../../../common/utils/ga'
 import { getCategories, getEditProduct, getLists } from '../../../common/redux/selectors'
 import {
 	STATUS_DEFAULT,
@@ -159,7 +159,7 @@ const ProductEdit = (
 		}
 	}
 
-	pageView(GA_PAGE_PRODUCT_EDIT)
+	pageView(GA_WEB_PAGE_PRODUCT_EDIT)
 
 	return (
 		<section className={className + ' product-edit'}>
