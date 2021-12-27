@@ -47,6 +47,7 @@ const ShoppingList = (
 	const [createModal, setCreateModal] = useState(false)
 	const [updateModal, setUpdateModal] = useState(false)
 	const [feedbackModalStatus, setFeedbackModalStatus] = useState(false)
+	const [showTags, setShowTags] = useState(true)
 	const [openItemId, setOpenItemId] = useState(null)
 
 	useEffect(() => {
@@ -74,6 +75,9 @@ const ShoppingList = (
 		},
 		feedback: () => {
 			setFeedbackModalStatus(true)
+		},
+		toggle_tags: () => {
+			setShowTags(!showTags)
 		}
 	}
 
@@ -220,6 +224,7 @@ const ShoppingList = (
 				navigation={navigation}
 				key={item.id}
 				item={item}
+				showTags={showTags}
 				onCheck={() => {
 					checkItem(shoppingListId, item.id)
 				}}

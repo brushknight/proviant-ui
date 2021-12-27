@@ -5,19 +5,19 @@ import React from 'react'
 
 const MoreButton = ({ actionHandlers }) => {
 	const actions = [
-		// {
-		// 	text: 'Shopping Item',
-		// 	icon: require('../../assets/icons/shopping-cart.png'),
-		// 	name: 'shopping_item_create',
-		// 	position: 2,
-		// 	color: 'purple'
-		// },
+		{
+			text: 'Toggle Tags',
+			icon: <Icon name={'tag'} size={20}/>,
+			name: 'toggle_tags',
+			position: 2,
+			color: 'white'
+		},
 		{
 			text: 'Feedback',
 			icon: <Icon name={'question'} size={30}/>,
 			name: 'feedback',
 			position: 1,
-			color: 'orange'
+			color: 'white'
 		}
 		// {
 		// 	text: 'Product',
@@ -39,7 +39,7 @@ const MoreButton = ({ actionHandlers }) => {
 			color={'white'}
 			position={'left'}
 			floatingIcon={<Icon name={'ellipsis-h'} size={30}/>}
-			overrideWithAction={true}
+			// overrideWithAction={true}
 
 		/>
 	)
