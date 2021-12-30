@@ -2,7 +2,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import PropTypes from 'prop-types'
 import React from 'react'
 import ShoppingListTick from './ShoppingListTick'
-import {unixToDate} from "../../../common/utils/date";
+import {isOverdue, isToday, isTomorrow, unixToDateHuman} from "../../../common/utils/date";
 
 const ShoppingListRow = ({item, showTags, onCheck, onUncheck, onClick}) => {
     const goToDetails = () => {
@@ -11,10 +11,31 @@ const ShoppingListRow = ({item, showTags, onCheck, onUncheck, onClick}) => {
 
     let tags = []
 
-    if (showTags){
+    if (showTags) {
+
+        let due_date = new Date(item.due_date)
+
+        let dateStatus = []
+
+        if (!item.checked) {
+            switch (true) {
+                case isToday(due_date):
+                    dateStatus.push(styles.due_date_today)
+                    break;
+                case isTomorrow(due_date):
+                    dateStatus.push(styles.due_date_tomorrow)
+                    break;
+                case isOverdue(due_date):
+                    dateStatus.push(styles.due_date_over)
+                    break;
+            }
+        }else{
+            dateStatus = [styles.tag_checked]
+        }
+
         tags = (
             <View style={styles.tags}>
-                <View style={styles.date_tag}><Text>{unixToDate(new Date(item.due_date))}</Text></View>
+                <View style={[styles.date_tag, dateStatus]}><Text>{unixToDateHuman(due_date)}</Text></View>
             </View>
         )
     }
@@ -75,15 +96,27 @@ const styles = StyleSheet.create({
         // backgroundColor: 'orange'
     },
     tags: {
-    	paddingTop: 5,
-    	flexDirection: 'row',
-		flexWrap: 'wrap'
-	},
+        paddingTop: 5,
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
+    tag_checked:{
+        opacity: 0.2
+    },
+    due_date_today: {
+        backgroundColor: "orange"
+    },
+    due_date_tomorrow: {
+        backgroundColor: 'green'
+    },
+    due_date_over: {
+        backgroundColor: "red"
+    },
     date_tag: {
         paddingTop: 5,
-		paddingBottom: 5,
-		paddingLeft: 10,
-		paddingRight: 10,
+        paddingBottom: 5,
+        paddingLeft: 10,
+        paddingRight: 10,
         backgroundColor: '#d9d9d9',
         borderRadius: 50,
         flex: -1,

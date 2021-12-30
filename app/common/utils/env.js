@@ -20,8 +20,8 @@ export const isWeb = () => {
 }
 
 export const getEnv = () => {
-    return ENV_DEV
-    //return ENV_PROD
+    // return ENV_DEV
+    return ENV_PROD
 }
 
 export const isProd = () => {

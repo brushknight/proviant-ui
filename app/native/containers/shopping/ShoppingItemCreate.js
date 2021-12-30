@@ -14,9 +14,11 @@ import Counter from '../../components/shopping/Counter'
 import Deeplink from '../utils/Deeplink'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import StatusIndicator from '../../components/generic/StatusIndicator'
 import DateTimePicker from '@react-native-community/datetimepicker';
+import DatetimeModal from "../../components/shopping/DatetimeModal";
+import {unixToDate, unixToDateHuman} from "../../../common/utils/date";
 
 const ShoppingItemCreate = ({error, reset, status, submit, onClose, shoppingListId, style}) => {
     const [title, setTitle] = useState('')
@@ -24,12 +26,13 @@ const ShoppingItemCreate = ({error, reset, status, submit, onClose, shoppingList
     const [submitTime, setSubmitTime] = useState(null)
     const [dueDate, setDueDate] = useState(new Date())
     const [isValid, setIsValid] = useState(false)
+    const [datetimeModalShow, setDatetimeModalShow] = useState(false)
 
     const emptyForm = () => {
         setTitle('')
         setQuantity(1)
         setSubmitTime(+(new Date()))
-        setDueDate(new Date())
+        //setDueDate(new Date()) // disabled for UI purposes
     }
 
     useEffect(() => {
@@ -66,10 +69,23 @@ const ShoppingItemCreate = ({error, reset, status, submit, onClose, shoppingList
         )
     }
 
+    const productTitleFef = useRef();
+
     return (
         <TouchableOpacity activeOpacity={1} onPress={Keyboard.dismiss} style={[style, styles.container]}>
 
             <Deeplink/>
+
+            <DatetimeModal
+                datetimeModalShow={datetimeModalShow}
+                dueDate={dueDate}
+                setDueDate={setDueDate}
+                onClose={() => {
+                    setDatetimeModalShow(false)
+                    productTitleFef.current.focus();
+                }
+                }
+            />
 
             <TextInput
                 placeholder={'Название продукта'}
@@ -82,6 +98,7 @@ const ShoppingItemCreate = ({error, reset, status, submit, onClose, shoppingList
                 autoFocus={true}
                 placeholderTextColor="grey"
                 multiline={true}
+                ref={productTitleFef}
             />
 
             <View style={styles.count_and_date}>
@@ -96,17 +113,15 @@ const ShoppingItemCreate = ({error, reset, status, submit, onClose, shoppingList
                     resetTime={submitTime}
                 />
 
-                <DateTimePicker
-                    style={styles.date}
-                    testID="dateTimePicker"
-                    value={dueDate}
-                    mode={'date'}
-                    is24Hour={true}
-                    display="compact"
-                    onChange={(event, selectedDate) => {
-                        setDueDate(selectedDate || dueDate)
-                    }}
-                />
+                <TouchableOpacity
+                    style={styles.datetime_status}
+                    onPress={() => {
+                        setDatetimeModalShow(true)
+                    }
+                    }
+                >
+                    <Text style={styles.datetime_status_text}>{unixToDateHuman(dueDate)}</Text>
+                </TouchableOpacity>
             </View>
 
 
@@ -165,9 +180,19 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10
     },
-    date: {
+    datetime_status: {
         flex: -1,
-        width: 150
+        width: 150,
+        height: 40,
+        borderRadius: 20,
+
+        backgroundColor: '#d3d3d3',
+    },
+    datetime_status_text: {
+        textAlign: 'center',
+        height: 40,
+        lineHeight: 40,
+        fontSize: 18
     },
     button_container: {
         flex: -1,
