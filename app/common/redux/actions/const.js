@@ -121,6 +121,9 @@ export const ACTION_USER_LOGOUT = 'user/logout'
 export const ACTION_USER_LOADED = 'user/loaded'
 export const ACTION_USER_FETCH_FAILED = 'user/fetch/failed'
 
+// user settings
+export const ACTION_USER_SETTINGS_SET_SHOPPING_LIST_SORT_BY = 'user_settings/shopping_list/set_sort_by'
+
 // login
 export const ACTION_USER_LOGIN_FAIL = 'user/login/fail'
 export const ACTION_USER_LOGIN_SENDING = 'user/login/sending'

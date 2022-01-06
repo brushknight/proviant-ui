@@ -13,6 +13,7 @@ export const getStock = store => store.stock
 export const getConsumptionLog = store => store.consumptionLog
 export const getLogin = store => store.login
 export const getUser = store => store.user
+export const getUserSettings = store => store.userSettings
 export const getShoppingList = store => store.shoppingList
 export const getShoppingLists = store => store.shoppingLists
 export const getShoppingListItem = (store, itemId) => {

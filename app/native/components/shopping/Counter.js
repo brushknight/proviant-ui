@@ -67,8 +67,7 @@ const styles = {
 		width: 150,
 		marginBottom: 20,
 		justifyContent: 'space-between',
-		borderRadius: 20,
-		marginLeft: 10
+		borderRadius: 20
 	},
 	quantity: {
 		height: 40,

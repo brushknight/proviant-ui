@@ -20,6 +20,7 @@ import shoppingLists from './shopping/lists'
 import stock from './stock/stock'
 import user from './user'
 import version from './version'
+import userSettings from './userSettings'
 
 export default combineReducers({
 	lists,
@@ -35,6 +36,7 @@ export default combineReducers({
 	login,
 	register,
 	user,
+	userSettings,
 	version,
 	shoppingList,
 	shoppingForm,

@@ -3,13 +3,14 @@ import { View } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React from 'react'
+import {COLOR_ACCENT} from "../../const";
 
 const StatusIndicator = ({ isActive, isSuccess, style }) => {
 	let activeJsx = []
 
 	if (isActive) {
 		activeJsx = (
-			<Bounce size={30} color={'purple'} animating={isActive}/>
+			<Bounce size={30} color={COLOR_ACCENT} animating={isActive}/>
 		)
 	}
 
