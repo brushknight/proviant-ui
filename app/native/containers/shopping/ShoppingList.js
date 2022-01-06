@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { getShoppingList, getShoppingLists, getUser } from '../../../common/redux/selectors'
+import {getShoppingList, getShoppingLists, getUser, getUserSettings} from '../../../common/redux/selectors'
 import {
 	KeyboardAvoidingView,
 	Modal,
@@ -27,6 +27,12 @@ import React, { useEffect, useState } from 'react'
 import ShoppingItemCreate from './ShoppingItemCreate'
 import ShoppingItemUpdate from './ShoppingItemUpdate'
 import ShoppingListRow from '../../components/shopping/ShoppingListRow'
+import Settings from "./Settings";
+import {sortListByDueDate, sortListByUpdateDate} from "../../../common/utils/sort";
+import {
+	USER_SETTINGS_SORT_BY_DUE_DATE,
+	USER_SETTINGS_SORT_BY_UPDATE_DATE
+} from "../../../common/redux/reducers/userSettings";
 
 const ShoppingList = (
 	{
@@ -48,6 +54,7 @@ const ShoppingList = (
 	const [updateModal, setUpdateModal] = useState(false)
 	const [feedbackModalStatus, setFeedbackModalStatus] = useState(false)
 	const [showTags, setShowTags] = useState(true)
+	const [showSettings, setShowSettings] = useState(false)
 	const [openItemId, setOpenItemId] = useState(null)
 
 	useEffect(() => {
@@ -76,10 +83,21 @@ const ShoppingList = (
 		feedback: () => {
 			setFeedbackModalStatus(true)
 		},
-		toggle_tags: () => {
-			setShowTags(!showTags)
+		list_settings: () => {
+			setShowSettings(true)
 		}
 	}
+
+	const settingsModal = (
+		<Settings
+			modalShow={showSettings}
+			onClose={() => {
+				setShowSettings(false)
+			}}
+			showTags={showTags}
+			setShowTags={setShowTags}
+		/>
+	)
 
 	const feedbackModal = (
 		<Modal
@@ -193,6 +211,7 @@ const ShoppingList = (
 		return (
 			<View>
 				<Deeplink/>
+				{settingsModal}
 				<ScrollView
 					contentContainerStyle={styles.empty_scroll_view}
 					refreshControl={
@@ -205,6 +224,7 @@ const ShoppingList = (
 					<Text style={styles.hint_error}>
 						{error}
 					</Text>
+
 				</ScrollView>
 			</View>
 		)
@@ -244,6 +264,7 @@ const ShoppingList = (
 			<StatusBar
 				barStyle={'dark-content'}/>
 			<Deeplink/>
+			{settingsModal}
 			<ScrollView
 				contentContainerStyle={styles.list}
 				refreshControl={
@@ -307,11 +328,26 @@ const mapStateToProps = (state, ownProps) => {
 
 	const user = getUser(state)
 
+	const settings = getUserSettings(state)
+
+	let items = []
+
+	switch (settings.shoppingList.sortBy){
+		case USER_SETTINGS_SORT_BY_DUE_DATE:
+			items = shoppingList.model.items.sort(sortListByDueDate)
+			break
+		case USER_SETTINGS_SORT_BY_UPDATE_DATE:
+			items = shoppingList.model.items.sort(sortListByUpdateDate)
+			break
+		default:
+			items = shoppingList.model.items.sort(sortListByUpdateDate)
+	}
+
 	return {
 		shoppingListId: shoppingLists.items && shoppingLists.items.length > 0 ? shoppingLists.items[0].id : null,
 		fetchListsStatus: shoppingLists.status,
 		model: shoppingList.model,
-		items: shoppingList.model.items,
+		items: items,
 		status: shoppingList.status,
 		error: shoppingLists.error || shoppingList.error,
 		userStatus: user.status

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Icon from "react-native-vector-icons/FontAwesome";
-import {tomorrow} from "../../../common/utils/date";
+import {nextMonth, nextWeek, tomorrow} from "../../../common/utils/date";
 
 const DatetimeModal = ({datetimeModalShow, onClose, dueDate, setDueDate}) => {
 
@@ -49,6 +49,26 @@ const DatetimeModal = ({datetimeModalShow, onClose, dueDate, setDueDate}) => {
                 >
                     <Icon name={'calendar'} size={20} style={styles.button_icon}/>
                     <Text style={styles.button_text}>Завтра</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.button, styles.button_tomorrow]}
+                    onPress={() => {
+                        setDueDate(nextWeek())
+                        onClose()
+                    }}
+                >
+                    <Icon name={'calendar'} size={20} style={styles.button_icon}/>
+                    <Text style={styles.button_text}>На следующей неделе</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.button, styles.button_tomorrow]}
+                    onPress={() => {
+                        setDueDate(nextMonth())
+                        onClose()
+                    }}
+                >
+                    <Icon name={'calendar'} size={20} style={styles.button_icon}/>
+                    <Text style={styles.button_text}>В следующем месяце</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.button, styles.button_close]}

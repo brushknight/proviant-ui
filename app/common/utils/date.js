@@ -40,6 +40,14 @@ export const unixToDateHuman = (date) => {
     }
 }
 
+export const nextWeek = () => {
+    return dayjs(new Date()).add(1, 'week').day(1).toDate()
+}
+
+export const nextMonth = () => {
+    return dayjs(new Date()).add(1, 'month').date(1).toDate()
+}
+
 export const tomorrow = () => {
     return dayjs(new Date()).add(1, 'day').toDate()
 }

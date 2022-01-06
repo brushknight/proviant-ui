@@ -6,26 +6,19 @@ import React from 'react'
 const MoreButton = ({ actionHandlers }) => {
 	const actions = [
 		{
-			text: 'Toggle Tags',
-			icon: <Icon name={'tag'} size={20}/>,
-			name: 'toggle_tags',
-			position: 2,
-			color: 'white'
-		},
-		{
-			text: 'Feedback',
+			text: 'Отправить отзыв',
 			icon: <Icon name={'question'} size={30}/>,
 			name: 'feedback',
 			position: 1,
 			color: 'white'
+		},
+		{
+			text: 'Настройки списка',
+			icon: <Icon name={'cog'} size={20}/>,
+			name: 'list_settings',
+			position: 2,
+			color: 'white'
 		}
-		// {
-		// 	text: 'Product',
-		// 	icon: require('../../assets/icons/lemon.png'),
-		// 	name: 'product',
-		// 	position: 1,
-		// 	color: 'purple'
-		// }
 	]
 
 	return (
