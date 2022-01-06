@@ -19,6 +19,7 @@ import StatusIndicator from '../../components/generic/StatusIndicator'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DatetimeModal from "../../components/shopping/DatetimeModal";
 import {unixToDate, unixToDateHuman} from "../../../common/utils/date";
+import {COLOR_DANGER, COLOR_SUCCESS} from "../../const";
 
 const ShoppingItemCreate = ({error, reset, status, submit, onClose, shoppingListId, style}) => {
     const [title, setTitle] = useState('')
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginLeft: 10,
         marginBottom: 10,
-        color: '#ff0000'
+        color: COLOR_DANGER
     },
     count_and_date: {
         flex: -1,
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
     button_create: {
-        backgroundColor: 'green'
+        backgroundColor: COLOR_SUCCESS
     },
     button_text: {
         color: '#ffffff',
@@ -233,7 +234,7 @@ const styles = StyleSheet.create({
         width: 30
     },
     button_success: {
-        backgroundColor: 'green'
+        backgroundColor: COLOR_SUCCESS
     },
     disabled: {
         backgroundColor: 'grey'

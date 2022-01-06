@@ -4,6 +4,7 @@ import React from 'react'
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Icon from "react-native-vector-icons/FontAwesome";
 import {nextMonth, nextWeek, tomorrow} from "../../../common/utils/date";
+import {COLOR_SUCCESS, COLOR_WARNING} from "../../const";
 
 const DatetimeModal = ({datetimeModalShow, onClose, dueDate, setDueDate}) => {
 
@@ -30,26 +31,28 @@ const DatetimeModal = ({datetimeModalShow, onClose, dueDate, setDueDate}) => {
                         onClose()
                     }}
                 />
-                <TouchableOpacity
-                    style={[styles.button, styles.button_today]}
-                    onPress={() => {
-                        setDueDate(new Date())
-                        onClose()
-                    }}
-                >
-                    <Icon name={'calendar'} size={20} style={styles.button_icon}/>
-                    <Text style={styles.button_text}>Сегодня</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[styles.button, styles.button_tomorrow]}
-                    onPress={() => {
-                        setDueDate(tomorrow())
-                        onClose()
-                    }}
-                >
-                    <Icon name={'calendar'} size={20} style={styles.button_icon}/>
-                    <Text style={styles.button_text}>Завтра</Text>
-                </TouchableOpacity>
+                <View style={styles.two_buttons_row}>
+                    <TouchableOpacity
+                        style={[styles.button, styles.button_today, , styles.button_margin_right]}
+                        onPress={() => {
+                            setDueDate(new Date())
+                            onClose()
+                        }}
+                    >
+                        <Icon name={'calendar'} size={20} style={styles.button_icon}/>
+                        <Text style={styles.button_text}>Сегодня</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.button, styles.button_tomorrow, styles.button_margin_left]}
+                        onPress={() => {
+                            setDueDate(tomorrow())
+                            onClose()
+                        }}
+                    >
+                        <Icon name={'calendar'} size={20} style={styles.button_icon}/>
+                        <Text style={styles.button_text}>Завтра</Text>
+                    </TouchableOpacity>
+                </View>
                 <TouchableOpacity
                     style={[styles.button, styles.button_tomorrow]}
                     onPress={() => {
@@ -93,6 +96,17 @@ DatetimeModal.propTypes = {
 }
 
 const styles = StyleSheet.create({
+    two_buttons_row:{
+        flex: -1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    button_margin_left:{
+        marginLeft: 5
+    },
+    button_margin_right:{
+        marginRight: 5
+    },
     button: {
         height: 40,
         borderRadius: 15,
@@ -101,7 +115,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         paddingRight: 15,
         paddingLeft: 10,
-        marginBottom: 10
+        marginBottom: 10,
+        flexGrow: 1
     },
     button_text: {
         color: '#ffffff',
@@ -111,6 +126,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '500'
     },
+
     button_icon: {
         color: '#ffffff',
         textAlign: 'center',
@@ -119,10 +135,10 @@ const styles = StyleSheet.create({
         width: 30
     },
     button_today: {
-        backgroundColor: 'orange'
+        backgroundColor: COLOR_WARNING
     },
     button_tomorrow: {
-        backgroundColor: 'green'
+        backgroundColor: COLOR_SUCCESS
     },
     button_close: {
         backgroundColor: 'grey'

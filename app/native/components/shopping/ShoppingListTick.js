@@ -2,6 +2,7 @@ import { TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React from 'react'
+import {COLOR_ACCENT} from "../../const";
 
 const ShoppingListTick = ({ isChecked, onCheck, onUncheck, extraStyles, size }) => {
 	const onTick = () => {
@@ -57,7 +58,7 @@ ShoppingListTick.propTypes = {
 const styles = {
 	tick: {
 		borderRadius: 15,
-		borderColor: 'purple',
+		borderColor: COLOR_ACCENT,
 		borderWidth: 3,
 		width: 30,
 		height: 30,
@@ -65,7 +66,7 @@ const styles = {
 	},
 	icon: {
 		textAlign: 'center',
-		color: 'purple',
+		color: COLOR_ACCENT,
 		opacity: 0.2
 	},
 	icon_checked: {

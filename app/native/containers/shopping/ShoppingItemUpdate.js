@@ -20,6 +20,7 @@ import ShoppingListTick from '../../components/shopping/ShoppingListTick'
 import StatusIndicator from '../../components/generic/StatusIndicator'
 import {unixToDateHuman} from "../../../common/utils/date";
 import DatetimeModal from "../../components/shopping/DatetimeModal";
+import {COLOR_DANGER, COLOR_SUCCESS} from "../../const";
 
 const ShoppingItemUpdate = (
     {
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginLeft: 10,
         marginBottom: 10,
-        color: '#ff0000'
+        color: COLOR_DANGER
     },
     count_and_date: {
         flex: -1,
@@ -260,7 +261,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     button_save: {
-        backgroundColor: 'green'
+        backgroundColor: COLOR_SUCCESS
     },
     button_text: {
         color: '#ffffff',
@@ -271,7 +272,7 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
     button_delete: {
-        backgroundColor: 'red',
+        backgroundColor: COLOR_DANGER,
         justifyContent: 'center',
         paddingRight: 5,
         paddingLeft: 5
@@ -284,7 +285,7 @@ const styles = StyleSheet.create({
         width: 30
     },
     button_success: {
-        backgroundColor: 'green'
+        backgroundColor: COLOR_SUCCESS
     },
     action_indicator: {
         marginLeft: 'auto',

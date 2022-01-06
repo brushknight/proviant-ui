@@ -7,6 +7,7 @@ import {getUserSettings} from "../../../common/redux/selectors";
 import {connect} from "react-redux";
 import {USER_SETTINGS_SORT_BY, USER_SETTINGS_SORT_BY_LIST} from "../../../common/redux/reducers/userSettings";
 import {setShoppingListSorting} from "../../../common/redux/actions/user/userSettings";
+import {COLOR_SUCCESS, COLOR_WARNING} from "../../const";
 
 const Settings = ({modalShow, onClose, showTags, setShowTags, settings, sortByItems, setSorting}) => {
 
@@ -141,10 +142,10 @@ const styles = StyleSheet.create({
         width: 30
     },
     button_hide_tags: {
-        backgroundColor: 'orange'
+        backgroundColor: COLOR_WARNING
     },
     button_show_tags: {
-        backgroundColor: 'green'
+        backgroundColor: COLOR_SUCCESS
     },
     button_close: {
         backgroundColor: 'grey'
@@ -159,8 +160,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => {
     const settings = getUserSettings(state)
-
-    console.log(settings.shoppingList.sortBy)
 
     return {
         settings: settings,
@@ -177,7 +176,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 Settings.propTypes = {
     settings: PropTypes.object,
-    sortByItems: PropTypes.object,
+    sortByItems: PropTypes.array,
     modalShow: PropTypes.bool,
     setSorting: PropTypes.func,
     onClose: PropTypes.func,

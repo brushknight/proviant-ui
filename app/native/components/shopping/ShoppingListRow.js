@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import ShoppingListTick from './ShoppingListTick'
 import {isOverdue, isToday, isTomorrow, unixToDateHuman} from "../../../common/utils/date";
+import {COLOR_DANGER, COLOR_SUCCESS, COLOR_WARNING} from "../../const";
 
 const ShoppingListRow = ({item, showTags, onCheck, onUncheck, onClick}) => {
     const goToDetails = () => {
@@ -104,13 +105,13 @@ const styles = StyleSheet.create({
         opacity: 0.2
     },
     due_date_today: {
-        backgroundColor: "orange"
+        backgroundColor: COLOR_WARNING
     },
     due_date_tomorrow: {
-        backgroundColor: 'green'
+        backgroundColor: COLOR_SUCCESS
     },
     due_date_over: {
-        backgroundColor: "red"
+        backgroundColor: COLOR_DANGER
     },
     date_tag: {
         paddingTop: 5,
