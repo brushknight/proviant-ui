@@ -161,18 +161,18 @@ const ShoppingItemUpdate = (
                     <Text style={styles.datetime_status_text}>{unixToDateHuman(dueDate)}</Text>
                 </TouchableOpacity>
             </View>
-            <View style={styles.store_container}>
-                <TouchableOpacity
-                    style={styles.store}
-                    onPress={() => {
+            {/*<View style={styles.store_container}>*/}
+            {/*    <TouchableOpacity*/}
+            {/*        style={styles.store}*/}
+            {/*        onPress={() => {*/}
 
-                    }
-                    }
-                >
-                    <Icon name={'shopping-basket'} style={styles.calendar_icon} size={20}/>
-                    <Text style={styles.store_text}></Text>
-                </TouchableOpacity>
-            </View>
+            {/*        }*/}
+            {/*        }*/}
+            {/*    >*/}
+            {/*        <Icon name={'shopping-basket'} style={styles.calendar_icon} size={20}/>*/}
+            {/*        <Text style={styles.store_text}></Text>*/}
+            {/*    </TouchableOpacity>*/}
+            {/*</View>*/}
             {errorJsx}
             <View style={styles.button_container}>
 
@@ -192,7 +192,7 @@ const ShoppingItemUpdate = (
                     onPress={onClose}
                 >
                     <Icon name={'times'} size={20} style={styles.button_icon}/>
-                    <Text style={styles.button_text}>Cancel</Text>
+                    <Text style={styles.button_text}>Отмена</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.button, styles.button_save]}
@@ -200,7 +200,7 @@ const ShoppingItemUpdate = (
                     activeOpacity={status === STATUS_SENDING}
                 >
                     <Icon name={'check'} size={20} style={styles.button_icon}/>
-                    <Text style={styles.button_text}>Save</Text>
+                    <Text style={styles.button_text}>Сохранить</Text>
                 </TouchableOpacity>
 
             </View>

@@ -123,6 +123,7 @@ export const ACTION_USER_FETCH_FAILED = 'user/fetch/failed'
 
 // user settings
 export const ACTION_USER_SETTINGS_SET_SHOPPING_LIST_SORT_BY = 'user_settings/shopping_list/set_sort_by'
+export const ACTION_USER_SETTINGS_SET_SHOPPING_LIST_SHOW_TAGS = 'user_settings/shopping_list/set_show_tags'
 
 // login
 export const ACTION_USER_LOGIN_FAIL = 'user/login/fail'

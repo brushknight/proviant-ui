@@ -1,4 +1,7 @@
-import {ACTION_USER_SETTINGS_SET_SHOPPING_LIST_SORT_BY} from "../actions/const";
+import {
+    ACTION_USER_SETTINGS_SET_SHOPPING_LIST_SHOW_TAGS,
+    ACTION_USER_SETTINGS_SET_SHOPPING_LIST_SORT_BY
+} from "../actions/const";
 
 export const USER_SETTINGS_SORT_BY_DUE_DATE = "due_date"
 export const USER_SETTINGS_SORT_BY_UPDATE_DATE = "update_date"
@@ -12,6 +15,7 @@ export const USER_SETTINGS_SORT_BY_LIST = [
 const emptyShoppingListSettings = () => {
     return {
         sortBy: null,
+        showTags: true
     }
 }
 
@@ -30,6 +34,15 @@ export default function (state = initialState(), action) {
                 shoppingList: {
                     ...state.shoppingList,
                     sortBy: action.sortBy
+                }
+            }
+
+        case ACTION_USER_SETTINGS_SET_SHOPPING_LIST_SHOW_TAGS:
+            return {
+                ...state,
+                shoppingList: {
+                    ...state.shoppingList,
+                    showTags: action.showTags
                 }
             }
 

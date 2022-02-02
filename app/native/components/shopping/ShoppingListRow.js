@@ -14,31 +14,32 @@ const ShoppingListRow = ({item, showTags, onCheck, onUncheck, onClick}) => {
 
     if (showTags) {
 
-        let due_date = new Date(item.due_date)
-
         let dateStatus = []
+        if (item.due_date > 0){
+            let due_date = new Date(item.due_date)
 
-        if (!item.checked) {
-            switch (true) {
-                case isToday(due_date):
-                    dateStatus.push(styles.due_date_today)
-                    break;
-                case isTomorrow(due_date):
-                    dateStatus.push(styles.due_date_tomorrow)
-                    break;
-                case isOverdue(due_date):
-                    dateStatus.push(styles.due_date_over)
-                    break;
+            if (!item.checked) {
+                switch (true) {
+                    case isToday(due_date):
+                        dateStatus.push(styles.due_date_today)
+                        break;
+                    case isTomorrow(due_date):
+                        dateStatus.push(styles.due_date_tomorrow)
+                        break;
+                    case isOverdue(due_date):
+                        dateStatus.push(styles.due_date_over)
+                        break;
+                }
+            }else{
+                dateStatus = [styles.tag_checked]
             }
-        }else{
-            dateStatus = [styles.tag_checked]
-        }
 
-        tags = (
-            <View style={styles.tags}>
-                <View style={[styles.date_tag, dateStatus]}><Text>{unixToDateHuman(due_date)}</Text></View>
-            </View>
-        )
+            tags = (
+                <View style={styles.tags}>
+                    <View style={[styles.date_tag, dateStatus]}><Text>{unixToDateHuman(due_date)}</Text></View>
+                </View>
+            )
+        }
     }
 
     return (

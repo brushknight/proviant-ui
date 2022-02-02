@@ -63,7 +63,7 @@ const Feedback = ({ error, reset, status, submit, onClose, style }) => {
 			<Deeplink/>
 
 			<TextInput
-				placeholder={'Type your feedback here...'}
+				placeholder={'Напишите ваш отзыв тут...'}
 				style={styles.text}
 				onChangeText={setText}
 				value={text}
@@ -80,7 +80,7 @@ const Feedback = ({ error, reset, status, submit, onClose, style }) => {
 					onPress={onClose}
 				>
 					<Icon name={'times'} size={20} style={styles.button_icon}/>
-					<Text style={styles.button_text}>Cancel</Text>
+					<Text style={styles.button_text}>Отмена</Text>
 				</TouchableOpacity>
 
 				<StatusIndicator
@@ -94,7 +94,7 @@ const Feedback = ({ error, reset, status, submit, onClose, style }) => {
 					onPress={onSubmit}
 				>
 					<Icon name={'paper-plane'} size={18} style={styles.button_icon}/>
-					<Text style={styles.button_text}>Send</Text>
+					<Text style={styles.button_text}>Отправить</Text>
 				</TouchableOpacity>
 
 			</View>

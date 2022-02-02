@@ -5,11 +5,11 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import RNPickerSelect from "react-native-picker-select";
 import {getUserSettings} from "../../../common/redux/selectors";
 import {connect} from "react-redux";
-import {USER_SETTINGS_SORT_BY, USER_SETTINGS_SORT_BY_LIST} from "../../../common/redux/reducers/userSettings";
-import {setShoppingListSorting} from "../../../common/redux/actions/user/userSettings";
+import {USER_SETTINGS_SORT_BY_LIST} from "../../../common/redux/reducers/userSettings";
+import {setShoppingListShowTags, setShoppingListSorting} from "../../../common/redux/actions/user/userSettings";
 import {COLOR_SUCCESS, COLOR_WARNING} from "../../const";
 
-const Settings = ({modalShow, onClose, showTags, setShowTags, settings, sortByItems, setSorting}) => {
+const Settings = ({modalShow, onClose, setShowTags, settings, sortByItems, setSorting}) => {
 
     let toggleTagsButton = (
         <TouchableOpacity
@@ -24,7 +24,7 @@ const Settings = ({modalShow, onClose, showTags, setShowTags, settings, sortByIt
         </TouchableOpacity>
     )
 
-    if (showTags) {
+    if (settings.shoppingList.showTags) {
         toggleTagsButton = (
             <TouchableOpacity
                 style={[styles.button, styles.button_hide_tags]}
@@ -86,14 +86,6 @@ const Settings = ({modalShow, onClose, showTags, setShowTags, settings, sortByIt
 
         </Modal>
     )
-}
-
-Settings.propTypes = {
-    modalShow: PropTypes.bool,
-    onClose: PropTypes.func,
-    showTags: PropTypes.bool,
-    setShowTags: PropTypes.func
-
 }
 
 const styles = StyleSheet.create({
@@ -170,7 +162,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     const locale = 'en'
     return {
-        setSorting: (sortBy) => dispatch(setShoppingListSorting(sortBy))
+        setSorting: (sortBy) => dispatch(setShoppingListSorting(sortBy)),
+        setShowTags: (showTags) => dispatch(setShoppingListShowTags(showTags))
     }
 }
 
@@ -180,7 +173,6 @@ Settings.propTypes = {
     modalShow: PropTypes.bool,
     setSorting: PropTypes.func,
     onClose: PropTypes.func,
-    showTags: PropTypes.bool,
     setShowTags: PropTypes.func
 }
 
