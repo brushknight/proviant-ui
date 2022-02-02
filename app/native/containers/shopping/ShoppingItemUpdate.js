@@ -157,7 +157,20 @@ const ShoppingItemUpdate = (
                     }
                     }
                 >
+                    <Icon name={'calendar'} style={styles.calendar_icon} size={20}/>
                     <Text style={styles.datetime_status_text}>{unixToDateHuman(dueDate)}</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.store_container}>
+                <TouchableOpacity
+                    style={styles.store}
+                    onPress={() => {
+
+                    }
+                    }
+                >
+                    <Icon name={'shopping-basket'} style={styles.calendar_icon} size={20}/>
+                    <Text style={styles.store_text}></Text>
                 </TouchableOpacity>
             </View>
             {errorJsx}
@@ -196,13 +209,34 @@ const ShoppingItemUpdate = (
 }
 
 const styles = StyleSheet.create({
+    store_container: {
+        paddingBottom: 20,
+        paddingLeft: 10,
+        paddingRight: 10
+    },
+    store:{
+        flex: -1,
+        width: '100%',
+        height: 40,
+        borderRadius: 20,
+
+        backgroundColor: '#d3d3d3',
+    },
+    store_text:{},
+    store_icon:{
+        position: 'absolute',
+        height: 40,
+        width: 60,
+        lineHeight: 40,
+        textAlign: 'center'
+    },
     container: {
         // minHeight: 150
     },
     tick: {
         position: 'absolute',
         right: 10,
-        top: 20
+        top: 15
     },
     title: {
         minHeight: 50,
@@ -234,11 +268,19 @@ const styles = StyleSheet.create({
 
         backgroundColor: '#d3d3d3',
     },
+    calendar_icon: {
+        position: 'absolute',
+        height: 40,
+        width: 60,
+        lineHeight: 40,
+        textAlign: 'center'
+    },
     datetime_status_text: {
         textAlign: 'center',
         height: 40,
         lineHeight: 40,
-        fontSize: 18
+        fontSize: 18,
+        paddingLeft: 20
     },
     button_container: {
         flex: -1,

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, InputGroup, Intent, NumericInput } from '@blueprintjs/core'
+import {Button, FormGroup, InputGroup, Intent, NumericInput} from '@blueprintjs/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../../../common/redux/actions/product/products'
@@ -19,6 +19,8 @@ import { useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
+import {DateInput} from "@blueprintjs/datetime";
+import {unixToDate} from "../../../common/utils/date";
 
 const ShoppingListItem = (
 	{
@@ -41,6 +43,7 @@ const ShoppingListItem = (
 	const [title, setTitle] = useState('')
 	const [quantity, setQuantity] = useState(0)
 	const [price, setPrice] = useState(0.00)
+	const [dueDate, setDueDate] = useState(new Date())
 	const [productId, setProductId] = useState(null)
 	const [statusInternal, setStatusInternal] = useState('')
 
@@ -48,6 +51,7 @@ const ShoppingListItem = (
 		setTitle('')
 		setQuantity(1)
 		setPrice(0)
+		setDueDate(new Date())
 		setStatusInternal(STATUS_DEFAULT)
 		setProductId(null)
 	}
@@ -58,6 +62,7 @@ const ShoppingListItem = (
 			setPrice(item.price)
 			setQuantity(item.quantity)
 			setProductId(item.product_id)
+			setDueDate( item.due_date ? new Date(item.due_date) : new Date())
 		}
 
 		if (products.status !== STATUS_LOADED) {
@@ -82,6 +87,7 @@ const ShoppingListItem = (
 			title,
 			quantity,
 			price,
+			due_date: +dueDate,
 			checked: item.checked,
 			product_id: productId
 		})
@@ -105,6 +111,18 @@ const ShoppingListItem = (
 
 	if (productModel) {
 		productModel = convertModelToValue(productModel)
+	}
+
+	const jsDateFormatter = {
+		// note that the native implementation of Date functions differs between browsers
+		formatDate: date => unixToDate(date),
+		placeholder: 'DD/MM/YYYY',
+		value: dueDate,
+		parseDate: str => new Date(str),
+		maxDate: new Date('2100/01/01'),
+		onChange: (date) => {
+			setDueDate(date)
+		}
 	}
 
 	return (
@@ -163,6 +181,13 @@ const ShoppingListItem = (
 					}}
 					value={productModel}
 				/>
+				<FormGroup
+					className={'shopping-list-edit__due_date'}
+					label={t('shopping_list_item.due_date')}
+					inline={true}
+				>
+					<DateInput {...jsDateFormatter} />
+				</FormGroup>
 				<div className={'shopping-list-edit__buttons'}>
 					<Button
 						disabled={statusInternal === STATUS_ERROR}

@@ -31,6 +31,19 @@ const MainRouter = () => {
 						}}
 					/>
 					<Drawer.Screen
+
+						name="shops"
+						leftButtonIconStyle={{ tintColor: 'white' }}
+						component={ShoppingList}
+						options={{
+							title: 'Shops',
+							// eslint-disable-next-line react/prop-types
+							drawerIcon: ({ focused, size }) => (
+								<Icon name={'shopping-basket'} size={size} color={focused ? 'purple' : 'grey'}/>
+							)
+						}}
+					/>
+					<Drawer.Screen
 						name="profile"
 						component={Profile}
 						options={{
