@@ -29,14 +29,14 @@ const Profile = ({ logout, userStatus, user, fetchCoreVersion, version }) => {
 			{/* </View> */}
 			<View style={styles.bottom}>
 				<Button
-					title={'Logout'}
+					title={'Выход'}
 					onPress={() => {
 						logout()
 					}}
 					buttonStyle={styles.button_logout}
 				/>
 			</View>
-			<Text style={styles.version}>versions: core-{version.core.version}</Text>
+			<Text style={styles.version}>версия: core-{version.core.version}</Text>
 
 		</SafeAreaView>
 	)

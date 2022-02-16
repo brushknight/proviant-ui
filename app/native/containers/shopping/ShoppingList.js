@@ -47,13 +47,13 @@ const ShoppingList = (
 		shoppingListId,
 		fetchListsStatus,
 		fetchLists,
-		actionShoppingFormReset
+		actionShoppingFormReset,
+		settings
 	}
 ) => {
 	const [createModal, setCreateModal] = useState(false)
 	const [updateModal, setUpdateModal] = useState(false)
 	const [feedbackModalStatus, setFeedbackModalStatus] = useState(false)
-	const [showTags, setShowTags] = useState(true)
 	const [showSettings, setShowSettings] = useState(false)
 	const [openItemId, setOpenItemId] = useState(null)
 
@@ -94,8 +94,6 @@ const ShoppingList = (
 			onClose={() => {
 				setShowSettings(false)
 			}}
-			showTags={showTags}
-			setShowTags={setShowTags}
 		/>
 	)
 
@@ -244,7 +242,7 @@ const ShoppingList = (
 				navigation={navigation}
 				key={item.id}
 				item={item}
-				showTags={showTags}
+				showTags={settings.shoppingList.showTags}
 				onCheck={() => {
 					checkItem(shoppingListId, item.id)
 				}}
@@ -350,7 +348,8 @@ const mapStateToProps = (state, ownProps) => {
 		items: items,
 		status: shoppingList.status,
 		error: shoppingLists.error || shoppingList.error,
-		userStatus: user.status
+		userStatus: user.status,
+		settings: settings
 	}
 }
 

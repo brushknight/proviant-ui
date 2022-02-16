@@ -38,6 +38,7 @@ const ShoppingItemUpdate = (
         onClose
     }) => {
     const [title, setTitle] = useState('')
+    const [comment, setComment] = useState('')
     const [quantity, setQuantity] = useState('')
     const [dueDate, setDueDate] = useState(new Date())
     const [submitTime, setSubmitTime] = useState(null)
@@ -45,6 +46,7 @@ const ShoppingItemUpdate = (
 
     const emptyForm = () => {
         setTitle('')
+        setComment('')
         setQuantity(1)
         setSubmitTime(+(new Date()))
         setDueDate(new Date())
@@ -56,6 +58,7 @@ const ShoppingItemUpdate = (
             reset()
             emptyForm()
             setTitle(item.title)
+            setComment(item.comment)
             setQuantity(item.quantity)
             setDueDate(new Date(item.due_date))
         }
@@ -85,6 +88,7 @@ const ShoppingItemUpdate = (
     const onSubmit = () => {
         updateItem(shoppingListId, item.id, {
             title,
+            comment,
             quantity,
             due_date: +dueDate,
             checked: item.checked
@@ -157,9 +161,36 @@ const ShoppingItemUpdate = (
                     }
                     }
                 >
+                    <Icon name={'calendar'} style={styles.calendar_icon} size={20}/>
                     <Text style={styles.datetime_status_text}>{unixToDateHuman(dueDate)}</Text>
                 </TouchableOpacity>
             </View>
+            {/*<View style={styles.store_container}>*/}
+            {/*    <TouchableOpacity*/}
+            {/*        style={styles.store}*/}
+            {/*        onPress={() => {*/}
+
+            {/*        }*/}
+            {/*        }*/}
+            {/*    >*/}
+            {/*        <Icon name={'shopping-basket'} style={styles.calendar_icon} size={20}/>*/}
+            {/*        <Text style={styles.store_text}></Text>*/}
+            {/*    </TouchableOpacity>*/}
+            {/*</View>*/}
+
+            <TextInput
+                placeholder={'Комментарий'}
+                style={styles.comment}
+                onChangeText={(value) => {
+                    setComment(value)
+                    reset()
+                }}
+                value={comment}
+                autoFocus={false}
+                placeholderTextColor="grey"
+                multiline={true}
+            />
+
             {errorJsx}
             <View style={styles.button_container}>
 
@@ -179,7 +210,7 @@ const ShoppingItemUpdate = (
                     onPress={onClose}
                 >
                     <Icon name={'times'} size={20} style={styles.button_icon}/>
-                    <Text style={styles.button_text}>Cancel</Text>
+                    <Text style={styles.button_text}>Отмена</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.button, styles.button_save]}
@@ -187,7 +218,7 @@ const ShoppingItemUpdate = (
                     activeOpacity={status === STATUS_SENDING}
                 >
                     <Icon name={'check'} size={20} style={styles.button_icon}/>
-                    <Text style={styles.button_text}>Save</Text>
+                    <Text style={styles.button_text}>Сохранить</Text>
                 </TouchableOpacity>
 
             </View>
@@ -196,13 +227,34 @@ const ShoppingItemUpdate = (
 }
 
 const styles = StyleSheet.create({
+    // store_container: {
+    //     paddingBottom: 20,
+    //     paddingLeft: 10,
+    //     paddingRight: 10
+    // },
+    // store:{
+    //     flex: -1,
+    //     width: '100%',
+    //     height: 40,
+    //     borderRadius: 20,
+    //
+    //     backgroundColor: '#d3d3d3',
+    // },
+    // store_text:{},
+    // store_icon:{
+    //     position: 'absolute',
+    //     height: 40,
+    //     width: 60,
+    //     lineHeight: 40,
+    //     textAlign: 'center'
+    // },
     container: {
         // minHeight: 150
     },
     tick: {
         position: 'absolute',
         right: 10,
-        top: 20
+        top: 15
     },
     title: {
         minHeight: 50,
@@ -210,6 +262,14 @@ const styles = StyleSheet.create({
         marginRight: 60,
         marginTop: 15,
         paddingLeft: 15,
+        paddingBottom: 10
+    },
+    comment: {
+        minHeight: 50,
+        fontSize: 16,
+        marginTop: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
         paddingBottom: 10
     },
     hint_error: {
@@ -234,11 +294,19 @@ const styles = StyleSheet.create({
 
         backgroundColor: '#d3d3d3',
     },
+    calendar_icon: {
+        position: 'absolute',
+        height: 40,
+        width: 60,
+        lineHeight: 40,
+        textAlign: 'center'
+    },
     datetime_status_text: {
         textAlign: 'center',
         height: 40,
         lineHeight: 40,
-        fontSize: 18
+        fontSize: 18,
+        paddingLeft: 20
     },
     button_container: {
         flex: -1,
