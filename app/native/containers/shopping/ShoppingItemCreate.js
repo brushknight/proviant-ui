@@ -1,28 +1,21 @@
-import { Bounce } from 'react-native-animated-spinkit'
-import { connect } from 'react-redux'
-import { getShoppingForm, getShoppingList } from '../../../common/redux/selectors'
-import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { shoppingFormReset, shoppingFormSubmit } from '../../../common/redux/actions/shopping/form'
-import {
-	STATUS_CREATED,
-	STATUS_ERROR,
-	STATUS_SENDING,
-	STATUS_SUBMITTED,
-	STATUS_UPDATED
-} from '../../../common/redux/reducers/consts'
+import {connect} from 'react-redux'
+import {getShoppingForm, getShoppingList} from '../../../common/redux/selectors'
+import {Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
+import {shoppingFormReset, shoppingFormSubmit} from '../../../common/redux/actions/shopping/form'
+import {STATUS_CREATED, STATUS_ERROR, STATUS_SENDING} from '../../../common/redux/reducers/consts'
 import Counter from '../../components/shopping/Counter'
 import Deeplink from '../utils/Deeplink'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from 'react'
 import StatusIndicator from '../../components/generic/StatusIndicator'
-import DateTimePicker from '@react-native-community/datetimepicker';
 import DatetimeModal from "../../components/shopping/DatetimeModal";
-import {unixToDate, unixToDateHuman} from "../../../common/utils/date";
+import {unixToDateHuman} from "../../../common/utils/date";
 import {COLOR_DANGER, COLOR_SUCCESS} from "../../const";
 
 const ShoppingItemCreate = ({error, reset, status, submit, onClose, shoppingListId, style}) => {
     const [title, setTitle] = useState('')
+    const [comment, setComment] = useState('')
     const [quantity, setQuantity] = useState('')
     const [submitTime, setSubmitTime] = useState(null)
     const [dueDate, setDueDate] = useState(new Date())
@@ -52,6 +45,7 @@ const ShoppingItemCreate = ({error, reset, status, submit, onClose, shoppingList
         if (isValid) {
             submit(shoppingListId, {
                 title,
+                comment,
                 quantity,
                 due_date: +dueDate
             })
@@ -125,6 +119,18 @@ const ShoppingItemCreate = ({error, reset, status, submit, onClose, shoppingList
                 </TouchableOpacity>
             </View>
 
+            <TextInput
+                placeholder={'Комментарий'}
+                style={styles.comment}
+                onChangeText={(value) => {
+                    setComment(value)
+                    reset()
+                }}
+                value={comment}
+                autoFocus={false}
+                placeholderTextColor="grey"
+                multiline={true}
+            />
 
             {errorJsx}
             <View style={styles.button_container}>
@@ -163,6 +169,14 @@ const styles = StyleSheet.create({
         minHeight: 50,
         fontSize: 20,
         marginTop: 15,
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingBottom: 10
+    },
+    comment: {
+        minHeight: 50,
+        fontSize: 16,
+        marginTop: 10,
         paddingLeft: 15,
         paddingRight: 15,
         paddingBottom: 10

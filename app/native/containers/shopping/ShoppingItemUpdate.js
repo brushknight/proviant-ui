@@ -38,6 +38,7 @@ const ShoppingItemUpdate = (
         onClose
     }) => {
     const [title, setTitle] = useState('')
+    const [comment, setComment] = useState('')
     const [quantity, setQuantity] = useState('')
     const [dueDate, setDueDate] = useState(new Date())
     const [submitTime, setSubmitTime] = useState(null)
@@ -45,6 +46,7 @@ const ShoppingItemUpdate = (
 
     const emptyForm = () => {
         setTitle('')
+        setComment('')
         setQuantity(1)
         setSubmitTime(+(new Date()))
         setDueDate(new Date())
@@ -56,6 +58,7 @@ const ShoppingItemUpdate = (
             reset()
             emptyForm()
             setTitle(item.title)
+            setComment(item.comment)
             setQuantity(item.quantity)
             setDueDate(new Date(item.due_date))
         }
@@ -85,6 +88,7 @@ const ShoppingItemUpdate = (
     const onSubmit = () => {
         updateItem(shoppingListId, item.id, {
             title,
+            comment,
             quantity,
             due_date: +dueDate,
             checked: item.checked
@@ -173,6 +177,20 @@ const ShoppingItemUpdate = (
             {/*        <Text style={styles.store_text}></Text>*/}
             {/*    </TouchableOpacity>*/}
             {/*</View>*/}
+
+            <TextInput
+                placeholder={'Комментарий'}
+                style={styles.comment}
+                onChangeText={(value) => {
+                    setComment(value)
+                    reset()
+                }}
+                value={comment}
+                autoFocus={false}
+                placeholderTextColor="grey"
+                multiline={true}
+            />
+
             {errorJsx}
             <View style={styles.button_container}>
 
@@ -209,27 +227,27 @@ const ShoppingItemUpdate = (
 }
 
 const styles = StyleSheet.create({
-    store_container: {
-        paddingBottom: 20,
-        paddingLeft: 10,
-        paddingRight: 10
-    },
-    store:{
-        flex: -1,
-        width: '100%',
-        height: 40,
-        borderRadius: 20,
-
-        backgroundColor: '#d3d3d3',
-    },
-    store_text:{},
-    store_icon:{
-        position: 'absolute',
-        height: 40,
-        width: 60,
-        lineHeight: 40,
-        textAlign: 'center'
-    },
+    // store_container: {
+    //     paddingBottom: 20,
+    //     paddingLeft: 10,
+    //     paddingRight: 10
+    // },
+    // store:{
+    //     flex: -1,
+    //     width: '100%',
+    //     height: 40,
+    //     borderRadius: 20,
+    //
+    //     backgroundColor: '#d3d3d3',
+    // },
+    // store_text:{},
+    // store_icon:{
+    //     position: 'absolute',
+    //     height: 40,
+    //     width: 60,
+    //     lineHeight: 40,
+    //     textAlign: 'center'
+    // },
     container: {
         // minHeight: 150
     },
@@ -244,6 +262,14 @@ const styles = StyleSheet.create({
         marginRight: 60,
         marginTop: 15,
         paddingLeft: 15,
+        paddingBottom: 10
+    },
+    comment: {
+        minHeight: 50,
+        fontSize: 16,
+        marginTop: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
         paddingBottom: 10
     },
     hint_error: {

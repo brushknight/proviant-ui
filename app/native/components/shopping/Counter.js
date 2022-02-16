@@ -65,7 +65,6 @@ const styles = {
 		flex: 0,
 		flexDirection: 'row',
 		width: 150,
-		marginBottom: 20,
 		justifyContent: 'space-between',
 		borderRadius: 20
 	},
