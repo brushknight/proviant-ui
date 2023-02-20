@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "Proviant.io",
+    "slug": "proviant-io",
+    "scheme": "proviant-io",
+    "owner": "proviant",
+    "version": "1.1.1",
+    "orientation": "portrait",
+    "icon": "./native/assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./native/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "io.proviant.ios"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./native/assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "io.proviant.android"
+    },
+    "web": {
+      "favicon": "./native/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b1332fff-79cc-4850-8357-7eb9f54a974a"
+      }
+    }
+  }
+}
